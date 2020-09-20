@@ -2,5 +2,8 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/client/languages": "pages/client/languages.js"
+  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js",
+  "/": "pages/index.js",
+  "/client/languages": "pages/client/languages.js",
+  "/TMS/auth": "pages/TMS/auth.js"
 }
