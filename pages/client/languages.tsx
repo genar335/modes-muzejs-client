@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Head from 'next/head'
 import Layout from '../../components/layout'
 
-export default function Languages () {
+function Languages () {
 
     // how to go back to admin?
 
@@ -34,3 +34,5 @@ export default function Languages () {
         </>
     );
 }
+
+export default Languages;
