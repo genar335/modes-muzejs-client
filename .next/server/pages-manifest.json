@@ -3,5 +3,7 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/TMS/auth": "pages/TMS/auth.js",
+  "/client/languages": "pages/client/languages.js",
+  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js",
   "/": "pages/index.js"
 }

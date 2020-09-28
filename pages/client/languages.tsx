@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Head from "next/head";
-import Layout from "../../components/languagelayout"; //! Moved it to the styles folder
+import Layout from "../../components/languagelayout";
 
 function Languages() {
   // how to go back to admin?
