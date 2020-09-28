@@ -1,0 +1,1 @@
+{"ast":null,"code":"var __jsx = React.createElement;\nimport Link from \"next/link\";\nimport React from \"react\";\n\nfunction Navigation() {\n  return __jsx(\"div\", null, __jsx(Link, {\n    href: \"http://localhost:3000/client/languages\"\n  }, \"Click here to go to languages\"));\n}\n\nexport default Navigation;","map":null,"metadata":{},"sourceType":"module"}

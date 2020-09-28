@@ -1,0 +1,83 @@
+.LogInFormContainer {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .loadingModal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    overflow: hidden;
+
+    background: rgb(0, 0, 0);
+    background: -moz-radial-gradient(
+      circle,
+      rgba(0, 0, 0, 1) 11%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    background: -webkit-radial-gradient(
+      circle,
+      rgba(0, 0, 0, 1) 11%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    background: radial-gradient(
+      circle,
+      rgba(0, 0, 0, 1) 11%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endColorstr="#000000",GradientType=1);
+
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+
+    font-size: 30px;
+    color: white;
+  }
+}
+
+.infoForm {
+  flex-direction: column;
+  display: flex;
+  width: 30%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  height: min-content;
+  font-size: 36px;
+  align-items: center;
+
+  button {
+    font-size: 1em;
+    height: 10%;
+    width: 50%;
+    background: none;
+    border: none;
+    border: 0.05em solid black;
+    border-radius: 5%;
+  }
+}
+
+.inputField {
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+
+  input {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 1em;
+    border: none;
+    border-bottom: 0.01em solid black;
+  }
+}
