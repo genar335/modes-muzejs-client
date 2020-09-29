@@ -14,16 +14,6 @@
     "static/development/_ssgManifest.js"
   ],
   "pages": {
-    "/": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/index.js"
-    ],
-    "/TMS/auth": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/TMS/auth.js"
-    ],
     "/_app": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
@@ -39,10 +29,10 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/client/languages.js"
     ],
-    "/next/dist/pages/_error": [
+    "/client/success": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/next/dist/pages/_error.js"
+      "static/chunks/pages/client/success.js"
     ]
   },
   "ampFirstPages": []
