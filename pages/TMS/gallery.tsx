@@ -1,12 +1,52 @@
 import React from "react";
-// import TestCard from "../../components/testCard";
+import TestCard from "../../components/TestCard";
+import searchIcon from "../../GAssets/search_big.png";
+import styles from "../styles/gallery.module.scss";
 
 const Gallery = (props: any) => {
   return (
-    <div>
-      //* Search Bar //* Active tests component //* Test Gallery
-      {/* <TestCard /> */}
-      hello
+    <div className={styles.Gallery}>
+      <h1>Test gallery</h1>
+      <div className={styles.SearchAndFilter}>
+        {/* //* Search Bar */}
+        <div className={styles.SearchContainer}>
+          <input type="search" name="testSearch" id="testSearch" />
+          <button>
+            <img src={searchIcon} alt="Looking glass icon" />
+          </button>
+        </div>
+        {/* //* Test type filter */}
+        <select name="testTypeSelector" className={styles.FilterContainer}>
+          <option value="">Type1</option>
+          <option value="">Type2</option>
+          <option value="">Type3</option>
+          <option value="">Type4</option>
+          <option value="">Type5</option>
+        </select>
+      </div>
+      {/* //* Test Gallery */}
+      <div className={styles.tCardContainer}>
+        <TestCard />
+        <TestCard />
+        <TestCard />
+        <TestCard />
+        <TestCard />
+        <TestCard />
+        <TestCard />
+        <TestCard />
+        <TestCard />
+        <TestCard />
+        <TestCard />
+        <TestCard />
+        <TestCard />
+        <TestCard />
+        <TestCard />
+        <TestCard />
+        <TestCard />
+        <TestCard />
+        <TestCard />
+        <TestCard />
+      </div>
     </div>
   );
 };

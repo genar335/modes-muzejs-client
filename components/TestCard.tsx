@@ -1,5 +1,5 @@
 import React from "react";
-import editIcon from "../GAssests/create-icon.svg";
+import editIcon from "../GAssets/create_icon_big.png";
 
 const TestCard = () => {
   return (
