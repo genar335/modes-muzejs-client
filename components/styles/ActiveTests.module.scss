@@ -1,0 +1,56 @@
+$f-s-bg-colour: rgb(236 221 210);
+
+.ActiveTestsContainer {
+  display: flex;
+  flex-direction: column;
+  height: min-content;
+  width: 100vw;
+  //align-items: center;
+
+  h1 {
+    align-self: center;
+  }
+  .Carousel {
+    background: $f-s-bg-colour;
+    padding: 3rem;
+
+    ul {
+      li {
+        display: flex;
+        justify-content: center;
+      }
+    }
+
+    .customDotListStyle {
+      margin: 0 0 1.5rem;
+      color: white;
+
+      li {
+        button {
+          border: 0.1rem solid white;
+          //   background: rgba($color: #000000, $alpha: 0);
+          filter: invert(1);
+        }
+      }
+    }
+  }
+
+  .AddTestCard {
+    width: 12rem;
+    height: 12rem;
+
+    background: rgb(52 72 86);
+    border-radius: 25px;
+
+    font-size: 10rem;
+    color: white;
+
+    display: flex;
+
+    justify-content: center;
+
+    span {
+      margin: -0.1rem 0 0 0;
+    }
+  }
+}

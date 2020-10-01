@@ -14,10 +14,10 @@
     "static/development/_ssgManifest.js"
   ],
   "pages": {
-    "/TMS/gallery": [
+    "/TMS/main": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/TMS/gallery.js"
+      "static/chunks/pages/TMS/main.js"
     ],
     "/_app": [
       "static/chunks/main.js",
