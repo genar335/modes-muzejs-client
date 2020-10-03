@@ -3,15 +3,18 @@ $f-s-bg-colour: rgb(236 221 210);
 .ActiveTestsContainer {
   display: flex;
   flex-direction: column;
-  height: min-content;
+  height: 100vh;
   width: 100vw;
+
   //align-items: center;
 
   h1 {
+    margin: 20% 0 0 0;
     align-self: center;
+    font-size: 46px;
   }
   .Carousel {
-    background: $f-s-bg-colour;
+    background: white;
     padding: 3rem;
 
     ul {
@@ -22,7 +25,7 @@ $f-s-bg-colour: rgb(236 221 210);
     }
 
     .customDotListStyle {
-      margin: 0 0 1.5rem;
+      margin: 1.5rem;
       color: white;
 
       li {

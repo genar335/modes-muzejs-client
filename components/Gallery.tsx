@@ -2,6 +2,7 @@ import React from "react";
 import TestCard from "./TestCard";
 import searchIcon from "../GAssets/search_big.png";
 import styles from "./styles/Gallery.module.scss";
+import { white } from "./constants";
 
 const Gallery = (props: any) => {
   return (
@@ -26,26 +27,25 @@ const Gallery = (props: any) => {
       </div>
       {/* //* Test Gallery */}
       <div className={styles.tCardContainer}>
-        <TestCard />
-        <TestCard />
-        <TestCard />
-        <TestCard />
-        <TestCard />
-        <TestCard />
-        <TestCard />
-        <TestCard />
-        <TestCard />
-        <TestCard />
-        <TestCard />
-        <TestCard />
-        <TestCard />
-        <TestCard />
-        <TestCard />
-        <TestCard />
-        <TestCard />
-        <TestCard />
-        <TestCard />
-        <TestCard />
+        <TestCard colour={white} />
+        <TestCard colour={white} />
+        <TestCard colour={white} />
+        <TestCard colour={white} />
+        <TestCard colour={white} />
+        <TestCard colour={white} />
+        <TestCard colour={white} />
+        <TestCard colour={white} />
+        <TestCard colour={white} />
+        <TestCard colour={white} />
+        <TestCard colour={white} />
+        <TestCard colour={white} />
+        <TestCard colour={white} />
+        <TestCard colour={white} />
+        <TestCard colour={white} />
+        <TestCard colour={white} />
+        <TestCard colour={white} />
+        <TestCard colour={white} />
+        <TestCard colour={white} />
       </div>
     </div>
   );

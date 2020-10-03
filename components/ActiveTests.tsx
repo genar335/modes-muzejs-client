@@ -2,6 +2,7 @@ import React from "react";
 import Carousel from "react-multi-carousel";
 import TestCard from "./TestCard";
 import styles from "./styles/ActiveTests.module.scss";
+import { brown } from "./constants";
 
 const handleAddTestClick = () => {
   alert("Test addition should be happening right about now.");
@@ -45,16 +46,16 @@ const ActiveTests = ({}) => {
         >
           <span>+</span>
         </div>
-        <TestCard />
-        <TestCard />
-        <TestCard />
-        <TestCard />
-        <TestCard />
-        <TestCard />
-        <TestCard />
-        <TestCard />
-        <TestCard />
-        <TestCard />
+        <TestCard colour={brown} />
+        <TestCard colour={brown} />
+        <TestCard colour={brown} />
+        <TestCard colour={brown} />
+        <TestCard colour={brown} />
+        <TestCard colour={brown} />
+        <TestCard colour={brown} />
+        <TestCard colour={brown} />
+        <TestCard colour={brown} />
+        <TestCard colour={brown} />
       </Carousel>
     </div>
   );
