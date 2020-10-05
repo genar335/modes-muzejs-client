@@ -3,19 +3,22 @@ $f-s-bg-colour: rgb(236 221 210);
 .ActiveTestsContainer {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   height: 100vh;
   width: 100vw;
 
   //align-items: center;
 
   h1 {
-    margin: 20% 0 0 0;
+    margin: 5% 0 2.5%;
     align-self: center;
     font-size: 46px;
   }
   .Carousel {
     background: white;
-    padding: 3rem;
+    width: 100vw;
+    height: 50vh;
 
     ul {
       li {
@@ -39,18 +42,20 @@ $f-s-bg-colour: rgb(236 221 210);
   }
 
   .AddTestCard {
-    width: 12rem;
-    height: 12rem;
+    width: 19rem;
+    height: 20rem;
 
     background: rgb(52 72 86);
     border-radius: 25px;
 
-    font-size: 10rem;
+    font-size: 25rem;
+    font-weight: 10px;
     color: white;
 
     display: flex;
 
     justify-content: center;
+    align-items: center;
 
     span {
       margin: -0.1rem 0 0 0;
