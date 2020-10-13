@@ -3,10 +3,12 @@ import Carousel from "react-multi-carousel";
 import TestCard from "./TestCard";
 import styles from "./styles/ActiveTests.module.scss";
 import { brown } from "./constants";
+import { NextRouter, useRouter } from "next/router";
+import { NextApiHandler } from "next";
 
-const handleAddTestClick = () => {
-  alert("Test addition should be happening right about now.");
-};
+
+
+const ActiveTests = ({}) => {
 
 const responsive = {
   superLargeDesktop: {
@@ -28,7 +30,14 @@ const responsive = {
   },
 };
 
-const ActiveTests = ({}) => {
+const router: NextRouter = useRouter();
+
+const handleAddTestClick = () => {
+  alert("Test addition should be happening right about now.");
+  router.push(`/TMS/create_test`);
+};
+
+
   return (
     <div className={styles.ActiveTestsContainer}>
       <h1>Active tests</h1>
