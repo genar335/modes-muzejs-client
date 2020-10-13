@@ -1,0 +1,1 @@
+{"ast":null,"code":"export const brown = \"236 221 210\";","map":{"version":3,"sources":["/Users/yberfox228/Documents/itlemonade/f-museum/tech/CS/modes-muzejs-client/components/constants.ts"],"names":["brown"],"mappings":"AAAA,OAAO,MAAMA,KAAa,GAAG,aAAtB","sourcesContent":["export const brown: string = \"236 221 210\";\n"]},"metadata":{},"sourceType":"module"}

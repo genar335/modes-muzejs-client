@@ -1,0 +1,68 @@
+$f-s-bg-colour: rgb(236 221 210);
+
+.Gallery {
+  width: 100vw;
+  height: min-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  // padding: 0 3rem;
+  background: $f-s-bg-colour;
+
+  .SearchAndFilter {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: 1rem 3rem;
+    width: 70vw;
+
+    border-radius: 25px;
+
+    .SearchContainer {
+      display: flex;
+      flex-direction: row;
+      height: 4vh;
+      width: 40%;
+
+      input {
+        background: white;
+        border: 1px solid white;
+        border-radius: 25px;
+        font-size: xx-large;
+        padding-left: 2rem;
+        width: 100%;
+      }
+      button {
+        margin: 0 0 0 -4rem;
+        border: none;
+        background: rgba($color: #000000, $alpha: 0);
+        width: auto;
+      }
+    }
+
+    .FilterContainer {
+      border: none;
+      border-radius: 25px;
+      background: white;
+      width: 40%;
+      padding: 0rem 1rem 0 2rem;
+
+      // ! TODO: Figure out how to style the <select>
+      &::after {
+        width: 500px;
+      }
+      font-size: xx-large;
+    }
+  }
+
+  .tCardContainer {
+    margin: 2rem 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    grid-row-gap: 5rem;
+    grid-column-gap: 5rem;
+    width: 80%;
+  }
+}

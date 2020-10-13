@@ -1,0 +1,14 @@
+.TestCard {
+  display: flex;
+  flex-direction: column;
+  width: 19rem;
+  height: 20rem;
+  border-radius: 25px;
+
+  justify-content: center;
+  align-items: center;
+
+  .LookingGlass {
+    position: relative;
+  }
+}
