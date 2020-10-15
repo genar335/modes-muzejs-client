@@ -35,7 +35,7 @@ interface ILangSpecificBody {
    * @param pages Array containing QnAPairs:
    * `pages: [
    *    { QnAPairs: [] },
-   *    { QnAPairs: [] }
+   *    ...
    * ]`
    */
   pages: Array<IQnAPairs>;

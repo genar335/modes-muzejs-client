@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Select from "react-select";
 import PhotoManager from "../../components/PhotoManager";
 import TestPreview from "../../components/TestPreview";
 import styles from "../styles/create_test.module.scss";
@@ -9,24 +10,7 @@ const create_test = () => {
     pages: 1,
     en: {
       name: "",
-      pages: [
-        {
-          QnAPairs: [
-            {
-              question: "",
-              answer: "",
-            },
-          ],
-        },
-        {
-          QnAPairs: [
-            {
-              question: "",
-              answer: "",
-            },
-          ],
-        },
-      ],
+      pages: [],
     },
     lv: {
       name: "",
@@ -37,10 +21,26 @@ const create_test = () => {
       pages: [],
     },
   });
+
+  const handleClick = () => {
+    setTest({
+      ru: {
+        name: "imya",
+        pages: test.ru.pages,
+      },
+      lv: test.lv,
+      en: test.en,
+      pages: test.pages,
+      type: "TT",
+    });
+  };
+
+  const languageOptions = [{ value: "ru", label: "RU" }];
+
   return (
     <div className={styles.CreateTestContainer}>
       <div className={styles.TestType}>
-        <select name="type-selector" id="">
+        <select onChange={(e) => console.log("sdf")} name="type-selector" id="">
           <option value="" disabled selected>
             Test type
           </option>
@@ -50,12 +50,13 @@ const create_test = () => {
         </select>
       </div>
       <div className={styles.PageController}>
-        <button>Add page</button>
+        <button onClick={handleClick}>Add page</button>
         <input type="number" name="pageCount" id="" />
       </div>
       <PhotoManager />
       <div className={styles.TestNaming}>
         <input type="text" name="TestName" placeholder="Test name" />
+        <Select options={languageOptions} />
         <select name="Lang-selector" className={styles.lgSelect}>
           <option value="" disabled selected>
             Language
