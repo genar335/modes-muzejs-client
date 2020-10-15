@@ -1,6 +1,8 @@
 $bg-colour: rgb(190 171 155);
 
 .CreateTestContainer {
+  margin: 0;
+  padding: 0;
   font-family: "Arial";
   width: 90vw;
   height: 90vh;
@@ -72,5 +74,9 @@ $bg-colour: rgb(190 171 155);
   .TestPreview {
     grid-row: 2/5;
     grid-column: 2/3;
+    background-color: rgb(222 213 205);
+    width: 100%;
+    border: solid rgb(222 213 205) 1px;
+    border-radius: 25px;
   }
 }

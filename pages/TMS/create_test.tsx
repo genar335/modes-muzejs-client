@@ -1,9 +1,42 @@
 import React, { useState } from "react";
 import PhotoManager from "../../components/PhotoManager";
+import TestPreview from "../../components/TestPreview";
 import styles from "../styles/create_test.module.scss";
 
 const create_test = () => {
-  const [test, setTest] = useState({});
+  const [test, setTest] = useState<ITest>({
+    type: "TT",
+    pages: 1,
+    en: {
+      name: "",
+      pages: [
+        {
+          QnAPairs: [
+            {
+              question: "",
+              answer: "",
+            },
+          ],
+        },
+        {
+          QnAPairs: [
+            {
+              question: "",
+              answer: "",
+            },
+          ],
+        },
+      ],
+    },
+    lv: {
+      name: "",
+      pages: [],
+    },
+    ru: {
+      name: "",
+      pages: [],
+    },
+  });
   return (
     <div className={styles.CreateTestContainer}>
       <div className={styles.TestType}>
@@ -18,7 +51,7 @@ const create_test = () => {
       </div>
       <div className={styles.PageController}>
         <button>Add page</button>
-        <span>1</span>
+        <input type="number" name="pageCount" id="" />
       </div>
       <PhotoManager />
       <div className={styles.TestNaming}>
@@ -32,9 +65,7 @@ const create_test = () => {
           <option value="lv">LV</option>
         </select>
       </div>
-      <div className={styles.TestPreview}>
-        <h3>Page: </h3>
-      </div>
+      <TestPreview />
     </div>
   );
 };
