@@ -1,13 +1,14 @@
-interface ITest {
+export interface ITest {
   /**
-   * @param type Describes avaialbe elemnts for composing the test page.
+   * @param type Describes avaialable elements for composing the test page.
    *
    * Available test types are:
    * + TT: text-text.
    * + PP: photo-photo.
    * + PT: photo-test.
    */
-  type: "TT" | "PP" | "PT";
+  type: TTestTypes.type;
+  // type: "TT" | "PP" | "PT";
   /**
    * @param pages Number of pages used in the test for all languages.
    */
@@ -25,6 +26,21 @@ interface ITest {
    */
   lv: ILangSpecificBody;
 }
+
+export type TTestTypes = {
+  type: "TT" | "PP" | "PT";
+};
+
+type TLangOption = {
+  /**
+   * @param value String representation of selected language.
+   */
+  value: "ru" | "en" | "lv";
+  /**
+   * @param label Used for displaying language option.
+   */
+  label: "RU" | "EN" | "LV";
+};
 
 interface ILangSpecificBody {
   /**

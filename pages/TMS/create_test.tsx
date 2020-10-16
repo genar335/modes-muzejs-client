@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Select from "react-select";
+import { ITest, TLangOption, TTestTypes } from "../../@types/test";
 import PhotoManager from "../../components/PhotoManager";
 import TestPreview from "../../components/TestPreview";
 import styles from "../styles/create_test.module.scss";
 
-const create_test = () => {
+function create_test() {
   const [test, setTest] = useState<ITest>({
-    type: "TT",
     pages: 1,
     en: {
       name: "",
@@ -20,7 +20,13 @@ const create_test = () => {
       name: "",
       pages: [],
     },
+    type: "",
   });
+
+  const [currentLang, setCurrentLang] = useState<TLangOption>();
+  const handleLangChange = (chosenLang: TLangOption) => {
+    setCurrentLang(chosenLang);
+  };
 
   const handleClick = () => {
     setTest({
@@ -31,44 +37,75 @@ const create_test = () => {
       lv: test.lv,
       en: test.en,
       pages: test.pages,
-      type: "TT",
+      type: "TP",
     });
   };
 
-  const languageOptions = [{ value: "ru", label: "RU" }];
+  const languageOptions: Array<TLangOption> = [
+    { value: "ru", label: "RU" },
+    { value: "en", label: "EN" },
+    { value: "lv", label: "LV" },
+  ];
+
+  type TTypeOptions = {
+    value: "TT" | "TP" | "PP";
+    label: "Text – Text" | "Text – Photo" | "Photo – Photo";
+  };
+  const typeOptions: Array<TTypeOptions> = [
+    { value: "TT", label: "Text – Text" },
+    { value: "TP", label: "Text – Photo" },
+    { value: "PP", label: "Photo – Photo" },
+  ];
+
+  const [testType, setTestType] = useState<TTestTypes>();
+  const handleTypeChange = (chosenType: TTestTypes): void =>
+    setTestType(chosenType);
+
+  const [editEnabled, setEditEnabled] = useState<Boolean>(false);
+  const editingEnabler = (currentLang: string, testType: string) => {
+    alert("Yay");
+    setEditEnabled(true);
+  };
+
+  useEffect(() => {
+    if ((currentLang && testType) != undefined) {
+      console.log("in an if");
+      editingEnabler(currentLang!.value, testType!.type);
+    } else {
+      setEditEnabled(false);
+    }
+    console.log("outside of if");
+    console.log(currentLang, testType);
+  }, [currentLang, testType]);
 
   return (
     <div className={styles.CreateTestContainer}>
       <div className={styles.TestType}>
-        <select onChange={(e) => console.log("sdf")} name="type-selector" id="">
-          <option value="" disabled selected>
-            Test type
-          </option>
-          <option value="photo-text">Photo – Text</option>
-          <option value="photo-photo">Photo – Photo</option>
-          <option value="text-text">Text – Text</option>
-        </select>
+        <Select
+          options={typeOptions}
+          className={styles.TestTypeSelect}
+          onChange={(selected: any): void => handleTypeChange(selected.value)}
+        />
       </div>
       <div className={styles.PageController}>
         <button onClick={handleClick}>Add page</button>
-        <input type="number" name="pageCount" id="" />
+        <input type="number" name="pageCount" />
       </div>
       <PhotoManager />
       <div className={styles.TestNaming}>
         <input type="text" name="TestName" placeholder="Test name" />
-        <Select options={languageOptions} />
-        <select name="Lang-selector" className={styles.lgSelect}>
-          <option value="" disabled selected>
-            Language
-          </option>
-          <option value="ru">RU</option>
-          <option value="en">EN</option>
-          <option value="lv">LV</option>
-        </select>
+        <Select
+          // TODO: Need to figure out types for the @selected parameter
+          onChange={(selected: any): void =>
+            handleLangChange(selected.value || "")
+          }
+          options={languageOptions}
+          className={styles.lgSelect}
+        />
       </div>
       <TestPreview />
     </div>
   );
-};
+}
 
 export default create_test;
