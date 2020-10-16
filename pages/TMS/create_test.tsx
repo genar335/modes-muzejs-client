@@ -61,16 +61,15 @@ function create_test() {
   const handleTypeChange = (chosenType: TTestTypes): void =>
     setTestType(chosenType);
 
-  const [editEnabled, setEditEnabled] = useState<Boolean>(false);
+  const [editEnabled, setEditEnabled] = useState<boolean>(false);
   const editingEnabler = (currentLang: string, testType: string) => {
-    alert("Yay");
     setEditEnabled(true);
   };
 
   useEffect(() => {
     if ((currentLang && testType) != undefined) {
       console.log("in an if");
-      editingEnabler(currentLang!.value, testType!.type);
+      setEditEnabled(true);
     } else {
       setEditEnabled(false);
     }
@@ -88,12 +87,22 @@ function create_test() {
         />
       </div>
       <div className={styles.PageController}>
-        <button onClick={handleClick}>Add page</button>
-        <input type="number" name="pageCount" />
+        <button disabled={!editEnabled} onClick={handleClick}>
+          Add page
+        </button>
+        <input disabled={!editEnabled} type="number" name="pageCount" />
       </div>
-      <PhotoManager />
+      {testType === (("TT" as unknown) as TTestTypes) ||
+      testType === undefined ? null : (
+        <PhotoManager />
+      )}
       <div className={styles.TestNaming}>
-        <input type="text" name="TestName" placeholder="Test name" />
+        <input
+          disabled={!editEnabled}
+          type="text"
+          name="TestName"
+          placeholder="Test name"
+        />
         <Select
           // TODO: Need to figure out types for the @selected parameter
           onChange={(selected: any): void =>

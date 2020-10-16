@@ -27,7 +27,7 @@ export interface ITest {
   lv: ILangSpecificBody;
 }
 
-export type TTestTypes = {
+export type TTestTypes  = {
   type: "TT" | "PP" | "PT";
 };
 
