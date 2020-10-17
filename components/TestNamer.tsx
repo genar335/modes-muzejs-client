@@ -7,23 +7,32 @@ const TestNamer = (currentLang: any) => {
   console.log(currentLang);
   return (
     <div className={styles.TestNaming}>
-      <div className={compStyles.ModalOpener}>
-        <button onClick={() => setIsOpen(true)}>Test name</button>
-        <span>+</span>
-      </div>
       {isOpen ? (
-        <div className={compStyles.ModalContainer}>
-          <div className={compStyles.Modal}>
-            <div className={compStyles.LangSelect}>
-              <button>RUS</button>
-              <button>LAT</button>
-              <button>ENG</button>
+        <div className={compStyles.ModalContainerBG}>
+          <div className={compStyles.ModalContainer}>
+            <button
+              className={compStyles.CloseBTN}
+              onClick={() => setIsOpen(false)}
+            >
+              x
+            </button>
+            <div className={compStyles.Modal}>
+              <div className={compStyles.LangSelect}>
+                <button>RUS</button>
+                <button>LAT</button>
+                <button>ENG</button>
+              </div>
+              <input type="text" placeholder="TestName" />
+              <button>&rarr;</button>
             </div>
-            <input type="text" placeholder="TestName" />
-            <button>&rarr;</button>
           </div>
         </div>
-      ) : null}
+      ) : (
+        <div className={compStyles.ModalOpener}>
+          <span>Test name</span>
+          <button onClick={() => setIsOpen(true)}>+</button>
+        </div>
+      )}
     </div>
   );
 };

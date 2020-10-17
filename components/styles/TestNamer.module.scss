@@ -1,0 +1,47 @@
+.ModalContainerBG {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  background-color: #dabda6e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .ModalContainer {
+    width: 60%;
+    height: 40%;
+    background-color: whitesmoke;
+    border: whitesmoke solid;
+    border-radius: 25px;
+    padding: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
+    .CloseBTN {
+      position: relative;
+      top: -50%;
+      right: -60%;
+      background-color: rgb(52 72 86);
+      border: solid rgb(52 72 86);
+      border-radius: 50%;
+      width: 3rem;
+      height: 3rem;
+      font-size: xx-large;
+    }
+
+    .Modal {
+      .LangSelect {
+        display: flex;
+        justify-content: space-evenly;
+        button {
+          position: static;
+        }
+      }
+    }
+  }
+}

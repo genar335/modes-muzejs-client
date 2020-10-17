@@ -25,10 +25,6 @@ function create_test() {
   });
 
   const [currentLang, setCurrentLang] = useState<TLangOption>();
-  const handleLangChange = (chosenLang: TLangOption) => {
-    setCurrentLang(chosenLang);
-  };
-
   const handleClick = () => {
     setTest({
       ru: {
@@ -41,12 +37,6 @@ function create_test() {
       type: "TP",
     });
   };
-
-  const languageOptions: Array<TLangOption> = [
-    { value: "ru", label: "RU" },
-    { value: "en", label: "EN" },
-    { value: "lv", label: "LV" },
-  ];
 
   type TTypeOptions = {
     value: "TT" | "TP" | "PP";
@@ -63,10 +53,6 @@ function create_test() {
     setTestType(chosenType);
 
   const [editEnabled, setEditEnabled] = useState<boolean>(false);
-  const editingEnabler = (currentLang: string, testType: string) => {
-    setEditEnabled(true);
-  };
-
   useEffect(() => {
     if ((currentLang && testType) != undefined) {
       console.log("in an if");
