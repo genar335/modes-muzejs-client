@@ -20,9 +20,13 @@ const TestNamer = (currentLang: any) => {
     btn: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     console.log(btn.target?.id);
-    langButtons[testLang.indexOf(btn.target?.id)]?.classList.toggle(
-      compStyles.ButtonPressed
-    );
+    langButtons.forEach((button) => {
+      if (button?.id == btn.target?.id) {
+        button?.classList?.add(compStyles.ButtonPressed);
+      } else {
+        button?.classList?.remove(compStyles.ButtonPressed);
+      }
+    });
     setSelectedLang(btn.target?.id);
   };
 
