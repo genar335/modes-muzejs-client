@@ -24,6 +24,30 @@ $bg-colour: rgb(190 171 155);
   .PageController {
     grid-row: 3/4;
     grid-column: 1/2;
+    font-size: 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+
+    width: 15rem;
+    height: 5rem;
+
+    input {
+      font-size: xx-large;
+      height: 3rem;
+      width: 3rem;
+      overflow: hidden;
+    }
+
+    button {
+      height: 3rem;
+      width: 10rem;
+      background-color: $bg-colour;
+      border: solid $bg-colour;
+      border-radius: 20px;
+      font-size: x-large;
+    }
   }
 
   .TestNaming {

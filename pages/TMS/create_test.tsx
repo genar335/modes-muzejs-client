@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { ITest, TLangOption, TTestTypes } from "../../@types/test";
 import PhotoManager from "../../components/PhotoManager";
+import TestNamer from "../../components/TestNamer";
 import TestPreview from "../../components/TestPreview";
 import styles from "../styles/create_test.module.scss";
 
@@ -88,7 +89,7 @@ function create_test() {
       </div>
       <div className={styles.PageController}>
         <button disabled={!editEnabled} onClick={handleClick}>
-          Add page
+          Add page +
         </button>
         <input disabled={!editEnabled} type="number" name="pageCount" />
       </div>
@@ -97,20 +98,15 @@ function create_test() {
         <PhotoManager />
       )}
       <div className={styles.TestNaming}>
-        <input
-          disabled={!editEnabled}
-          type="text"
-          name="TestName"
-          placeholder="Test name"
-        />
-        <Select
+        <TestNamer currentLang={currentLang} />
+        {/* <Select
           // TODO: Need to figure out types for the @selected parameter
           onChange={(selected: any): void =>
             handleLangChange(selected.value || "")
           }
           options={languageOptions}
           className={styles.lgSelect}
-        />
+        /> */}
       </div>
       <TestPreview />
     </div>
