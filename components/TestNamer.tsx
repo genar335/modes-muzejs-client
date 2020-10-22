@@ -3,12 +3,16 @@ import compStyles from "./styles/TestNamer.module.scss";
 import styles from "../pages/styles/create_test.module.scss";
 import { TLangOption } from "../@types/test";
 import { useEffect } from "react";
-import { stringify } from "querystring";
+import LanguageBtn from "./LanguageBtn";
+import LangBtnController from "./LangBtnController";
 
 const TestNamer = (currentLang: any) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isNameEntryEnabled, setIsNameEntryEnabled] = useState<boolean>(true);
+
+  // * State containing current chosen language
   const [selectedLang, setSelectedLang] = useState<TLangOption["value"]>();
+
   const [isSubmitBtnStateDone, setIsSubmitBtnStateDone] = useState<boolean>(
     false
   );
@@ -27,11 +31,7 @@ const TestNamer = (currentLang: any) => {
 
   const testLang: TLangOption["value"][] = ["ru", "lv", "en"];
 
-  let langButtons: Array<HTMLElement | null> = [];
-  useEffect(() => {
-    langButtons = testLang.map((lang: string) => document.getElementById(lang));
-  }, [langButtons]);
-
+  // * Sets the state of arrow button/tick button depending on whether the name input is entered in all languages.
   useEffect(() => {
     for (const keys in Object(currentNames)) {
       if (Object(currentNames)[keys] === "") {
@@ -43,24 +43,22 @@ const TestNamer = (currentLang: any) => {
     }
   }, [currentNames]);
 
-  const handleLangBtnClick = (
-    btn: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ): void => {
-    setIsNameEntryEnabled(false);
-    console.log(btn.currentTarget.id);
-    langButtons.forEach((button) => {
-      if (button?.id == btn.currentTarget.id) {
-        button?.classList?.add(compStyles.ButtonPressed);
-      } else {
-        button?.classList?.remove(compStyles.ButtonPressed);
-      }
-    });
-    setSelectedLang(btn.currentTarget.id);
+  /**
+   * Sets the modal state to specified language
+   * @param chooseLanguage One of the available languages to set the modal state to
+   */
+  const setSelectedLanguage = (chooseLanguage: TLangOption["value"]): void => {
+    setSelectedLang(chooseLanguage);
   };
 
-  const handleArrowClick = (btn): void => {
-    console.log(btn);
+  /**
+   * Sets the state of the name input to boolean value
+   * @param bool
+   */
+  const inputEnabler = (bool: boolean): void => {
+    setIsNameEntryEnabled(bool);
   };
+
   const handleNameChange = (nameInput: string): void => {
     setCurrentNames({
       ...currentNames,
@@ -70,8 +68,8 @@ const TestNamer = (currentLang: any) => {
 
   const handleNameEntry = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    console.log(currentNames);
   };
+
   return (
     <div className={styles.TestNaming}>
       {isOpen ? (
@@ -80,32 +78,15 @@ const TestNamer = (currentLang: any) => {
             {closeBtn(setIsOpen)}
 
             <div className={compStyles.Modal}>
-              <div className={compStyles.LangSelect}>
-                <button
-                  onClick={handleLangBtnClick}
-                  id="ru"
-                  className={compStyles.LangButton}
-                >
-                  RUS
-                </button>
-                <button
-                  onClick={handleLangBtnClick}
-                  id="lv"
-                  className={compStyles.LangButton}
-                >
-                  LAT
-                </button>
-                <button
-                  onClick={handleLangBtnClick}
-                  id="en"
-                  className={compStyles.LangButton}
-                >
-                  ENG
-                </button>
-              </div>
+              <LangBtnController
+                BtnArray={["ru", "lv", "en"]}
+                active={"ru"}
+                langSelector={setSelectedLanguage}
+                inputEnabler={inputEnabler}
+              />
               <form onSubmit={handleNameEntry} className={compStyles.NameForm}>
                 <input
-                  disabled={isNameEntryEnabled}
+                  // disabled={isNameEntryEnabled}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     handleNameChange(e.currentTarget.value)
                   }
@@ -117,6 +98,7 @@ const TestNamer = (currentLang: any) => {
                   className={compStyles.NextLang}
                   type="submit"
                   value={isSubmitBtnStateDone ? "✔️" : "→"}
+                  id="arrowButton"
                 >
                   {!isSubmitBtnStateDone ? ArrowBtn() : SaveBtn()}
                 </button>
