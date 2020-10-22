@@ -5,11 +5,21 @@ $bg-colour: rgb(190 171 155);
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 3;
   background-color: #dabda6e0;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  transition: visibility 0s, opacity 0.5s linear, z-index 0.5s step-start;
+
+  opacity: 1;
+  visibility: visible;
+  z-index: 10;
+  &.Hidden {
+    opacity: 0;
+    z-index: -10;
+    transition: visibility 0s, opacity 0.5s linear, z-index 0.5s step-end;
+  }
 
   .ModalContainer {
     width: 60%;

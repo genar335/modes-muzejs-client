@@ -1,12 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { TLangOption } from "../@types/test";
 import compStyle from "./styles/LanguageBtn.module.scss";
 
 const LanguageBtn = (props: {
   btnID: string;
-  //   handleBtnClick: (
-  //     btn: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  //   ) => void;
   btnText: string;
   pressed: boolean;
   langSelect: (chooseLanguage: TLangOption["value"]) => void;

@@ -4,20 +4,24 @@ import LanguageBtn from "./LanguageBtn";
 import compStyle from "./styles/LangBtnController.module.scss";
 
 const LangBtnController = (props: {
+  /**
+   * @BtnArray array containng button names
+   */
   BtnArray: Array<string>;
+  /**
+   * @active Determines which button will appear highlighted in the beginning.
+   */
   active: string;
   langSelector: (chooseLanguage: TLangOption["value"]) => void;
   inputEnabler: (bool: boolean) => void;
 }) => {
-  type TBtnArrayWithPressedState = {
-    btns: [JSX.Element, boolean];
-  };
-
   const [flatBtns, setFlatBtns] = useState<Array<boolean>>([]);
   const [activeBtnPosition, setActiveBtnPosition] = useState<Number>();
 
   const forceUpdate = React.useReducer(() => ({}), {})[1] as () => void;
 
+  // * Creates an array with values corresponding to parsed buttons activated value.
+  // * Happens on first render
   if (flatBtns.length !== props.BtnArray.length) {
     const tmp: boolean[] = props.BtnArray.map((btn: string) => {
       if (btn === props.active) {

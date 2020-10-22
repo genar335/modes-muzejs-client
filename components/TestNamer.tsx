@@ -3,12 +3,10 @@ import compStyles from "./styles/TestNamer.module.scss";
 import styles from "../pages/styles/create_test.module.scss";
 import { TLangOption } from "../@types/test";
 import { useEffect } from "react";
-import LanguageBtn from "./LanguageBtn";
 import LangBtnController from "./LangBtnController";
 
 const TestNamer = (currentLang: any) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isNameEntryEnabled, setIsNameEntryEnabled] = useState<boolean>(true);
 
   // * State containing current chosen language
   const [selectedLang, setSelectedLang] = useState<TLangOption["value"]>();
@@ -51,14 +49,6 @@ const TestNamer = (currentLang: any) => {
     setSelectedLang(chooseLanguage);
   };
 
-  /**
-   * Sets the state of the name input to boolean value
-   * @param bool
-   */
-  const inputEnabler = (bool: boolean): void => {
-    setIsNameEntryEnabled(bool);
-  };
-
   const handleNameChange = (nameInput: string): void => {
     setCurrentNames({
       ...currentNames,
@@ -66,52 +56,56 @@ const TestNamer = (currentLang: any) => {
     });
   };
 
+  const inputEnabler = () => {};
+
   const handleNameEntry = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
   };
 
   return (
-    <div className={styles.TestNaming}>
-      {isOpen ? (
-        <div className={compStyles.ModalContainerBG}>
-          <div className={compStyles.ModalContainer}>
-            {closeBtn(setIsOpen)}
+    <div className={`${styles.TestNaming}`}>
+      {/* {isOpen ? ( */}
+      <div
+        className={`${compStyles.ModalContainerBG} ${
+          !isOpen ? compStyles.Hidden : null
+        }`}
+      >
+        <div className={compStyles.ModalContainer}>
+          {closeBtn(setIsOpen)}
 
-            <div className={compStyles.Modal}>
-              <LangBtnController
-                BtnArray={["ru", "lv", "en"]}
-                active={"ru"}
-                langSelector={setSelectedLanguage}
-                inputEnabler={inputEnabler}
+          <div className={compStyles.Modal}>
+            <LangBtnController
+              BtnArray={["ru", "lv", "en"]}
+              active={"ru"}
+              langSelector={setSelectedLanguage}
+              inputEnabler={inputEnabler}
+            />
+            <form onSubmit={handleNameEntry} className={compStyles.NameForm}>
+              <input
+                // disabled={isNameEntryEnabled}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  handleNameChange(e.currentTarget.value)
+                }
+                type="text"
+                placeholder="TestName"
+                className={compStyles.TNameInput}
               />
-              <form onSubmit={handleNameEntry} className={compStyles.NameForm}>
-                <input
-                  // disabled={isNameEntryEnabled}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    handleNameChange(e.currentTarget.value)
-                  }
-                  type="text"
-                  placeholder="TestName"
-                  className={compStyles.TNameInput}
-                />
-                <button
-                  className={compStyles.NextLang}
-                  type="submit"
-                  value={isSubmitBtnStateDone ? "✔️" : "→"}
-                  id="arrowButton"
-                >
-                  {!isSubmitBtnStateDone ? ArrowBtn() : SaveBtn()}
-                </button>
-              </form>
-            </div>
+              <button
+                className={compStyles.NextLang}
+                type="submit"
+                value={isSubmitBtnStateDone ? "✔️" : "→"}
+                id="arrowButton"
+              >
+                {!isSubmitBtnStateDone ? ArrowBtn() : SaveBtn()}
+              </button>
+            </form>
           </div>
         </div>
-      ) : (
-        <div className={compStyles.ModalOpener}>
-          <span>Test name</span>
-          <button onClick={() => setIsOpen(true)}>+</button>
-        </div>
-      )}
+      </div>
+      <div className={compStyles.ModalOpener}>
+        <span>Test name</span>
+        <button onClick={() => setIsOpen(true)}>+</button>
+      </div>
     </div>
   );
 };
