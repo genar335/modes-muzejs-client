@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { TLangOption } from "../@types/test";
 import LanguageBtn from "./LanguageBtn";
 import compStyle from "./styles/LangBtnController.module.scss";
 
-const LangBtnController = (props) => {
+const LangBtnController = (props: {
+  BtnArray: Array<string>;
+  active: string;
+  langSelector: (chooseLanguage: TLangOption["value"]) => void;
+  inputEnabler: (bool: boolean) => void;
+}) => {
   type TBtnArrayWithPressedState = {
     btns: [JSX.Element, boolean];
   };
@@ -13,7 +19,7 @@ const LangBtnController = (props) => {
   const forceUpdate = React.useReducer(() => ({}), {})[1] as () => void;
 
   if (flatBtns.length !== props.BtnArray.length) {
-    const tmp: boolean[] = props.BtnArray.map((btn) => {
+    const tmp: boolean[] = props.BtnArray.map((btn: string) => {
       if (btn === props.active) {
         return true;
       } else {
@@ -24,7 +30,7 @@ const LangBtnController = (props) => {
     setFlatBtns(tmp);
   }
 
-  const activeBtnPositionSetter = (id) => {
+  const activeBtnPositionSetter = (id: number) => {
     setFlatBtns(
       flatBtns.map((btn, index) =>
         index === id ? (btn = true) : (btn = false)
@@ -63,11 +69,9 @@ const LangBtnController = (props) => {
   const handleArrowClick = (): void => {
     activeBtnSwitcher();
   };
-
-  console.log(props.BtnArray[0].tu);
   return (
     <div className={compStyle.LangSelect}>
-      {props.BtnArray.map((button, key) => (
+      {props.BtnArray.map((button: string, key: number) => (
         <LanguageBtn
           btnID={button}
           btnText={button.toUpperCase()}

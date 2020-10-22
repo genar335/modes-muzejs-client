@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { TLangOption } from "../@types/test";
 import compStyle from "./styles/LanguageBtn.module.scss";
 
 const LanguageBtn = (props: {
@@ -18,7 +19,7 @@ const LanguageBtn = (props: {
     btn: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ): void => {
     console.log(btn.currentTarget.id, "from a btn");
-    props.langSelect(btn.currentTarget.id);
+    props.langSelect(btn.currentTarget.id as "ru" | "en" | "lv");
     props.setActiveBtn(props.accessKey);
   };
 
