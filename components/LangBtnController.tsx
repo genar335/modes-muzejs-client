@@ -40,24 +40,19 @@ const LangBtnController = (props: {
         index === id ? (btn = true) : (btn = false)
       )
     );
-    console.log(flatBtns, "during button click");
-    console.log(id);
     setActiveBtnPosition(id);
     forceUpdate();
   };
 
   function activeBtnSwitcher() {
-    console.log(flatBtns, "in the beginnig of active button switcher");
     let tmp = flatBtns;
+    tmp.unshift(tmp[tmp.length - 1]);
     tmp.pop();
-    if (tmp.indexOf(true) === tmp.length || tmp.indexOf(true) === -1) {
-      tmp.unshift(true);
-    } else {
-      tmp.unshift(false);
-    }
     setFlatBtns(tmp);
-    console.log(flatBtns, "after manipulation");
     activeBtnPositionSetter(flatBtns.indexOf(true));
+    props.langSelector(
+      props.BtnArray[flatBtns.indexOf(true)] as TLangOption["value"]
+    );
     forceUpdate();
   }
 
@@ -65,7 +60,7 @@ const LangBtnController = (props: {
   // * Assings a click listener to the grabbed element.
   let arrowBtn: HTMLElement | null;
   useEffect(() => {
-    arrowBtn = document.getElementById("arrowButton");
+    arrowBtn = document.getElementById("arrowBtn");
     arrowBtn?.addEventListener("click", handleArrowClick);
     return () => arrowBtn?.removeEventListener("click", handleArrowClick);
   });
@@ -73,6 +68,7 @@ const LangBtnController = (props: {
   const handleArrowClick = (): void => {
     activeBtnSwitcher();
   };
+
   return (
     <div className={compStyle.LangSelect}>
       {props.BtnArray.map((button: string, key: number) => (

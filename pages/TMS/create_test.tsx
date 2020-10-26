@@ -23,6 +23,7 @@ function create_test() {
     },
     type: "",
   });
+  const saveTest = (test: ITest): void => setTest(test);
 
   const [currentLang, setCurrentLang] = useState<TLangOption>();
   const handleClick = () => {
@@ -52,17 +53,17 @@ function create_test() {
   const handleTypeChange = (chosenType: TTestTypes): void =>
     setTestType(chosenType);
 
-  const [editEnabled, setEditEnabled] = useState<boolean>(false);
-  useEffect(() => {
-    if ((currentLang && testType) != undefined) {
-      console.log("in an if");
-      setEditEnabled(true);
-    } else {
-      setEditEnabled(false);
-    }
-    console.log("outside of if");
-    console.log(currentLang, testType);
-  }, [currentLang, testType]);
+  // const [editEnabled, setEditEnabled] = useState<boolean>(false);
+  // useEffect(() => {
+  //   if ((currentLang && testType) != undefined) {
+  //     console.log("in an if");
+  //     setEditEnabled(true);
+  //   } else {
+  //     setEditEnabled(false);
+  //   }
+  //   console.log("outside of if");
+  //   console.log(currentLang, testType);
+  // }, [currentLang, testType]);
 
   return (
     <div className={styles.CreateTestContainer}>
@@ -74,25 +75,21 @@ function create_test() {
         />
       </div>
       <div className={styles.PageController}>
-        <button disabled={!editEnabled} onClick={handleClick}>
-          Add page +
-        </button>
-        <input disabled={!editEnabled} type="number" name="pageCount" />
+        <button onClick={handleClick}>Add page +</button>
+        <input type="number" name="pageCount" />
+        
       </div>
       {testType === (("TT" as unknown) as TTestTypes) ||
       testType === undefined ? null : (
         <PhotoManager />
       )}
       <div className={styles.TestNaming}>
-        <TestNamer currentLang={currentLang} />
-        {/* <Select
-          // TODO: Need to figure out types for the @selected parameter
-          onChange={(selected: any): void =>
-            handleLangChange(selected.value || "")
-          }
-          options={languageOptions}
-          className={styles.lgSelect}
-        /> */}
+        <TestNamer
+          currentLang={currentLang}
+          saveTest={saveTest}
+          currentStateOfTest={test}
+        />
+        
       </div>
       <TestPreview />
     </div>

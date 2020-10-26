@@ -1,4 +1,6 @@
 $bg-colour: rgb(190 171 155);
+$transitionDuration: 0.3s;
+
 .ModalContainerBG {
   height: 100vh;
   width: 100vw;
@@ -10,7 +12,8 @@ $bg-colour: rgb(190 171 155);
   align-items: center;
   justify-content: center;
 
-  transition: visibility 0s, opacity 0.5s linear, z-index 0.5s step-start;
+  transition: opacity $transitionDuration linear,
+    z-index $transitionDuration step-start;
 
   opacity: 1;
   visibility: visible;
@@ -18,7 +21,8 @@ $bg-colour: rgb(190 171 155);
   &.Hidden {
     opacity: 0;
     z-index: -10;
-    transition: visibility 0s, opacity 0.5s linear, z-index 0.5s step-end;
+    transition: opacity $transitionDuration linear,
+      z-index $transitionDuration step-end;
   }
 
   .ModalContainer {

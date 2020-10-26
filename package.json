@@ -12,6 +12,7 @@
     "@types/sass": "^1.16.0",
     "@zeit/next-sass": "^1.0.1",
     "axios": "^0.20.0",
+    "classnames": "^2.2.6",
     "formik": "^2.1.5",
     "graphql": "^15.3.0",
     "next": "9.5.3",
@@ -24,6 +25,7 @@
     "urql": "^1.10.1"
   },
   "devDependencies": {
+    "@types/classnames": "^2.2.10",
     "@types/node": "^14.11.1",
     "@types/react": "^16.9.49",
     "@types/react-select": "^3.0.22",
