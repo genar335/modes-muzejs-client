@@ -1,4 +1,5 @@
 import { AppProps } from "next/app";
+import "./styles/mainStyle.scss";
 
 import "react-multi-carousel/lib/styles.css";
 
