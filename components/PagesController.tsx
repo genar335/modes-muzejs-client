@@ -1,11 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import Carousel from "react-multi-carousel";
-import FMLogo from "../GAssets/logo.png";
+import FMLogo from "./FMlogo";
+// import FMLogo from "../GAssets/logo.png";
 // import "react-multi-carousel/lib/styles.css";
 
 import compStyle from "./styles/PagesController.module.scss";
 
-const PagesController = (props: { currentPages: number }) => {
+const PagesController = (props: {
+  activePage: number;
+  setActivePage: (index: number) => void;
+  currentPages: number;
+}) => {
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -68,30 +73,52 @@ const PagesController = (props: { currentPages: number }) => {
     );
   };
 
-  return (
-      <div className={compStyle.Wrapper}>
+  const handlePageClick = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    indexOfActivePage: number
+  ) => {
+    console.log("clicked on a page", e.currentTarget.id);
+    const pagesArray = Array.from(
+      document.getElementsByClassName(compStyle.Page)
+    );
+    pagesArray.forEach((page, index) => {
+      index === indexOfActivePage
+        ? page.classList.add(compStyle.Selected)
+        : page.classList.remove(compStyle.Selected);
+    });
+    props.setActivePage(indexOfActivePage);
+  };
 
-    <div className={compStyle.BGContainer}>
-      <Carousel
-        containerClass={compStyle.Carousel}
-        itemClass={compStyle.Item}
-        responsive={responsive}
-        customRightArrow={<CustomRightArrow />}
-        customLeftArrow={<CustomLeftArrow />}
-        showDots
-        ssr
+  return (
+    <div className={compStyle.Wrapper}>
+      <div className={compStyle.BGContainer}>
+        <Carousel
+          containerClass={compStyle.Carousel}
+          itemClass={compStyle.Item}
+          responsive={responsive}
+          customRightArrow={<CustomRightArrow />}
+          customLeftArrow={<CustomLeftArrow />}
+          showDots
+          ssr
         >
-        {pagesAmount.map((page) => {
+          {pagesAmount.map((page) => {
             return (
-                <div className={compStyle.Page}>
-              <img src={FMLogo} alt="Logo" />
-              <span>{page + 1}</span>
-            </div>
-          );
-        })}
-      </Carousel>
+              <div
+                key={page}
+                id={String(page)}
+                onClick={(e) => handlePageClick(e, page)}
+                className={compStyle.Page}
+              >
+                <div>
+                  <FMLogo />
+                  <span>{page + 1}</span>
+                </div>
+              </div>
+            );
+          })}
+        </Carousel>
+      </div>
     </div>
-        </div>
   );
 };
 

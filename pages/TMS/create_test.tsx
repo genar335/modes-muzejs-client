@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Select from "react-select";
 import { ITest, TLangOption, TTestTypes } from "../../@types/test";
+import FMLogo from "../../components/FMlogo";
 import PagesController from "../../components/PagesController";
 import PhotoManager from "../../components/PhotoManager";
 import TestNamer from "../../components/TestNamer";
@@ -10,6 +11,8 @@ import styles from "../styles/create_test.module.scss";
 function create_test() {
   // const [currentPages, setCurrentPages] = useState<number>(1);
   // let tmpPages: number = 0;
+  const [activePage, setActivePage] = useState<number>(0);
+  const activateAPage = (index: number) => setActivePage(index);
   const [pagesRendered, setPagesRendered] = useState<boolean>();
   const [test, setTest] = useState<ITest>({
     pages: 1,
@@ -118,7 +121,15 @@ function create_test() {
   const didMountRef = useRef();
 
   return (
-    <div className={styles.CreateTestContainer} ref={didMountRef}>
+    <div className={styles.CreateTestContainer}>
+      <FMLogo />
+      <div className={styles.TestNaming}>
+        <TestNamer
+          currentLang={currentLang}
+          saveTest={saveTest}
+          currentStateOfTest={test}
+        />
+      </div>
       <div className={styles.TestType}>
         <Select
           options={typeOptions}
@@ -149,19 +160,16 @@ function create_test() {
             {addPageIcon()}
           </button>
         </div>
-        <PagesController currentPages={test.pages} />
+        <PagesController
+          activePage={activePage}
+          setActivePage={activateAPage}
+          currentPages={test.pages}
+        />
       </div>
       {testType === (("TT" as unknown) as TTestTypes) ||
       testType === undefined ? null : (
         <PhotoManager />
       )}
-      <div className={styles.TestNaming}>
-        <TestNamer
-          currentLang={currentLang}
-          saveTest={saveTest}
-          currentStateOfTest={test}
-        />
-      </div>
       <TestPreview />
     </div>
   );
