@@ -115,9 +115,15 @@ $bg-colour: rgb(190 171 155);
   .TestPreview {
     grid-row: 2/5;
     grid-column: 2/3;
-    background-color: rgb(222 213 205);
+    background-color: rgb(236 221 210);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
     width: 100%;
     border: solid rgb(222 213 205) 1px;
     border-radius: 25px;
+    box-sizing: border-box;
+    padding: 2rem;
   }
 }

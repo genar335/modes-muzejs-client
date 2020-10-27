@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Select from "react-select";
-import { ITest, TLangOption, TTestTypes } from "../../@types/test";
+import { IQnA, ITest, TLangOption, TTestTypes } from "../../@types/test";
 import FMLogo from "../../components/FMlogo";
 import PagesController from "../../components/PagesController";
 import PhotoManager from "../../components/PhotoManager";
@@ -11,6 +11,21 @@ import styles from "../styles/create_test.module.scss";
 function create_test() {
   // const [currentPages, setCurrentPages] = useState<number>(1);
   // let tmpPages: number = 0;
+  const qnaEmptyArray = (): IQnA => {
+    return {
+      question: "",
+      answer: "",
+    };
+  };
+  const qnaEmptyNArray = (pairs: number): IQnA[] => {
+    let tmpArray = [];
+    for (let i = 0; i < pairs; i++) {
+      tmpArray.push(qnaEmptyArray());
+    }
+    console.log(tmpArray);
+    return tmpArray;
+  };
+  const currentNumberOfPairsForQnAPairs = 3;
   const [activePage, setActivePage] = useState<number>(0);
   const activateAPage = (index: number) => setActivePage(index);
   const [pagesRendered, setPagesRendered] = useState<boolean>();
@@ -18,22 +33,43 @@ function create_test() {
     pages: 1,
     en: {
       name: "",
-      pages: [],
+      pages: [
+        {
+          QnAPairs: qnaEmptyNArray(currentNumberOfPairsForQnAPairs),
+        },
+      ],
     },
     lv: {
       name: "",
-      pages: [],
+      pages: [
+        {
+          QnAPairs: qnaEmptyNArray(currentNumberOfPairsForQnAPairs),
+        },
+      ],
     },
     ru: {
       name: "",
-      pages: [],
+      pages: [
+        {
+          QnAPairs: qnaEmptyNArray(currentNumberOfPairsForQnAPairs),
+        },
+      ],
     },
     type: "",
   });
+
+  useEffect(() => {
+    console.log("pages have changed");
+    if (test.pages >= 2) {
+    }
+  }, [test.pages]);
+
   const saveTest = (test: ITest): void => setTest(test);
-  const [currentLang, setCurrentLang] = useState<TLangOption["value"]>();
-  const activateCurrentLang = (lang: TLangOption['value']) => setCurrentLang(lang);
-  const handleClick = () => {
+  const [currentLang, setCurrentLang] = useState<TLangOption["value"]>("ru");
+  const activateCurrentLang = (lang: TLangOption["value"]) =>
+    setCurrentLang(lang);
+
+  /*   const handleClick = () => {
     setTest({
       ru: {
         name: "imya",
@@ -44,7 +80,7 @@ function create_test() {
       pages: test.pages,
       type: "TP",
     });
-  };
+  }; */
 
   type TTypeOptions = {
     value: "TT" | "TP" | "PP";
@@ -81,11 +117,65 @@ function create_test() {
       event.currentTarget.value != undefined &&
       Number(event.currentTarget.value) < 50
     ) {
-      setTest({
-        ...test,
-        pages: Number(event.currentTarget.value),
-      });
+      if (Number(event.currentTarget.value) > test.pages) {
+        console.log("test");
+        let tmpArray = [];
+        for (
+          let i = 0;
+          i < Number(event.currentTarget.value) - test.pages;
+          i++
+        ) {
+          tmpArray.push({
+            QnAPairs: qnaEmptyNArray(currentNumberOfPairsForQnAPairs),
+          });
+        }
+        console.log(...tmpArray);
+        setTest({
+          ...test,
+          en: {
+            ...test.en,
+            pages: [...test.en.pages, ...tmpArray],
+          },
+          ru: {
+            ...test.ru,
+            pages: [...test.ru.pages, ...tmpArray],
+          },
+          lv: {
+            ...test.lv,
+            pages: [...test.lv.pages, ...tmpArray],
+          },
+          pages: Number(event.currentTarget.value),
+        });
+      } else {
+        setTest({
+          ...test,
+          en: {
+            ...test.en,
+            pages: test.en.pages.slice(
+              0,
+              test.pages - (test.pages - Number(event.currentTarget.value))
+            ),
+          },
+          ru: {
+            ...test.ru,
+            pages: test.ru.pages.slice(
+              0,
+              test.pages - (test.pages - Number(event.currentTarget.value))
+            ),
+          },
+          lv: {
+            ...test.lv,
+            pages: test.lv.pages.slice(
+              0,
+              test.pages - (test.pages - Number(event.currentTarget.value))
+            ),
+          },
+          pages: Number(event.currentTarget.value),
+        });
+      }
+      // event.currentTarget.value = String(test.pages);
     }
+    console.log(test);
   };
 
   const removePage = (
@@ -94,6 +184,18 @@ function create_test() {
     if (test.pages !== 1) {
       setTest({
         ...test,
+        en: {
+          ...test.en,
+          pages: test.en.pages.slice(0, test.pages - 1),
+        },
+        ru: {
+          ...test.ru,
+          pages: test.ru.pages.slice(0, test.pages - 1),
+        },
+        lv: {
+          ...test.lv,
+          pages: test.lv.pages.slice(0, test.pages - 1),
+        },
         pages: test.pages - 1,
       });
     }
@@ -105,6 +207,27 @@ function create_test() {
     if (test.pages < 50) {
       setTest({
         ...test,
+        en: {
+          ...test.en,
+          pages: [
+            ...test.en.pages,
+            { QnAPairs: qnaEmptyNArray(currentNumberOfPairsForQnAPairs) },
+          ],
+        },
+        ru: {
+          ...test.ru,
+          pages: [
+            ...test.ru.pages,
+            { QnAPairs: qnaEmptyNArray(currentNumberOfPairsForQnAPairs) },
+          ],
+        },
+        lv: {
+          ...test.lv,
+          pages: [
+            ...test.lv.pages,
+            { QnAPairs: qnaEmptyNArray(currentNumberOfPairsForQnAPairs) },
+          ],
+        },
         pages: test.pages + 1,
       });
     }
@@ -142,15 +265,11 @@ function create_test() {
       <div className={styles.PageController}>
         <div className={styles.AddPageCont}>
           <h5>Pages</h5>
-          <button
-            disabled={pagesRendered}
-            className={styles.ChangePagesBtn}
-            onClick={removePage}
-          >
+          <button className={styles.ChangePagesBtn} onClick={removePage}>
             {removePageIcon()}
           </button>
           <input
-            disabled={pagesRendered}
+            // disabled={pagesRendered}
             type="number"
             name="pagesNumber"
             className={styles.pagesNumberIndicator}

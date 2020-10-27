@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Carousel from "react-multi-carousel";
 import FMLogo from "./FMlogo";
-// import FMLogo from "../GAssets/logo.png";
 // import "react-multi-carousel/lib/styles.css";
 
 import compStyle from "./styles/PagesController.module.scss";
