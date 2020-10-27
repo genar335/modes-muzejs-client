@@ -6,7 +6,8 @@ import { useEffect } from "react";
 import LangBtnController from "./LangBtnController";
 
 const TestNamer = (props: {
-  currentLang: TLangOption | undefined;
+  currentLang: TLangOption["value"] | undefined;
+  setCurrentLang: (lang: TLangOption["value"]) => void;
   saveTest: (test: ITest) => void;
   currentStateOfTest: ITest;
 }) => {
@@ -52,6 +53,7 @@ const TestNamer = (props: {
    */
   const setSelectedLanguage = (chooseLanguage: TLangOption["value"]): void => {
     setSelectedLang(chooseLanguage);
+    props.setCurrentLang(chooseLanguage);
   };
 
   const handleNameChange = (nameInput: string): void => {

@@ -31,7 +31,8 @@ function create_test() {
     type: "",
   });
   const saveTest = (test: ITest): void => setTest(test);
-  const [currentLang, setCurrentLang] = useState<TLangOption>();
+  const [currentLang, setCurrentLang] = useState<TLangOption["value"]>();
+  const activateCurrentLang = (lang: TLangOption['value']) => setCurrentLang(lang);
   const handleClick = () => {
     setTest({
       ru: {
@@ -126,6 +127,7 @@ function create_test() {
       <div className={styles.TestNaming}>
         <TestNamer
           currentLang={currentLang}
+          setCurrentLang={activateCurrentLang}
           saveTest={saveTest}
           currentStateOfTest={test}
         />
@@ -170,7 +172,11 @@ function create_test() {
       testType === undefined ? null : (
         <PhotoManager />
       )}
-      <TestPreview />
+      <TestPreview
+        activePage={activePage}
+        currentLanguage={currentLang}
+        currentTestState={test}
+      />
     </div>
   );
 }
