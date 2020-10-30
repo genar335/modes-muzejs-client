@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import io from "socket.io-client";
 import Select from "react-select";
 import { IQnA, ITest, TLangOption, TTestTypes } from "../../@types/test";
 import FMLogo from "../../components/FMlogo";
@@ -7,8 +8,15 @@ import PhotoManager from "../../components/PhotoManager";
 import TestNamer from "../../components/TestNamer";
 import TestPreview from "../../components/TestPreview";
 import styles from "../styles/create_test.module.scss";
+import { APIURL } from "../../components/constants";
 
 function create_test() {
+  // useEffect(() => {
+  const socket = io(APIURL, {
+    reconnectionDelayMax: 10000,
+    query: "123",
+  });
+  // }, []);
   // const [currentPages, setCurrentPages] = useState<number>(1);
   // let tmpPages: number = 0;
   const qnaEmptyArray = (): IQnA => {
@@ -22,7 +30,6 @@ function create_test() {
     for (let i = 0; i < pairs; i++) {
       tmpArray.push(qnaEmptyArray());
     }
-    console.log(tmpArray);
     return tmpArray;
   };
   const currentNumberOfPairsForQnAPairs = 3;
@@ -60,9 +67,14 @@ function create_test() {
 
   useEffect(() => {
     console.log("pages have changed");
+    socket.emit("Pages update", String(test.pages));
     if (test.pages >= 2) {
     }
   }, [test.pages]);
+
+  useEffect(() => {
+    socket.emit("Test changed", test);
+  }, [test]);
 
   const saveTest = (test: ITest): void => setTest(test);
   const [currentLang, setCurrentLang] = useState<TLangOption["value"]>("ru");
@@ -93,8 +105,13 @@ function create_test() {
   ];
 
   const [testType, setTestType] = useState<TTestTypes>();
-  const handleTypeChange = (chosenType: TTestTypes): void =>
+  const handleTypeChange = (chosenType: TTestTypes): void => {
     setTestType(chosenType);
+    setTest({
+      ...test,
+      type: chosenType,
+    });
+  };
 
   // const [editEnabled, setEditEnabled] = useState<boolean>(false);
   // useEffect(() => {
@@ -295,6 +312,7 @@ function create_test() {
         activePage={activePage}
         currentLanguage={currentLang}
         currentTestState={test}
+        saveChanges={saveTest}
       />
     </div>
   );
