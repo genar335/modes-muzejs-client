@@ -1,5 +1,17 @@
 $bg-colour: #efddd1;
 
+.tTypeWarning {
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  position: relative;
+  background-color: rgba($color: #000000, $alpha: 0);
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .TestBGContainer {
   width: 100%;
   height: 100%;

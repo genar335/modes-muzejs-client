@@ -5,7 +5,7 @@ export interface ITest {
    * Available test types are:
    * + TT: text-text.
    * + PP: photo-photo.
-   * + PT: photo-test.
+   * + PT: photo-text.
    */
   type: TTestTypes.type;
   // type: "TT" | "PP" | "PT";
@@ -27,7 +27,7 @@ export interface ITest {
   lv: ILangSpecificBody;
 }
 
-export type TTestTypes  = {
+export type TTestTypes = {
   type: "TT" | "PP" | "PT";
 };
 

@@ -311,7 +311,11 @@ function create_test() {
       <TestPreview
         activePage={activePage}
         currentLanguage={currentLang}
-        currentTestState={test}
+        // currentTestState={test}
+        pageToRender={
+          test[currentLang].pages[activePage]
+        }
+        testType={test.type}
         saveChanges={saveTest}
       />
     </div>

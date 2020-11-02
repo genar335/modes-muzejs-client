@@ -6,37 +6,33 @@ import { brown } from "./constants";
 import { NextRouter, useRouter } from "next/router";
 import { NextApiHandler } from "next";
 
-
-
 const ActiveTests = ({}) => {
+  const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 5,
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 4,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+    },
+  };
 
-const responsive = {
-  superLargeDesktop: {
-    // the naming can be any, depends on you.
-    breakpoint: { max: 4000, min: 3000 },
-    items: 5,
-  },
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 4,
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 2,
-  },
-  mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 1,
-  },
-};
+  const router: NextRouter = useRouter();
 
-const router: NextRouter = useRouter();
-
-const handleAddTestClick = () => {
-  alert("Test addition should be happening right about now.");
-  router.push(`/TMS/create_test`);
-};
-
+  const handleAddTestClick = () => {
+    alert("Test addition should be happening right about now.");
+    router.push(`/TMS/create_test`);
+  };
 
   return (
     <div className={styles.ActiveTestsContainer}>
@@ -48,13 +44,7 @@ const handleAddTestClick = () => {
         showDots={true}
         dotListClass={styles.customDotListStyle}
       >
-        <div
-          onClick={handleAddTestClick}
-          id="AddTest"
-          className={styles.AddTestCard}
-        >
-          <span>+</span>
-        </div>
+        {addATest(handleAddTestClick)}
         <TestCard colour={brown} />
         <TestCard colour={brown} />
         <TestCard colour={brown} />
@@ -71,3 +61,14 @@ const handleAddTestClick = () => {
 };
 
 export default ActiveTests;
+function addATest(handleAddTestClick: () => void) {
+  return (
+    <div
+      onClick={handleAddTestClick}
+      id="AddTest"
+      className={styles.AddTestCard}
+    >
+      <span>+</span>
+    </div>
+  );
+}
