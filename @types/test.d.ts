@@ -64,7 +64,7 @@ interface IQnAPairs {
   QnAPairs: Array<IQnA>;
 }
 
-interface IQnA {
+type IQnA = {
   /**
    * @param question Either a string containg the question or a link to the image.
    */
@@ -73,4 +73,4 @@ interface IQnA {
    * @param anwer Either a string containg the answer or a link to the image.
    */
   answer: string;
-}
+};

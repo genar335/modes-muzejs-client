@@ -21,8 +21,8 @@ function create_test() {
   // let tmpPages: number = 0;
   const qnaEmptyArray = (): IQnA => {
     return {
-      question: "",
-      answer: "",
+      question: "Test question",
+      answer: "Test answer",
     };
   };
   const qnaEmptyNArray = (pairs: number): IQnA[] => {
@@ -112,6 +112,21 @@ function create_test() {
       type: chosenType,
     });
   };
+
+  function savePage(page: any) {
+    console.log(page);
+    let tmp = test[currentLang].pages;
+    tmp[activePage].QnAPairs = page;
+    console.log(tmp);
+    console.log(tmp);
+    setTest({
+      ...test,
+      [currentLang]: {
+        ...test[currentLang],
+        pages: tmp,
+      },
+    });
+  }
 
   // const [editEnabled, setEditEnabled] = useState<boolean>(false);
   // useEffect(() => {
@@ -312,11 +327,9 @@ function create_test() {
         activePage={activePage}
         currentLanguage={currentLang}
         // currentTestState={test}
-        pageToRender={
-          test[currentLang].pages[activePage]
-        }
+        pageToRender={test[currentLang].pages[activePage].QnAPairs}
         testType={test.type}
-        saveChanges={saveTest}
+        saveChanges={savePage}
       />
     </div>
   );

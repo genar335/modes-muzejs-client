@@ -1,5 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { containerCSS } from "react-select/src/components/containers";
 import {
+  ILangSpecificBody,
   IQnA,
   IQnAPairs,
   ITest,
@@ -14,35 +16,32 @@ const TestPreview = (props: {
   activePage: number;
   currentLanguage: TLangOption["value"] | undefined;
   // currentTestState: ITest;
-  pageToRender: any;
+  pageToRender: IQnA[];
   testType: ITest["type"];
-  saveChanges: (test: ITest) => void;
+  saveChanges: (page: any) => void;
 }) => {
   console.log(props.pageToRender);
+  props.pageToRender.map((ele) => console.log(ele.question));
 
-  // function handleTextAreaQuestionChange(
-  //   event: React.ChangeEvent<HTMLTextAreaElement>
-  // ) {
-  //   // let tmpArray =
-  //   //   props.currentTestState[props.currentLanguage!].pages[props.activePage]
-  //   //     .QnAPairs;
-  //   // console.log("tmp", tmpArray);
-  //   // tmpArray.forEach((ele) => console.log(ele));
-  //   const tmpArray = props.currentTestState[props.currentLanguage!].pages;
-  //   // console.log(tmpArray);
-  //   // console.log(tmpArray[props.activePage]);
-  //   // console.log(tmpArray[props.activePage].QnAPairs[event.currentTarget.id]);
-  //   tmpArray[props.activePage].QnAPairs[event.currentTarget.id].question =
-  //     event.currentTarget.value;
-  //   // console.log(tmpArray);
-  //   props.saveChanges({
-  //     ...props.currentTestState,
-  //     [props.currentLanguage!]: {
-  //       ...props.currentTestState[props.currentLanguage!],
-  //       pages: tmpArray,
-  //     },
-  //   });
-  // }
+  let tmp = props.pageToRender;
+
+  const saveNewData = (
+    qid: number,
+    data: string,
+    whatToSave: "answer" | "question"
+  ) => {
+    tmp[qid][whatToSave] = data;
+    console.log(tmp[qid][whatToSave]);
+    console.log("from save new data", tmp);
+    props.saveChanges(tmp);
+  };
+
+  const handleQuestionKeyPress = (
+    event: React.KeyboardEvent<HTMLTextAreaElement>
+  ) => {
+    event.key === "Enter" ? console.log("Efnter") : undefined;
+  };
+
   function textQuestion(
     iterator: number,
     // handleQuestionChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void,
@@ -50,27 +49,16 @@ const TestPreview = (props: {
   ) {
     return (
       <textarea
+        defaultValue={"Enter your text"}
         id={String(iterator)}
         onChange={handleQuestionChange}
         className={compStyles.Question}
+        onKeyPress={handleQuestionKeyPress}
       >
-        {qna.question}
+        {/* {qna.question} */}
       </textarea>
     );
   }
-
-  function textAnswer(iterator: number, qna: IQnA) {
-    return (
-      <textarea
-        id={String(iterator)}
-        // onChange={handleAnswerChange}
-        className={compStyles.Answer}
-      >
-        {qna.answer}
-      </textarea>
-    );
-  }
-
   function imgQuestion(
     iterator: number,
     // handleQuestionChange: (
@@ -84,6 +72,35 @@ const TestPreview = (props: {
       </div>
     );
   }
+
+  const handleAnswerChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    saveNewData(event.currentTarget.id, event.currentTarget.value, "answer");
+  };
+
+  function textAnswer(iterator: number, qna: IQnA) {
+    // const [curValue, setCurValue] = useState("");
+
+    // useEffect(() => {
+    //   console.log(curValue);
+    // }, [curValue]);
+
+    return (
+      <textarea
+        // defaultValue={"Enter your text"}
+        id={String(iterator)}
+        onChange={(e) => {
+          handleAnswerChange(e);
+          // setCurValue(e.currentTarget.value);
+        }}
+        className={compStyles.Answer}
+      >
+        {qna.answer}
+      </textarea>
+    );
+  }
+
   function imgAnswer(
     iterator: number,
     // handleQuestionChange: (
@@ -102,10 +119,11 @@ const TestPreview = (props: {
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     console.log(`${event.currentTarget.id}:`, event.currentTarget.value);
+    saveNewData(event.currentTarget.id, event.currentTarget.value, "question");
   };
 
   const pageBody = () =>
-    props.pageToRender.QnAPairs.map((qna: IQnA, iterator: number) => (
+    props.pageToRender.map((qna: IQnA, iterator: number) => (
       <div key={iterator} id={String(iterator)} className={compStyles.qnaPair}>
         {/* For question rendering */}
         {props.testType === "TT" ? textQuestion(iterator, qna) : null}
