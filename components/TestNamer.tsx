@@ -131,29 +131,8 @@ const TestNamer = (props: {
     );
   }
 
-  function closeBtn(setIsOpen: React.Dispatch<React.SetStateAction<boolean>>) {
-    return (
-      <svg
-        className={compStyles.CloseBTN}
-        onClick={() => setIsOpen(false)}
-        width="56"
-        height="56"
-        viewBox="0 0 56 56"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <circle cx="28" cy="28" r="28" fill="#2F4858" />
-        <path
-          d="M38.5626 36.4501L30.1126 28L38.5628 19.5498C39.1458 18.9669 39.1458 18.0203 38.5626 17.4372C37.9797 16.8543 37.0332 16.8543 36.4502 17.4372L28 25.8874L19.5498 17.4372C18.9668 16.8543 18.0203 16.8543 17.4374 17.4372C16.8542 18.0203 16.8542 18.9669 17.4372 19.5498L25.8874 28L17.4374 36.4501C16.8542 37.0332 16.8542 37.9797 17.4372 38.5627C18.0203 39.1458 18.9668 39.1458 19.55 38.5627L28 30.1126L36.45 38.5627C37.0332 39.1458 37.9797 39.1458 38.5628 38.5627C39.1458 37.9797 39.1458 37.0332 38.5626 36.4501Z"
-          fill="white"
-        />
-      </svg>
-    );
-  }
-
   return (
     <div className={`${styles.TestNaming}`}>
-      {/* {isOpen ? ( */}
       <div
         className={`${compStyles.ModalContainerBG} ${
           !isOpen ? compStyles.Hidden : null
@@ -163,12 +142,7 @@ const TestNamer = (props: {
           {closeBtn(setIsOpen)}
 
           <div className={compStyles.Modal}>
-            <LangBtnController
-              BtnArray={["ru", "lv", "en"]}
-              active={"ru"}
-              langSelector={setSelectedLanguage}
-              inputEnabler={inputEnabler}
-            />
+            {CreateLangSwitchers(setSelectedLanguage, inputEnabler)}
             <form onSubmit={handleNameEntry} className={compStyles.NameForm}>
               <input
                 // disabled={isNameEntryEnabled}
@@ -210,6 +184,20 @@ const TestNamer = (props: {
 };
 
 export default TestNamer;
+export function CreateLangSwitchers(
+  setSelectedLanguage: (chooseLanguage: TLangOption["value"]) => void,
+  inputEnabler: () => void
+) {
+  return (
+    <LangBtnController
+      BtnArray={["ru", "lv", "en"]}
+      active={"ru"}
+      langSelector={setSelectedLanguage}
+      inputEnabler={inputEnabler}
+    />
+  );
+}
+
 function plusSignIcon() {
   return (
     <svg
@@ -222,6 +210,27 @@ function plusSignIcon() {
       <path
         d="M20.8999 9.89997H12.1V1.09993C12.1 0.492864 11.6072 0 10.9999 0C10.3928 0 9.89997 0.492864 9.89997 1.09993V9.89997H1.09993C0.492864 9.89997 0 10.3928 0 10.9999C0 11.6072 0.492864 12.1 1.09993 12.1H9.89997V20.8999C9.89997 21.5071 10.3928 22 10.9999 22C11.6072 22 12.1 21.5071 12.1 20.8999V12.1H20.8999C21.5071 12.1 22 11.6072 22 10.9999C22 10.3928 21.5071 9.89997 20.8999 9.89997Z"
         fill="#2F4858"
+      />
+    </svg>
+  );
+}
+export function closeBtn(
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+) {
+  return (
+    <svg
+      className={compStyles.CloseBTN}
+      onClick={() => setIsOpen(false)}
+      width="56"
+      height="56"
+      viewBox="0 0 56 56"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle cx="28" cy="28" r="28" fill="#2F4858" />
+      <path
+        d="M38.5626 36.4501L30.1126 28L38.5628 19.5498C39.1458 18.9669 39.1458 18.0203 38.5626 17.4372C37.9797 16.8543 37.0332 16.8543 36.4502 17.4372L28 25.8874L19.5498 17.4372C18.9668 16.8543 18.0203 16.8543 17.4374 17.4372C16.8542 18.0203 16.8542 18.9669 17.4372 19.5498L25.8874 28L17.4374 36.4501C16.8542 37.0332 16.8542 37.9797 17.4372 38.5627C18.0203 39.1458 18.9668 39.1458 19.55 38.5627L28 30.1126L36.45 38.5627C37.0332 39.1458 37.9797 39.1458 38.5628 38.5627C39.1458 37.9797 39.1458 37.0332 38.5626 36.4501Z"
+        fill="white"
       />
     </svg>
   );

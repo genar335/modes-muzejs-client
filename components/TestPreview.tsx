@@ -11,15 +11,27 @@ import {
 import styles from "../pages/styles/create_test.module.scss";
 import FMLogo from "./FMlogo";
 import compStyles from "./styles/TestPreview.module.scss";
+import addCompStyles from "./styles/TestNamer.module.scss";
+import { closeBtn, CreateLangSwitchers } from "./TestNamer";
 
 const TestPreview = (props: {
   activePage: number;
   currentLanguage: TLangOption["value"] | undefined;
   // currentTestState: ITest;
   pageToRender: IQnA[];
+  setCurrentLang: (lang: TLangOption["value"]) => void;
   testType: ITest["type"];
   saveChanges: (page: any) => void;
 }) => {
+  const [isQOpen, setisQOpen] = useState(false);
+  const [isAOpen, setisAOpen] = useState(false);
+  const [selectedLang, setSelectedLang] = useState<TLangOption["value"]>("ru");
+  const setSelectedLanguage = (chooseLanguage: TLangOption["value"]): void => {
+    setSelectedLang(chooseLanguage);
+    props.setCurrentLang(chooseLanguage);
+  };
+  const inputEnabler = () => {};
+
   console.log(props.pageToRender);
   props.pageToRender.map((ele) => console.log(ele.question));
 
@@ -31,8 +43,8 @@ const TestPreview = (props: {
     whatToSave: "answer" | "question"
   ) => {
     tmp[qid][whatToSave] = data;
-    console.log(tmp[qid][whatToSave]);
-    console.log("from save new data", tmp);
+    // console.log(tmp[qid][whatToSave]);
+    // console.log("from save new data", tmp);
     props.saveChanges(tmp);
   };
 
@@ -115,6 +127,21 @@ const TestPreview = (props: {
     );
   }
 
+  function q_a_TextEntry(type: "answer" | "question", id: number) {
+    console.log("hello from a new beginninf", type);
+    console.log(`${compStyles[type]}`);
+    return (
+      <textarea
+        className={compStyles.textInputForQandA}
+        // type="text"
+        name="qaTextEntry"
+        id={String(id)}
+        value={props.pageToRender[id][type]}
+        onChange={(e) => saveNewData(id, e.currentTarget.value, type)}
+      />
+    );
+  }
+
   const handleQuestionChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
@@ -125,16 +152,55 @@ const TestPreview = (props: {
   const pageBody = () =>
     props.pageToRender.map((qna: IQnA, iterator: number) => (
       <div key={iterator} id={String(iterator)} className={compStyles.qnaPair}>
-        {/* For question rendering */}
-        {props.testType === "TT" ? textQuestion(iterator, qna) : null}
-        {props.testType === "PP" || props.testType === "PT"
-          ? imgQuestion(iterator, qna)
-          : null}
         {/* For answer rendering */}
-        {props.testType === "TT" || props.testType === "PT"
-          ? textAnswer(iterator, qna)
+        {/* {props.testType === "TT" || props.testType === "PT"
+          ? q_a_TextEntry("answer", iterator)
           : null}
-        {props.testType === "PP" ? imgAnswer(iterator, qna) : null}
+        {props.testType === "PP" ? imgAnswer(iterator, qna) : null} */}
+        {
+          /* For question rendering */
+          <div
+            className={`${addCompStyles.ModalContainerBG} ${
+              !isQOpen ? addCompStyles.Hidden : null
+            }`}
+          >
+            <div className={addCompStyles.ModalContainer}>
+              {closeBtn(setisQOpen)}
+              <div className={addCompStyles.Modal}>
+                {CreateLangSwitchers(setSelectedLanguage, inputEnabler)}
+                <div className={addCompStyles.NameForm}>
+                  {props.testType === "TT"
+                    ? q_a_TextEntry("question", iterator)
+                    : null}
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+        <span className={compStyles.question} onClick={(e) => setisQOpen(true)}>
+          {qna.question}
+        </span>
+        {/* For answer rendering */}
+        <div
+          className={`${addCompStyles.ModalContainerBG} ${
+            !isAOpen ? addCompStyles.Hidden : null
+          }`}
+        >
+          <div className={addCompStyles.ModalContainer}>
+            {closeBtn(setisAOpen)}
+            <div className={addCompStyles.Modal}>
+              {CreateLangSwitchers(setSelectedLanguage, inputEnabler)}
+              <div className={addCompStyles.NameForm}>
+                {props.testType === "TT"
+                  ? q_a_TextEntry("answer", iterator)
+                  : null}
+              </div>
+            </div>
+          </div>
+        </div>
+        <span className={compStyles.answer} onClick={(e) => setisAOpen(true)}>
+          {qna.answer}
+        </span>
       </div>
     ));
 

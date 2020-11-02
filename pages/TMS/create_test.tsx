@@ -21,8 +21,8 @@ function create_test() {
   // let tmpPages: number = 0;
   const qnaEmptyArray = (): IQnA => {
     return {
-      question: "Test question",
-      answer: "Test answer",
+      question: "",
+      answer: "",
     };
   };
   const qnaEmptyNArray = (pairs: number): IQnA[] => {
@@ -326,6 +326,7 @@ function create_test() {
       <TestPreview
         activePage={activePage}
         currentLanguage={currentLang}
+        setCurrentLang={activateCurrentLang}
         // currentTestState={test}
         pageToRender={test[currentLang].pages[activePage].QnAPairs}
         testType={test.type}
