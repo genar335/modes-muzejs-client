@@ -1,0 +1,10 @@
+<svg id="TopFrame" xmlns="http://www.w3.org/2000/svg" width="250" height="268.094" viewBox="0 0 250 268.094">
+  <g id="Group_10" data-name="Group 10">
+    <g id="Rectangle_8" data-name="Rectangle 8" fill="none" stroke="#c6aa96" stroke-width="4">
+      <rect width="250" height="242.094" rx="20" stroke="none"/>
+      <rect x="2" y="2" width="246" height="238.094" rx="18" fill="none"/>
+    </g>
+    <line id="Line_1" data-name="Line 1" y2="11" transform="translate(125.358 243.137)" fill="none" stroke="#c6aa96" stroke-linecap="round" stroke-width="4"/>
+    <circle id="Ellipse_4" data-name="Ellipse 4" cx="9.5" cy="9.5" r="9.5" transform="translate(115.882 249.094)" fill="#c6aa96"/>
+  </g>
+</svg>

@@ -1,0 +1,33 @@
+<svg id="ProgressBar" xmlns="http://www.w3.org/2000/svg" width="601" height="84.498" viewBox="0 0 601 84.498">
+  <line id="Line_1" data-name="Line 1" x2="601" transform="translate(0 44)" fill="none" stroke="#c6aa96" stroke-width="1"/>
+  <g id="Ellipse_1" data-name="Ellipse 1" transform="translate(94.5 26.5)" fill="#c6aa96" stroke="#c6aa96" stroke-width="1">
+    <ellipse cx="15" cy="15.5" rx="15" ry="15.5" stroke="none"/>
+    <ellipse cx="15" cy="15.5" rx="14.5" ry="15" fill="none"/>
+  </g>
+  <g id="Ellipse_2" data-name="Ellipse 2" transform="translate(285.5 26.5)" fill="#c6aa96" stroke="#c6aa96" stroke-width="1">
+    <circle cx="15" cy="15" r="15" stroke="none"/>
+    <circle cx="15" cy="15" r="14.5" fill="none"/>
+  </g>
+  <g id="Ellipse_3" data-name="Ellipse 3" transform="translate(476.5 26.5)" fill="#1b212e" stroke="#c6aa96" stroke-width="1">
+    <circle cx="15.5" cy="15.5" r="15.5" stroke="none"/>
+    <circle cx="15.5" cy="15.5" r="15" fill="none"/>
+  </g>
+  <g id="Ellipse_5" data-name="Ellipse 5" transform="translate(80.5 12.5)" fill="rgba(255,255,255,0)" stroke="#c6aa96" stroke-width="1">
+    <circle cx="30" cy="30" r="30" stroke="none"/>
+    <circle cx="30" cy="30" r="29.5" fill="none"/>
+  </g>
+  <line id="Line_2" data-name="Line 2" y2="27" transform="translate(301)" fill="none" stroke="#c6aa96" stroke-width="1"/>
+  <path id="Path_1" data-name="Path 1" d="M367.56,339.255c-42.743-3.365-40.325-40-40.325-40" transform="translate(-257.56 -255.255)" fill="none" stroke="#c6aa96" stroke-width="1"/>
+  <g id="Ellipse_6" data-name="Ellipse 6" transform="translate(271.5 13.5)" fill="rgba(255,255,255,0)" stroke="#c6aa96" stroke-width="1">
+    <circle cx="30" cy="30" r="30" stroke="none"/>
+    <circle cx="30" cy="30" r="29.5" fill="none"/>
+  </g>
+  <line id="Line_3" data-name="Line 3" y2="27" transform="translate(110 57)" fill="none" stroke="#c6aa96" stroke-width="1"/>
+  <path id="Path_2" data-name="Path 2" d="M327.209,299.255c46.187,3.659,43.574,43.5,43.574,43.5" transform="translate(-25.854 -298.756)" fill="none" stroke="#c6aa96" stroke-width="1"/>
+  <g id="Ellipse_7" data-name="Ellipse 7" transform="translate(462.5 12.5)" fill="rgba(255,255,255,0)" stroke="#c6aa96" stroke-width="1">
+    <circle cx="30" cy="30" r="30" stroke="none"/>
+    <circle cx="30" cy="30" r="29.5" fill="none"/>
+  </g>
+  <line id="Line_4" data-name="Line 4" y2="27" transform="translate(492 57)" fill="none" stroke="#c6aa96" stroke-width="1"/>
+  <path id="Path_3" data-name="Path 3" d="M327.209,338.673c42.486-3.316,40.083-39.419,40.083-39.419" transform="translate(164.791 -255.255)" fill="none" stroke="#c6aa96" stroke-width="1"/>
+</svg>
