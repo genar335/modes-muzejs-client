@@ -3,7 +3,7 @@ import { IQnA, TLangOption } from "../@types/test";
 import compStyles from "./styles/TestPreview.module.scss";
 import addCompStyles from "./styles/TestNamer.module.scss";
 import { closeBtn, CreateLangSwitchers } from "./TestNamer";
-import { AnyTxtRecord } from "dns";
+
 const QACard = (props: {
   cardType: "answer" | "question";
   cardContents: "img" | "text";

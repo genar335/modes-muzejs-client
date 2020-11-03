@@ -4,6 +4,7 @@ import styles from "../pages/styles/create_test.module.scss";
 import { ITest, TLangOption } from "../@types/test";
 import { useEffect } from "react";
 import LangBtnController from "./LangBtnController";
+import btnStyle from "./styles/LanguageBtn.module.scss";
 
 const TestNamer = (props: {
   currentLang: TLangOption["value"] | undefined;
@@ -16,6 +17,11 @@ const TestNamer = (props: {
 
   // * State containing current chosen language
   const [selectedLang, setSelectedLang] = useState<TLangOption["value"]>("ru");
+  let langBuffer = {
+    ru: props.currentStateOfTest.ru.name || "",
+    en: props.currentStateOfTest.en.name || "",
+    lv: props.currentStateOfTest.lv.name || "",
+  };
 
   const [isSubmitBtnStateDone, setIsSubmitBtnStateDone] = useState<boolean>(
     false
@@ -39,7 +45,6 @@ const TestNamer = (props: {
   useEffect(() => {
     for (const keys in Object(currentNames)) {
       if (Object(currentNames)[keys] === "") {
-        console.log("empty");
         setIsSubmitBtnStateDone(false);
         return;
       }
@@ -56,10 +61,27 @@ const TestNamer = (props: {
     props.setCurrentLang(chooseLanguage);
   };
 
-  const handleNameChange = (nameInput: string): void => {
-    setCurrentNames({
-      ...currentNames,
-      [selectedLang as string]: nameInput,
+  const handleNameChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    const nameInput = event.currentTarget.value;
+    console.log(event.currentTarget.id);
+    // setCurrentNames({
+    //   ...currentNames,
+    //   [selectedLang as string]: nameInput,
+    // });
+    console.log(langBuffer, "langbuffer");
+    langBuffer[event.currentTarget.id as "ru" | "lv" | "en"] =
+      event.currentTarget.value;
+    console.log(langBuffer, "langbuffer");
+    props.saveTest({
+      ...props.currentStateOfTest,
+      [event.currentTarget.id]: {
+        ...props.currentStateOfTest[
+          event.currentTarget.id as TLangOption["value"]
+        ],
+        name: nameInput,
+      },
     });
   };
 
@@ -131,6 +153,34 @@ const TestNamer = (props: {
     );
   }
 
+  function generateInputs() {
+    let inputs = [];
+    for (const lang in currentNames) {
+      inputs.push(
+        <div className={compStyles.BtnInputContainer}>
+          <button
+            className={`${btnStyle.LangButton} ${
+              true ? btnStyle.ButtonPressed : null
+            }`}
+            disabled
+          >
+            {lang.toLocaleUpperCase()}
+          </button>
+          <input
+            id={lang}
+            type="text"
+            placeholder="Enter text name"
+            // value={currentNames[selectedLang as TLangOption["value"]]}
+            value={langBuffer[lang as "ru" | "en" | "lv"]}
+            className={compStyles.TNameInput}
+            onChange={handleNameChange}
+          />
+        </div>
+      );
+    }
+    return inputs;
+  }
+
   return (
     <div className={`${styles.TestNaming}`}>
       <div
@@ -142,26 +192,25 @@ const TestNamer = (props: {
           {closeBtn(setIsOpen)}
 
           <div className={compStyles.Modal}>
-            {CreateLangSwitchers(setSelectedLanguage, inputEnabler)}
+            {/* {CreateLangSwitchers(setSelectedLanguage, inputEnabler)} */}
             <form onSubmit={handleNameEntry} className={compStyles.NameForm}>
-              <input
+              {/* <input
                 // disabled={isNameEntryEnabled}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  handleNameChange(e.currentTarget.value)
-                }
+                onChange={handleNameChange}
                 type="text"
                 placeholder="TestName"
                 value={currentNames[selectedLang as TLangOption["value"]]}
                 className={compStyles.TNameInput}
                 id="nameInput"
-              />
+              /> */}
+              {generateInputs()}
               <button
                 className={compStyles.NextLang}
                 type="submit"
                 value={isSubmitBtnStateDone ? "✔️" : "→"}
                 id="arrowButton"
               >
-                {!isSubmitBtnStateDone ? ArrowBtn() : SaveBtn()}
+                {/* {!isSubmitBtnStateDone ? ArrowBtn() :*/ SaveBtn()}
               </button>
             </form>
           </div>
@@ -184,6 +233,7 @@ const TestNamer = (props: {
 };
 
 export default TestNamer;
+
 export function CreateLangSwitchers(
   setSelectedLanguage: (chooseLanguage: TLangOption["value"]) => void,
   inputEnabler: () => void
@@ -197,7 +247,6 @@ export function CreateLangSwitchers(
     />
   );
 }
-
 function plusSignIcon() {
   return (
     <svg
