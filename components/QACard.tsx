@@ -15,12 +15,19 @@ const QACard = (props: {
   testType: any;
   q_a_TextEntry: (type: "answer" | "question", id: number) => JSX.Element;
 }) => {
+  const charLimit = 90;
   const [isOpen, setIsOpen] = useState(false);
+  console.log(props.cardContents);
   const textPreviewer = (text: string) => {
-    return text.slice(0, 90) + "...";
+    if (text.length < 1) return <div className={compStyles.emptyText}>T</div>;
+    if (text.length > charLimit) {
+      return text.slice(0, 90) + "...";
+    } else {
+      return text;
+    }
   };
   return (
-    <div /* className={`${compStyles[props.cardType]}`} */>
+    <div className={`${compStyles[props.cardType]}`}>
       <div
         id={String(props.iterator)}
         className={`${addCompStyles.ModalContainerBG} ${
@@ -32,19 +39,22 @@ const QACard = (props: {
           <div className={addCompStyles.Modal}>
             {CreateLangSwitchers(props.setSelectedLanguage, props.inputEnabler)}
             <div className={addCompStyles.NameForm}>
-              {props.testType === "TT"
-                ? props.q_a_TextEntry(props.cardType, props.iterator)
-                : null}
+              {props.cardContents === "text" ? (
+                props.q_a_TextEntry(props.cardType, props.iterator)
+              ) : (
+                <p>Placeholder for image upload</p>
+              )}
             </div>
           </div>
         </div>
       </div>
-      <span
-        className={compStyles[props.cardType]}
-        onClick={(e) => setIsOpen(true)}
-      >
-        {textPreviewer(props.qna[props.cardType])}
-      </span>
+      <p className={compStyles.QADescription} onClick={(e) => setIsOpen(true)}>
+        {props.cardContents === "text" ? (
+          textPreviewer(props.qna[props.cardType])
+        ) : (
+          <p>+</p>
+        )}
+      </p>
     </div>
   );
 };

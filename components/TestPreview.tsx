@@ -176,35 +176,9 @@ const TestPreview = (props: {
   const pageBody = () =>
     props.pageToRender.map((qna: IQnA, iterator: number) => (
       <div key={iterator} id={String(iterator)} className={compStyles.qnaPair}>
-        {/* <div
-          id={String(iterator)}
-          className={`${addCompStyles.ModalContainerBG} ${
-            !isQOpen ? addCompStyles.Hidden : null
-          }`}
-        >
-          <div className={addCompStyles.ModalContainer}>
-            {closeBtn(setisQOpen)}
-            <div className={addCompStyles.Modal}>
-              {CreateLangSwitchers(setSelectedLanguage, inputEnabler)}
-              <div className={addCompStyles.NameForm}>
-                {props.testType === "TT"
-                  ? q_a_TextEntry("question", iterator)
-                  : null}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <span
-          id={String(iterator)}
-          className={compStyles.question}
-          onClick={handleModalOpening}
-        >
-          {textPreviewer(qna.question)}
-        </span> */}
         <QACard
           cardType="question"
-          cardContents="text"
+          cardContents={props.testType === "PP" ? "img" : "text"}
           iterator={iterator}
           setSelectedLanguage={setSelectedLanguage}
           inputEnabler={inputEnabler}
@@ -213,32 +187,9 @@ const TestPreview = (props: {
           q_a_TextEntry={q_a_TextEntry}
         />
         {/* For answer rendering */}
-        {/* <div className="tmpContainer">
-          <div
-            id={String(iterator)}
-            className={`${addCompStyles.ModalContainerBG} ${
-              !isAOpen ? addCompStyles.Hidden : null
-            }`}
-          >
-            <div className={addCompStyles.ModalContainer}>
-              {closeBtn(setisAOpen)}
-              <div className={addCompStyles.Modal}>
-                {CreateLangSwitchers(setSelectedLanguage, inputEnabler)}
-                <div className={addCompStyles.NameForm}>
-                  {props.testType === "TT"
-                    ? q_a_TextEntry("answer", iterator)
-                    : null}
-                </div>
-              </div>
-            </div>
-          </div>
-          <span className={compStyles.answer} onClick={(e) => setisAOpen(true)}>
-            {textPreviewer(qna.answer)}
-          </span>
-        </div> */}
         <QACard
           cardType="answer"
-          cardContents="text"
+          cardContents={props.testType === "TT" ? "text" : "img"}
           iterator={iterator}
           setSelectedLanguage={setSelectedLanguage}
           inputEnabler={inputEnabler}

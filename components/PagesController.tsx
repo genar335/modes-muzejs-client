@@ -43,8 +43,6 @@ const PagesController = (props: {
     }
   }, [props.currentPages]);
 
-  useEffect(() => {});
-
   const didMountRef = useRef();
 
   const CustomRightArrow = ({ onClick, ...rest }) => {
@@ -77,16 +75,17 @@ const PagesController = (props: {
     indexOfActivePage: number
   ) => {
     console.log("clicked on a page", e.currentTarget.id);
-    const pagesArray = Array.from(
-      document.getElementsByClassName(compStyle.Page)
-    );
-    pagesArray.forEach((page, index) => {
-      index === indexOfActivePage
-        ? page.classList.add(compStyle.Selected)
-        : page.classList.remove(compStyle.Selected);
-    });
-    props.setActivePage(indexOfActivePage);
+    const pagesArray = getAllPages();
+    setActivePage(pagesArray, indexOfActivePage, props);
   };
+
+  useEffect(() => {
+    console.log("mounted");
+    // setActivePage(getAllPages(), 0, props);
+    console.log(document.getElementById("0"));
+    document.getElementById("0")?.classList.add(compStyle.Selected);
+    return () => console.log("unmounting...");
+  }, []); // <-- add this empty array here
 
   return (
     <div className={compStyle.Wrapper}>
@@ -106,7 +105,7 @@ const PagesController = (props: {
                 key={page}
                 id={String(page)}
                 onClick={(e) => handlePageClick(e, page)}
-                className={compStyle.Page}
+                className={`${compStyle.Page}`}
               >
                 <div>
                   <FMLogo />
@@ -140,3 +139,25 @@ const Arrow = () => (
 );
 
 export default PagesController;
+
+function getAllPages() {
+  return Array.from(document.getElementsByClassName(compStyle.Page));
+}
+
+function setActivePage(
+  pagesArray: Element[],
+  indexOfActivePage: number,
+  props: {
+    activePage: number;
+    setActivePage: (index: number) => void;
+    currentPages: number;
+  }
+) {
+  console.log("setting the green border");
+  pagesArray.forEach((page, index) => {
+    index === indexOfActivePage
+      ? page.classList.add(compStyle.Selected)
+      : page.classList.remove(compStyle.Selected);
+  });
+  props.setActivePage(indexOfActivePage);
+}
