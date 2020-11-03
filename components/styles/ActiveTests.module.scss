@@ -22,6 +22,7 @@ $f-s-bg-colour: rgb(236 221 210);
 
     ul {
       li {
+        width: 100px;
         display: flex;
         justify-content: center;
       }
@@ -33,7 +34,7 @@ $f-s-bg-colour: rgb(236 221 210);
 
       li {
         button {
-          border: 0.1rem solid white;
+          // border: 0.1rem solid white;
           //   background: rgba($color: #000000, $alpha: 0);
           filter: invert(1);
         }

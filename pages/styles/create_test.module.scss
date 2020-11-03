@@ -1,0 +1,129 @@
+$bg-colour: rgb(190 171 155);
+
+.CreateTestContainer {
+  img {
+    justify-self: flex-start;
+    align-self: flex-start;
+  }
+
+  box-sizing: border-box;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  padding: 2rem 3.5rem;
+  display: grid;
+  grid-template-columns: 48% 1fr;
+  grid-template-rows: repeat(5, 1fr);
+  column-gap: 6rem;
+  justify-items: center;
+
+  .TestType {
+    grid-row: 2/3;
+    grid-column: 1/2;
+    height: 3rem;
+    align-self: flex-end;
+    width: 20rem;
+    display: flex;
+    justify-self: flex-start;
+    justify-content: center;
+    align-items: flex-start;
+
+    .TestTypeSelect {
+      background: #efddd1;
+      border-radius: 16.5px;
+      width: 100%;
+    }
+  }
+
+  .PageController {
+    grid-row: 3/5;
+    grid-column: 1/2;
+    font-size: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 100%;
+
+    .AddPageCont {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      height: 5rem;
+      width: 30rem;
+      .ChangePagesBtn {
+        background-color: rgba(0, 0, 0, 0);
+        border: none;
+      }
+
+      .pagesNumberIndicator {
+        border: 2px solid #e0bca3;
+        box-sizing: border-box;
+        border-radius: 8px;
+        font-size: xx-large;
+        width: 3rem;
+        height: 3rem;
+        text-align: center;
+      }
+    }
+  }
+
+  .TestNaming {
+    grid-row: 2/3;
+    grid-column: 1/2;
+    width: 20rem;
+    height: 3rem;
+    justify-self: flex-start;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    background: #efddd1;
+    border-radius: 16.5px;
+
+    input {
+      width: 60%;
+      height: 30%;
+      border: solid $bg-colour;
+      background-color: $bg-colour;
+      border-radius: 25px;
+      font-size: xx-large;
+    }
+
+    .lgSelect {
+      width: 30%;
+      background-color: $bg-colour;
+      border: solid $bg-colour;
+    }
+  }
+
+  .PhotoManager {
+    width: 100%;
+    grid-row: 4/5;
+    grid-column: 1/2;
+    border: solid $bg-colour 0.1rem;
+    border-radius: 25px;
+    position: static;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .TestPreview {
+    grid-row: 2/5;
+    grid-column: 2/3;
+    background-color: rgb(236 221 210);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    border: solid rgb(222 213 205) 1px;
+    border-radius: 25px;
+    box-sizing: border-box;
+    padding: 2rem;
+  }
+}
