@@ -99,18 +99,19 @@ $bg-colour: rgb(190 171 155);
     }
   }
 
-  .PhotoManager {
-    width: 100%;
-    grid-row: 4/5;
-    grid-column: 1/2;
-    border: solid $bg-colour 0.1rem;
-    border-radius: 25px;
-    position: static;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
+  // .PhotoManager {
+  //   width: 100%;
+  //   grid-row: 4/5;
+  //   grid-column: 1/2;
+  //   border: solid $bg-colour 0.1rem;
+  //   border-radius: 25px;
+  //   position: static;
+  //   display: flex;
+  //   flex-direction: column;
+  //   justify-content: center;
+  //   align-items: center;
+
+  // }
 
   .TestPreview {
     grid-row: 2/5;
