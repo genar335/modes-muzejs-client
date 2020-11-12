@@ -4,6 +4,8 @@ import stylish from "./styles/PhotoManager.module.scss";
 import uploadIcon from "../GAssets/upload_data.svg";
 import Carousel from "react-multi-carousel";
 import { responsive } from "./constants";
+import Axios from "axios";
+import { error } from "console";
 
 const PhotoManager = (props: { displayed: boolean }) => {
   async function readUploadedIMG(inputFile) {
@@ -56,6 +58,14 @@ const PhotoManager = (props: { displayed: boolean }) => {
       }
       setUpIMGs(tmp);
     }
+    console.log(upIMGs);
+    Axios.post("http://localhost:4000/tests/testIMG", upIMGs)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
   const fileInput = useRef<HTMLInputElement>(null);
 
@@ -106,7 +116,13 @@ const PhotoManager = (props: { displayed: boolean }) => {
         <div className={stylish.IMGPreview}>
           <form onSubmit={handleFileInput}>
             <label>Upload image</label>
-            <input type="file" multiple accept="image/*" ref={fileInput} />
+            <input
+              name="testio"
+              type="file"
+              multiple
+              accept="image/*"
+              ref={fileInput}
+            />
             <input type="submit" value="Submit" />
             <p>Placeholder for image upload</p>
             <Carousel
@@ -118,9 +134,14 @@ const PhotoManager = (props: { displayed: boolean }) => {
               customRightArrow={<CustomRightArrow />}
               customLeftArrow={<CustomLeftArrow />}
             >
-              {upIMGs.map((image) => (
-                <div>
-                  <img className={stylish.tmpIMG} src={image} alt="Oops" />
+              {upIMGs.map((image, index) => (
+                <div key={index}>
+                  <img
+                    key={index}
+                    className={stylish.tmpIMG}
+                    src={image}
+                    alt="Oops"
+                  />
                   <p>image</p>
                 </div>
               ))}

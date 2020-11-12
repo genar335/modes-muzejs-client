@@ -2,6 +2,6 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/TMS/create_test": "pages/TMS/create_test.js",
-  "/client/test": "pages/client/test.js"
+  "/": "pages/index.js",
+  "/TMS/create_test": "pages/TMS/create_test.js"
 }
