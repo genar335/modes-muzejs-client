@@ -15,6 +15,7 @@
     "classnames": "^2.2.6",
     "formik": "^2.1.5",
     "graphql": "^15.3.0",
+    "interactjs": "^1.10.0",
     "next": "9.5.3",
     "next-images": "^1.5.0",
     "react": "16.13.1",
@@ -27,6 +28,7 @@
     "urql": "^1.10.1"
   },
   "devDependencies": {
+    "@interactjs/types": "^1.10.0",
     "@types/classnames": "^2.2.10",
     "@types/node": "^14.11.1",
     "@types/react": "^16.9.49",

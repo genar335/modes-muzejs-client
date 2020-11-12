@@ -1098,6 +1098,11 @@
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.5.tgz#8eed982e2ee6f7f4e44c253e12962980791efd46"
   integrity sha512-6U71C2Wp7r5XtFtQzYrW5iKFT67OixrSxjI4MptCHzdSVlgabczzqLe0ZSgnub/5Kp4hSbpDB1tMytZY9pwxxA==
 
+"@interactjs/types@1.10.0", "@interactjs/types@^1.10.0":
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/@interactjs/types/-/types-1.10.0.tgz#c2232ed3ba503891349912fa74aa05aa467403e9"
+  integrity sha512-TB4uHd++aXqiWHQNzERcP8cxOLHCd+b3fq0XoV7Ydnappoq25R8iIrrB8Yb2FqVkZXnj1SIFYnzpol1SYHFIMQ==
+
 "@next/react-dev-overlay@9.5.3":
   version "9.5.3"
   resolved "https://registry.yarnpkg.com/@next/react-dev-overlay/-/react-dev-overlay-9.5.3.tgz#3275301f08045ecc709e3273031973a1f5e81427"
@@ -3479,6 +3484,13 @@ inherits@2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.3.tgz#633c2c83e3da42a502f52466022480f4208261de"
   integrity sha1-Yzwsg+PaQqUC9SRmAiSA9CCCYd4=
+
+interactjs@^1.10.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/interactjs/-/interactjs-1.10.0.tgz#0fafd725b1fddfc9671cacd98c4f92ceae73a197"
+  integrity sha512-dblDEizs758xETNVoSSxcZiwrP0DmFeNKILeDfhmO13LQRIsnSvbJFEYerEBVeH5m9qsOyYeMgBTafA+ZKkyBg==
+  dependencies:
+    "@interactjs/types" "1.10.0"
 
 invariant@^2.2.2, invariant@^2.2.4:
   version "2.2.4"

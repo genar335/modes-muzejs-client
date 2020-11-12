@@ -1,10 +1,12 @@
 import Link from "next/link";
 import Head from "next/head";
+import OptionTop from "../../components/OptionTop"
+import OptionBottom from "../../components/OptionBottom"
 import styles from "../styles/languages.module.scss"
 
-function Languages() {
+function Languages(props: any) {
   /**
-   * in admin the test id is selected,
+   * in admin the test id is selected, ( props.testid? )
    * from selected lang:
    * link to href="/client/test?testid=[$testid]&lang=[$lang]"
    */
