@@ -8,7 +8,7 @@ import Axios from "axios";
 import { error } from "console";
 
 const PhotoManager = (props: { displayed: boolean }) => {
-  async function readUploadedIMG(inputFile) {
+  async function readUploadedIMG(inputFile: Blob) {
     const tmpFileReader = new FileReader();
 
     return new Promise((resolve, reject) => {
@@ -24,9 +24,8 @@ const PhotoManager = (props: { displayed: boolean }) => {
     });
   }
 
-  const handleUpload = async (event) => {
+  const handleUpload = async (event: { target: { files: any[] } }) => {
     const file = event.target.files[0];
-
     try {
       const fileContents = await readUploadedIMG(file);
       console.log(fileContents);
@@ -35,8 +34,12 @@ const PhotoManager = (props: { displayed: boolean }) => {
     }
   };
 
-  const [uploadedImg, setUploadedImg] = useState();
   const [upIMGs, setUpIMGs] = useState<Array<any>>([]);
+
+  const [recievedIMGLocations, setRecievedIMGLocation] = useState<
+    Array<string>
+  >([]);
+
   async function handleFileInput(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     let tmp = [];
@@ -61,7 +64,8 @@ const PhotoManager = (props: { displayed: boolean }) => {
     console.log(upIMGs);
     Axios.post("http://localhost:4000/tests/testIMG", upIMGs)
       .then(function (response) {
-        console.log(response);
+        console.log(response.data);
+        setRecievedIMGLocation(response.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -134,7 +138,7 @@ const PhotoManager = (props: { displayed: boolean }) => {
               customRightArrow={<CustomRightArrow />}
               customLeftArrow={<CustomLeftArrow />}
             >
-              {upIMGs.map((image, index) => (
+              {recievedIMGLocations.map((image, index) => (
                 <div key={index}>
                   <img
                     key={index}
