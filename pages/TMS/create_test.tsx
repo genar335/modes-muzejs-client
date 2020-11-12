@@ -65,6 +65,8 @@ function create_test() {
     type: "",
   });
 
+  const [isPhotoManagerOpen, setIsPhotoManagerOpen] = useState<boolean>(false)
+  const openPhotos = (toggle: boolean) => setIsPhotoManagerOpen(toggle)
   useEffect(() => {
     console.log("pages have changed");
     socket.emit("Pages update", String(test.pages));
@@ -319,11 +321,10 @@ function create_test() {
           currentPages={test.pages}
         />
       </div>
-      {testType === (("TT" as unknown) as TTestTypes) ||
-      testType === undefined ? null : (
-        <PhotoManager />
-      )}
+
+                <PhotoManager displayed={isPhotoManagerOpen} />
       <TestPreview
+        togglePhotoManager={openPhotos}
         activePage={activePage}
         currentLanguage={currentLang}
         setCurrentLang={activateCurrentLang}
