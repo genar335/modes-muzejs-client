@@ -23,6 +23,7 @@ const TestPreview = (props: {
   testType: ITest["type"];
   saveChanges: (page: any) => void;
   togglePhotoManager: (toggle: boolean) => void;
+  setCurrentCard: React.Dispatch<React.SetStateAction<undefined>>;
 }) => {
   const [isQOpen, setisQOpen] = useState(false);
   const [isAOpen, setisAOpen] = useState(false);
@@ -158,10 +159,6 @@ const TestPreview = (props: {
     );
   };
 
-  const textPreviewer = (text: string) => {
-    return text.slice(0, 90) + "...";
-  };
-
   const handleModalOpening = (
     event: React.MouseEvent<HTMLSpanElement, MouseEvent>
   ) => {
@@ -185,6 +182,7 @@ const TestPreview = (props: {
     props.pageToRender.map((qna: IQnA, iterator: number) => (
       <div key={iterator} id={String(iterator)} className={compStyles.qnaPair}>
         <QACard
+          setCurrentCard={props.setCurrentCard}
           cardType="question"
           cardContents={props.testType === "PP" ? "img" : "text"}
           iterator={iterator}
@@ -197,6 +195,7 @@ const TestPreview = (props: {
         />
         {/* For answer rendering */}
         <QACard
+          setCurrentCard={props.setCurrentCard}
           cardType="answer"
           cardContents={props.testType === "TT" ? "text" : "img"}
           iterator={iterator}

@@ -9,6 +9,10 @@ import Axios from "axios";
 const PhotoManager = (props: {
   displayed: boolean;
   togglePhotoManager: (toggle: boolean) => void;
+  currentCard: React.MutableRefObject<null> | undefined;
+  setCurrentCard: React.Dispatch<
+    React.SetStateAction<React.MutableRefObject<null> | undefined>
+  >;
 }) => {
   async function readUploadedIMG(inputFile: Blob) {
     const tmpFileReader = new FileReader();
@@ -101,7 +105,18 @@ const PhotoManager = (props: {
   const handleIMGClick = (
     event: React.MouseEvent<HTMLImageElement, MouseEvent>
   ) => {
-    console.log("hello from", event.currentTarget.id);
+    if (
+      props.currentCard?.current !== null ||
+      props.currentCard.current.id !== null
+    ) {
+      console.log("hello from", event.currentTarget.id);
+      console.log(props.currentCard?.current);
+      props.currentCard!.current?.src;
+      let tmp = props.currentCard;
+      tmp.current.src = event.currentTarget.src;
+      console.log(tmp);
+      props.setCurrentCard(tmp);
+    }
   };
 
   /**
