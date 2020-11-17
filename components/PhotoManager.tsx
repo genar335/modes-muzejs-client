@@ -99,9 +99,7 @@ const PhotoManager = (props: {
   const handleIMGClick = (
     event: React.MouseEvent<HTMLImageElement, MouseEvent>
   ) => {
-    if (
-      props.currentCard?.current !== null
-    ) {
+    if (props.currentCard?.current !== null) {
       console.log("hello from", event.currentTarget.id);
       console.log(props.currentCard?.current);
       props.currentCard!.current?.src;
@@ -115,7 +113,7 @@ const PhotoManager = (props: {
       }
       console.log(tmpPage);
       props.setCurrentCard(tmp);
-      // props.saveChanges(tmp);
+      props.saveChanges(tmpPage);
     }
   };
 

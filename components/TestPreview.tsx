@@ -132,6 +132,8 @@ const TestPreview = (props: {
     }
   };
 
+  console.log(props.pageToRender, "jfhdskajfkl;ds");
+
   const pageBody = () =>
     props.pageToRender.map((qna: IQnA, iterator: number) => (
       <div key={iterator} id={String(iterator)} className={compStyles.qnaPair}>
