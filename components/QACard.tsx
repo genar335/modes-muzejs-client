@@ -33,7 +33,7 @@ const QACard = (props: {
 
   useEffect(() => {
     console.log("Yayyy");
-  }, [QACardRef]);
+  }, [QACardRef.current]);
 
   const handleCardReference = () => {
     props.setCurrentCard(QACardRef);
@@ -75,6 +75,7 @@ const QACard = (props: {
           textPreviewer(props.qna[props.cardType])
         ) : (
           <img
+            id={`${props.cardType}_${props.iterator}`}
             // onChange={(e) => console.log("YAyyy")}
             className={compStyles.SelectedIMGPreview}
             src=""

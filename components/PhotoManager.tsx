@@ -5,6 +5,7 @@ import uploadIcon from "../GAssets/upload_data.svg";
 import Carousel from "react-multi-carousel";
 import { responsive } from "./constants";
 import Axios from "axios";
+import { IQnA } from "../@types/test";
 
 const PhotoManager = (props: {
   displayed: boolean;
@@ -13,7 +14,10 @@ const PhotoManager = (props: {
   setCurrentCard: React.Dispatch<
     React.SetStateAction<React.MutableRefObject<null> | undefined>
   >;
+  pageToRender: IQnA[];
+  saveChanges: (page: any) => void;
 }) => {
+  let tmpPage = props.pageToRender;
   async function readUploadedIMG(inputFile: Blob) {
     const tmpFileReader = new FileReader();
 
@@ -29,16 +33,6 @@ const PhotoManager = (props: {
       tmpFileReader.readAsDataURL(inputFile);
     });
   }
-
-  const handleUpload = async (event: { target: { files: any[] } }) => {
-    const file = event.target.files[0];
-    try {
-      const fileContents = await readUploadedIMG(file);
-      console.log(fileContents);
-    } catch (e) {
-      console.warn(e.message);
-    }
-  };
 
   const [upIMGs, setUpIMGs] = useState<Array<any>>([]);
 
@@ -106,16 +100,22 @@ const PhotoManager = (props: {
     event: React.MouseEvent<HTMLImageElement, MouseEvent>
   ) => {
     if (
-      props.currentCard?.current !== null ||
-      props.currentCard.current.id !== null
+      props.currentCard?.current !== null
     ) {
       console.log("hello from", event.currentTarget.id);
       console.log(props.currentCard?.current);
       props.currentCard!.current?.src;
       let tmp = props.currentCard;
       tmp.current.src = event.currentTarget.src;
-      console.log(tmp);
+      console.log(tmp?.current.id);
+      const cardData = tmp?.current.id.split("_");
+      console.log(cardData);
+      if (tmpPage) {
+        tmpPage[cardData[1]][cardData[0]] = String(tmp?.current.src);
+      }
+      console.log(tmpPage);
       props.setCurrentCard(tmp);
+      // props.saveChanges(tmp);
     }
   };
 

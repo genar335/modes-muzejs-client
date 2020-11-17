@@ -35,7 +35,7 @@ const TestPreview = (props: {
   const inputEnabler = () => {};
 
   console.log(props.pageToRender);
-  props.pageToRender.map((ele) => console.log(ele.question));
+  // props.pageToRender.map((ele) => console.log(ele.question));
 
   let tmp = props.pageToRender;
 
@@ -78,52 +78,6 @@ const TestPreview = (props: {
     iterator: number,
     // handleQuestionChange: (
     // event: React.ChangeEvent<HTMLTextAreaElement>
-    // ) => void,
-    qna: IQnA
-  ) {
-    return (
-      <div id={String(iterator)} className={compStyles.Question}>
-        <span>＋</span>
-      </div>
-    );
-  }
-
-  const handleAnswerChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    saveNewData(
-      Number(event.currentTarget.id),
-      event.currentTarget.value,
-      "answer"
-    );
-  };
-
-  function textAnswer(iterator: number, qna: IQnA) {
-    // const [curValue, setCurValue] = useState("");
-
-    // useEffect(() => {
-    //   console.log(curValue);
-    // }, [curValue]);
-
-    return (
-      <textarea
-        // defaultValue={"Enter your text"}
-        id={String(iterator)}
-        onChange={(e) => {
-          handleAnswerChange(e);
-          // setCurValue(e.currentTarget.value);
-        }}
-        className={compStyles.Answer}
-      >
-        {qna.answer}
-      </textarea>
-    );
-  }
-
-  function imgAnswer(
-    iterator: number,
-    // handleQuestionChange: (
-    //   event: React.ChangeEvent<HTMLTextAreaElement>
     // ) => void,
     qna: IQnA
   ) {

@@ -126,7 +126,6 @@ function create_test() {
     let tmp = test[currentLang].pages;
     tmp[activePage].QnAPairs = page;
     console.log(tmp);
-    console.log(tmp);
     setTest({
       ...test,
       [currentLang]: {
@@ -339,7 +338,8 @@ function create_test() {
         displayed={isPhotoManagerOpen}
         currentCard={currentCard}
         setCurrentCard={setCurrentCard}
-        // qOrAID={}
+        pageToRender={test[currentLang].pages[activePage].QnAPairs}
+        saveChanges={savePage}
       />
       <TestPreview
         togglePhotoManager={openPhotos}
