@@ -329,7 +329,10 @@ function create_test() {
         />
       </div>
 
-      <PhotoManager displayed={isPhotoManagerOpen} />
+      <PhotoManager
+        togglePhotoManager={openPhotos}
+        displayed={isPhotoManagerOpen}
+      />
       <TestPreview
         togglePhotoManager={openPhotos}
         activePage={activePage}

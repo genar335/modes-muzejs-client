@@ -5,9 +5,11 @@ import uploadIcon from "../GAssets/upload_data.svg";
 import Carousel from "react-multi-carousel";
 import { responsive } from "./constants";
 import Axios from "axios";
-import { error } from "console";
 
-const PhotoManager = (props: { displayed: boolean }) => {
+const PhotoManager = (props: {
+  displayed: boolean;
+  togglePhotoManager: (toggle: boolean) => void;
+}) => {
   async function readUploadedIMG(inputFile: Blob) {
     const tmpFileReader = new FileReader();
 
@@ -61,7 +63,6 @@ const PhotoManager = (props: { displayed: boolean }) => {
       }
       setUpIMGs(tmp);
     }
-    console.log(upIMGs);
     Axios.post("http://localhost:4000/tests/testIMG", upIMGs)
       .then(function (response) {
         console.log(response.data);
@@ -97,6 +98,65 @@ const PhotoManager = (props: { displayed: boolean }) => {
       </button>
     );
   };
+  const handleIMGClick = (
+    event: React.MouseEvent<HTMLImageElement, MouseEvent>
+  ) => {
+    console.log("hello from", event.currentTarget.id);
+  };
+
+  /**
+   * Renders images in groups of two
+   * @param recievedIMGLocations An array of strings representing the location of images on the server
+   */
+  function renderSelectedImages(recievedIMGLocations: string[]): any {
+    let renderedImagesArray = [];
+    console.log(renderedImagesArray.length);
+    if (recievedIMGLocations.length !== 0) {
+      for (let i = 0; i < recievedIMGLocations.length; i++) {
+        renderedImagesArray.push(
+          <div className={stylish.imgContainer} key={i}>
+            <img
+              key={i}
+              id={`img_${i}`}
+              className={stylish.tmpIMG}
+              src={recievedIMGLocations[i]}
+              alt="Here be the image"
+              onClick={handleIMGClick}
+            />
+            {/* Conditionlay render the second image */}
+            {recievedIMGLocations[i + 1] != undefined ? (
+              <img
+                key={i + 1}
+                id={`img_${i + 1}`}
+                src={recievedIMGLocations[i + 1]}
+                alt="here be the second one"
+                className={stylish.tmpIMG}
+                onClick={handleIMGClick}
+              />
+            ) : undefined}
+          </div>
+        );
+        i++;
+        console.log(renderedImagesArray[i], "Jeloo there");
+      }
+      console.log(renderedImagesArray);
+      return renderedImagesArray.map((el) => el);
+    }
+    // return recievedIMGLocations.map((image, index) => (
+    //   <div
+    //     className={stylish.imgContainer}
+    //     id={`imageDiv_${index}`}
+    //     key={index}
+    //   >
+    //     <img
+    //       key={index}
+    //       className={stylish.tmpIMG}
+    //       src={recievedIMGLocations[index]}
+    //       alt="Oops"
+    //     />
+    //   </div>
+    // ));
+  }
 
   return (
     <div
@@ -104,6 +164,7 @@ const PhotoManager = (props: { displayed: boolean }) => {
         !props.displayed ? undefined : stylish.Hidden
       }`}
     >
+      <span onClick={(e) => props.togglePhotoManager(true)}>❌</span>
       <div className={stylish.Contents}>
         <div className={stylish.headerIconContainer}>
           <h3>Uploaded photos</h3>
@@ -130,25 +191,21 @@ const PhotoManager = (props: { displayed: boolean }) => {
             <input type="submit" value="Submit" />
             <p>Placeholder for image upload</p>
             <Carousel
-              ssr
+              // ssr={true}
               containerClass={stylish.Carousel}
               itemClass={stylish.Item}
               responsive={responsive}
               showDots
+              sliderClass={stylish.Slider}
+              // renderDotsOutside={true}
               customRightArrow={<CustomRightArrow />}
               customLeftArrow={<CustomLeftArrow />}
             >
-              {recievedIMGLocations.map((image, index) => (
-                <div key={index}>
-                  <img
-                    key={index}
-                    className={stylish.tmpIMG}
-                    src={image}
-                    alt="Oops"
-                  />
-                  <p>image</p>
-                </div>
-              ))}
+              {recievedIMGLocations.length !== 0 ? (
+                renderSelectedImages(recievedIMGLocations)
+              ) : (
+                <></>
+              )}
             </Carousel>
           </form>
         </div>

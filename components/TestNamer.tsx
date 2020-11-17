@@ -151,6 +151,7 @@ const TestNamer = (props: {
 
   function generateInputs() {
     let inputs = [];
+    let i: number = 0;
     for (const lang in currentNames) {
       inputs.push(
         <div className={compStyles.BtnInputContainer}>
@@ -164,6 +165,7 @@ const TestNamer = (props: {
           </button>
           <input
             id={lang}
+            key={i}
             type="text"
             placeholder="Enter text name"
             // value={currentNames[selectedLang as TLangOption["value"]]}
@@ -173,6 +175,7 @@ const TestNamer = (props: {
           />
         </div>
       );
+      i++;
     }
     return inputs;
   }

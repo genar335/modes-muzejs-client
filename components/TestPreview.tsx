@@ -22,7 +22,7 @@ const TestPreview = (props: {
   setCurrentLang: (lang: TLangOption["value"]) => void;
   testType: ITest["type"];
   saveChanges: (page: any) => void;
-  togglePhotoManger: (toggle: boolean) => void;
+  togglePhotoManager: (toggle: boolean) => void;
 }) => {
   const [isQOpen, setisQOpen] = useState(false);
   const [isAOpen, setisAOpen] = useState(false);
@@ -193,7 +193,7 @@ const TestPreview = (props: {
           qna={qna}
           testType={props.testType}
           q_a_TextEntry={q_a_TextEntry}
-          togglePhotoManager={props.togglePhotoManger}
+          togglePhotoManager={props.togglePhotoManager}
         />
         {/* For answer rendering */}
         <QACard
@@ -205,7 +205,7 @@ const TestPreview = (props: {
           qna={qna}
           testType={props.testType}
           q_a_TextEntry={q_a_TextEntry}
-          togglePhotoManager={props.togglePhotoManger}
+          togglePhotoManager={props.togglePhotoManager}
         />
       </div>
     ));
