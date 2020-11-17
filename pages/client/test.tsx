@@ -1,10 +1,13 @@
 import Link from "next/link";
 import Head from "next/head";
+import React, { useRef } from "react";
 import { useRouter } from 'next/router';
 import interact from 'interactjs';
 import styles from "../styles/test.module.scss";
 import OptionTop from "../../components/OptionTop";
 import OptionBottom from "../../components/OptionBottom";
+import { Target } from "@interactjs/types";
+import QACard from "../../components/QACard";
 
 function Test(props: any) {
 
@@ -21,6 +24,21 @@ function Test(props: any) {
      * 
      */
 
+    const dropZone =  useRef(null)
+
+    if(dropZone.current && document.getElementById("answer")) {
+        console.log(document.getElementById("answer")?.className)
+        interact(dropZone.current as unknown as Target)
+            .dropzone({
+                overlap: "center",
+                accept: document.getElementById("answer")!,
+                ondrop: function (event) {
+                    console.log(event.relatedTarget.id
+                        + ' was dropped into '
+                        + event.target.id)
+                }
+            })
+    }
 
     return(
         <div className={styles.pageContainer}>
@@ -32,14 +50,17 @@ function Test(props: any) {
             <div className={styles.testContainer}>
                 <div className={styles.qnaContainer}>
                     <OptionTop />
+                    <div className={styles.dropzoneDiv}></div>
                     <OptionBottom />
                 </div>
                 <div className={styles.qnaContainer}>
                     <OptionTop />
+                    <div className={styles.dropzoneDiv}></div>
                     <OptionBottom />
                 </div>
                 <div className={styles.qnaContainer}>
                     <OptionTop />
+                    <div className={styles.dropzoneDiv} ref={dropZone}></div>
                     <OptionBottom />
                 </div>
             </div>
