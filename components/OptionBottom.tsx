@@ -35,7 +35,7 @@ const OptionBottom = (props: any) => {
         })
     }
     return(
-        <div className={styles.optionContainer} ref={draggable} >
+        <div className={styles.optionContainer} ref={draggable} id="answer">
             <img src={bottomFrame} alt="bottom frame" id={styles.bottomFrame}></img>
             {/*<p className={styles.text}>fashion</p>*/}
         </div>
