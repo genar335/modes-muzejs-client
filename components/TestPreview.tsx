@@ -22,7 +22,7 @@ const TestPreview = (props: {
   setCurrentLang: (lang: TLangOption["value"]) => void;
   testType: ITest["type"];
   saveChanges: (page: any) => void;
-  togglePhotoManger: (toggle: boolean) => void;
+  togglePhotoManager: (toggle: boolean) => void;
 }) => {
   const [isQOpen, setisQOpen] = useState(false);
   const [isAOpen, setisAOpen] = useState(false);
@@ -90,7 +90,11 @@ const TestPreview = (props: {
   const handleAnswerChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
-    saveNewData(event.currentTarget.id, event.currentTarget.value, "answer");
+    saveNewData(
+      Number(event.currentTarget.id),
+      event.currentTarget.value,
+      "answer"
+    );
   };
 
   function textAnswer(iterator: number, qna: IQnA) {
@@ -130,7 +134,6 @@ const TestPreview = (props: {
   }
 
   function q_a_TextEntry(type: "answer" | "question", id: number) {
-    console.log("hello from a new beginninf", type);
     console.log("id", id);
     return (
       <textarea
@@ -148,7 +151,11 @@ const TestPreview = (props: {
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     console.log(`${event.currentTarget.id}:`, event.currentTarget.value);
-    saveNewData(event.currentTarget.id, event.currentTarget.value, "question");
+    saveNewData(
+      Number(event.currentTarget.id),
+      event.currentTarget.value,
+      "question"
+    );
   };
 
   const textPreviewer = (text: string) => {
@@ -186,7 +193,7 @@ const TestPreview = (props: {
           qna={qna}
           testType={props.testType}
           q_a_TextEntry={q_a_TextEntry}
-          togglePhotoManager={props.togglePhotoManger}
+          togglePhotoManager={props.togglePhotoManager}
         />
         {/* For answer rendering */}
         <QACard
@@ -198,7 +205,7 @@ const TestPreview = (props: {
           qna={qna}
           testType={props.testType}
           q_a_TextEntry={q_a_TextEntry}
-          togglePhotoManager={props.togglePhotoManger}
+          togglePhotoManager={props.togglePhotoManager}
         />
       </div>
     ));

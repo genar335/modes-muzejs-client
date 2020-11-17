@@ -53,7 +53,14 @@ const QACard = (props: {
           </div>
         </div>
       </div>
-      <p className={compStyles.QADescription} onClick={(e) => setIsOpen(true)}>
+      <p
+        className={compStyles.QADescription}
+        onClick={(e) => {
+          props.cardContents === "img"
+            ? props.togglePhotoManager(false)
+            : setIsOpen(true);
+        }}
+      >
         {props.cardContents === "text" ? (
           textPreviewer(props.qna[props.cardType])
         ) : (

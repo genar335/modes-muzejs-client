@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { ReactEventHandler, useRef, useState } from "react";
 import compStyles from "./styles/TestNamer.module.scss";
 import styles from "../pages/styles/create_test.module.scss";
 import { ITest, TLangOption } from "../@types/test";
@@ -65,11 +65,7 @@ const TestNamer = (props: {
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
     const nameInput = event.currentTarget.value;
-    console.log(event.currentTarget.id);
-    // setCurrentNames({
-    //   ...currentNames,
-    //   [selectedLang as string]: nameInput,
-    // });
+
     console.log(langBuffer, "langbuffer");
     langBuffer[event.currentTarget.id as "ru" | "lv" | "en"] =
       event.currentTarget.value;
@@ -96,15 +92,15 @@ const TestNamer = (props: {
       ...props.currentStateOfTest,
       ru: {
         ...props.currentStateOfTest.ru,
-        name: currentNames.ru,
+        name: langBuffer.ru,
       },
       lv: {
         ...props.currentStateOfTest.lv,
-        name: currentNames.lv,
+        name: langBuffer.lv,
       },
       en: {
         ...props.currentStateOfTest.en,
-        name: currentNames.en,
+        name: langBuffer.en,
       },
     });
     setIsOpen(false);
@@ -155,6 +151,7 @@ const TestNamer = (props: {
 
   function generateInputs() {
     let inputs = [];
+    let i: number = 0;
     for (const lang in currentNames) {
       inputs.push(
         <div className={compStyles.BtnInputContainer}>
@@ -168,6 +165,7 @@ const TestNamer = (props: {
           </button>
           <input
             id={lang}
+            key={i}
             type="text"
             placeholder="Enter text name"
             // value={currentNames[selectedLang as TLangOption["value"]]}
@@ -177,6 +175,7 @@ const TestNamer = (props: {
           />
         </div>
       );
+      i++;
     }
     return inputs;
   }
@@ -219,7 +218,7 @@ const TestNamer = (props: {
       <div className={compStyles.ModalOpener}>
         <span>
           {`Test name in ${selectedLang?.toUpperCase()}: `}
-          {currentNames[selectedLang as TLangOption["value"]]}
+          {props.currentStateOfTest[selectedLang as TLangOption["value"]].name}
         </span>
         <button
           className={compStyles.OpeningBtn}

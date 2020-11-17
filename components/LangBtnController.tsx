@@ -67,6 +67,7 @@ const LangBtnController = (props: {
 
   const handleArrowClick = (): void => {
     activeBtnSwitcher();
+    // console.log("Clicked a btn");
   };
 
   return (

@@ -9,14 +9,25 @@ import TestNamer from "../../components/TestNamer";
 import TestPreview from "../../components/TestPreview";
 import styles from "../styles/create_test.module.scss";
 import { APIURL } from "../../components/constants";
+import Axios from "axios";
 
 function create_test() {
   // useEffect(() => {
-  const socket = io(APIURL, {
-    reconnectionDelayMax: 10000,
-    query: "123",
-  });
-  // }, []);
+  //   console.log("pages have changed");
+  //   socket.emit("Pages update", String(test.pages));
+  //   if (test.pages >= 2) {
+  //   }
+  // }, [test.pages]);
+
+  // useEffect(() => {
+  //   socket.emit("Test changed", test);
+  // }, [test]);
+  // useEffect(() => {
+  //   const socket = io(APIURL, {
+  //     reconnectionDelayMax: 10000,
+  //     query: "123",
+  //   });
+  // });
   // const [currentPages, setCurrentPages] = useState<number>(1);
   // let tmpPages: number = 0;
   const qnaEmptyArray = (): IQnA => {
@@ -65,18 +76,8 @@ function create_test() {
     type: "",
   });
 
-  const [isPhotoManagerOpen, setIsPhotoManagerOpen] = useState<boolean>(false)
-  const openPhotos = (toggle: boolean) => setIsPhotoManagerOpen(toggle)
-  useEffect(() => {
-    console.log("pages have changed");
-    socket.emit("Pages update", String(test.pages));
-    if (test.pages >= 2) {
-    }
-  }, [test.pages]);
-
-  useEffect(() => {
-    socket.emit("Test changed", test);
-  }, [test]);
+  const [isPhotoManagerOpen, setIsPhotoManagerOpen] = useState<boolean>(true);
+  const openPhotos = (toggle: boolean) => setIsPhotoManagerOpen(toggle);
 
   const saveTest = (test: ITest): void => setTest(test);
   const [currentLang, setCurrentLang] = useState<TLangOption["value"]>("ru");
@@ -278,6 +279,12 @@ function create_test() {
 
   const didMountRef = useRef();
 
+  const handleTestSaving = (event) => {
+    Axios.post("http://localhost:4000/tests/create", test)
+      .catch((res) => alert(res))
+      .then((res) => console.log(res));
+  };
+
   return (
     <div className={styles.CreateTestContainer}>
       <FMLogo />
@@ -322,7 +329,10 @@ function create_test() {
         />
       </div>
 
-                <PhotoManager displayed={isPhotoManagerOpen} />
+      <PhotoManager
+        togglePhotoManager={openPhotos}
+        displayed={isPhotoManagerOpen}
+      />
       <TestPreview
         togglePhotoManager={openPhotos}
         activePage={activePage}
@@ -333,6 +343,7 @@ function create_test() {
         testType={test.type}
         saveChanges={savePage}
       />
+      <button onClick={handleTestSaving}>Send the test!</button>
     </div>
   );
 }
