@@ -232,7 +232,7 @@ const Arrow = () => (
 );
 
 /**
- *
+ * Sends an array of files to the server to be saved there.
  * @param upIMGs Array of uploaded images to be sent to the server.
  * @param setRecievedIMGLocation Array of paths to the images on the server. saved to a state.
  */
