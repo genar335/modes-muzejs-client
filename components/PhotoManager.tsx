@@ -113,7 +113,7 @@ const PhotoManager = (props: {
         tmpPage[cardData[1]][cardData[0]] = String(tmp?.current.src);
       }
       //* console.log(tmpPage);
-      props.setCurrentCard(tmp);
+      // props.setCurrentCard(tmp);
       props.saveChanges(tmpPage);
     }
   };

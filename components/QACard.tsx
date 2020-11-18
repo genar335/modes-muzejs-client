@@ -3,6 +3,7 @@ import { IQnA, TLangOption } from "../@types/test";
 import compStyles from "./styles/TestPreview.module.scss";
 import addCompStyles from "./styles/TestNamer.module.scss";
 import { closeBtn, CreateLangSwitchers } from "./TestNamer";
+import { URLCheck } from "./constants";
 
 const QACard = (props: {
   cardType: "answer" | "question";
@@ -16,10 +17,12 @@ const QACard = (props: {
   q_a_TextEntry: (type: "answer" | "question", id: number) => JSX.Element;
   togglePhotoManager: (toggle: boolean) => void;
   setCurrentCard: React.Dispatch<React.SetStateAction<undefined>>;
+  pageContents: string;
 }) => {
   const charLimit = 90;
   const [isOpen, setIsOpen] = useState(false);
   console.log(props.cardContents);
+  console.log("Test for page contents", props.pageContents);
   const textPreviewer = (text: string) => {
     if (text.length < 1) return <div className={compStyles.emptyText}>T</div>;
     if (text.length > charLimit) {
@@ -78,7 +81,8 @@ const QACard = (props: {
             id={`${props.cardType}_${props.iterator}`}
             // onChange={(e) => console.log("YAyyy")}
             className={compStyles.SelectedIMGPreview}
-            src=""
+            src={props.pageContents || ""}
+            // src={props.pageContents.match(URLCheck) ? props.pageContents : ""}
             alt="No image"
             ref={QACardRef}
           />

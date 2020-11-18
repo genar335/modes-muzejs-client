@@ -148,6 +148,7 @@ const TestPreview = (props: {
           testType={props.testType}
           q_a_TextEntry={q_a_TextEntry}
           togglePhotoManager={props.togglePhotoManager}
+          pageContents={props.pageToRender[iterator]['question']}
         />
         {/* For answer rendering */}
         <QACard
@@ -161,13 +162,10 @@ const TestPreview = (props: {
           testType={props.testType}
           q_a_TextEntry={q_a_TextEntry}
           togglePhotoManager={props.togglePhotoManager}
+          pageContents={props.pageToRender[iterator]['answer']}
         />
       </div>
     ));
-
-  props.testType === ""
-    ? console.log("no test type")
-    : console.log(props.testType);
 
   return (
     <div className={styles.TestPreview}>
@@ -183,7 +181,6 @@ const TestPreview = (props: {
           ) : (
             pageBody()
           )}
-          {/* {pageBody()} */}
         </div>
       </div>
     </div>
