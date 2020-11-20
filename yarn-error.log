@@ -1,30 +1,30 @@
 Arguments: 
-  /usr/local/Cellar/node/14.4.0/bin/node /usr/local/Cellar/yarn/1.22.4/libexec/bin/yarn.js add -D @types/interactjs
+  /Users/yberfox228/.nvm/versions/node/v15.0.1/bin/node /Users/yberfox228/.yarn/bin/yarn.js add -D @types/react-switch
 
 PATH: 
-  /Library/Frameworks/Python.framework/Versions/3.8/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Library/Frameworks/Python.framework/Versions/3.8/bin
+  /Users/yberfox228/.nvm/versions/node/v15.0.1/bin:/Users/yberfox228/.yarn/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Frameworks/Mono.framework/Versions/Current/Commands
 
 Yarn version: 
-  1.22.4
+  1.22.5
 
 Node version: 
-  14.4.0
+  15.0.1
 
 Platform: 
   darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2finteractjs: Not found
-      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.22.4/libexec/lib/cli.js:66987:18)
-      at Request.self.callback (/usr/local/Cellar/yarn/1.22.4/libexec/lib/cli.js:140748:22)
-      at Request.emit (events.js:315:20)
-      at Request.<anonymous> (/usr/local/Cellar/yarn/1.22.4/libexec/lib/cli.js:141720:10)
-      at Request.emit (events.js:315:20)
-      at IncomingMessage.<anonymous> (/usr/local/Cellar/yarn/1.22.4/libexec/lib/cli.js:141642:12)
-      at Object.onceWrapper (events.js:421:28)
-      at IncomingMessage.emit (events.js:327:22)
-      at endReadableNT (_stream_readable.js:1224:12)
-      at processTicksAndRejections (internal/process/task_queues.js:84:21)
+  Error: https://registry.yarnpkg.com/@types%2freact-switch: Not found
+      at Request.params.callback [as _callback] (/Users/yberfox228/.yarn/lib/cli.js:66988:18)
+      at Request.self.callback (/Users/yberfox228/.yarn/lib/cli.js:140749:22)
+      at Request.emit (node:events:327:20)
+      at Request.<anonymous> (/Users/yberfox228/.yarn/lib/cli.js:141721:10)
+      at Request.emit (node:events:327:20)
+      at IncomingMessage.<anonymous> (/Users/yberfox228/.yarn/lib/cli.js:141643:12)
+      at Object.onceWrapper (node:events:433:28)
+      at IncomingMessage.emit (node:events:339:22)
+      at endReadableNT (node:internal/streams/readable:1289:12)
+      at processTicksAndRejections (node:internal/process/task_queues:80:21)
 
 npm manifest: 
   {
@@ -44,12 +44,14 @@ npm manifest:
       "classnames": "^2.2.6",
       "formik": "^2.1.5",
       "graphql": "^15.3.0",
+      "interactjs": "^1.10.0",
       "next": "9.5.3",
       "next-images": "^1.5.0",
       "react": "16.13.1",
       "react-dom": "16.13.1",
       "react-multi-carousel": "^2.5.5",
       "react-select": "^3.1.0",
+      "react-switch": "^5.0.1",
       "sass": "^1.26.11",
       "socket.io": "^2.3.0",
       "socket.io-client": "^2.3.1",
@@ -1173,7 +1175,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.5.tgz#8eed982e2ee6f7f4e44c253e12962980791efd46"
     integrity sha512-6U71C2Wp7r5XtFtQzYrW5iKFT67OixrSxjI4MptCHzdSVlgabczzqLe0ZSgnub/5Kp4hSbpDB1tMytZY9pwxxA==
   
-  "@interactjs/types@^1.10.0":
+  "@interactjs/types@1.10.0", "@interactjs/types@^1.10.0":
     version "1.10.0"
     resolved "https://registry.yarnpkg.com/@interactjs/types/-/types-1.10.0.tgz#c2232ed3ba503891349912fa74aa05aa467403e9"
     integrity sha512-TB4uHd++aXqiWHQNzERcP8cxOLHCd+b3fq0XoV7Ydnappoq25R8iIrrB8Yb2FqVkZXnj1SIFYnzpol1SYHFIMQ==
@@ -3560,6 +3562,13 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.3.tgz#633c2c83e3da42a502f52466022480f4208261de"
     integrity sha1-Yzwsg+PaQqUC9SRmAiSA9CCCYd4=
   
+  interactjs@^1.10.0:
+    version "1.10.0"
+    resolved "https://registry.yarnpkg.com/interactjs/-/interactjs-1.10.0.tgz#0fafd725b1fddfc9671cacd98c4f92ceae73a197"
+    integrity sha512-dblDEizs758xETNVoSSxcZiwrP0DmFeNKILeDfhmO13LQRIsnSvbJFEYerEBVeH5m9qsOyYeMgBTafA+ZKkyBg==
+    dependencies:
+      "@interactjs/types" "1.10.0"
+  
   invariant@^2.2.2, invariant@^2.2.4:
     version "2.2.4"
     resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
@@ -4983,6 +4992,13 @@ Lockfile:
       prop-types "^15.6.0"
       react-input-autosize "^2.2.2"
       react-transition-group "^4.3.0"
+  
+  react-switch@^5.0.1:
+    version "5.0.1"
+    resolved "https://registry.yarnpkg.com/react-switch/-/react-switch-5.0.1.tgz#449277f4c3aed5286fffd0f50d5cbc2a23330406"
+    integrity sha512-Pa5kvqRfX85QUCK1Jv0rxyeElbC3aNpCP5hV0LoJpU/Y6kydf0t4kRriQ6ZYA4kxWwAYk/cH51T4/sPzV9mCgQ==
+    dependencies:
+      prop-types "^15.6.2"
   
   react-transition-group@^4.3.0:
     version "4.4.1"

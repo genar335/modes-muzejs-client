@@ -9,7 +9,10 @@ import TestNamer from "../../components/TestNamer";
 import TestPreview from "../../components/TestPreview";
 import styles from "../styles/create_test.module.scss";
 import { APIURL } from "../../components/constants";
+import Switch from "react-switch";
 import Axios from "axios";
+import { captureRejectionSymbol } from "events";
+import { TlsOptions } from "tls";
 
 function create_test() {
   // useEffect(() => {
@@ -34,6 +37,9 @@ function create_test() {
   const [currentCard, setCurrentCard] = useState<
     React.MutableRefObject<null>
   >();
+  const saveCurrentCard = (
+    card: React.SetStateAction<React.MutableRefObject<null> | undefined>
+  ) => setCurrentCard(card);
 
   const qnaEmptyArray = (): IQnA => {
     return {
@@ -52,7 +58,7 @@ function create_test() {
   const [activePage, setActivePage] = useState<number>(0);
   const activateAPage = (index: number) => setActivePage(index);
   const [pagesRendered, setPagesRendered] = useState<boolean>();
-  const [test, setTest] = useState<ITest>({
+  const testTemplateWithThreeCards = {
     pages: 1,
     en: {
       name: "",
@@ -79,16 +85,18 @@ function create_test() {
       ],
     },
     type: "",
-  });
+  };
+  const [test, setTest] = useState<ITest>(testTemplateWithThreeCards);
 
   const [isPhotoManagerOpen, setIsPhotoManagerOpen] = useState<boolean>(true);
   const openPhotos = (toggle: boolean) => setIsPhotoManagerOpen(toggle);
 
   const saveTest = (test: ITest): void => setTest(test);
   const [currentLang, setCurrentLang] = useState<TLangOption["value"]>("ru");
-  const activateCurrentLang = (lang: TLangOption["value"]) =>
-    setCurrentLang(lang);
-
+  const activateCurrentLang = (lang: TLangOption["value"]) => {
+    // setCurrentLang(lang);
+    setActiveLangForSwitches(lang);
+  };
   /*   const handleClick = () => {
     setTest({
       ru: {
@@ -134,18 +142,6 @@ function create_test() {
       },
     });
   }
-
-  // const [editEnabled, setEditEnabled] = useState<boolean>(false);
-  // useEffect(() => {
-  //   if ((currentLang && testType) != undefined) {
-  //     console.log("in an if");
-  //     setEditEnabled(true);
-  //   } else {
-  //     setEditEnabled(false);
-  //   }
-  //   console.log("outside of if");
-  //   console.log(currentLang, testType);
-  // }, [currentLang, testType]);
 
   const handleNumberInputChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -283,11 +279,51 @@ function create_test() {
 
   const didMountRef = useRef();
 
-  const handleTestSaving = (event) => {
+  const handleTestSaving = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    event.preventDefault();
     Axios.post("http://localhost:4000/tests/create", test)
       .catch((res) => alert(res))
       .then((res) => console.log(res));
   };
+
+  const testLang: TLangOption["value"][] = ["ru", "lv", "en"];
+  const handleLangSwitchChange = (
+    checked: boolean,
+    event: MouseEvent | React.SyntheticEvent<MouseEvent | KeyboardEvent, Event>,
+    id: string
+  ) => {
+    console.log(id);
+    setCurrentLang(id as TLangOption["value"]);
+
+    // testLang.forEach((lang: TLangOption["value"]) => {
+    //   setLangSwitchesState({
+    //     ...langSwitchesStates,
+    //     [lang]: !langSwitchesStates[lang],
+    //   });
+    // });
+    setActiveLangForSwitches(id as TLangOption["value"]);
+  };
+
+  const [langSwitchesStates, setLangSwitchesState] = useState({
+    ru: true,
+    lv: false,
+    en: false,
+  });
+  const renderLangSwitcher = (
+    languagesToHaveSwitches: TLangOption["value"][]
+  ) =>
+    languagesToHaveSwitches.map((lang: TLangOption["value"]) => (
+      <div className={styles.singleLangSwitcher}>
+        <p>{lang.toLocaleUpperCase()}</p>
+        <Switch
+          id={lang}
+          onChange={handleLangSwitchChange}
+          checked={langSwitchesStates[lang]}
+        />
+      </div>
+    ));
 
   return (
     <div className={styles.CreateTestContainer}>
@@ -300,11 +336,23 @@ function create_test() {
           currentStateOfTest={test}
         />
       </div>
+      {/* <Switch
+        id="ru"
+        onChange={handleLangSwitchChange}
+        checked={tmpLangSwitch}
+      /> */}
+      <div className={styles.LangSwitcher}>{renderLangSwitcher(testLang)}</div>
+
       <div className={styles.TestType}>
         <Select
           options={typeOptions}
           className={styles.TestTypeSelect}
-          onChange={(selected: any): void => handleTypeChange(selected.value)}
+          onChange={(selected: any): void => {
+            setTest({
+              ...testTemplateWithThreeCards,
+              type: selected.value,
+            });
+          }}
         />
       </div>
       <div className={styles.PageController}>
@@ -350,11 +398,25 @@ function create_test() {
         pageToRender={test[currentLang].pages[activePage].QnAPairs}
         testType={test.type}
         saveChanges={savePage}
-        setCurrentCard={setCurrentCard}
+        setCurrentCard={saveCurrentCard}
       />
       <button onClick={handleTestSaving}>Send the test!</button>
     </div>
   );
+
+  function setActiveLangForSwitches(id: TLangOption["value"]) {
+    const tmp = langSwitchesStates;
+    for (const key in tmp) {
+      if (key === id) {
+        console.log("Match", id);
+        tmp[key as TLangOption["value"]] = true;
+      } else {
+        tmp[key as TLangOption["value"]] = false;
+      }
+    }
+    setLangSwitchesState(tmp);
+    setCurrentLang(id);
+  }
 }
 
 export default create_test;

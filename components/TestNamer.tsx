@@ -191,7 +191,6 @@ const TestNamer = (props: {
           {closeBtn(setIsOpen)}
 
           <div className={compStyles.Modal}>
-            {/* {CreateLangSwitchers(setSelectedLanguage, inputEnabler)} */}
             <form onSubmit={handleNameEntry} className={compStyles.NameForm}>
               {/* <input
                 // disabled={isNameEntryEnabled}
@@ -235,12 +234,13 @@ export default TestNamer;
 
 export function CreateLangSwitchers(
   setSelectedLanguage: (chooseLanguage: TLangOption["value"]) => void,
-  inputEnabler: () => void
+  inputEnabler: () => void,
+  activeLang: TLangOption["value"]
 ) {
   return (
     <LangBtnController
       BtnArray={["ru", "lv", "en"]}
-      active={"ru"}
+      active={activeLang}
       langSelector={setSelectedLanguage}
       inputEnabler={inputEnabler}
     />

@@ -57,37 +57,6 @@ const TestPreview = (props: {
     event.key === "Enter" ? console.log("Efnter") : undefined;
   };
 
-  function textQuestion(
-    iterator: number,
-    // handleQuestionChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void,
-    qna: IQnA
-  ) {
-    return (
-      <textarea
-        defaultValue={"Enter your text"}
-        id={String(iterator)}
-        onChange={handleQuestionChange}
-        className={compStyles.Question}
-        onKeyPress={handleQuestionKeyPress}
-      >
-        {/* {qna.question} */}
-      </textarea>
-    );
-  }
-  function imgQuestion(
-    iterator: number,
-    // handleQuestionChange: (
-    // event: React.ChangeEvent<HTMLTextAreaElement>
-    // ) => void,
-    qna: IQnA
-  ) {
-    return (
-      <div id={String(iterator)} className={compStyles.Question}>
-        <span>＋</span>
-      </div>
-    );
-  }
-
   function q_a_TextEntry(type: "answer" | "question", id: number) {
     console.log("id", id);
     return (
@@ -148,7 +117,8 @@ const TestPreview = (props: {
           testType={props.testType}
           q_a_TextEntry={q_a_TextEntry}
           togglePhotoManager={props.togglePhotoManager}
-          pageContents={props.pageToRender[iterator]['question']}
+          currentLang={props.currentLanguage}
+          pageContents={props.pageToRender[iterator]["question"]}
         />
         {/* For answer rendering */}
         <QACard
@@ -162,7 +132,8 @@ const TestPreview = (props: {
           testType={props.testType}
           q_a_TextEntry={q_a_TextEntry}
           togglePhotoManager={props.togglePhotoManager}
-          pageContents={props.pageToRender[iterator]['answer']}
+          currentLang={props.currentLanguage}
+          pageContents={props.pageToRender[iterator]["answer"]}
         />
       </div>
     ));

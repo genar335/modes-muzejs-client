@@ -18,6 +18,7 @@ const QACard = (props: {
   togglePhotoManager: (toggle: boolean) => void;
   setCurrentCard: React.Dispatch<React.SetStateAction<undefined>>;
   pageContents: string;
+  currentLang: TLangOption["value"];
 }) => {
   const charLimit = 90;
   const [isOpen, setIsOpen] = useState(false);
@@ -55,7 +56,11 @@ const QACard = (props: {
         <div className={addCompStyles.ModalContainer}>
           {closeBtn(setIsOpen)}
           <div className={addCompStyles.Modal}>
-            {CreateLangSwitchers(props.setSelectedLanguage, props.inputEnabler)}
+            {CreateLangSwitchers(
+              props.setSelectedLanguage,
+              props.inputEnabler,
+              props.currentLang
+            )}
             <div className={addCompStyles.NameForm}>
               {props.cardContents === "text" ? (
                 props.q_a_TextEntry(props.cardType, props.iterator)
