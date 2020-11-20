@@ -11,20 +11,24 @@ const PagesController = (props: {
   setActivePage: (index: number) => void;
   currentPages: number;
 }) => {
- 
-
   const [pagesAmount, setPagesAmount] = useState<Array<number>>([
     ...Array(props.currentPages).keys(),
   ]);
 
   useEffect(() => {
     setPagesAmount([...Array(props.currentPages).keys()]);
-    if (didMountRef.current) {
-      console.log("component mounted");
-    } else {
-      console.log("componenet updated");
-    }
+    // if (didMountRef.current) {
+    //   console.log("component mounted");
+    // } else {
+    //   console.log("componenet updated");
+    // }
   }, [props.currentPages]);
+  //* Effect for setting the border to the first page when there are no other pages.
+  useEffect(() => {
+    if (document.getElementsByClassName(compStyle.Page).length <= 1) {
+      document.getElementById("0")?.classList.add(compStyle.Selected);
+    }
+  });
 
   const didMountRef = useRef();
 
@@ -61,14 +65,6 @@ const PagesController = (props: {
     const pagesArray = getAllPages();
     setActivePage(pagesArray, indexOfActivePage, props);
   };
-
-  useEffect(() => {
-    console.log("mounted");
-    // setActivePage(getAllPages(), 0, props);
-    console.log(document.getElementById("0"));
-    document.getElementById("0")?.classList.add(compStyle.Selected);
-    return () => console.log("unmounting...");
-  }, []); // <-- add this empty array here
 
   return (
     <div className={compStyle.Wrapper}>

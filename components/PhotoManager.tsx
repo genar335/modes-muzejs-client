@@ -5,11 +5,19 @@ import uploadIcon from "../GAssets/upload_data.svg";
 import Carousel from "react-multi-carousel";
 import { responsive } from "./constants";
 import Axios from "axios";
+import { IQnA } from "../@types/test";
 
 const PhotoManager = (props: {
   displayed: boolean;
   togglePhotoManager: (toggle: boolean) => void;
+  currentCard: React.MutableRefObject<null> | undefined;
+  setCurrentCard: React.Dispatch<
+    React.SetStateAction<React.MutableRefObject<null> | undefined>
+  >;
+  pageToRender: IQnA[];
+  saveChanges: (page: any) => void;
 }) => {
+  let tmpPage = props.pageToRender;
   async function readUploadedIMG(inputFile: Blob) {
     const tmpFileReader = new FileReader();
 
@@ -26,22 +34,16 @@ const PhotoManager = (props: {
     });
   }
 
-  const handleUpload = async (event: { target: { files: any[] } }) => {
-    const file = event.target.files[0];
-    try {
-      const fileContents = await readUploadedIMG(file);
-      console.log(fileContents);
-    } catch (e) {
-      console.warn(e.message);
-    }
-  };
-
   const [upIMGs, setUpIMGs] = useState<Array<any>>([]);
 
   const [recievedIMGLocations, setRecievedIMGLocation] = useState<
     Array<string>
   >([]);
 
+  /**
+   * Loads the file from the clients computer into the browser and saves the array into the state.
+   * @param event
+   */
   async function handleFileInput(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     let tmp = [];
@@ -63,14 +65,7 @@ const PhotoManager = (props: {
       }
       setUpIMGs(tmp);
     }
-    Axios.post("http://localhost:4000/tests/testIMG", upIMGs)
-      .then(function (response) {
-        console.log(response.data);
-        setRecievedIMGLocation(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    sendTheDataToTheServer(upIMGs, setRecievedIMGLocation);
   }
   const fileInput = useRef<HTMLInputElement>(null);
 
@@ -98,15 +93,34 @@ const PhotoManager = (props: {
       </button>
     );
   };
+
+  /**
+   * Sets the image for the card that has been clicked inside of the test. preview component, as well as saves the changese to state of the current page.
+   * @param event Event for a mouse click.
+   */
   const handleIMGClick = (
     event: React.MouseEvent<HTMLImageElement, MouseEvent>
   ) => {
-    console.log("hello from", event.currentTarget.id);
+    if (props.currentCard !== null || props.currentCard !== undefined) {
+      //* console.log("hello from", event.currentTarget.id);
+      //* console.log(props.currentCard?.current);
+      let tmp = props.currentCard;
+      tmp!.current!.src = event.currentTarget.src;
+      //* console.log(tmp?.current.id);
+      const cardData = tmp?.current.id.split("_");
+      //* console.log(cardData);
+      if (tmpPage) {
+        tmpPage[cardData[1]][cardData[0]] = String(tmp?.current.src);
+      }
+      //* console.log(tmpPage);
+      // props.setCurrentCard(tmp);
+      props.saveChanges(tmpPage);
+    }
   };
 
   /**
-   * Renders images in groups of two
-   * @param recievedIMGLocations An array of strings representing the location of images on the server
+   * Renders images in groups of two.
+   * @param recievedIMGLocations An array of strings representing the location of images on the server.
    */
   function renderSelectedImages(recievedIMGLocations: string[]): any {
     let renderedImagesArray = [];
@@ -142,20 +156,6 @@ const PhotoManager = (props: {
       console.log(renderedImagesArray);
       return renderedImagesArray.map((el) => el);
     }
-    // return recievedIMGLocations.map((image, index) => (
-    //   <div
-    //     className={stylish.imgContainer}
-    //     id={`imageDiv_${index}`}
-    //     key={index}
-    //   >
-    //     <img
-    //       key={index}
-    //       className={stylish.tmpIMG}
-    //       src={recievedIMGLocations[index]}
-    //       alt="Oops"
-    //     />
-    //   </div>
-    // ));
   }
 
   return (
@@ -191,13 +191,11 @@ const PhotoManager = (props: {
             <input type="submit" value="Submit" />
             <p>Placeholder for image upload</p>
             <Carousel
-              // ssr={true}
               containerClass={stylish.Carousel}
               itemClass={stylish.Item}
               responsive={responsive}
               showDots
               sliderClass={stylish.Slider}
-              // renderDotsOutside={true}
               customRightArrow={<CustomRightArrow />}
               customLeftArrow={<CustomLeftArrow />}
             >
@@ -232,3 +230,22 @@ const Arrow = () => (
     />
   </svg>
 );
+
+/**
+ * Sends an array of files to the server to be saved there.
+ * @param upIMGs Array of uploaded images to be sent to the server.
+ * @param setRecievedIMGLocation Array of paths to the images on the server. saved to a state.
+ */
+function sendTheDataToTheServer(
+  upIMGs: any[],
+  setRecievedIMGLocation: React.Dispatch<React.SetStateAction<string[]>>
+) {
+  Axios.post("http://localhost:4000/tests/testIMG", upIMGs)
+    .then(function (response) {
+      console.log(response.data);
+      setRecievedIMGLocation(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}

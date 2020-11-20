@@ -30,6 +30,11 @@ function create_test() {
   // });
   // const [currentPages, setCurrentPages] = useState<number>(1);
   // let tmpPages: number = 0;
+
+  const [currentCard, setCurrentCard] = useState<
+    React.MutableRefObject<null>
+  >();
+
   const qnaEmptyArray = (): IQnA => {
     return {
       question: "",
@@ -120,7 +125,6 @@ function create_test() {
     console.log(page);
     let tmp = test[currentLang].pages;
     tmp[activePage].QnAPairs = page;
-    console.log(tmp);
     console.log(tmp);
     setTest({
       ...test,
@@ -332,6 +336,10 @@ function create_test() {
       <PhotoManager
         togglePhotoManager={openPhotos}
         displayed={isPhotoManagerOpen}
+        currentCard={currentCard}
+        setCurrentCard={setCurrentCard}
+        pageToRender={test[currentLang].pages[activePage].QnAPairs}
+        saveChanges={savePage}
       />
       <TestPreview
         togglePhotoManager={openPhotos}
@@ -342,6 +350,7 @@ function create_test() {
         pageToRender={test[currentLang].pages[activePage].QnAPairs}
         testType={test.type}
         saveChanges={savePage}
+        setCurrentCard={setCurrentCard}
       />
       <button onClick={handleTestSaving}>Send the test!</button>
     </div>

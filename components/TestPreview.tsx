@@ -23,6 +23,7 @@ const TestPreview = (props: {
   testType: ITest["type"];
   saveChanges: (page: any) => void;
   togglePhotoManager: (toggle: boolean) => void;
+  setCurrentCard: React.Dispatch<React.SetStateAction<undefined>>;
 }) => {
   const [isQOpen, setisQOpen] = useState(false);
   const [isAOpen, setisAOpen] = useState(false);
@@ -34,7 +35,7 @@ const TestPreview = (props: {
   const inputEnabler = () => {};
 
   console.log(props.pageToRender);
-  props.pageToRender.map((ele) => console.log(ele.question));
+  // props.pageToRender.map((ele) => console.log(ele.question));
 
   let tmp = props.pageToRender;
 
@@ -87,52 +88,6 @@ const TestPreview = (props: {
     );
   }
 
-  const handleAnswerChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    saveNewData(
-      Number(event.currentTarget.id),
-      event.currentTarget.value,
-      "answer"
-    );
-  };
-
-  function textAnswer(iterator: number, qna: IQnA) {
-    // const [curValue, setCurValue] = useState("");
-
-    // useEffect(() => {
-    //   console.log(curValue);
-    // }, [curValue]);
-
-    return (
-      <textarea
-        // defaultValue={"Enter your text"}
-        id={String(iterator)}
-        onChange={(e) => {
-          handleAnswerChange(e);
-          // setCurValue(e.currentTarget.value);
-        }}
-        className={compStyles.Answer}
-      >
-        {qna.answer}
-      </textarea>
-    );
-  }
-
-  function imgAnswer(
-    iterator: number,
-    // handleQuestionChange: (
-    //   event: React.ChangeEvent<HTMLTextAreaElement>
-    // ) => void,
-    qna: IQnA
-  ) {
-    return (
-      <div id={String(iterator)} className={compStyles.Question}>
-        <span>＋</span>
-      </div>
-    );
-  }
-
   function q_a_TextEntry(type: "answer" | "question", id: number) {
     console.log("id", id);
     return (
@@ -158,10 +113,6 @@ const TestPreview = (props: {
     );
   };
 
-  const textPreviewer = (text: string) => {
-    return text.slice(0, 90) + "...";
-  };
-
   const handleModalOpening = (
     event: React.MouseEvent<HTMLSpanElement, MouseEvent>
   ) => {
@@ -181,10 +132,13 @@ const TestPreview = (props: {
     }
   };
 
+  console.log(props.pageToRender, "jfhdskajfkl;ds");
+
   const pageBody = () =>
     props.pageToRender.map((qna: IQnA, iterator: number) => (
       <div key={iterator} id={String(iterator)} className={compStyles.qnaPair}>
         <QACard
+          setCurrentCard={props.setCurrentCard}
           cardType="question"
           cardContents={props.testType === "PP" ? "img" : "text"}
           iterator={iterator}
@@ -194,9 +148,11 @@ const TestPreview = (props: {
           testType={props.testType}
           q_a_TextEntry={q_a_TextEntry}
           togglePhotoManager={props.togglePhotoManager}
+          pageContents={props.pageToRender[iterator]['question']}
         />
         {/* For answer rendering */}
         <QACard
+          setCurrentCard={props.setCurrentCard}
           cardType="answer"
           cardContents={props.testType === "TT" ? "text" : "img"}
           iterator={iterator}
@@ -206,13 +162,10 @@ const TestPreview = (props: {
           testType={props.testType}
           q_a_TextEntry={q_a_TextEntry}
           togglePhotoManager={props.togglePhotoManager}
+          pageContents={props.pageToRender[iterator]['answer']}
         />
       </div>
     ));
-
-  props.testType === ""
-    ? console.log("no test type")
-    : console.log(props.testType);
 
   return (
     <div className={styles.TestPreview}>
@@ -228,7 +181,6 @@ const TestPreview = (props: {
           ) : (
             pageBody()
           )}
-          {/* {pageBody()} */}
         </div>
       </div>
     </div>
