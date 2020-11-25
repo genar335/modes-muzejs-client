@@ -1,4 +1,5 @@
 export interface ITest {
+  private _id: string | undefined;
   /**
    * @param type Describes avaialable elements for composing the test page.
    *
@@ -25,6 +26,7 @@ export interface ITest {
    * @param lv Lativan version of test contents.
    */
   lv: ILangSpecificBody;
+  active: boolean;
 }
 
 export type TTestTypes = {

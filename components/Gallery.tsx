@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TestCard from "./TestCard";
 import searchIcon from "../GAssets/search_big.png";
 import styles from "./styles/Gallery.module.scss";
 import { white } from "./constants";
+import { ITest } from "../@types/test";
 
-const Gallery = (props: any) => {
+const Gallery = (props: {
+  getInactiveTests: (active: boolean) => Promise<any>;
+}) => {
+  const [recievedTests, setRecievedTests] = useState<ITest[]>();
+  const getTests = async () => {
+    const fetchedTests: ITest[] = await props.getInactiveTests(false);
+    setRecievedTests(fetchedTests);
+  };
+
+  useEffect(() => {
+    getTests();
+    console.log(recievedTests);
+  }, []);
+
   return (
     <div className={styles.Gallery}>
       <h1>Test gallery</h1>
@@ -27,25 +41,18 @@ const Gallery = (props: any) => {
       </div>
       {/* //* Test Gallery */}
       <div className={styles.tCardContainer}>
-        <TestCard colour={white} />
-        <TestCard colour={white} />
-        <TestCard colour={white} />
-        <TestCard colour={white} />
-        <TestCard colour={white} />
-        <TestCard colour={white} />
-        <TestCard colour={white} />
-        <TestCard colour={white} />
-        <TestCard colour={white} />
-        <TestCard colour={white} />
-        <TestCard colour={white} />
-        <TestCard colour={white} />
-        <TestCard colour={white} />
-        <TestCard colour={white} />
-        <TestCard colour={white} />
-        <TestCard colour={white} />
-        <TestCard colour={white} />
-        <TestCard colour={white} />
-        <TestCard colour={white} />
+        {recievedTests !== undefined
+          ? recievedTests.map((test: ITest, iterator: number) => (
+              <div
+                key={iterator}
+                className={styles.tCardContainer}
+                id={test._id}
+              >
+                <h1>{test.en.name}</h1>
+                <p>{test.en.pages[0].QnAPairs[0].question}</p>
+              </div>
+            ))
+          : null}
       </div>
     </div>
   );

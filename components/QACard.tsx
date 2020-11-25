@@ -56,11 +56,11 @@ const QACard = (props: {
         <div className={addCompStyles.ModalContainer}>
           {closeBtn(setIsOpen)}
           <div className={addCompStyles.Modal}>
-            {CreateLangSwitchers(
+            {/* {CreateLangSwitchers(
               props.setSelectedLanguage,
               props.inputEnabler,
               props.currentLang
-            )}
+            )} */}
             <div className={addCompStyles.NameForm}>
               {props.cardContents === "text" ? (
                 props.q_a_TextEntry(props.cardType, props.iterator)

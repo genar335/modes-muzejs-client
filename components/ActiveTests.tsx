@@ -1,12 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
 import TestCard from "./TestCard";
 import styles from "./styles/ActiveTests.module.scss";
 import { brown } from "./constants";
 import { NextRouter, useRouter } from "next/router";
 import { NextApiHandler } from "next";
+import { ITest } from "../@types/test";
+import Axios from "axios";
 
-const ActiveTests = ({}) => {
+const ActiveTests = (props: {
+  getActiveTests: (active: boolean) => Promise<any>;
+}) => {
+  const createTestToRender = async () => {
+    return await props.getActiveTests(false);
+  };
+
+  const [recievedTests, setRecievedTests] = useState<ITest[]>();
+  const getTests = async () => {
+    // try {
+    //   const rTests = await Axios.get(
+    //     `http://localhost:4000/tests/getTest?active=${false}`
+    //   );
+    //   console.log(rTests.data);
+    //   setRecievedTests(rTests.data);
+    // } catch (error) {
+    //   alert(error);
+    // }
+    const fetchedTests: ITest[] = await props.getActiveTests(true);
+    setRecievedTests(fetchedTests);
+  };
+  useEffect(() => {
+    getTests();
+    console.log(recievedTests);
+  }, []);
+
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -45,16 +72,13 @@ const ActiveTests = ({}) => {
         dotListClass={styles.customDotListStyle}
       >
         {addATest(handleAddTestClick)}
-        <TestCard colour={brown} />
-        <TestCard colour={brown} />
-        <TestCard colour={brown} />
-        <TestCard colour={brown} />
-        <TestCard colour={brown} />
-        <TestCard colour={brown} />
-        <TestCard colour={brown} />
-        <TestCard colour={brown} />
-        <TestCard colour={brown} />
-        <TestCard colour={brown} />
+        {recievedTests
+          ? recievedTests.map((test: ITest, iterator: number) => (
+              <div key={iterator} id={test._id}>
+                <h1>{test.en.name}</h1>
+              </div>
+            ))
+          : null}
       </Carousel>
     </div>
   );

@@ -58,7 +58,7 @@ function create_test() {
   const [activePage, setActivePage] = useState<number>(0);
   const activateAPage = (index: number) => setActivePage(index);
   const [pagesRendered, setPagesRendered] = useState<boolean>();
-  const testTemplateWithThreeCards = {
+  const testTemplateWithThreeCards: ITest = {
     pages: 1,
     en: {
       name: "",
@@ -85,6 +85,7 @@ function create_test() {
       ],
     },
     type: "",
+    active: false,
   };
   const [test, setTest] = useState<ITest>(testTemplateWithThreeCards);
 
@@ -336,11 +337,6 @@ function create_test() {
           currentStateOfTest={test}
         />
       </div>
-      {/* <Switch
-        id="ru"
-        onChange={handleLangSwitchChange}
-        checked={tmpLangSwitch}
-      /> */}
       <div className={styles.LangSwitcher}>{renderLangSwitcher(testLang)}</div>
 
       <div className={styles.TestType}>
