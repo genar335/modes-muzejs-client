@@ -1,7 +1,8 @@
 import Axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ITest } from "../../@types/test";
 import ActiveTests from "../../components/ActiveTests";
+import { devURL } from "../../components/constants";
 import Gallery from "../../components/Gallery";
 import styles from "../styles/main.module.scss";
 const main = () => {
@@ -16,17 +17,78 @@ const main = () => {
       return [];
     }
   };
-  const toggleTestActiveState = async () => {
-    try {
-    } catch (error) {
-      console.error(error);
-    }
+
+  const [tests, setTests] = useState<{
+    activeTests: ITest[];
+    inActiveTests: ITest[];
+  }>({
+    activeTests: [],
+    inActiveTests: [],
+  });
+
+  const getAllTests = async () => {
+    const serverResponse = await Axios.get(`${devURL}tests/allTests`);
+    const data = serverResponse.data;
+    console.log("Main test fethcer");
+    let tmpactiveTests: Array<ITest> = [];
+    let tmpinActiveTests: Array<ITest> = [];
+    filterTests(tmpactiveTests, tmpinActiveTests, data);
+    setTests({
+      activeTests: tmpactiveTests,
+      inActiveTests: tmpinActiveTests,
+    });
   };
+
+  const filterTests = (
+    activeTests: ITest[],
+    inActiveTests: ITest[],
+    arrToFilter: ITest[]
+  ) => {
+    arrToFilter.forEach((test: ITest) => {
+      if (test.active !== undefined) {
+        test.active ? activeTests.push(test) : inActiveTests.push(test);
+      }
+    });
+  };
+
+  const toggleTest = (testID: string) => {
+    console.log("toggling test");
+    let tmpActive = tests.activeTests;
+    let tmpInactive = tests.inActiveTests;
+    let combinedTests = [...tests.activeTests, ...tests.inActiveTests];
+    combinedTests.forEach((test: ITest) => {
+      if (test._id === testID) {
+        if (combinedTests.indexOf(test) < tmpActive.length) {
+          tmpActive.splice(tmpActive.indexOf(test), 1);
+          tmpInactive.push(test);
+        } else {
+          tmpInactive.splice(tmpInactive.indexOf(test), 1);
+          tmpActive.push(test);
+        }
+      }
+    });
+    setTests({
+      activeTests: tmpActive,
+      inActiveTests: tmpInactive,
+    });
+  };
+
+  useEffect(() => {
+    getAllTests();
+  }, []);
 
   return (
     <div className={styles.MainContainer}>
-      <ActiveTests getActiveTests={getTestsByActive} />
-      <Gallery getInactiveTests={getTestsByActive} />
+      <ActiveTests
+        getActiveTests={getTestsByActive}
+        activeTest={tests.activeTests}
+        updateTheTests={toggleTest}
+      />
+      <Gallery
+        getInactiveTests={getTestsByActive}
+        testsToRender={tests.inActiveTests}
+        updateTheTests={toggleTest}
+      />
     </div>
   );
 };

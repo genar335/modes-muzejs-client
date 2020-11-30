@@ -7,17 +7,14 @@ import { ITest } from "../@types/test";
 
 const Gallery = (props: {
   getInactiveTests: (active: boolean) => Promise<any>;
+  testsToRender: ITest[];
+  updateTheTests: (testID: string) => void;
 }) => {
   const [recievedTests, setRecievedTests] = useState<ITest[]>();
   const getTests = async () => {
     const fetchedTests: ITest[] = await props.getInactiveTests(false);
     setRecievedTests(fetchedTests);
   };
-
-  useEffect(() => {
-    getTests();
-    console.log(recievedTests);
-  }, []);
 
   return (
     <div className={styles.Gallery}>
@@ -41,13 +38,17 @@ const Gallery = (props: {
       </div>
       {/* //* Test Gallery */}
       <div className={styles.tCardContainer}>
-        {recievedTests !== undefined
-          ? recievedTests.map((test: ITest, iterator: number) => (
+        {props.testsToRender
+          ? props.testsToRender.map((test: ITest, iterator: number) => (
               <TestCard
                 colour="brown"
                 iterator={iterator}
                 _id={test._id || "NA"}
                 active={test.active}
+                nameInRu={test.ru.name}
+                // parentComponentTestFetcher={getTests}
+                // mainTestFetcher={props.updateTheTest}
+                updateTests={props.updateTheTests}
               />
             ))
           : null}
