@@ -6,15 +6,15 @@ import { white } from "./constants";
 import { ITest } from "../@types/test";
 
 const Gallery = (props: {
-  getInactiveTests: (active: boolean) => Promise<any>;
+  // getInactiveTests: (active: boolean) => Promise<any>;
   testsToRender: ITest[];
   updateTheTests: (testID: string) => void;
 }) => {
   const [recievedTests, setRecievedTests] = useState<ITest[]>();
-  const getTests = async () => {
-    const fetchedTests: ITest[] = await props.getInactiveTests(false);
-    setRecievedTests(fetchedTests);
-  };
+  // const getTests = async () => {
+  //   const fetchedTests: ITest[] = await props.getInactiveTests(false);
+  //   setRecievedTests(fetchedTests);
+  // };
 
   return (
     <div className={styles.Gallery}>
@@ -41,10 +41,11 @@ const Gallery = (props: {
         {props.testsToRender
           ? props.testsToRender.map((test: ITest, iterator: number) => (
               <TestCard
+                key={iterator}
                 colour="brown"
                 iterator={iterator}
                 _id={test._id || "NA"}
-                active={test.active}
+                active={props.testsToRender[iterator].active}
                 nameInRu={test.ru.name}
                 // parentComponentTestFetcher={getTests}
                 // mainTestFetcher={props.updateTheTest}

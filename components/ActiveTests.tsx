@@ -8,8 +8,8 @@ import { ITest } from "../@types/test";
 import Axios from "axios";
 
 const ActiveTests = (props: {
-  getActiveTests: (active: boolean) => Promise<any>;
-  activeTest: ITest[];
+  // getActiveTests: (active: boolean) => Promise<any>;
+  activeTests: ITest[];
   updateTheTests: (testID: string) => void;
 }) => {
   const responsive = {
@@ -44,31 +44,27 @@ const ActiveTests = (props: {
       <h1>Active tests</h1>
       <Carousel
         responsive={responsive}
-        ssr={true}
-        className={styles.Carousel}
-        showDots={true}
-        dotListClass={styles.customDotListStyle}
+        ssr
+        containerClass={styles.Carousel}
+        showDots
+        // dotListClass={styles.customDotListStyle}
       >
         {addATest(handleAddTestClick)}
-        {
-          /* recievedTests */ props.activeTest
-            ? /* recievedTests */ props.activeTest.map(
-                (test: ITest, iterator: number) => (
-                  <TestCard
-                    iterator={iterator}
-                    colour="white"
-                    _id={test._id || "NA"}
-                    active={test.active}
-                    nameInRu={test.ru.name}
-
-                    // parentComponentTestFetcher={getTests}
-                    // mainTestFetcher={props.updateTheTests}
-                    updateTests={props.updateTheTests}
-                  />
-                )
-              )
-            : null
-        }
+        {props.activeTests
+          ? props.activeTests.map((test: ITest, iterator: number) => (
+              <TestCard
+                key={iterator}
+                iterator={iterator}
+                colour="white"
+                _id={test._id || "NA"}
+                active={test.active}
+                nameInRu={test.ru.name}
+                // parentComponentTestFetcher={getTests}
+                // mainTestFetcher={props.updateTheTests}
+                updateTests={props.updateTheTests}
+              />
+            ))
+          : null}
       </Carousel>
     </div>
   );

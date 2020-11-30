@@ -51,22 +51,47 @@ const main = () => {
     });
   };
 
-  const toggleTest = (testID: string) => {
-    console.log("toggling test");
+  const toggleTest = (testID: string, isActive: boolean) => {
+    console.log("toggling test", isActive);
     let tmpActive = tests.activeTests;
     let tmpInactive = tests.inActiveTests;
     let combinedTests = [...tests.activeTests, ...tests.inActiveTests];
+    console.log(combinedTests, "before changing the toggle");
+    /*  if (isActive) {
+      tmpActive = tests.activeTests.map((test: ITest) => {
+        if (test._id !== testID) return test;
+        else {
+          tmpInactive.push(test);
+        }
+      });
+    } else {
+      tmpInactive = tests.inActiveTests.map((test: ITest) => {
+        if (test._id !== testID) return test;
+        else {
+          tmpActive.push(test);
+        }
+      });
+    } */
+
     combinedTests.forEach((test: ITest) => {
       if (test._id === testID) {
+        console.log("Match", test._id);
         if (combinedTests.indexOf(test) < tmpActive.length) {
           tmpActive.splice(tmpActive.indexOf(test), 1);
-          tmpInactive.push(test);
+          tmpInactive.push({
+            ...test,
+            active: !test.active,
+          });
         } else {
           tmpInactive.splice(tmpInactive.indexOf(test), 1);
-          tmpActive.push(test);
+          tmpActive.push({
+            ...test,
+            active: !test.active,
+          });
         }
       }
     });
+    console.log("after changing toggle", combinedTests);
     setTests({
       activeTests: tmpActive,
       inActiveTests: tmpInactive,
@@ -80,12 +105,12 @@ const main = () => {
   return (
     <div className={styles.MainContainer}>
       <ActiveTests
-        getActiveTests={getTestsByActive}
-        activeTest={tests.activeTests}
+        // getActiveTests={getTestsByActive}
+        activeTests={tests.activeTests}
         updateTheTests={toggleTest}
       />
       <Gallery
-        getInactiveTests={getTestsByActive}
+        // getInactiveTests={getTestsByActive}
         testsToRender={tests.inActiveTests}
         updateTheTests={toggleTest}
       />

@@ -33,18 +33,17 @@ const TestCard = (props: {
         }
       );
       changedTest = responseFromServer.data;
-      console.log(changedTest);
+      // setIsActive(changedTest.active);
+      console.log(changedTest, "recieved a response");
     } catch (error) {
       console.error(error);
     }
   };
   // console.log(props);
   const handleActiveChange = async () => {
+    // setIsActive(!isActive);
     await changeTestState(props._id, !isActive);
-    setIsActive(!isActive);
     console.log("Calling all tests");
-    // props.mainTestFetcher();
-    // props.parentComponentTestFetcher();
     props.updateTests(props._id);
   };
 
@@ -55,7 +54,7 @@ const TestCard = (props: {
       className={styles.TestCard}
       style={CardStyle}
     >
-      {/* <Switch onChange={handleActiveChange} checked={isActive} /> */}
+      <Switch onChange={handleActiveChange} checked={props.active} />
       {/* 
       //! Need to figure out how to time the switch
       */}
