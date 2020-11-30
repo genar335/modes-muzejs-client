@@ -43,14 +43,12 @@ const Gallery = (props: {
       <div className={styles.tCardContainer}>
         {recievedTests !== undefined
           ? recievedTests.map((test: ITest, iterator: number) => (
-              <div
-                key={iterator}
-                className={styles.tCardContainer}
-                id={test._id}
-              >
-                <h1>{test.en.name}</h1>
-                <p>{test.en.pages[0].QnAPairs[0].question}</p>
-              </div>
+              <TestCard
+                colour="brown"
+                iterator={iterator}
+                _id={test._id || "NA"}
+                active={test.active}
+              />
             ))
           : null}
       </div>

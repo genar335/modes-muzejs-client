@@ -16,6 +16,12 @@ const main = () => {
       return [];
     }
   };
+  const toggleTestActiveState = async () => {
+    try {
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className={styles.MainContainer}>

@@ -74,9 +74,12 @@ const ActiveTests = (props: {
         {addATest(handleAddTestClick)}
         {recievedTests
           ? recievedTests.map((test: ITest, iterator: number) => (
-              <div key={iterator} id={test._id}>
-                <h1>{test.en.name}</h1>
-              </div>
+              <TestCard
+                iterator={iterator}
+                colour="white"
+                _id={test._id || "NA"}
+                active={test.active}
+              />
             ))
           : null}
       </Carousel>
