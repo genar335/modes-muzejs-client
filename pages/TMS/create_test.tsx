@@ -301,8 +301,8 @@ function create_test() {
   ) => {
     event.preventDefault();
     Axios.post("http://localhost:4000/tests/create", test)
-      .catch((res) => alert(res))
-      .then((res) => console.log(res));
+      .catch((err) => alert(err))
+      .then((res) => alert(res.data));
   };
 
   const testLang: TLangOption["value"][] = ["ru", "lv", "en"];
@@ -369,11 +369,12 @@ function create_test() {
         <Select
           options={typeOptions}
           className={styles.TestTypeSelect}
-          defaultValue={convertType()}
+          // defaultValue={convertType()}
           isDisabled={isTestFetched}
           onChange={(selected: any): void => {
             setTest({
-              ...testTemplateWithThreeCards,
+              // ...testTemplateWithThreeCards,
+              ...test,
               type: selected.value,
             });
           }}

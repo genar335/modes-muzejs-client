@@ -52,7 +52,7 @@ const main = () => {
     });
   };
 
-  const toggleTest = (testID: string, isActive: boolean) => {
+  const toggleTest = (testID: string) => {
     let tmpActive = tests.activeTests;
     let tmpInactive = tests.inActiveTests;
     let combinedTests = [...tests.activeTests, ...tests.inActiveTests];
@@ -91,12 +91,14 @@ const main = () => {
         // getActiveTests={getTestsByActive}
         activeTests={tests.activeTests}
         updateTheTests={toggleTest}
+        fetchAllTests={getAllTests}
       />
       <Gallery
         // getInactiveTests={getTestsByActive}
         testsToRender={tests.inActiveTests}
         updateTheTests={toggleTest}
-      />
+         fetchAllTests={getAllTests}
+     />
     </div>
   );
 };

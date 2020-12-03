@@ -11,6 +11,7 @@ const ActiveTests = (props: {
   // getActiveTests: (active: boolean) => Promise<any>;
   activeTests: ITest[];
   updateTheTests: (testID: string) => void;
+  fetchAllTests: () => Promise<void>;
 }) => {
   const responsive = {
     superLargeDesktop: {
@@ -61,6 +62,7 @@ const ActiveTests = (props: {
             // parentComponentTestFetcher={getTests}
             // mainTestFetcher={props.updateTheTests}
             updateTests={props.updateTheTests}
+            fetchAllTests={props.fetchAllTests}
           />
         ))}
       </Carousel>

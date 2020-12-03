@@ -9,6 +9,7 @@ const Gallery = (props: {
   // getInactiveTests: (active: boolean) => Promise<any>;
   testsToRender: ITest[];
   updateTheTests: (testID: string) => void;
+  fetchAllTests: () => Promise<void>;
 }) => {
   const [recievedTests, setRecievedTests] = useState<ITest[]>();
   // const getTests = async () => {
@@ -50,6 +51,7 @@ const Gallery = (props: {
                 // parentComponentTestFetcher={getTests}
                 // mainTestFetcher={props.updateTheTest}
                 updateTests={props.updateTheTests}
+                fetchAllTests={props.fetchAllTests}
               />
             ))
           : null}

@@ -145,7 +145,10 @@ $bg-colour: rgb(190 171 155);
   .SaveTestBtn {
     border: none;
     background-color: rgba(0, 0, 0, 0);
-    position: absolute;
+    grid-row: 6/7;
+    grid-column: 2/3;
+    // justify-self: flex-end;
+    place-self: center;
     width: 200px;
     height: 59px;
     left: 1637px;
@@ -161,5 +164,9 @@ $bg-colour: rgb(190 171 155);
     text-align: center;
 
     color: #ffffff;
+  }
+
+  button:hover {
+    filter: brightness(1.5);
   }
 }
