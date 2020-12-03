@@ -30,10 +30,16 @@ $f-s-bg-colour: rgb(236 221 210);
       height: 50vh;
 
       ul {
-        li {
+        .Item {
+          width: 31rem;
           display: flex;
           justify-content: center;
-          padding: -3rem;
+
+          div {
+            div {
+              background-color: #ffffff;
+            }
+          }
         }
       }
 

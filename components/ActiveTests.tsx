@@ -36,7 +36,7 @@ const ActiveTests = (props: {
   const router: NextRouter = useRouter();
 
   const handleAddTestClick = () => {
-    alert("Test addition should be happening right about now.");
+    // alert("Test addition should be happening right about now.");
     router.push(`/TMS/create_test`);
   };
 
@@ -87,35 +87,34 @@ const ActiveTests = (props: {
     <div className={styles.ActiveTestsContainer}>
       <h1>Active tests</h1>
 
-<div className={styles.CarouselContainer}>
-
-      {addATest(handleAddTestClick)}
-      <Carousel
-        responsive={responsive}
-        ssr
-        containerClass={styles.Carousel}
-        itemClass={styles.Item}
-        customRightArrow={<CustomRightArrow />}
-        customLeftArrow={<CustomLeftArrow />}
-        showDots
-        // dotListClass={styles.customDotListStyle}
+      <div className={styles.CarouselContainer}>
+        {addATest(handleAddTestClick)}
+        <Carousel
+          responsive={responsive}
+          ssr
+          containerClass={styles.Carousel}
+          itemClass={styles.Item}
+          customRightArrow={<CustomRightArrow />}
+          customLeftArrow={<CustomLeftArrow />}
+          showDots
+          // dotListClass={styles.customDotListStyle}
         >
-        {props.activeTests.map((test: ITest, iterator: number) => (
-          <TestCard
-          key={iterator}
-          iterator={iterator}
-          colour="white"
-          _id={test._id || "NA"}
-          active={true}
-          nameInRu={test.ru.name}
-          // parentComponentTestFetcher={getTests}
-          // mainTestFetcher={props.updateTheTests}
-          updateTests={props.updateTheTests}
-          fetchAllTests={props.fetchAllTests}
-          />
+          {props.activeTests.map((test: ITest, iterator: number) => (
+            <TestCard
+              key={iterator}
+              iterator={iterator}
+              colour="white"
+              _id={test._id || "NA"}
+              active={true}
+              nameInRu={test.ru.name}
+              // parentComponentTestFetcher={getTests}
+              // mainTestFetcher={props.updateTheTests}
+              updateTests={props.updateTheTests}
+              fetchAllTests={props.fetchAllTests}
+            />
           ))}
-      </Carousel>
-          </div>
+        </Carousel>
+      </div>
     </div>
   );
 };

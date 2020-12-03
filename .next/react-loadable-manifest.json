@@ -4,5 +4,15 @@
       "id": "./node_modules/next/dist/client/dev/noop.js",
       "file": "static/chunks/0.js"
     }
+  ],
+  "howler": [
+    {
+      "id": "./node_modules/howler/dist/howler.js",
+      "file": "static/chunks/1.js"
+    },
+    {
+      "id": "./node_modules/webpack/buildin/global.js",
+      "file": "static/chunks/1.js"
+    }
   ]
 }

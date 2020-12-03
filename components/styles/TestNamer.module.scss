@@ -12,6 +12,16 @@ $transitionDuration: 0.3s;
     border: rgba($color: #000000, $alpha: 0);
     background: none;
     height: 100%;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    & p {
+      height: min-content;
+      overflow: scroll;
+    }
   }
 }
 

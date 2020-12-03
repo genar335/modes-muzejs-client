@@ -8,7 +8,7 @@ import PhotoManager from "../../components/PhotoManager";
 import TestNamer from "../../components/TestNamer";
 import TestPreview from "../../components/TestPreview";
 import styles from "../styles/create_test.module.scss";
-import { APIURL } from "../../components/constants";
+import { APIURL, devURL } from "../../components/constants";
 import Switch from "react-switch";
 import Axios, { AxiosResponse } from "axios";
 import { captureRejectionSymbol } from "events";
@@ -296,13 +296,25 @@ function create_test() {
 
   const didMountRef = useRef();
 
-  const handleTestSaving = (
+  const handleTestSaving = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.preventDefault();
-    Axios.post("http://localhost:4000/tests/create", test)
-      .catch((err) => alert(err))
-      .then((res) => alert(res.data));
+    try {
+      const response = await Axios.post(
+        "http://localhost:4000/tests/create",
+        test
+      );
+      console.log(response.data);
+      //! Need to notify user somehow
+      //? Perhaps a modal with confirmation, or a card preview?
+      setTimeout(() => {
+        router.replace("http://localhost:3000/TMS/main");
+      }, 1000);
+      router.replace("http://localhost:3000/TMS/main");
+    } catch (error) {
+      alert(error);
+    }
   };
 
   const testLang: TLangOption["value"][] = ["ru", "lv", "en"];
@@ -350,6 +362,10 @@ function create_test() {
       console.log(correctType, "123");
       return correctType || typeOptions[0];
     }
+  };
+
+  const handleExitFromTheTest = () => {
+    router.replace("http://localhost:3000/TMS/main");
   };
 
   return (
@@ -427,6 +443,9 @@ function create_test() {
       />
       <button className={styles.SaveTestBtn} onClick={handleTestSaving}>
         {TestSaveButton()}
+      </button>
+      <button onClick={handleExitFromTheTest} className={styles.ExitBtn}>
+        Exit
       </button>
     </div>
   );

@@ -6,6 +6,9 @@ import Axios, { AxiosError, AxiosResponse } from "axios";
 import { devURL } from "./constants";
 import { ITest } from "../@types/test";
 import { NextRouter, useRouter } from "next/router";
+import { motion, useAnimation } from "framer-motion";
+// const klik = require("/klik.mp3");
+import useSound from "use-sound";
 
 const TestCard = (props: {
   iterator: number;
@@ -22,6 +25,8 @@ const TestCard = (props: {
     background: `rgb(${props.colour})`,
   };
 
+  const [playClick] = useSound("/klik.mp3");
+  const [deleteSound] = useSound("/move-to-trash.mp3");
   const router: NextRouter = useRouter();
   const forwardToTestEdit = (testID: string) => {
     router.push(`/TMS/create_test?testToEdit=${testID}`);
@@ -63,12 +68,18 @@ const TestCard = (props: {
     }, 10);
   };
 
-  const handleEditIconClick = () => {
-    alert("Sending you to edit a test");
+  const handleEditIconClick = async () => {
+    playClick();
     forwardToTestEdit(props._id);
   };
 
-  const handleDeleteIconClick = () => {
+  const handleDeleteIconClick = async () => {
+    //* animating opacity from 1 to 0 in 0.3 seconds
+    await cardControls.start({
+      opacity: 0,
+      transition: { duration: 0.3 },
+    });
+    deleteSound();
     Axios.get(`${devURL}tests/deleteTestByID?testToDelete=${props._id}`)
       .catch((error: AxiosError) => alert(error))
       .then((response) => {
@@ -77,9 +88,14 @@ const TestCard = (props: {
       });
   };
 
+  const cardControls = useAnimation();
+
   return (
     <div className={styles.TestCardBackground}>
-      <div
+      <motion.div
+        //* Animation
+        animate={cardControls}
+        //*
         key={props._id}
         id={props._id}
         className={styles.TestCard}
@@ -99,7 +115,7 @@ const TestCard = (props: {
         <h4>Test id: {props._id}</h4>
         <span>Main question of test</span>
         <h1 onClick={handleDeleteIconClick}>✖︎</h1>
-      </div>
+      </motion.div>
     </div>
   );
 };

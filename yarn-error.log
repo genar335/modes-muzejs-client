@@ -1,5 +1,5 @@
 Arguments: 
-  /Users/yberfox228/.nvm/versions/node/v15.0.1/bin/node /Users/yberfox228/.yarn/bin/yarn.js add -D @types/react-switch
+  /Users/yberfox228/.nvm/versions/node/v15.0.1/bin/node /Users/yberfox228/.yarn/bin/yarn.js add -D @types/framer-motion
 
 PATH: 
   /Users/yberfox228/.nvm/versions/node/v15.0.1/bin:/Users/yberfox228/.yarn/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Frameworks/Mono.framework/Versions/Current/Commands
@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2freact-switch: Not found
+  Error: https://registry.yarnpkg.com/@types%2fframer-motion: Not found
       at Request.params.callback [as _callback] (/Users/yberfox228/.yarn/lib/cli.js:66988:18)
       at Request.self.callback (/Users/yberfox228/.yarn/lib/cli.js:140749:22)
       at Request.emit (node:events:327:20)
@@ -32,7 +32,7 @@ npm manifest:
     "version": "0.1.0",
     "private": true,
     "scripts": {
-      "dev": "next dev",
+      "dev": "NODE_OPTIONS='--inspect' next dev",
       "build": "next build",
       "start": "next start"
     },

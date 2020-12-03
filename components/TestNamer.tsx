@@ -215,14 +215,17 @@ const TestNamer = (props: {
         </div>
       </div>
       <div className={compStyles.ModalOpener}>
-        <span>
-          {`Test name in ${selectedLang?.toUpperCase()}: `}
-          {props.currentStateOfTest[selectedLang as TLangOption["value"]].name}
-        </span>
         <button
           className={compStyles.OpeningBtn}
           onClick={() => setIsOpen(true)}
         >
+          <p>
+            {`Test name in ${selectedLang?.toUpperCase()}: `}
+            {
+              props.currentStateOfTest[selectedLang as TLangOption["value"]]
+                .name
+            }
+          </p>
           {plusSignIcon()}
         </button>
       </div>

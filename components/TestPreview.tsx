@@ -57,17 +57,30 @@ const TestPreview = (props: {
     event.key === "Enter" ? console.log("Efnter") : undefined;
   };
 
+  const textEntryCountLimit: number = 250;
+
   function q_a_TextEntry(type: "answer" | "question", id: number) {
     // console.log("id", id);
     return (
-      <textarea
-        className={compStyles.textInputForQandA}
-        // type="text"
-        name="qaTextEntry"
-        id={String(id)}
-        value={props.pageToRender[id][type]}
-        onChange={(e) => saveNewData(id, e.currentTarget.value, type)}
-      />
+      <>
+        <textarea
+          autoFocus
+          className={compStyles.textInputForQandA}
+          // type="text"
+          name="qaTextEntry"
+          id={String(id)}
+          value={props.pageToRender[id][type]}
+          onChange={(e) =>
+            props.pageToRender[id][type].length < textEntryCountLimit
+              ? saveNewData(id, e.currentTarget.value, type)
+              : alert("You have leached the size limit")
+          }
+        />
+        <p className={compStyles.textInputQnACounter}>
+          Character count: {props.pageToRender[id][type].length} /{" "}
+          {textEntryCountLimit}
+        </p>
+      </>
     );
   }
 
