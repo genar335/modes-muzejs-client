@@ -11,6 +11,7 @@ const main = () => {
       const tests = await Axios.get(
         `http://localhost:4000/tests/getTest?active=${isTestActive}`
       );
+      console.log(tests.data, "recieved tests");
       return tests.data as ITest[];
     } catch (error) {
       alert(error);
@@ -29,7 +30,7 @@ const main = () => {
   const getAllTests = async () => {
     const serverResponse = await Axios.get(`${devURL}tests/allTests`);
     const data = serverResponse.data;
-    console.log("Main test fethcer");
+    console.log(data);
     let tmpactiveTests: Array<ITest> = [];
     let tmpinActiveTests: Array<ITest> = [];
     filterTests(tmpactiveTests, tmpinActiveTests, data);
@@ -52,30 +53,12 @@ const main = () => {
   };
 
   const toggleTest = (testID: string, isActive: boolean) => {
-    console.log("toggling test", isActive);
     let tmpActive = tests.activeTests;
     let tmpInactive = tests.inActiveTests;
     let combinedTests = [...tests.activeTests, ...tests.inActiveTests];
-    console.log(combinedTests, "before changing the toggle");
-    /*  if (isActive) {
-      tmpActive = tests.activeTests.map((test: ITest) => {
-        if (test._id !== testID) return test;
-        else {
-          tmpInactive.push(test);
-        }
-      });
-    } else {
-      tmpInactive = tests.inActiveTests.map((test: ITest) => {
-        if (test._id !== testID) return test;
-        else {
-          tmpActive.push(test);
-        }
-      });
-    } */
 
     combinedTests.forEach((test: ITest) => {
       if (test._id === testID) {
-        console.log("Match", test._id);
         if (combinedTests.indexOf(test) < tmpActive.length) {
           tmpActive.splice(tmpActive.indexOf(test), 1);
           tmpInactive.push({
@@ -91,7 +74,7 @@ const main = () => {
         }
       }
     });
-    console.log("after changing toggle", combinedTests);
+
     setTests({
       activeTests: tmpActive,
       inActiveTests: tmpInactive,

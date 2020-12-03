@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import editIcon from "../GAssets/create_icon_big.png";
 import styles from "./styles/TestCard.module.scss";
 import Switch from "react-switch";
@@ -20,7 +20,13 @@ const TestCard = (props: {
     background: `rgb(${props.colour})`,
   };
 
-  const [isActive, setIsActive] = useState<boolean>(props.active);
+  // console.log(props, "card props");
+  const [isTestActive, setIsTestActive] = useState<boolean>(props.active);
+  useEffect(() => {
+    setIsTestActive(props.active);
+  }, []);
+
+  // const [switchIsActive, setSwichIsActive] = useState<boolean>(props.active);
 
   const changeTestState = async (testID: string, isActive: boolean) => {
     let changedTest: ITest;
@@ -33,18 +39,21 @@ const TestCard = (props: {
         }
       );
       changedTest = responseFromServer.data;
-      // setIsActive(changedTest.active);
+      // setSwichIsActive(!switchIsActive);
+      // setIsTestActive(changedTest.active);
       console.log(changedTest, "recieved a response");
     } catch (error) {
       console.error(error);
     }
   };
-  // console.log(props);
+
   const handleActiveChange = async () => {
-    // setIsActive(!isActive);
-    await changeTestState(props._id, !isActive);
+    // setSwichIsActive(!switchIsActive);
+    await changeTestState(props._id, !isTestActive);
     console.log("Calling all tests");
-    props.updateTests(props._id);
+    setTimeout(() => {
+      props.updateTests(props._id);
+    }, 10);
   };
 
   return (
@@ -54,7 +63,7 @@ const TestCard = (props: {
       className={styles.TestCard}
       style={CardStyle}
     >
-      <Switch onChange={handleActiveChange} checked={props.active} />
+      <Switch onChange={handleActiveChange} checked={isTestActive} />
       {/* 
       //! Need to figure out how to time the switch
       */}

@@ -46,25 +46,23 @@ const ActiveTests = (props: {
         responsive={responsive}
         ssr
         containerClass={styles.Carousel}
-        showDots
+        // showDots
         // dotListClass={styles.customDotListStyle}
       >
         {addATest(handleAddTestClick)}
-        {props.activeTests
-          ? props.activeTests.map((test: ITest, iterator: number) => (
-              <TestCard
-                key={iterator}
-                iterator={iterator}
-                colour="white"
-                _id={test._id || "NA"}
-                active={test.active}
-                nameInRu={test.ru.name}
-                // parentComponentTestFetcher={getTests}
-                // mainTestFetcher={props.updateTheTests}
-                updateTests={props.updateTheTests}
-              />
-            ))
-          : null}
+        {props.activeTests.map((test: ITest, iterator: number) => (
+          <TestCard
+            key={iterator}
+            iterator={iterator}
+            colour="white"
+            _id={test._id || "NA"}
+            active={true}
+            nameInRu={test.ru.name}
+            // parentComponentTestFetcher={getTests}
+            // mainTestFetcher={props.updateTheTests}
+            updateTests={props.updateTheTests}
+          />
+        ))}
       </Carousel>
     </div>
   );
