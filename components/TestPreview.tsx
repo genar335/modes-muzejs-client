@@ -34,7 +34,7 @@ const TestPreview = (props: {
   };
   const inputEnabler = () => {};
 
-  console.log(props.pageToRender);
+  // console.log(props.pageToRender);
   // props.pageToRender.map((ele) => console.log(ele.question));
 
   let tmp = props.pageToRender;
@@ -44,7 +44,7 @@ const TestPreview = (props: {
     data: string,
     whatToSave: "answer" | "question"
   ) => {
-    console.log("from data saving", qid);
+    // console.log("from data saving", qid);
     tmp[qid][whatToSave] = data;
     // console.log(tmp[qid][whatToSave]);
     // console.log("from save new data", tmp);
@@ -58,7 +58,7 @@ const TestPreview = (props: {
   };
 
   function q_a_TextEntry(type: "answer" | "question", id: number) {
-    console.log("id", id);
+    // console.log("id", id);
     return (
       <textarea
         className={compStyles.textInputForQandA}
@@ -74,7 +74,7 @@ const TestPreview = (props: {
   const handleQuestionChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
-    console.log(`${event.currentTarget.id}:`, event.currentTarget.value);
+    // console.log(`${event.currentTarget.id}:`, event.currentTarget.value);
     saveNewData(
       Number(event.currentTarget.id),
       event.currentTarget.value,
@@ -96,12 +96,10 @@ const TestPreview = (props: {
           modal.classList.remove(compStyles.HideModal);
         }
       });
-      console.log(tmpModalsArray);
+      // console.log(tmpModalsArray);
       setisQOpen(true);
     }
   };
-
-  console.log(props.pageToRender, "jfhdskajfkl;ds");
 
   const pageBody = () =>
     props.pageToRender.map((qna: IQnA, iterator: number) => (

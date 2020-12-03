@@ -132,7 +132,7 @@ function setActivePage(
     currentPages: number;
   }
 ) {
-  console.log("setting the green border");
+  // console.log("setting the green border");
   pagesArray.forEach((page, index) => {
     index === indexOfActivePage
       ? page.classList.add(compStyle.Selected)

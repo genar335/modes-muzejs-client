@@ -1,5 +1,5 @@
 export interface ITest {
-  private _id: string | undefined;
+  private _id?: string | undefined;
   /**
    * @param type Describes avaialable elements for composing the test page.
    *

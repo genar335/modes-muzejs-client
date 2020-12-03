@@ -5,6 +5,7 @@ import Switch from "react-switch";
 import Axios from "axios";
 import { devURL } from "./constants";
 import { ITest } from "../@types/test";
+import { NextRouter, useRouter } from "next/router";
 
 const TestCard = (props: {
   iterator: number;
@@ -18,6 +19,11 @@ const TestCard = (props: {
 }) => {
   const CardStyle: Object = {
     background: `rgb(${props.colour})`,
+  };
+
+  const router: NextRouter = useRouter();
+  const forwardToTestEdit = (testID: string) => {
+    router.push(`/TMS/create_test?testToEdit=${testID}`);
   };
 
   // console.log(props, "card props");
@@ -56,6 +62,11 @@ const TestCard = (props: {
     }, 10);
   };
 
+  const handleEditIconClick = () => {
+    alert("Sending you to edit a test");
+    forwardToTestEdit(props._id);
+  };
+
   return (
     <div
       key={props._id}
@@ -67,7 +78,12 @@ const TestCard = (props: {
       {/* 
       //! Need to figure out how to time the switch
       */}
-      <img src={editIcon} alt="Edit icon" className={styles.LookingGlass} />
+      <img
+        onClick={handleEditIconClick}
+        src={editIcon}
+        alt="Edit icon"
+        className={styles.LookingGlass}
+      />
       <h1 onClick={handleActiveChange}>Test title in ru: {props.nameInRu}</h1>
       <h2>Test id: {props._id}</h2>
       <span>Main question of test</span>
