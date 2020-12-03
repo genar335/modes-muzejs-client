@@ -76,7 +76,7 @@ const PagesController = (props: {
           customRightArrow={<CustomRightArrow />}
           customLeftArrow={<CustomLeftArrow />}
           showDots
-          ssr
+          // ssr
         >
           {pagesAmount.map((page) => {
             return (

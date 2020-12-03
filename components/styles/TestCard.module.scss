@@ -1,14 +1,37 @@
-.TestCard {
+$f-s-bg-colour: rgb(236 221 210);
+.TestCardBackground {
   display: flex;
   flex-direction: column;
-  width: 19rem;
-  height: 20rem;
-  border-radius: 25px;
-
+  width: 21rem;
+  height: 22rem;
   justify-content: center;
   align-items: center;
+  overflow: scroll;
 
-  .LookingGlass {
-    position: relative;
+  padding: 3rem;
+
+  .TestCard {
+    padding: 1rem;
+    width: 100%;
+    height: 100%;
+    background-color: $f-s-bg-colour;
+    box-sizing: border-box;
+    border-radius: 25px;
+    word-wrap: break-word;
+    & h1 {
+      width: 100%;
+    }
+    .EditIcon {
+      // filter: invert(1);
+      position: relative;
+
+      top: -10%;
+      left: 80%;
+
+      background: #2f4858;
+      border-style: solid;
+      border-color: #2f4858;
+      border-radius: 50%;
+    }
   }
 }

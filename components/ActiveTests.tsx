@@ -40,32 +40,82 @@ const ActiveTests = (props: {
     router.push(`/TMS/create_test`);
   };
 
+  const CustomRightArrow = ({ onClick, ...rest }) => {
+    const {
+      onMove,
+      carouselState: { currentSlide, deviceType },
+    } = rest;
+    // onMove means if dragging or swiping in progress.
+    return (
+      <button className={styles.carRightArrow} onClick={() => onClick()}>
+        {Arrow()}
+      </button>
+    );
+  };
+
+  const CustomLeftArrow = ({ onClick, ...rest }) => {
+    const {
+      onMove,
+      carouselState: { currentSlide, deviceType },
+    } = rest;
+    return (
+      <button onClick={() => onClick()} className={styles.carLeftArrow}>
+        {Arrow()}
+      </button>
+    );
+  };
+
+  const Arrow = () => (
+    <svg
+      width="15"
+      height="26"
+      viewBox="0 0 15 26"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M2 24L13 13L2 2"
+        stroke="#2F4858"
+        stroke-width="3"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+
   return (
     <div className={styles.ActiveTestsContainer}>
       <h1>Active tests</h1>
+
+<div className={styles.CarouselContainer}>
+
+      {addATest(handleAddTestClick)}
       <Carousel
         responsive={responsive}
         ssr
         containerClass={styles.Carousel}
-        // showDots
+        itemClass={styles.Item}
+        customRightArrow={<CustomRightArrow />}
+        customLeftArrow={<CustomLeftArrow />}
+        showDots
         // dotListClass={styles.customDotListStyle}
-      >
-        {addATest(handleAddTestClick)}
+        >
         {props.activeTests.map((test: ITest, iterator: number) => (
           <TestCard
-            key={iterator}
-            iterator={iterator}
-            colour="white"
-            _id={test._id || "NA"}
-            active={true}
-            nameInRu={test.ru.name}
-            // parentComponentTestFetcher={getTests}
-            // mainTestFetcher={props.updateTheTests}
-            updateTests={props.updateTheTests}
-            fetchAllTests={props.fetchAllTests}
+          key={iterator}
+          iterator={iterator}
+          colour="white"
+          _id={test._id || "NA"}
+          active={true}
+          nameInRu={test.ru.name}
+          // parentComponentTestFetcher={getTests}
+          // mainTestFetcher={props.updateTheTests}
+          updateTests={props.updateTheTests}
+          fetchAllTests={props.fetchAllTests}
           />
-        ))}
+          ))}
       </Carousel>
+          </div>
     </div>
   );
 };

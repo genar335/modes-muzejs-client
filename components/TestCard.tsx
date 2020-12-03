@@ -78,26 +78,28 @@ const TestCard = (props: {
   };
 
   return (
-    <div
-      key={props._id}
-      id={props._id}
-      className={styles.TestCard}
-      style={CardStyle}
-    >
-      <Switch onChange={handleActiveChange} checked={isTestActive} />
-      {/* 
+    <div className={styles.TestCardBackground}>
+      <div
+        key={props._id}
+        id={props._id}
+        className={styles.TestCard}
+        style={CardStyle}
+      >
+        <Switch onChange={handleActiveChange} checked={isTestActive} />
+        {/* 
       //! Need to figure out how to time the switch
-      */}
-      <img
-        onClick={handleEditIconClick}
-        src={editIcon}
-        alt="Edit icon"
-        className={styles.LookingGlass}
-      />
-      <h1 onClick={handleActiveChange}>Test title in ru: {props.nameInRu}</h1>
-      <h2>Test id: {props._id}</h2>
-      <span>Main question of test</span>
-      <h1 onClick={handleDeleteIconClick}>✖︎</h1>
+    */}
+        <img
+          onClick={handleEditIconClick}
+          src={editIcon}
+          alt="Edit icon"
+          className={styles.EditIcon}
+        />
+        <h3 onClick={handleActiveChange}>Test title in ru: {props.nameInRu}</h3>
+        <h4>Test id: {props._id}</h4>
+        <span>Main question of test</span>
+        <h1 onClick={handleDeleteIconClick}>✖︎</h1>
+      </div>
     </div>
   );
 };
