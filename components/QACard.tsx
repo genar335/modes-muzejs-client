@@ -3,7 +3,7 @@ import { IQnA, TLangOption } from "../@types/test";
 import compStyles from "./styles/TestPreview.module.scss";
 import addCompStyles from "./styles/TestNamer.module.scss";
 import { closeBtn, CreateLangSwitchers, SaveBtn } from "./TestNamer";
-import { URLCheck } from "./constants";
+import { URLCheck, URLCheckForLocalHost } from "./constants";
 
 const QACard = (props: {
   cardType: "answer" | "question";
@@ -24,7 +24,13 @@ const QACard = (props: {
   const [isOpen, setIsOpen] = useState(false);
   console.log(props.cardContents);
   console.log("Test for page contents", props.pageContents);
+
   const textPreviewer = (text: string) => {
+    console.log("Hello from text preview");
+    if (text.match(URLCheckForLocalHost) !== null) {
+      console.log("Hello there from URL checker");
+      return "There was an image before";
+    }
     if (text.length < 1) return <div className={compStyles.emptyText}>T</div>;
     if (text.length > charLimit) {
       return text.slice(0, 90) + "...";
