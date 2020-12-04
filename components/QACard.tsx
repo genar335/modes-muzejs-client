@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { IQnA, TLangOption } from "../@types/test";
 import compStyles from "./styles/TestPreview.module.scss";
 import addCompStyles from "./styles/TestNamer.module.scss";
-import { closeBtn, CreateLangSwitchers } from "./TestNamer";
+import { closeBtn, CreateLangSwitchers, SaveBtn } from "./TestNamer";
 import { URLCheck } from "./constants";
 
 const QACard = (props: {
@@ -56,11 +56,11 @@ const QACard = (props: {
         <div className={addCompStyles.ModalContainer}>
           {closeBtn(setIsOpen)}
           <div className={addCompStyles.Modal}>
-            {/* {CreateLangSwitchers(
+            {CreateLangSwitchers(
               props.setSelectedLanguage,
               props.inputEnabler,
               props.currentLang
-            )} */}
+            )}
             <div className={addCompStyles.NameForm}>
               {props.cardContents === "text" ? (
                 props.q_a_TextEntry(props.cardType, props.iterator)
@@ -68,6 +68,12 @@ const QACard = (props: {
                 <p>Hello</p>
               )}
             </div>
+            <button
+              onClick={(e) => setIsOpen(!isOpen)}
+              className={addCompStyles.SaveBtn}
+            >
+              {SaveBtn()}
+            </button>
           </div>
         </div>
       </div>

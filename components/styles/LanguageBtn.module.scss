@@ -18,8 +18,15 @@ $transitionDuration: 0.3s;
     border: solid rgb(218 189 166) 0.1rem;
     color: whitesmoke;
     appearance: none;
+    filter: none;
   }
   &:focus {
     outline: 0;
+  }
+  &:hover {
+    filter: none;
+  }
+  &::selection {
+    filter: none;
   }
 }

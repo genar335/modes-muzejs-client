@@ -11,7 +11,7 @@ import styles from "../pages/styles/create_test.module.scss";
 import FMLogo from "./FMlogo";
 import compStyles from "./styles/TestPreview.module.scss";
 import addCompStyles from "./styles/TestNamer.module.scss";
-import { closeBtn, CreateLangSwitchers } from "./TestNamer";
+import { closeBtn, CreateLangSwitchers, SaveBtn } from "./TestNamer";
 import QACard from "./QACard";
 
 const TestPreview = (props: {
@@ -59,6 +59,7 @@ const TestPreview = (props: {
 
   const textEntryCountLimit: number = 250;
 
+
   function q_a_TextEntry(type: "answer" | "question", id: number) {
     // console.log("id", id);
     return (
@@ -70,11 +71,8 @@ const TestPreview = (props: {
           name="qaTextEntry"
           id={String(id)}
           value={props.pageToRender[id][type]}
-          onChange={(e) =>
-            props.pageToRender[id][type].length < textEntryCountLimit
-              ? saveNewData(id, e.currentTarget.value, type)
-              : alert("You have leached the size limit")
-          }
+          maxLength={textEntryCountLimit}
+          onChange={(e) => saveNewData(id, e.currentTarget.value, type)}
         />
         <p className={compStyles.textInputQnACounter}>
           Character count: {props.pageToRender[id][type].length} /{" "}

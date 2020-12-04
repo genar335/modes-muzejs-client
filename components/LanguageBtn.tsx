@@ -24,7 +24,7 @@ const LanguageBtn = (props: {
     <button
       id={props.btnID}
       onClick={testClick}
-      disabled={props.pressed}
+      // disabled={props.pressed}
       className={`${compStyle.LangButton} ${
         props.pressed ? compStyle.ButtonPressed : null
       }`}

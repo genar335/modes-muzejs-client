@@ -35,7 +35,7 @@ function create_test() {
   // const [currentPages, setCurrentPages] = useState<number>(1);
   // let tmpPages: number = 0;
   const router: NextRouter = useRouter();
-  console.log(router.query);
+  // console.log(router.query);
 
   const [isTestFetched, setIsTestFetched] = useState<boolean>(false);
 
@@ -296,24 +296,55 @@ function create_test() {
 
   const didMountRef = useRef();
 
+  const areTheNamesFilledIn = (t: ITest) => {
+    let hasPassed: boolean = true;
+    for (let [key, value] of Object.entries(t)) {
+      console.log(key, value);
+      if (testLang.includes(key as TLangOption["value"])) {
+        if (value.name.length === 0) {
+          hasPassed = false;
+          // return;
+        }
+      }
+    }
+    console.log(hasPassed, "hasPassed");
+    return hasPassed;
+  };
+
+  /**
+   * Checks whether the test satisfies the requirements
+   * @param testToCheck Test to chek agaisnt a range of reuiremenets
+   */
+  const checkTheTest = (testToCheck: ITest): boolean => {
+    if (!areTheNamesFilledIn(testToCheck)) {
+      return false;
+    }
+
+    return true;
+  };
+
   const handleTestSaving = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.preventDefault();
-    try {
-      const response = await Axios.post(
-        "http://localhost:4000/tests/create",
-        test
-      );
-      console.log(response.data);
-      //! Need to notify user somehow
-      //? Perhaps a modal with confirmation, or a card preview?
-      setTimeout(() => {
+    if (checkTheTest(test)) {
+      try {
+        const response = await Axios.post(
+          "http://localhost:4000/tests/create",
+          test
+        );
+        console.log(response.data);
+        //! Need to notify user somehow
+        //? Perhaps a modal with confirmation, or a card preview?
+        setTimeout(() => {
+          router.replace("http://localhost:3000/TMS/main");
+        }, 1000);
         router.replace("http://localhost:3000/TMS/main");
-      }, 1000);
-      router.replace("http://localhost:3000/TMS/main");
-    } catch (error) {
-      alert(error);
+      } catch (error) {
+        alert(error);
+      }
+    } else {
+      alert("Please check if everythig has been entered correctly.");
     }
   };
 

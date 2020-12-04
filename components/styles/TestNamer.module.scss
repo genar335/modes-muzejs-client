@@ -73,6 +73,7 @@ $transitionDuration: 0.3s;
       align-items: center;
       height: 100%;
       width: 100%;
+      padding-bottom: 2rem;
 
       .LangSelect {
         display: flex;
@@ -132,6 +133,11 @@ $transitionDuration: 0.3s;
             outline: 0;
           }
         }
+      }
+
+      .SaveBtn {
+        background-color: rgba(0, 0, 0, 0);
+        border: none;
       }
     }
   }
