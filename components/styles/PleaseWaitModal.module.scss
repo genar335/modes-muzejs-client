@@ -1,0 +1,28 @@
+.ModalBG {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(224, 188, 163, 0.767);
+
+  .Modal {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    height: 40%;
+    justify-content: center;
+    align-items: center;
+
+    .ModalHeader {
+    }
+    .LoadingIMG {
+      justify-self: center;
+      align-self: center;
+    }
+  }
+}

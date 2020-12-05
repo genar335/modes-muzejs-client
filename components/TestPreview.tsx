@@ -22,7 +22,7 @@ const TestPreview = (props: {
   setCurrentLang: (lang: TLangOption["value"]) => void;
   testType: ITest["type"];
   saveChanges: (page: any) => void;
-  togglePhotoManager: (toggle: boolean) => void;
+  togglePhotoManager: (toggle: boolean, cardID: string) => void;
   setCurrentCard: React.Dispatch<React.SetStateAction<undefined>>;
 }) => {
   const [isQOpen, setisQOpen] = useState(false);
@@ -57,8 +57,7 @@ const TestPreview = (props: {
     event.key === "Enter" ? console.log("Efnter") : undefined;
   };
 
-  const textEntryCountLimit: number = 250;
-
+  const textEntryCountLimit: number = 180;
 
   function q_a_TextEntry(type: "answer" | "question", id: number) {
     // console.log("id", id);
@@ -113,13 +112,17 @@ const TestPreview = (props: {
   };
 
   const pageBody = () =>
-    props.pageToRender.map((qna: IQnA, iterator: number) => (
-      <div key={iterator} id={String(iterator)} className={compStyles.qnaPair}>
+    props.pageToRender.map((qna: IQnA, qnaIterator: number) => (
+      <div
+        key={qnaIterator}
+        id={String(qnaIterator)}
+        className={compStyles.qnaPair}
+      >
         <QACard
           setCurrentCard={props.setCurrentCard}
           cardType="question"
           cardContents={props.testType === "PP" ? "img" : "text"}
-          iterator={iterator}
+          iterator={qnaIterator}
           setSelectedLanguage={setSelectedLanguage}
           inputEnabler={inputEnabler}
           qna={qna}
@@ -127,22 +130,26 @@ const TestPreview = (props: {
           q_a_TextEntry={q_a_TextEntry}
           togglePhotoManager={props.togglePhotoManager}
           currentLang={props.currentLanguage}
-          pageContents={props.pageToRender[iterator]["question"]}
+          pageContents={props.pageToRender[qnaIterator]["question"]}
+          pageNumber={props.activePage}
+          saveIMG={saveNewData}
         />
         {/* For answer rendering */}
         <QACard
           setCurrentCard={props.setCurrentCard}
           cardType="answer"
           cardContents={props.testType === "TT" ? "text" : "img"}
-          iterator={iterator}
+          iterator={qnaIterator}
           setSelectedLanguage={setSelectedLanguage}
           inputEnabler={inputEnabler}
           qna={qna}
           testType={props.testType}
           q_a_TextEntry={q_a_TextEntry}
           togglePhotoManager={props.togglePhotoManager}
-          currentLang={props.currentLanguage}
-          pageContents={props.pageToRender[iterator]["answer"]}
+          currentLang={props.currentLanguage!}
+          pageContents={props.pageToRender[qnaIterator]["answer"]}
+          pageNumber={props.activePage}
+          saveIMG={saveNewData}
         />
       </div>
     ));

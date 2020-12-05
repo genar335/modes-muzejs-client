@@ -3,6 +3,7 @@ $bg-colour: #efddd1;
 .tTypeWarning {
   width: 100%;
   height: 100%;
+  justify-self: flex-start;
   z-index: 1;
   position: relative;
   background-color: rgba($color: #000000, $alpha: 0);
@@ -13,7 +14,7 @@ $bg-colour: #efddd1;
 }
 
 .TestBGContainer {
-  width: 100%;
+  width: 800px;
   height: 100%;
   background-color: rgb(4 10 23);
   color: whitesmoke;
@@ -91,12 +92,38 @@ $bg-colour: #efddd1;
           margin: 0;
         }
 
-        .SelectedIMGPreview {
+        .textInACard {
+          font-size: 20px;
+          word-break: break-all;
+        }
+
+        .IMGForm {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
           margin: 0;
           padding: 0;
           width: 100%;
           height: 100%;
-          object-fit: contain;
+
+          .FileChooser {
+            visibility: hidden;
+          }
+
+          .SelectedIMGPreview {
+            object-fit: contain;
+            // align-self: flex-start;
+            width: 80%;
+            height: 80%;
+            align-self: center;
+            margin: 0;
+            padding: 0;
+          }
+
+          .FileSubmiter {
+            justify-self: flex-end;
+          }
         }
       }
     }

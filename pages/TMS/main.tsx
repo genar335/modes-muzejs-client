@@ -4,7 +4,10 @@ import { ITest } from "../../@types/test";
 import ActiveTests from "../../components/ActiveTests";
 import { devURL } from "../../components/constants";
 import Gallery from "../../components/Gallery";
+import { motion } from "framer-motion";
 import styles from "../styles/main.module.scss";
+import { pageAppearance } from "./create_test";
+import PleaseWaitModal from "../../components/PleaseWaitModal";
 const main = () => {
   const getTestsByActive = async (isTestActive: boolean): Promise<any> => {
     try {
@@ -18,7 +21,9 @@ const main = () => {
       return [];
     }
   };
-
+  const [hasEverythingFetched, setHasEverythingFetched] = useState<boolean>(
+    false
+  );
   const [tests, setTests] = useState<{
     activeTests: ITest[];
     inActiveTests: ITest[];
@@ -28,8 +33,10 @@ const main = () => {
   });
 
   const getAllTests = async () => {
+    setHasEverythingFetched(false);
     const serverResponse = await Axios.get(`${devURL}tests/allTests`);
     const data = serverResponse.data;
+    setHasEverythingFetched(true);
     console.log(data);
     let tmpactiveTests: Array<ITest> = [];
     let tmpinActiveTests: Array<ITest> = [];
@@ -86,7 +93,13 @@ const main = () => {
   }, []);
 
   return (
-    <div className={styles.MainContainer}>
+    <motion.div
+      className={styles.MainContainer}
+      variants={pageAppearance}
+      initial="hidden"
+      animate="visible"
+    >
+      <PleaseWaitModal isDisplayed={!hasEverythingFetched} />
       <ActiveTests
         // getActiveTests={getTestsByActive}
         activeTests={tests.activeTests}
@@ -97,9 +110,9 @@ const main = () => {
         // getInactiveTests={getTestsByActive}
         testsToRender={tests.inActiveTests}
         updateTheTests={toggleTest}
-         fetchAllTests={getAllTests}
-     />
-    </div>
+        fetchAllTests={getAllTests}
+      />
+    </motion.div>
   );
 };
 

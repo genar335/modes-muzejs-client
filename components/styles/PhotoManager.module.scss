@@ -103,6 +103,13 @@ $transitionDuration: 0.3s;
               display: flex;
               justify-content: space-between;
               flex-direction: column;
+
+              .selectedIMG {
+                border: 4px solid #0ab496;
+                border-radius: 8px;
+                border-spacing: 15px;
+                border-collapse: separate;
+              }
             }
           }
         }

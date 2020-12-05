@@ -9,11 +9,11 @@ import TestNamer from "../../components/TestNamer";
 import TestPreview from "../../components/TestPreview";
 import styles from "../styles/create_test.module.scss";
 import { APIURL, devURL } from "../../components/constants";
+import { AnimatePresence, motion } from "framer-motion";
 import Switch from "react-switch";
 import Axios, { AxiosResponse } from "axios";
-import { captureRejectionSymbol } from "events";
-import { TlsOptions } from "tls";
 import { NextRouter, useRouter } from "next/router";
+import PleaseWaitModal from "../../components/PleaseWaitModal";
 
 function create_test() {
   // useEffect(() => {
@@ -35,18 +35,26 @@ function create_test() {
   // const [currentPages, setCurrentPages] = useState<number>(1);
   // let tmpPages: number = 0;
   const router: NextRouter = useRouter();
-  // console.log(router.query);
+  // console.log(router.qduery);
 
-  const [isTestFetched, setIsTestFetched] = useState<boolean>(false);
+  const [isTestFetched, setIsTestFetched] = useState<boolean>(true);
+  const [isTestFetching, setIsTestFetching] = useState<boolean>();
+
+  // useEffect(() => {
+  //   setIsTestFetching(true);
+  // }, []);
 
   useEffect(() => {
+    console.log(isTestFetching, "isTestFetching");
+    console.log(isTestFetching, "isTestFetching");
     if (router.query.testToEdit !== undefined) {
+      setIsTestFetching(true);
       Axios.get(
         `http://localhost:4000/tests/getTestByID?testToEdit=${router.query.testToEdit}`
       ).then((response: AxiosResponse) => {
         console.log(response.data);
+        setIsTestFetching(false);
         setTest(response.data);
-        setIsTestFetched(true);
       });
     }
   }, [router.query]);
@@ -107,7 +115,10 @@ function create_test() {
   const [test, setTest] = useState<ITest>(testTemplateWithThreeCards);
 
   const [isPhotoManagerOpen, setIsPhotoManagerOpen] = useState<boolean>(true);
-  const openPhotos = (toggle: boolean) => setIsPhotoManagerOpen(toggle);
+  const openPhotos = (toggle: boolean, cardID: string) => {
+    setIsPhotoManagerOpen(toggle);
+    console.log(cardID, "cards ID");
+  };
 
   const saveTest = (test: ITest): void => setTest(test);
   const [currentLang, setCurrentLang] = useState<TLangOption["value"]>("ru");
@@ -327,6 +338,7 @@ function create_test() {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.preventDefault();
+    setIsTestFetching(true);
     if (checkTheTest(test)) {
       try {
         const response = await Axios.post(
@@ -336,9 +348,9 @@ function create_test() {
         console.log(response.data);
         //! Need to notify user somehow
         //? Perhaps a modal with confirmation, or a card preview?
-        setTimeout(() => {
-          router.replace("http://localhost:3000/TMS/main");
-        }, 1000);
+        // setTimeout(() => {
+        router.replace("http://localhost:3000/TMS/main");
+        // }, 1000);
         router.replace("http://localhost:3000/TMS/main");
       } catch (error) {
         alert(error);
@@ -346,6 +358,7 @@ function create_test() {
     } else {
       alert("Please check if everythig has been entered correctly.");
     }
+    setIsTestFetching(false);
   };
 
   const testLang: TLangOption["value"][] = ["ru", "lv", "en"];
@@ -400,85 +413,98 @@ function create_test() {
   };
 
   return (
-    <div className={styles.CreateTestContainer}>
-      <FMLogo />
-      <div className={styles.TestNaming}>
-        <TestNamer
-          currentLang={currentLang}
-          setCurrentLang={activateCurrentLang}
-          saveTest={saveTest}
-          currentStateOfTest={test}
-        />
-      </div>
-      <div className={styles.LangSwitcher}>{renderLangSwitcher(testLang)}</div>
-
-      <div className={styles.TestType}>
-        <Select
-          options={typeOptions}
-          className={styles.TestTypeSelect}
-          // defaultValue={convertType()}
-          isDisabled={isTestFetched}
-          onChange={(selected: any): void => {
-            setTest({
-              // ...testTemplateWithThreeCards,
-              ...test,
-              type: selected.value,
-            });
-          }}
-        />
-      </div>
-      <div className={styles.PageController}>
-        <div className={styles.AddPageCont}>
-          <h5>Pages</h5>
-          <button className={styles.ChangePagesBtn} onClick={removePage}>
-            {removePageIcon()}
-          </button>
-          <input
-            // disabled={pagesRendered}
-            type="number"
-            name="pagesNumber"
-            className={styles.pagesNumberIndicator}
-            placeholder={test.pages ? test.pages.toString() : "1"}
-            // value={currentPages}
-            onChange={handleNumberInputChange}
+    <AnimatePresence>
+      {/* {isVisible && ( */}
+      <motion.div
+        className={styles.CreateTestContainer}
+        key="modal"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
+        <PleaseWaitModal isDisplayed={isTestFetching} />
+        <FMLogo />
+        <div className={styles.TestNaming}>
+          <TestNamer
+            currentLang={currentLang}
+            setCurrentLang={activateCurrentLang}
+            saveTest={saveTest}
+            currentStateOfTest={test}
           />
-          <button className={styles.ChangePagesBtn} onClick={addPage}>
-            {addPageIcon()}
-          </button>
         </div>
-        <PagesController
-          activePage={activePage}
-          setActivePage={activateAPage}
-          currentPages={test.pages}
-        />
-      </div>
+        <div className={styles.LangSwitcher}>
+          {renderLangSwitcher(testLang)}
+        </div>
 
-      <PhotoManager
-        togglePhotoManager={openPhotos}
-        displayed={isPhotoManagerOpen}
-        currentCard={currentCard}
-        setCurrentCard={setCurrentCard}
-        pageToRender={test[currentLang].pages[activePage].QnAPairs}
-        saveChanges={savePage}
-      />
-      <TestPreview
-        togglePhotoManager={openPhotos}
-        activePage={activePage}
-        currentLanguage={currentLang}
-        setCurrentLang={activateCurrentLang}
-        // currentTestState={test}
-        pageToRender={test[currentLang].pages[activePage].QnAPairs}
-        testType={test.type}
-        saveChanges={savePage}
-        setCurrentCard={saveCurrentCard}
-      />
-      <button className={styles.SaveTestBtn} onClick={handleTestSaving}>
-        {TestSaveButton()}
-      </button>
-      <button onClick={handleExitFromTheTest} className={styles.ExitBtn}>
-        Exit
-      </button>
-    </div>
+        <div className={styles.TestType}>
+          <Select
+            options={typeOptions}
+            className={styles.TestTypeSelect}
+            // defaultValue={convertType()}
+            isDisabled={isTestFetched}
+            onChange={(selected: any): void => {
+              setTest({
+                // ...testTemplateWithThreeCards,
+                ...test,
+                type: selected.value,
+              });
+            }}
+          />
+        </div>
+        <div className={styles.PageController}>
+          <div className={styles.AddPageCont}>
+            <h5>Pages</h5>
+            <button className={styles.ChangePagesBtn} onClick={removePage}>
+              {removePageIcon()}
+            </button>
+            <input
+              // disabled={pagesRendered}
+              type="number"
+              name="pagesNumber"
+              className={styles.pagesNumberIndicator}
+              placeholder={test.pages ? test.pages.toString() : "1"}
+              // value={currentPages}
+              onChange={handleNumberInputChange}
+            />
+            <button className={styles.ChangePagesBtn} onClick={addPage}>
+              {addPageIcon()}
+            </button>
+          </div>
+          <PagesController
+            activePage={activePage}
+            setActivePage={activateAPage}
+            currentPages={test.pages}
+          />
+        </div>
+
+        {/* <PhotoManager
+          togglePhotoManager={openPhotos}
+          displayed={isPhotoManagerOpen}
+          currentCard={currentCard}
+          setCurrentCard={setCurrentCard}
+          pageToRender={test[currentLang].pages[activePage].QnAPairs}
+          saveChanges={savePage}
+        /> */}
+        <TestPreview
+          togglePhotoManager={openPhotos}
+          activePage={activePage}
+          currentLanguage={currentLang}
+          setCurrentLang={activateCurrentLang}
+          // currentTestState={test}
+          pageToRender={test[currentLang].pages[activePage].QnAPairs}
+          testType={test.type}
+          saveChanges={savePage}
+          setCurrentCard={saveCurrentCard}
+        />
+        <button className={styles.SaveTestBtn} onClick={handleTestSaving}>
+          {TestSaveButton()}
+        </button>
+        <button onClick={handleExitFromTheTest} className={styles.ExitBtn}>
+          Exit
+        </button>
+      </motion.div>
+      {/* )} */}
+    </AnimatePresence>
   );
 
   function setActiveLangForSwitches(id: TLangOption["value"]) {
@@ -497,6 +523,10 @@ function create_test() {
 }
 
 export default create_test;
+export const pageAppearance = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+};
 function TestSaveButton() {
   return (
     <svg
