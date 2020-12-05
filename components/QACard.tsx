@@ -89,18 +89,20 @@ const QACard = (props: {
     if (fileInputRef.current?.files !== null) {
       const chosenFile: File = fileInputRef!.current!.files[0];
       if (fileInputRef.current) {
-        // try {
-        const fileContents: string = (await readAnImage(chosenFile)) as string;
-        setReadIMG(fileContents);
-        // console.log(fileContents);
-        // tmp.push(fileContents);
-        props.saveIMG(props.iterator, fileContents, props.cardType);
-        // console.log(QACardRefIMG.current.src, "OI");
-        // } catch (error) {
-        //   alert(
-        //     "There was an error reading the file. Please try again, or choose a differenet file"
-        //   );
-        // }
+        try {
+          const fileContents: string = (await readAnImage(
+            chosenFile
+          )) as string;
+          setReadIMG(fileContents);
+          // console.log(fileContents);
+          // tmp.push(fileContents);
+          props.saveIMG(props.iterator, fileContents, props.cardType);
+          // console.log(QACardRefIMG.current.src, "OI");
+        } catch (error) {
+          alert(
+            "There was an error reading the file. Please try again, or choose a differenet file"
+          );
+        }
       }
     } else {
       alert("No file has been chosen.");

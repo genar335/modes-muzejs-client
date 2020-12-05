@@ -172,6 +172,7 @@ function create_test() {
     });
   }
 
+  const maxPageLimit: number = 10;
   const handleNumberInputChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -179,7 +180,7 @@ function create_test() {
     if (
       Number(event.currentTarget.value) >= 2 &&
       event.currentTarget.value != undefined &&
-      Number(event.currentTarget.value) < 50
+      Number(event.currentTarget.value) <= maxPageLimit
     ) {
       if (Number(event.currentTarget.value) > test.pages) {
         console.log("test");
@@ -268,7 +269,7 @@ function create_test() {
   const addPage = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ): void => {
-    if (test.pages < 50) {
+    if (test.pages < maxPageLimit) {
       setTest({
         ...test,
         en: {
