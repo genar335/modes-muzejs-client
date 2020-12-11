@@ -251,27 +251,29 @@ function create_test() {
     console.log(test);
   };
 
-  const removePage = (
+  const removePage = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ): void => {
-    if (test.pages !== 1) {
-      setTest({
-        ...test,
-        en: {
-          ...test.en,
-          pages: test.en.pages.slice(0, test.pages - 1),
-        },
-        ru: {
-          ...test.ru,
-          pages: test.ru.pages.slice(0, test.pages - 1),
-        },
-        lv: {
-          ...test.lv,
-          pages: test.lv.pages.slice(0, test.pages - 1),
-        },
-        pages: test.pages - 1,
-      });
-    }
+  ): Promise<void> => {
+    setTimeout(() => {
+      if (test.pages !== 1) {
+        setTest({
+          ...test,
+          en: {
+            ...test.en,
+            pages: test.en.pages.slice(0, test.pages - 1),
+          },
+          ru: {
+            ...test.ru,
+            pages: test.ru.pages.slice(0, test.pages - 1),
+          },
+          lv: {
+            ...test.lv,
+            pages: test.lv.pages.slice(0, test.pages - 1),
+          },
+          pages: test.pages - 1,
+        });
+      }
+    }, 550);
   };
 
   const addPage = (
