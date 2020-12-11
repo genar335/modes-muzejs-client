@@ -13,6 +13,7 @@ import compStyles from "./styles/TestPreview.module.scss";
 import addCompStyles from "./styles/TestNamer.module.scss";
 import { closeBtn, CreateLangSwitchers, SaveBtn } from "./TestNamer";
 import QACard from "./QACard";
+import { URLCheckForLocalHost } from "./constants";
 
 const TestPreview = (props: {
   activePage: number;
@@ -45,6 +46,7 @@ const TestPreview = (props: {
     whatToSave: "answer" | "question"
   ) => {
     // console.log("from data saving", qid);
+    
     tmp[qid][whatToSave] = data;
     // console.log(tmp[qid][whatToSave]);
     // console.log("from save new data", tmp);

@@ -14,6 +14,7 @@ import Switch from "react-switch";
 import Axios, { AxiosResponse } from "axios";
 import { NextRouter, useRouter } from "next/router";
 import PleaseWaitModal from "../../components/PleaseWaitModal";
+import store from "store";
 
 function create_test() {
   // useEffect(() => {
@@ -40,24 +41,27 @@ function create_test() {
   const [isTestFetched, setIsTestFetched] = useState<boolean>(true);
   const [isTestFetching, setIsTestFetching] = useState<boolean>();
 
-  // useEffect(() => {
-  //   setIsTestFetching(true);
-  // }, []);
-
   useEffect(() => {
-    console.log(isTestFetching, "isTestFetching");
-    console.log(isTestFetching, "isTestFetching");
-    if (router.query.testToEdit !== undefined) {
-      setIsTestFetching(true);
-      Axios.get(
-        `http://localhost:4000/tests/getTestByID?testToEdit=${router.query.testToEdit}`
-      ).then((response: AxiosResponse) => {
-        console.log(response.data);
-        setIsTestFetching(false);
-        setTest(response.data);
-      });
+    if (store.get("testInProgress") !== undefined) {
+      console.log(store.get("testInProgress"), "hello");
+      setTest(store.get("testInProgress"));
+    } else {
+      console.log(isTestFetching, "isTestFetching");
+      console.log(isTestFetching, "isTestFetching");
+      if (router.query.testToEdit !== undefined) {
+        setIsTestFetching(true);
+        Axios.get(
+          `http://localhost:4000/tests/getTestByID?testToEdit=${router.query.testToEdit}`
+        ).then((response: AxiosResponse) => {
+          console.log(response.data);
+          setIsTestFetching(false);
+          setTest(response.data);
+        });
+      }
     }
-  }, [router.query]);
+  }, []);
+
+  useEffect(() => {}, [router.query]);
 
   const [currentCard, setCurrentCard] = useState<
     React.MutableRefObject<null>
@@ -114,6 +118,10 @@ function create_test() {
   };
   const [test, setTest] = useState<ITest>(testTemplateWithThreeCards);
 
+  useEffect(() => {
+    console.log("Test has changed");
+    store.set("testInProgress", test);
+  }, [test]);
   const [isPhotoManagerOpen, setIsPhotoManagerOpen] = useState<boolean>(true);
   const openPhotos = (toggle: boolean, cardID: string) => {
     setIsPhotoManagerOpen(toggle);
@@ -323,12 +331,48 @@ function create_test() {
     return hasPassed;
   };
 
+  const areAllPagesFilledIn = (t: ITest) => {
+    let hasPassed: boolean = true;
+    for (let [key, value] of Object.entries(t)) {
+      if (testLang.includes(key as TLangOption["value"])) {
+        console.log(t[key as TLangOption["value"]].pages);
+        t[key as TLangOption["value"]].pages.forEach(
+          (page: {
+            QnAPairs: { question: string | any[]; answer: string | any[] }[];
+          }) => {
+            page.QnAPairs.forEach(
+              (qnaPair: {
+                question: string | any[];
+                answer: string | any[];
+              }) => {
+                console.log(qnaPair);
+                if (
+                  qnaPair.question.length === 0 ||
+                  qnaPair.answer.length === 0
+                ) {
+                  console.log("Wrong!");
+                  hasPassed = false;
+                }
+              }
+            );
+          }
+        );
+      }
+    }
+    return hasPassed;
+  };
+
   /**
    * Checks whether the test satisfies the requirements
    * @param testToCheck Test to chek agaisnt a range of reuiremenets
    */
   const checkTheTest = (testToCheck: ITest): boolean => {
     if (!areTheNamesFilledIn(testToCheck)) {
+      alert("Names are not field in");
+      return false;
+    }
+    if (!areAllPagesFilledIn(testToCheck)) {
+      alert("Not every field is filled in");
       return false;
     }
 
@@ -410,6 +454,7 @@ function create_test() {
   };
 
   const handleExitFromTheTest = () => {
+    store.remove("testInProgress");
     router.replace("http://localhost:3000/TMS/main");
   };
 
@@ -423,7 +468,7 @@ function create_test() {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >
-        <PleaseWaitModal isDisplayed={isTestFetching} />
+        <PleaseWaitModal isDisplayed={isTestFetching!} />
         <FMLogo />
         <div className={styles.TestNaming}>
           <TestNamer
@@ -442,7 +487,7 @@ function create_test() {
             options={typeOptions}
             className={styles.TestTypeSelect}
             // defaultValue={convertType()}
-            isDisabled={isTestFetched}
+            isDisabled={isTestFetching}
             onChange={(selected: any): void => {
               setTest({
                 // ...testTemplateWithThreeCards,
