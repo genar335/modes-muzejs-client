@@ -5,6 +5,7 @@ import ActiveTests from "../../components/ActiveTests";
 import { devURL } from "../../components/constants";
 import Gallery from "../../components/Gallery";
 import styles from "../styles/main.module.scss";
+
 const main = () => {
   const getTestsByActive = async (isTestActive: boolean): Promise<any> => {
     try {

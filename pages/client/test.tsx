@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Head from "next/head";
 import React, { useRef } from "react";
 import { useRouter } from 'next/router';
 import interact from 'interactjs';

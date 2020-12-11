@@ -7,6 +7,9 @@ function Navigation() {
       <Link href="/client/languages">
         Click here to go to languages
       </Link>
+      <Link href="/client/test_selection">
+        Click here to select test
+      </Link>
     </div>
   );
 }
