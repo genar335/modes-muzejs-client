@@ -18,7 +18,7 @@ const LangBtnController = (props: {
   const [flatBtns, setFlatBtns] = useState<Array<boolean>>([]);
   const [activeBtnPosition, setActiveBtnPosition] = useState<Number>();
 
-  console.log(props.active, "Active from a button");
+  // console.log(props.active, "Active from a button");
   const forceUpdate = React.useReducer(() => ({}), {})[1] as () => void;
 
   // * Creates an array with values corresponding to parsed buttons activated value.

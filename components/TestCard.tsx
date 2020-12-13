@@ -75,11 +75,11 @@ const TestCard = (props: {
 
   const handleDeleteIconClick = async () => {
     //* animating opacity from 1 to 0 in 0.3 seconds
-    await cardControls.start({
-      opacity: 0,
-      transition: { duration: 0.3 },
-    });
-    deleteSound();
+    // await cardControls.start({
+    //   opacity: 0,
+    //   transition: { duration: 0.3 },
+    // });
+    // deleteSound();
     Axios.get(`${devURL}tests/deleteTestByID?testToDelete=${props._id}`)
       .catch((error: AxiosError) => alert(error))
       .then((response) => {
