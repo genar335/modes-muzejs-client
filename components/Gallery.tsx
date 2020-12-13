@@ -42,6 +42,7 @@ const Gallery = (props: {
         {props.testsToRender
           ? props.testsToRender.map((test: ITest, iterator: number) => (
               <TestCard
+                fullTest={test}
                 key={iterator}
                 colour="brown"
                 iterator={iterator}
