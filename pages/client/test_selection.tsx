@@ -7,7 +7,7 @@ import styles from "../styles/test_selection.module.scss";
 function test_selection(props: any) {
 
     const [testObjs, setTestObjs] = useState([]); //array with test objects
-    const [url, setUrl] = useState(""); //dev url of active tests?
+    const [url, setUrl] = useState("http://localhost:4000/tests/getTest?active=true"); //dev url of active tests?
 
     const getActiveTests = (url: string) => {
         Axios.get(url)
@@ -33,6 +33,12 @@ function test_selection(props: any) {
                 />
                 <TestCardClient 
                     title="test3"
+                />
+                <TestCardClient 
+                    title="test4"
+                />
+                <TestCardClient 
+                    title="test5"
                 />
             </div>
         </div>

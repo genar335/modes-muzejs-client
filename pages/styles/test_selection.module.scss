@@ -12,7 +12,9 @@
         left: 0;
     }
     .galleryContainer {
-        width: 80vw;
-        flex-direction: row;
+        width: 93vw;
+        display: flex;
+        flex-flow: row wrap;
+        align-content: flex-start;
     }
 }
