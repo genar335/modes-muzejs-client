@@ -6,8 +6,12 @@ import { devURL } from "../../components/constants";
 import Gallery from "../../components/Gallery";
 import { motion } from "framer-motion";
 import styles from "../styles/main.module.scss";
+<<<<<<< HEAD
 import { pageAppearance } from "./create_test";
 import PleaseWaitModal from "../../components/PleaseWaitModal";
+=======
+
+>>>>>>> master
 const main = () => {
   const getTestsByActive = async (isTestActive: boolean): Promise<any> => {
     try {
