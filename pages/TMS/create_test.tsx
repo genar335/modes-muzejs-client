@@ -398,7 +398,7 @@ function create_test() {
         // setTimeout(() => {
         // router.replace("http://localhost:3000/TMS/main");
         // }, 1000);
-        // router.replace("http://localhost:3000/TMS/main");
+        router.replace("http://localhost:3000/TMS/main");
       } catch (error) {
         alert(error);
       }
