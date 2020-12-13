@@ -88,6 +88,7 @@ const QACard = (props: {
     console.log(fileInputRef.current.files[0]);
     if (fileInputRef.current?.files !== null) {
       const chosenFile: File = fileInputRef!.current!.files[0];
+      console.log(chosenFile);
       if (fileInputRef.current) {
         try {
           const fileContents: string = (await readAnImage(
