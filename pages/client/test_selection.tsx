@@ -3,6 +3,7 @@ import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import TestCardClient from "../../components/TestCardClient";
 import styles from "../styles/test_selection.module.scss";
+import { ITest } from "../../@types/test";
 
 function test_selection(props: any) {
   const [testObjs, setTestObjs] = useState([]); //array with test objects
@@ -22,7 +23,7 @@ function test_selection(props: any) {
 
   useEffect(() => {
     getActiveTests(url);
-  });
+  }, []);
 
   //TODO: direct to the chosen test
 
@@ -34,11 +35,9 @@ function test_selection(props: any) {
         id={styles.MMlogo}
       />
       <div className={styles.galleryContainer}>
-        <TestCardClient title="test1" />
-        <TestCardClient title="test2" />
-        <TestCardClient title="test3" />
-        <TestCardClient title="test4" />
-        <TestCardClient title="test5" />
+        {testObjs.map((test: ITest) => 
+            <TestCardClient title={test.ru.name}/>
+        )}
       </div>
     </div>
   );
