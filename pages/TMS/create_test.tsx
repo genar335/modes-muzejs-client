@@ -386,6 +386,8 @@ function create_test() {
   ) => {
     event.preventDefault();
     setIsTestFetching(true);
+    store.remove("testInProgress");
+
     if (checkTheTest(test)) {
       try {
         const response = await Axios.post(
@@ -398,7 +400,7 @@ function create_test() {
         // setTimeout(() => {
         // router.replace("http://localhost:3000/TMS/main");
         // }, 1000);
-        // router.replace("http://localhost:3000/TMS/main");
+        router.replace("http://localhost:3000/TMS/main");
       } catch (error) {
         alert(error);
       }
@@ -481,6 +483,7 @@ function create_test() {
           />
         </div>
         <div className={styles.LangSwitcher}>
+          <h1>Языки</h1>
           {renderLangSwitcher(testLang)}
         </div>
 
@@ -501,22 +504,24 @@ function create_test() {
         </div>
         <div className={styles.PageController}>
           <div className={styles.AddPageCont}>
-            <h5>Pages</h5>
-            <button className={styles.ChangePagesBtn} onClick={removePage}>
-              {removePageIcon()}
-            </button>
-            <input
-              // disabled={pagesRendered}
-              type="number"
-              name="pagesNumber"
-              className={styles.pagesNumberIndicator}
-              placeholder={test.pages ? test.pages.toString() : "1"}
-              // value={currentPages}
-              onChange={handleNumberInputChange}
-            />
-            <button className={styles.ChangePagesBtn} onClick={addPage}>
-              {addPageIcon()}
-            </button>
+            <h6 style={{ margin: 0 }}>Страницы</h6>
+            <div className={styles.PageControllerBtnsContainer}>
+              <button className={styles.ChangePagesBtn} onClick={removePage}>
+                {removePageIcon()}
+              </button>
+              <input
+                // disabled={pagesRendered}
+                type="number"
+                name="pagesNumber"
+                className={styles.pagesNumberIndicator}
+                placeholder={test.pages ? test.pages.toString() : "1"}
+                // value={currentPages}
+                onChange={handleNumberInputChange}
+              />
+              <button className={styles.ChangePagesBtn} onClick={addPage}>
+                {addPageIcon()}
+              </button>
+            </div>
           </div>
           <PagesController
             activePage={activePage}

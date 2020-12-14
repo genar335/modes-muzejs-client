@@ -107,6 +107,7 @@ const ActiveTests = (props: {
               _id={test._id || "NA"}
               active={true}
               nameInRu={test.ru.name}
+              fullTest={test}
               // parentComponentTestFetcher={getTests}
               // mainTestFetcher={props.updateTheTests}
               updateTests={props.updateTheTests}

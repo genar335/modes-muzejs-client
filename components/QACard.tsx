@@ -6,6 +6,7 @@ import { closeBtn, CreateLangSwitchers, SaveBtn } from "./TestNamer";
 import { URLCheck, URLCheckForLocalHost } from "./constants";
 import { resolve } from "path";
 import { sendTheDataToTheServer } from "./PhotoManager";
+import Axios from "axios";
 
 const QACard = (props: {
   cardType: "answer" | "question";
@@ -82,6 +83,26 @@ const QACard = (props: {
     });
   };
 
+  const sendTheDataToTheServerToParse = async (
+    file: string,
+    fileName: string
+  ) => {
+    let fileLocation: string;
+    try {
+      console.log("Sending", file);
+      const locationOfTheFile = await Axios.post(
+        "http://localhost:4000/imgSaving",
+        { fileName, fileContents: file }
+      );
+      console.log(locationOfTheFile);
+      fileLocation = locationOfTheFile.data;
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
+    return fileLocation;
+  };
+
   const handleFileinput = async (event: React.FormEvent<HTMLFormElement>) => {
     let tmp = [];
     event.preventDefault();
@@ -96,8 +117,15 @@ const QACard = (props: {
           )) as string;
           setReadIMG(fileContents);
           // console.log(fileContents);
-          // tmp.push(fileContents);
-          props.saveIMG(props.iterator, fileContents, props.cardType);
+          const fileLocationOnServer = await sendTheDataToTheServerToParse(
+            fileContents,
+            chosenFile.name
+          );
+          if (fileLocationOnServer.length > 0) {
+            props.saveIMG(props.iterator, fileLocationOnServer, props.cardType);
+          } else {
+            props.saveIMG(props.iterator, fileContents, props.cardType);
+          }
           // console.log(QACardRefIMG.current.src, "OI");
         } catch (error) {
           alert(

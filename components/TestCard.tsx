@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import editIcon from "../GAssets/create_icon_big.png";
+import deleteIcon from "../GAssets/delete-black-24dp.svg";
 import styles from "./styles/TestCard.module.scss";
 import Switch from "react-switch";
+import Toggle from "react-toggle";
 import Axios, { AxiosError, AxiosResponse } from "axios";
 import { devURL } from "./constants";
 import { ITest } from "../@types/test";
@@ -9,6 +11,7 @@ import { NextRouter, useRouter } from "next/router";
 import { motion, useAnimation } from "framer-motion";
 // const klik = require("/klik.mp3");
 import useSound from "use-sound";
+// import Switch from "./Switch";
 
 const TestCard = (props: {
   iterator: number;
@@ -16,6 +19,7 @@ const TestCard = (props: {
   _id: string;
   nameInRu: string;
   active: boolean;
+  fullTest: ITest;
   // parentComponentTestFetcher: () => Promise<void>;
   // mainTestFetcher: () => Promise<void>;
   updateTests: (testID: string) => void;
@@ -101,7 +105,16 @@ const TestCard = (props: {
         className={styles.TestCard}
         style={CardStyle}
       >
-        <Switch onChange={handleActiveChange} checked={isTestActive} />
+        {/* <Switch isOn={isTestActive} handleToggle={handleActiveChange} /> */}
+        {/* <Switch onChange={handleActiveChange} checked={isTestActive} /> */}
+        <div className={styles.ToggleTTContainer}>
+          <Toggle
+            checked={isTestActive}
+            icons={false}
+            onChange={handleActiveChange}
+          />
+          <h2 className={styles.TestType}>{props.fullTest?.type}</h2>
+        </div>
         {/* 
       //! Need to figure out how to time the switch
     */}
@@ -112,9 +125,12 @@ const TestCard = (props: {
           className={styles.EditIcon}
         />
         <h3 onClick={handleActiveChange}>Test title in ru: {props.nameInRu}</h3>
-        <h4>Test id: {props._id}</h4>
-        <span>Main question of test</span>
-        <h1 onClick={handleDeleteIconClick}>✖︎</h1>
+        <h5 className={styles.FirstQ}>
+          {`${props.fullTest.ru.pages[0].QnAPairs[0].question.slice(0, 60)}...`}
+        </h5>
+        <span className={styles.DeleteIcon} onClick={handleDeleteIconClick}>
+          <img src={deleteIcon} alt="" />
+        </span>
       </motion.div>
     </div>
   );
