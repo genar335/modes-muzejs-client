@@ -19,7 +19,7 @@ function EmailForm(props: any) {
 
     return(
         <div className={`${styles.formContainer} ${!props.show ? styles.hidden : null}`} onSubmit={handleSubmit}>
-            <h3>Share your results</h3>
+            <h2>Share your results</h2>
             <form className={styles.theForm}>
                 <label htmlFor="email">Your Email Address:</label>
                 <input type="text" id="email" name="email" onChange={handleEmailChange}/>

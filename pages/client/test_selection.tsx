@@ -10,13 +10,18 @@ function test_selection(props: any) {
   const url = "http://localhost:4000/tests/getTest?active=true"
 
   const getActiveTests = (url: string) => {
-    Axios.get(url)
-      .then((res) => {
-        console.log(res);
-        setTestObjs(res.data);
-      })
-      .catch((error) => alert(error));
-  };
+    try {
+      Axios.get(url)
+        .then((res) => {
+          console.log(res);
+          setTestObjs(res.data);
+        })
+        .catch((error) => alert(error));
+    } catch (e) {
+        alert(e);
+        return [];
+    }
+  }
 
   useEffect(() => {
     getActiveTests(url);
