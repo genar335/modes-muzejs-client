@@ -10,20 +10,12 @@ import QACard from "../../components/QACard";
 
 function Test(props: any) {
 
-    //testing out queries
-    const router = useRouter()
-    const { testid , lang } = router.query
-    //API
+    const router = useRouter();
+    const { testid , lang } = router.query;
+    
+    //TODO: direct to /client/success??testid=${testid}&lang=${lang} once test is finished
 
-    /**
-     * if router.query.lang === {lang}
-     * 
-     * wrap different returns in conditionals to render the tests within one page
-     * TODO components: 
-     * 
-     */
-
-    const dropZone =  useRef(null)
+    const dropZone =  useRef(null);
 
     if(dropZone.current && document.getElementById("answer")) {
         console.log(document.getElementById("answer")?.className)

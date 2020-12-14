@@ -7,10 +7,7 @@ import { ITest } from "../../@types/test";
 
 function test_selection(props: any) {
   const [testObjs, setTestObjs] = useState([]); //array with test objects
-  //! @insoemnia, you do not really need to store the url in the state, since you do not really change it.
-  const [url, setUrl] = useState(
-    "http://localhost:4000/tests/getTest?active=true"
-  ); //?dev url of active tests?
+  const url = "http://localhost:4000/tests/getTest?active=true"
 
   const getActiveTests = (url: string) => {
     Axios.get(url)
@@ -25,8 +22,6 @@ function test_selection(props: any) {
     getActiveTests(url);
   }, []);
 
-  //TODO: direct to the chosen test
-
   return (
     <div className={styles.pageContainer}>
       <img
@@ -36,7 +31,9 @@ function test_selection(props: any) {
       />
       <div className={styles.galleryContainer}>
         {testObjs.map((test: ITest) => 
-            <TestCardClient title={test.ru.name}/>
+            <TestCardClient
+                title={test.ru.name}
+                testData={test}/>
         )}
       </div>
     </div>

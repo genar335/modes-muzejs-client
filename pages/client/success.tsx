@@ -1,7 +1,9 @@
 import Link from 'next/link'
 import React, { useState } from 'react';
+import store from "store";
 import styles from "../styles/success.module.scss"
 import EmailForm from "../../components/EmailForm"
+import { useRouter } from 'next/router';
 
 function Success(props: any) {
 /**
@@ -16,7 +18,11 @@ function Success(props: any) {
  * }
  */
 
-const shareable = true //from test
+    const router = useRouter();
+    const { testid , lang } = router.query;
+    //get testid from router query and onclick Done direct back to languages of the same test id
+
+    const shareable = true; //from test props
 
     return(
         <div className={styles.pageContainer}>
