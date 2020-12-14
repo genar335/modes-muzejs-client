@@ -34,7 +34,7 @@ function Success(props: any) {
             <EmailForm 
                 show={shareable}
             />
-            <Link href="/client/languages">
+            <Link href={`/client/languages?testid=${testid}`}>
                 <button className={styles.finishBtn}>Done</button>
             </Link>
         </div>
