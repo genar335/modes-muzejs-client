@@ -13,8 +13,8 @@ const TestCardClient = (props: {
     const router: NextRouter = useRouter();
 
     const handleClick = (e: any) => {
-        e.preventDefault();
-        store.set(props.testData._id!, props.testData)
+        //e.preventDefault();
+        store.set("theTest", props.testData)
         router.push(url);
       }
 

@@ -24,21 +24,12 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-<<<<<<< Updated upstream
     "/client/languages": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/chunks/pages/client/languages.js"
     ],
     "/client/success": [
-=======
-    "/client/success": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/client/success.js"
-    ],
-    "/client/test_selection": [
->>>>>>> Stashed changes
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/chunks/pages/client/success.js"

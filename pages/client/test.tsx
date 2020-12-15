@@ -13,7 +13,7 @@ function Test(props: any) {
     const router = useRouter();
     const { testid , lang } = router.query;
     
-    //TODO: direct to /client/success??testid=${testid}&lang=${lang} once test is finished
+    //TODO: direct to /client/success?testid=${testid}&lang=${lang} once test is finished
 
     const dropZone =  useRef(null);
 
