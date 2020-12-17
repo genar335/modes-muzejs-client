@@ -10,11 +10,20 @@ function EmailForm(props: any) {
         setEmail(event.target.value);
     }
 
+    const validateEmail = (userEmail: any) => {
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(userEmail).toLowerCase());
+    }
+
     const handleSubmit = (event: any) => {
         event.preventDefault();
         console.log(email);
-        props.showHideModal(false);
-        //send email to DB
+        if (validateEmail(email) == true) {
+            console.log("success")
+            //send email to DB
+        } else {
+            alert("Please enter a valid email address");
+        }
     }
 
     return(
