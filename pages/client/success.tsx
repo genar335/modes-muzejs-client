@@ -1,18 +1,18 @@
-import Link from 'next/link'
+import Link from 'next/link';
 import React, { useState } from 'react';
 import store from "store";
-import styles from "../styles/success.module.scss"
-import EmailForm from "../../components/EmailForm"
+import styles from "../styles/success.module.scss";
+import EmailForm from "../../components/EmailForm";
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 function Success(props: any) {
 
-    const [testID, setTestID] = useState<string>("")
+    const [testID, setTestID] = useState<string>("");
 
     useEffect(() => {
         const testData = store.get("theTest");
-        setTestID(testData._id)
+        setTestID(testData._id);
     }, []);
 
     const shareable = true; //from test props - store.get()?
@@ -23,7 +23,6 @@ function Success(props: any) {
             <div className={styles.textContainer}>
                 <h1>Congration</h1>
                 <p>you done it</p>
-                {/* language handling for the text */}
             </div>
             <EmailForm 
                 show={shareable}
@@ -35,4 +34,4 @@ function Success(props: any) {
     );
 }
 
-export default Success
+export default Success;

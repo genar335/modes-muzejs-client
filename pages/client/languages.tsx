@@ -1,13 +1,8 @@
 import Link from "next/link";
 import { useRouter } from 'next/router';
-import styles from "../styles/languages.module.scss"
+import styles from "../styles/languages.module.scss";
 
 function Languages(props: any) {
-  /**
-   * in admin the test id is selected, ( props.testid? )
-   * from selected lang:
-   * link to href=`/client/test?testid=${testid}&lang=${lang}`
-   */
 
   const router = useRouter();
   const { testid } = router.query;

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import React, { useRef } from "react";
 import { useRouter } from 'next/router';
 import interact from 'interactjs';
@@ -18,7 +17,7 @@ function Test(props: any) {
     const dropZone =  useRef(null);
 
     if(dropZone.current && document.getElementById("answer")) {
-        console.log(document.getElementById("answer")?.className)
+        console.log(document.getElementById("answer")?.className);
         interact(dropZone.current as unknown as Target)
             .dropzone({
                 overlap: "center",
@@ -34,10 +33,6 @@ function Test(props: any) {
     return(
         <div className={styles.pageContainer}>
             <img src="https://www.fashionmuseumriga.lv/bitrix/templates/main_template/img/logo.png" alt="logo" id={styles.MMlogo}></img>
-            {/*<div>
-                <p>test id: {testid}</p>
-                <p>tēst language: {lang}</p>
-            </div>*/}
             <div className={styles.testContainer}>
                 <div className={styles.qnaContainer}>
                     <OptionTop />

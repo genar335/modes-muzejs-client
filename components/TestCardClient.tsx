@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NextRouter, useRouter } from 'next/router'
+import { NextRouter, useRouter } from 'next/router';
 import { ITest } from "../@types/test";
 import store from "store";
 import styles from "./styles/TestCardClient.module.scss";
@@ -13,12 +13,10 @@ const TestCardClient = (props: {
     const router: NextRouter = useRouter();
 
     const handleClick = (e: any) => {
-        //e.preventDefault();
-        store.set("theTest", props.testData)
+        store.set("theTest", props.testData);
         router.push(url);
       }
 
-    // `/client/languages?testid=${props.testData._id}`
     return(
         <div className={styles.testCardContainer} onClick={handleClick}>
             <h2 className={styles.testName}>{props.title}</h2>
@@ -26,4 +24,4 @@ const TestCardClient = (props: {
     )
 }
 
-export default TestCardClient
+export default TestCardClient;

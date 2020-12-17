@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import styles from "./styles/EmailForm.module.scss"
-import closeButton from "../GAssets/closeButton.svg"
+import styles from "./styles/EmailForm.module.scss";
 
 function EmailForm(props: any) {
 
@@ -19,7 +18,7 @@ function EmailForm(props: any) {
         event.preventDefault();
         console.log(email);
         if (validateEmail(email) == true) {
-            console.log("success")
+            console.log("success");
             //send email to DB
         } else {
             alert("Please enter a valid email address");
@@ -38,4 +37,4 @@ function EmailForm(props: any) {
     )
 }
 
-export default EmailForm
+export default EmailForm;
