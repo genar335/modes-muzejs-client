@@ -1,13 +1,12 @@
 .optionContainer {
-    display: flex;
-    
-    justify-content: center;
-    align-items: center;
-    #topFrame {
-        width: 100%;
-    }
-    .text {
-        position: absolute;
-        
-    }
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+  #topFrame {
+    width: 30%;
+  }
+  .text {
+    position: absolute;
+  }
 }

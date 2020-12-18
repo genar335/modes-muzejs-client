@@ -1,38 +1,46 @@
-.pageContainer{
-    background-color: #010713;
-    height: 100vh;
-    width: 100vw;
+.pageContainer {
+  background-color: #010713;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #cba992; //text color
+  #MMlogo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 2rem 0 0 2rem;
+  }
+
+  .testContainer {
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
-    color: #cba992; //text color
-    #MMlogo{
-        position: absolute;
-        top: 0;
-        left: 0;
-        margin: 2rem 0 0 2rem;
+    margin-top: 9rem;
+    height: 75%;
+    width: 80% !important;
+
+    .qnaContainer {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+      height: 100%;
+      justify-content: space-around;
+      //   .dropzoneDiv {
+      //     width: 7rem;
+      //     height: 4rem;
+      //     margin-top: -4rem;
+      //     justify-self: center;
+      //     align-self: center;
+      //   }
+      .TCard {
+        border-radius: 15px;
+
+        border: #cba992 solid 3px;
+        padding: 10rem;
+      }
     }
-    .testContainer {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 9rem;
-        height: 75%;
-        width: 80%;
-        .qnaContainer {
-            display: flex;
-            flex-direction: column;
-            width: 27%;
-            height: 100%;
-            justify-content: space-around;
-            .dropzoneDiv {
-                width: 7rem;
-                height: 4rem;
-                margin-top: -4rem;
-                justify-self: center;
-                align-self: center;
-            }
-        }
-    }
+  }
 }
