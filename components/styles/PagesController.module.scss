@@ -21,6 +21,17 @@
     border-radius: 7px;
     height: 100%;
 
+    .CarouselDots {
+      margin: 0 0 1rem;
+
+      & li {
+        & button {
+          background-color: rgba($color: #000000, $alpha: 0);
+          border-color: rgb(52 72 86);
+        }
+      }
+    }
+
     .carRightArrow {
       background: rgba($color: #000000, $alpha: 0);
       border: none;

@@ -75,6 +75,8 @@ const PagesController = (props: {
           responsive={responsive}
           customRightArrow={<CustomRightArrow />}
           customLeftArrow={<CustomLeftArrow />}
+          dotListClass={compStyle.CarouselDots}
+          
           showDots
           // ssr
         >

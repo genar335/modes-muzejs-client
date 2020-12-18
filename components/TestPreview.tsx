@@ -46,7 +46,7 @@ const TestPreview = (props: {
     whatToSave: "answer" | "question"
   ) => {
     // console.log("from data saving", qid);
-    
+
     tmp[qid][whatToSave] = data;
     // console.log(tmp[qid][whatToSave]);
     // console.log("from save new data", tmp);
@@ -158,7 +158,7 @@ const TestPreview = (props: {
 
   return (
     <div className={styles.TestPreview}>
-      <h3>Page: {props.activePage + 1}</h3>
+      <p className={styles.TPHeader}>Страница {props.activePage + 1}</p>
 
       <div className={`${compStyles.TestBGContainer}`}>
         <FMLogo />

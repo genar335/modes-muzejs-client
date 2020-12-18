@@ -6,6 +6,8 @@ $bg-colour: rgb(190 171 155);
     align-self: flex-start;
   }
 
+  color: #2f4858;
+
   box-sizing: border-box;
   position: fixed;
   width: 100vw;
@@ -15,7 +17,7 @@ $bg-colour: rgb(190 171 155);
   // grid-template-columns: 48% 1fr;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(13, 1fr);
-  column-gap: 2rem;
+  column-gap: 1.6rem;
   row-gap: 1rem;
   justify-items: center;
 
@@ -24,17 +26,18 @@ $bg-colour: rgb(190 171 155);
     grid-column: 1;
     height: 4rem;
     align-self: flex-end;
-    width: 48%;
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-self: flex-start;
     justify-content: center;
     align-items: flex-start;
 
-    .TestTypeSelect {
-      background: #efddd1;
-      border-radius: 16.5px;
-      width: 100%;
-    }
+    // .TestTypeSelect {
+    //   background: #efddd1;
+    //   border-radius: 16.5px;
+    //   width: 100%;
+    // }
   }
 
   .LangSwitcher {
@@ -43,17 +46,51 @@ $bg-colour: rgb(190 171 155);
     justify-self: flex-end;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     // align-items: center;
     width: 100%;
     height: 100%;
     background: #efddd1;
     border-radius: 17px;
-    & h1 {
-      margin: 0 0 1.5rem;
+
+    .LangSwitcherHeader {
+      justify-self: center;
+      align-self: center;
+      margin: 0;
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 29px;
+      display: flex;
       align-items: center;
       text-align: center;
     }
+
+    .LangSwitches {
+      display: flex;
+      flex-direction: column;
+      align-self: center;
+      width: 80%;
+
+      .LScontainer {
+        display: flex;
+        align-items: center;
+        // justify-content: space-between;
+
+        .LSswitchLabel {
+          margin-left: 3rem;
+          // margin: 0 0 0 1rem;
+          flex-grow: 4;
+          font-family: Montserrat;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 18px;
+          line-height: 22px;
+        }
+      }
+    }
+
     .singleLangSwitcher {
       display: flex;
       flex-direction: row-reverse;
@@ -121,9 +158,11 @@ $bg-colour: rgb(190 171 155);
   .TestNaming {
     grid-row: 3;
     // grid-column: 1/2;
-    width: 20rem;
-    height: 3rem;
+    width: 100%;
+    height: 75%;
+    // height: 3rem;
     justify-self: flex-start;
+    // align-self: center;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -175,12 +214,20 @@ $bg-colour: rgb(190 171 155);
     border-radius: 17px;
     box-sizing: border-box;
     padding: 2rem;
+
+    .TPHeader {
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 29px;
+    }
   }
 
   .SaveTestBtn {
     border: none;
     background-color: rgba(0, 0, 0, 0);
-    grid-row: 13;
+    grid-row: 12/14;
     grid-column: 4;
     justify-self: flex-end !important;
     place-self: center;
@@ -218,7 +265,8 @@ $bg-colour: rgb(190 171 155);
     // align-items: center;
     align-self: center;
     justify-self: flex-start;
-    grid-row: 13;
+
+    grid-row: 12/14;
     grid-column: 1;
     // font-size: xx-large;
     // text-align: center;

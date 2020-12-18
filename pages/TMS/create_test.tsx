@@ -1,6 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
-import Select from "react-select";
+import Select, {
+  components,
+  ControlProps,
+  Props,
+  StylesConfig,
+} from "react-select";
 import { IQnA, ITest, TLangOption, TTestTypes } from "../../@types/test";
 import FMLogo from "../../components/FMlogo";
 import PagesController from "../../components/PagesController";
@@ -10,11 +15,13 @@ import TestPreview from "../../components/TestPreview";
 import styles from "../styles/create_test.module.scss";
 import { APIURL, devURL } from "../../components/constants";
 import { AnimatePresence, motion } from "framer-motion";
-import Switch from "react-switch";
+import Switch, { ReactSwitchProps } from "react-switch";
 import Axios, { AxiosResponse } from "axios";
 import { NextRouter, useRouter } from "next/router";
 import PleaseWaitModal from "../../components/PleaseWaitModal";
 import store from "store";
+import ReactSwitch from "react-switch";
+import chroma from "chroma-js";
 
 function create_test() {
   // useEffect(() => {
@@ -464,7 +471,9 @@ function create_test() {
 
   const PageCounter = (
     <div className={styles.AddPageCont}>
-      <p className={styles.CounterHeader} style={{ margin: 0 }}>Страницы</p>
+      <p className={styles.CounterHeader} style={{ margin: 0 }}>
+        Страницы
+      </p>
       <div className={styles.PageControllerBtnsContainer}>
         <button className={styles.ChangePagesBtn} onClick={removePage}>
           {removePageIcon()}
@@ -484,6 +493,79 @@ function create_test() {
       </div>
     </div>
   );
+
+  const customChevron = () => (
+    <svg
+      width="24"
+      height="14"
+      viewBox="0 0 24 14"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M2 2L12 12L22 2"
+        stroke="#2F4858"
+        stroke-width="3"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+
+  const DropdownIndicator = (props: typeof DropdownIndicator) => {
+    return (
+      <components.DropdownIndicator {...props}>
+        {customChevron()}
+      </components.DropdownIndicator>
+    );
+  };
+
+  const testTypeSelectStyles: StylesConfig = {
+    container: (provided, state) => ({
+      ...provided,
+      width: "100%",
+      height: "100%",
+      background: "#EFDDD1",
+      borderRadius: "16px",
+      // display: "flex",
+      // justifyContent: "space-between",
+    }),
+    indicatorSeparator: (provided, state) => ({
+      display: "none",
+    }),
+    dropdownIndicator: (provided, state) => ({
+      ...provided,
+      marginRight: "0.9rem",
+      color: "#2F4858",
+    }),
+    option: (provided, state: Props<Record<string, unknown>>) => ({
+      ...provided,
+      // borderBottom: "1px dotted pink",
+      background: state.isFocused ? "#EFDDD1" : chroma("EFDDD1").darken().hex(),
+      borderRadius: "16px",
+      // width: "80%",
+      color: state.isSelected ? "#2F4858" : chroma("2F4858").luminance(0.5),
+      padding: 20,
+    }),
+    control: () => ({
+      // none of react-select's styles are passed to <Control />
+      width: "100%",
+      height: "100%",
+      display: "flex",
+    }),
+    // singleValue: (provided, state) => {
+    //   const opacity = state.isDisabled ? 0.5 : 1;
+    //   const transition = "opacity 300ms";
+
+    //   return { ...provided, opacity, transition };
+    // },
+    menu: (provided, state) => ({
+      ...provided,
+      background: "#EFDDD1",
+      borderRadius: "16px",
+    }),
+  };
+
   return (
     <AnimatePresence>
       {/* {isVisible && ( */}
@@ -505,8 +587,55 @@ function create_test() {
           />
         </div>
         <div className={styles.LangSwitcher}>
-          <h1>Языки</h1>
-          {renderLangSwitcher(testLang)}
+          <p className={styles.LangSwitcherHeader}>Языки</p>
+          {/* {renderLangSwitcher(testLang)} */}
+          <div className={styles.LangSwitches}>
+            <div className={styles.LScontainer}>
+              <Switch
+                id="ru"
+                onChange={handleLangSwitchChange}
+                checked={langSwitchesStates["ru"]}
+                onColor="#0AB496"
+                offColor="#8A8A8A"
+                uncheckedIcon={false}
+                checkedIcon={false}
+                handleDiameter={18}
+                width={46}
+                height={30}
+              />
+              <p className={styles.LSswitchLabel}>Русский</p>
+            </div>
+            <div className={styles.LScontainer}>
+              <Switch
+                id="en"
+                onChange={handleLangSwitchChange}
+                checked={langSwitchesStates["en"]}
+                onColor="#0AB496"
+                offColor="#8A8A8A"
+                uncheckedIcon={false}
+                checkedIcon={false}
+                handleDiameter={18}
+                width={46}
+                height={30}
+              />
+              <p className={styles.LSswitchLabel}>Английский</p>
+            </div>
+            <div className={styles.LScontainer}>
+              <Switch
+                id="lv"
+                onChange={handleLangSwitchChange}
+                checked={langSwitchesStates["lv"]}
+                onColor="#0AB496"
+                offColor="#8A8A8A"
+                uncheckedIcon={false}
+                checkedIcon={false}
+                handleDiameter={18}
+                width={46}
+                height={30}
+              />
+              <p className={styles.LSswitchLabel}>Латышский</p>
+            </div>
+          </div>
         </div>
 
         <div className={styles.TestType}>
@@ -514,6 +643,7 @@ function create_test() {
             options={typeOptions}
             className={styles.TestTypeSelect}
             // defaultValue={convertType()}
+            components={{ DropdownIndicator }}
             isDisabled={isTestFetching}
             onChange={(selected: any): void => {
               setTest({
@@ -522,6 +652,7 @@ function create_test() {
                 type: selected.value,
               });
             }}
+            styles={testTypeSelectStyles}
           />
         </div>
         {PageCounter}
