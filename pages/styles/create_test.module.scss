@@ -60,7 +60,7 @@ $bg-colour: rgb(190 171 155);
       font-family: Montserrat;
       font-style: normal;
       font-weight: 500;
-      font-size: 24px;
+      font-size: 40px;
       line-height: 29px;
       display: flex;
       align-items: center;
@@ -85,7 +85,7 @@ $bg-colour: rgb(190 171 155);
           font-family: Montserrat;
           font-style: normal;
           font-weight: 500;
-          font-size: 18px;
+          font-size: 25px;
           line-height: 22px;
         }
       }
@@ -128,18 +128,26 @@ $bg-colour: rgb(190 171 155);
       font-family: Montserrat;
       font-style: normal;
       font-weight: 500;
-      font-size: 24px;
+      font-size: 40px;
     }
 
     .PageControllerBtnsContainer {
       display: flex;
       align-content: center;
 
+      margin: 0 0 0 -1rem;
+
       justify-content: space-around;
       width: 15rem;
       .ChangePagesBtn {
         background-color: rgba(0, 0, 0, 0);
         border: none;
+        padding: 0;
+
+        &:disabled {
+          // background-color: rgba(0, 0, 0, 1);
+          filter: opacity(0.5);
+        }
       }
 
       .pagesNumberIndicator {
@@ -219,7 +227,7 @@ $bg-colour: rgb(190 171 155);
       font-family: Montserrat;
       font-style: normal;
       font-weight: 500;
-      font-size: 24px;
+      font-size: 40px;
       line-height: 29px;
     }
   }
@@ -239,7 +247,7 @@ $bg-colour: rgb(190 171 155);
     font-family: Montserrat;
     font-style: normal;
     font-weight: 500;
-    font-size: 24px;
+    font-size: 40px;
     line-height: 29px;
     display: flex;
     align-items: center;
@@ -257,7 +265,7 @@ $bg-colour: rgb(190 171 155);
     // font-family: Montserrat;
     // font-style: normal;
     // font-weight: 500;
-    // font-size: 24px;
+    // font-size: 40px;
     // line-height: 29px;
 
     // display: flex;

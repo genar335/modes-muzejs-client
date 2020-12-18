@@ -9,7 +9,7 @@ import Select, {
 import { IQnA, ITest, TLangOption, TTestTypes } from "../../@types/test";
 import FMLogo from "../../components/FMlogo";
 import PagesController from "../../components/PagesController";
-import PhotoManager from "../../components/PhotoManager";
+// import PhotoManager from "../../components/PhotoManager";
 import TestNamer from "../../components/TestNamer";
 import TestPreview from "../../components/TestPreview";
 import styles from "../styles/create_test.module.scss";
@@ -475,7 +475,11 @@ function create_test() {
         Страницы
       </p>
       <div className={styles.PageControllerBtnsContainer}>
-        <button className={styles.ChangePagesBtn} onClick={removePage}>
+        <button
+          disabled={test.type === ""}
+          className={styles.ChangePagesBtn}
+          onClick={removePage}
+        >
           {removePageIcon()}
         </button>
         <input
@@ -487,7 +491,11 @@ function create_test() {
           // value={currentPages}
           onChange={handleNumberInputChange}
         />
-        <button className={styles.ChangePagesBtn} onClick={addPage}>
+        <button
+          disabled={test.type === ""}
+          className={styles.ChangePagesBtn}
+          onClick={addPage}
+        >
           {addPageIcon()}
         </button>
       </div>
@@ -527,6 +535,7 @@ function create_test() {
       height: "100%",
       background: "#EFDDD1",
       borderRadius: "16px",
+      fontSize: "20px",
       // display: "flex",
       // justifyContent: "space-between",
     }),
@@ -561,6 +570,7 @@ function create_test() {
     // },
     menu: (provided, state) => ({
       ...provided,
+      fontSize: "20px",
       background: "#EFDDD1",
       borderRadius: "16px",
     }),
@@ -640,6 +650,7 @@ function create_test() {
 
         <div className={styles.TestType}>
           <Select
+            placeholder={test.type || "Выберите тип теста..."}
             options={typeOptions}
             className={styles.TestTypeSelect}
             // defaultValue={convertType()}
