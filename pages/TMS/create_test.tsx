@@ -482,7 +482,7 @@ function create_test() {
         >
           {removePageIcon()}
         </button>
-        <input
+        {/* <input
           // disabled={pagesRendered}
           type="number"
           name="pagesNumber"
@@ -490,7 +490,8 @@ function create_test() {
           placeholder={test.pages ? test.pages.toString() : "1"}
           // value={currentPages}
           onChange={handleNumberInputChange}
-        />
+        /> */}
+        <h1>{test.pages && test.pages.toString()}</h1>
         <button
           disabled={test.type === ""}
           className={styles.ChangePagesBtn}
