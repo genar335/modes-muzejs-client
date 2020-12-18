@@ -462,6 +462,28 @@ function create_test() {
     router.replace("http://localhost:3000/TMS/main");
   };
 
+  const PageCounter = (
+    <div className={styles.AddPageCont}>
+      <p className={styles.CounterHeader} style={{ margin: 0 }}>Страницы</p>
+      <div className={styles.PageControllerBtnsContainer}>
+        <button className={styles.ChangePagesBtn} onClick={removePage}>
+          {removePageIcon()}
+        </button>
+        <input
+          // disabled={pagesRendered}
+          type="number"
+          name="pagesNumber"
+          className={styles.pagesNumberIndicator}
+          placeholder={test.pages ? test.pages.toString() : "1"}
+          // value={currentPages}
+          onChange={handleNumberInputChange}
+        />
+        <button className={styles.ChangePagesBtn} onClick={addPage}>
+          {addPageIcon()}
+        </button>
+      </div>
+    </div>
+  );
   return (
     <AnimatePresence>
       {/* {isVisible && ( */}
@@ -502,27 +524,8 @@ function create_test() {
             }}
           />
         </div>
+        {PageCounter}
         <div className={styles.PageController}>
-          <div className={styles.AddPageCont}>
-            <h6 style={{ margin: 0 }}>Страницы</h6>
-            <div className={styles.PageControllerBtnsContainer}>
-              <button className={styles.ChangePagesBtn} onClick={removePage}>
-                {removePageIcon()}
-              </button>
-              <input
-                // disabled={pagesRendered}
-                type="number"
-                name="pagesNumber"
-                className={styles.pagesNumberIndicator}
-                placeholder={test.pages ? test.pages.toString() : "1"}
-                // value={currentPages}
-                onChange={handleNumberInputChange}
-              />
-              <button className={styles.ChangePagesBtn} onClick={addPage}>
-                {addPageIcon()}
-              </button>
-            </div>
-          </div>
           <PagesController
             activePage={activePage}
             setActivePage={activateAPage}
@@ -553,7 +556,7 @@ function create_test() {
           {TestSaveButton()}
         </button>
         <button onClick={handleExitFromTheTest} className={styles.ExitBtn}>
-          Exit
+          {ExitSVGRU()}
         </button>
       </motion.div>
       {/* )} */}
@@ -640,6 +643,42 @@ function removePageIcon() {
         stroke-width="2"
         stroke-linecap="round"
       />
+    </svg>
+  );
+}
+
+function ExitSVGRU() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="200"
+      height="59"
+      viewBox="0 0 381 113"
+    >
+      <g id="Group_1" data-name="Group 1" transform="translate(-3422 -2038)">
+        <rect
+          id="Rectangle_1"
+          data-name="Rectangle 1"
+          width="381"
+          height="113"
+          rx="56.5"
+          transform="translate(3422 2038)"
+          fill="#2f4857"
+        />
+        <text
+          id="Выйти"
+          transform="translate(3538 2110)"
+          fill="#fff"
+          font-size="43"
+          font-family="Montserrat-Medium, Montserrat"
+          font-weight="500"
+          letter-spacing="0.029em"
+        >
+          <tspan x="0" y="0">
+            Выйти
+          </tspan>
+        </text>
+      </g>
     </svg>
   );
 }

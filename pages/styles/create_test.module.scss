@@ -10,16 +10,18 @@ $bg-colour: rgb(190 171 155);
   position: fixed;
   width: 100vw;
   height: 100vh;
-  padding: 2rem 3.5rem;
+  padding: 2rem 4.5rem;
   display: grid;
-  grid-template-columns: 48% 1fr;
-  grid-template-rows: repeat(6, 1fr);
-  column-gap: 6rem;
+  // grid-template-columns: 48% 1fr;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(13, 1fr);
+  column-gap: 2rem;
+  row-gap: 1rem;
   justify-items: center;
 
   .TestType {
-    grid-row: 2/3;
-    grid-column: 1/2;
+    grid-row: 4;
+    grid-column: 1;
     height: 4rem;
     align-self: flex-end;
     width: 48%;
@@ -36,15 +38,15 @@ $bg-colour: rgb(190 171 155);
   }
 
   .LangSwitcher {
-    grid-row: 2/5;
-    grid-column: 1/2;
+    grid-row: 3/8;
+    grid-column: 2;
     justify-self: flex-end;
     display: flex;
     flex-direction: column;
     justify-content: center;
     // align-items: center;
-    width: 50%;
-    height: 25rem;
+    width: 100%;
+    height: 100%;
     background: #efddd1;
     border-radius: 17px;
     & h1 {
@@ -61,8 +63,8 @@ $bg-colour: rgb(190 171 155);
   }
 
   .PageController {
-    grid-row: 4/6;
-    grid-column: 1/2;
+    grid-row: 8/12;
+    grid-column: 1/3;
     font-size: 60px;
     display: flex;
     flex-direction: column;
@@ -70,45 +72,55 @@ $bg-colour: rgb(190 171 155);
     justify-content: space-evenly;
     width: 100%;
     height: 100%;
+  }
+  .AddPageCont {
+    // margin: -3rem 0 0;
+    grid-row: 6/8;
+    grid-column: 1;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    justify-self: flex-start;
+    align-self: flex-start;
+    align-items: flex-start;
 
-    .AddPageCont {
-      margin: -3rem 0 0;
+    .CounterHeader {
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 24px;
+    }
+
+    .PageControllerBtnsContainer {
       display: flex;
-      flex-direction: column;
+      align-content: center;
+
       justify-content: space-around;
-      align-self: flex-start;
-      align-items: center;
-      height: 10rem;
       width: 15rem;
+      .ChangePagesBtn {
+        background-color: rgba(0, 0, 0, 0);
+        border: none;
+      }
 
-      .PageControllerBtnsContainer {
-        display: flex;
-        align-content: center;
-
-        justify-content: space-around;
-        width: 15rem;
-        .ChangePagesBtn {
-          background-color: rgba(0, 0, 0, 0);
-          border: none;
-        }
-
-        .pagesNumberIndicator {
-          border: 2px solid #e0bca3;
-          box-sizing: border-box;
-          border-radius: 8px;
-          font-size: xx-large;
-          width: 3rem;
-          height: 3rem;
-          text-align: center;
-          align-self: center;
-        }
+      .pagesNumberIndicator {
+        border: 2px solid #e0bca3;
+        box-sizing: border-box;
+        border-radius: 8px;
+        font-size: xx-large;
+        width: 3rem;
+        height: 3rem;
+        text-align: center;
+        align-self: center;
       }
     }
   }
 
   .TestNaming {
-    grid-row: 2/3;
-    grid-column: 1/2;
+    grid-row: 3;
+    // grid-column: 1/2;
     width: 20rem;
     height: 3rem;
     justify-self: flex-start;
@@ -151,8 +163,8 @@ $bg-colour: rgb(190 171 155);
   // }
 
   .TestPreview {
-    grid-row: 2/6;
-    grid-column: 2/3;
+    grid-row: 3/12;
+    grid-column: 3/5;
     background-color: rgb(236 221 210);
     display: flex;
     flex-direction: column;
@@ -168,9 +180,9 @@ $bg-colour: rgb(190 171 155);
   .SaveTestBtn {
     border: none;
     background-color: rgba(0, 0, 0, 0);
-    grid-row: 6/7;
-    grid-column: 2/3;
-    // justify-self: flex-end;
+    grid-row: 13;
+    grid-column: 4;
+    justify-self: flex-end !important;
     place-self: center;
     width: 200px;
     height: 59px;
@@ -190,21 +202,36 @@ $bg-colour: rgb(190 171 155);
   }
 
   .ExitBtn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: xx-large;
-    text-align: center;
-    border: solid #2f4858;
-    border-radius: 20px;
-    width: min-content;
-    padding: 0 1rem;
-    height: 3rem;
-    color: whitesmoke;
-    background-color: #2f4858;
+    width: 200px;
+    height: 59px;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+
+    // font-family: Montserrat;
+    // font-style: normal;
+    // font-weight: 500;
+    // font-size: 24px;
+    // line-height: 29px;
+
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    align-self: center;
+    justify-self: flex-start;
+    grid-row: 13;
+    grid-column: 1;
+    // font-size: xx-large;
+    // text-align: center;
+    // border: solid #2f4858;
+    // border-radius: 20px;
+    // width: min-content;
+    // padding: 0 1rem;
+    // height: 3rem;
+    // color: whitesmoke;
+    // background-color: #2f4858;
   }
 
   button:hover {
-    // filter: brightness(1.5);
+    filter: brightness(1.5);
   }
 }
