@@ -10,12 +10,16 @@ function Success(props: any) {
 
     const [testID, setTestID] = useState<string>("");
     const [testName, setTestName] = useState("");
+    const [test, setTest] = useState({});
 
     useEffect(() => {
         const testData = store.get("theTest");
         setTestID(testData._id);
         setTestName(testData.en.name);
+        setTest({data: testData})
     }, []);
+
+    console.log(test)
 
     const shareable = true; //from test props - store.get()?
 
