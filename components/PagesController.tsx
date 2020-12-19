@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 import Carousel from "react-multi-carousel";
 import { responsive } from "./constants";
@@ -75,6 +76,7 @@ const PagesController = (props: {
           responsive={responsive}
           customRightArrow={<CustomRightArrow />}
           customLeftArrow={<CustomLeftArrow />}
+          dotListClass={compStyle.CarouselDots}
           showDots
           // ssr
         >
@@ -86,10 +88,15 @@ const PagesController = (props: {
                 onClick={(e) => handlePageClick(e, page)}
                 className={`${compStyle.Page}`}
               >
-                <div>
+                <motion.div
+                  variants={{
+                    hidden: { opacity: 1 },
+                  }}
+                  animate="hidden"
+                >
                   <FMLogo />
                   <span>{page + 1}</span>
-                </div>
+                </motion.div>
               </div>
             );
           })}
