@@ -2,6 +2,6 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/client/success": "pages/client/success.js",
-  "/client/test": "pages/client/test.js"
+  "/client/languages": "pages/client/languages.js",
+  "/client/success": "pages/client/success.js"
 }

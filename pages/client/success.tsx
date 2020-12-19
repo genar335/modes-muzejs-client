@@ -9,10 +9,12 @@ import { useEffect } from 'react';
 function Success(props: any) {
 
     const [testID, setTestID] = useState<string>("");
+    const [testName, setTestName] = useState("");
 
     useEffect(() => {
         const testData = store.get("theTest");
         setTestID(testData._id);
+        setTestName(testData.en.name);
     }, []);
 
     const shareable = true; //from test props - store.get()?
@@ -22,13 +24,13 @@ function Success(props: any) {
             <img src="https://www.fashionmuseumriga.lv/bitrix/templates/main_template/img/logo.png" alt="logo" id={styles.MMlogo}/>
             <div className={styles.textContainer}>
                 <h1>Congration</h1>
-                <p>you done it</p>
+                <h3>You have completed the test "{testName}"</h3>
             </div>
             <EmailForm 
                 show={shareable}
             />
             <Link href={`/client/languages?testid=${testID}`}>
-                <button className={styles.finishBtn}>Done</button>
+            <div className={styles.finishBtn}>Finish</div>
             </Link>
         </div>
     );

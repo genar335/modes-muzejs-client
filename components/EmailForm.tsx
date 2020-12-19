@@ -19,7 +19,8 @@ function EmailForm(props: any) {
         console.log(email);
         if (validateEmail(email) == true) {
             console.log("success");
-            //send email to DB
+            //send email to DB?
+            //? Axios.post("http://localhost:4000/emails", email) or something
         } else {
             alert("Please enter a valid email address");
         }
