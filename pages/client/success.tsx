@@ -23,6 +23,12 @@ function Success(props: any) {
 
     const shareable = true; //from test props - store.get()?
 
+    const text = {
+        en: ["Congratulations", "You have completed the test "],
+        ru: ["Поздравляем", "Вы прошли тест "],
+        lv: ["Apsveicam", ""]
+    }
+
     return(
         <div className={styles.pageContainer}>
             <img src="https://www.fashionmuseumriga.lv/bitrix/templates/main_template/img/logo.png" alt="logo" id={styles.MMlogo}/>

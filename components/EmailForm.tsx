@@ -26,9 +26,15 @@ function EmailForm(props: any) {
         }
     }
 
+    const text = {
+        en: ["Share your results", "Submit"],
+        ru: ["Поделиться результатом", "Отправить"],
+        lv: ["noshareot", "nosubmitot"]
+    }
+
     return(
         <div className={`${styles.formContainer} ${!props.show ? styles.hidden : null}`} onSubmit={handleSubmit}>
-            <h2>Share your results</h2>
+            <h2>Share your reuslts {/* language handling conditional */}</h2>
             <form className={styles.theForm}>
                 <label htmlFor="email">Your Email Address:</label>
                 <input type="text" id="email" name="email" onChange={handleEmailChange}/>
