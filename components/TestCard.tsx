@@ -117,10 +117,18 @@ const TestCard = (props: {
         {/* <Switch isOn={isTestActive} handleToggle={handleActiveChange} /> */}
         {/* <Switch onChange={handleActiveChange} checked={isTestActive} /> */}
         <div className={styles.ToggleTTContainer}>
-          <Toggle
-            checked={isTestActive}
-            icons={false}
+          <Switch
+            id="activationToggle"
             onChange={handleActiveChange}
+            checked={props.active}
+            onColor="#0AB496"
+            offColor="#8A8A8A"
+            uncheckedIcon={false}
+            checkedIcon={false}
+            handleDiameter={18}
+            width={46}
+            height={30}
+            // disabled={test.type === ""}
           />
           <h2 className={styles.TestType}>{props.fullTest?.type}</h2>
         </div>
