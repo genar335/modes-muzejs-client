@@ -40,24 +40,21 @@ $f-s-bg-colour: rgb(236 221 210);
 
     .EditIcon {
       // filter: invert(1);
+      background: none;
+      border: none;
+      width: min-content;
       position: relative;
-
-      top: -22%;
-      left: 98%;
-      width: 2.5rem;
-      background: #2f4858;
-      border-style: solid;
-      border-color: #2f4858;
-      border-radius: 50%;
+      top: -30%;
+      left: 75%;
     }
 
     .DeleteIcon {
-      width: 2.5rem;
-      // position: absolute;
-      bottom: -50%;
-      justify-self: end;
-      align-self: flex-end;
-      left: 45%;
+      background: none;
+      border: none;
+      width: min-content;
+      position: relative;
+      top: -77.85%;
+      left: 95%;
     }
   }
 }

@@ -1,8 +1,22 @@
 $f-s-bg-colour: rgb(236 221 210);
 
 .Gallery {
+  .GalleryHeader {
+    font-family: Montserrat;
+    font-size: 68px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 59px;
+    letter-spacing: 0em;
+    text-align: center;
+
+    color: #3c5463;
+  }
+
   width: 100vw;
   height: min-content;
+  padding: 0 5rem 0;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import styles from "../styles/main.module.scss";
 import { pageAppearance } from "./create_test";
 import PleaseWaitModal from "../../components/PleaseWaitModal";
+import FMLogo from "../../components/FMlogo";
 
 const main = () => {
   const getTestsByActive = async (isTestActive: boolean): Promise<any> => {
@@ -100,6 +101,9 @@ const main = () => {
       initial="hidden"
       animate="visible"
     >
+      <div className={styles.FMLogo}>
+        <FMLogo />
+      </div>
       <PleaseWaitModal isDisplayed={!hasEverythingFetched} />
       <ActiveTests
         // getActiveTests={getTestsByActive}

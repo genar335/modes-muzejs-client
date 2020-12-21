@@ -159,9 +159,9 @@ function create_test() {
     label: "Text – Text" | "Text – Photo" | "Photo – Photo";
   };
   const typeOptions: Array<TTypeOptions> = [
-    { value: "TT", label: "Text – Text" },
-    { value: "TP", label: "Text – Photo" },
-    { value: "PP", label: "Photo – Photo" },
+    { value: "TT", label: "Текст – Текст" },
+    { value: "TP", label: "Текст – Фото" },
+    { value: "PP", label: "Фото – Фото" },
   ];
 
   const [testType, setTestType] = useState<TTestTypes>();
@@ -540,6 +540,15 @@ function create_test() {
       // display: "flex",
       // justifyContent: "space-between",
     }),
+    valueContainer: (provided, state) => ({
+      ...provided,
+      paddingLeft: "1rem",
+    }),
+    placeholder: (provided, state) => ({
+      ...provided,
+      color: "rgb(47	71	88	)",
+      marginLeft: "1rem",
+    }),
     indicatorSeparator: (provided, state) => ({
       display: "none",
     }),
@@ -613,6 +622,7 @@ function create_test() {
                 handleDiameter={18}
                 width={46}
                 height={30}
+                disabled={test.type === ""}
               />
               <p className={styles.LSswitchLabel}>Русский</p>
             </div>
@@ -628,8 +638,9 @@ function create_test() {
                 handleDiameter={18}
                 width={46}
                 height={30}
+                disabled={test.type === ""}
               />
-              <p className={styles.LSswitchLabel}>Английский</p>
+              <p className={styles.LSswitchLabel}>English</p>
             </div>
             <div className={styles.LScontainer}>
               <Switch
@@ -643,8 +654,9 @@ function create_test() {
                 handleDiameter={18}
                 width={46}
                 height={30}
+                disabled={test.type === ""}
               />
-              <p className={styles.LSswitchLabel}>Латышский</p>
+              <p className={styles.LSswitchLabel}>Latviešu</p>
             </div>
           </div>
         </div>
@@ -695,7 +707,11 @@ function create_test() {
           saveChanges={savePage}
           setCurrentCard={saveCurrentCard}
         />
-        <button className={styles.SaveTestBtn} onClick={handleTestSaving}>
+        <button
+          className={styles.SaveTestBtn}
+          disabled={test.type === ""}
+          onClick={handleTestSaving}
+        >
           {TestSaveButton()}
         </button>
         <button onClick={handleExitFromTheTest} className={styles.ExitBtn}>

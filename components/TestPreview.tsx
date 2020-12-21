@@ -165,7 +165,7 @@ const TestPreview = (props: {
         <div className={compStyles.pageBody}>
           {props.testType === "" ? (
             <div className={compStyles.tTypeWarning}>
-              <h1>Выберите тип теста</h1>
+              {/* <h1>Выберите тип теста</h1> */}
             </div>
           ) : (
             pageBody()

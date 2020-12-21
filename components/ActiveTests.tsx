@@ -85,7 +85,7 @@ const ActiveTests = (props: {
 
   return (
     <div className={styles.ActiveTestsContainer}>
-      <h1>Active tests</h1>
+      <h1 className={styles.ActiveTestsHeader}>Активные тесты</h1>
 
       <div className={styles.CarouselContainer}>
         {addATest(handleAddTestClick)}
@@ -128,7 +128,22 @@ function addATest(handleAddTestClick: () => void) {
       id="AddTest"
       className={styles.AddTestCard}
     >
-      <span>+</span>
+      {PlusSign()}
     </div>
   );
 }
+
+export const PlusSign = () => (
+  <svg
+    width="150"
+    height="150"
+    viewBox="0 0 75 75"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M71.2495 33.7499H41.2501V3.74976C41.2501 1.68022 39.5699 0 37.4997 0C35.4301 0 33.7499 1.68022 33.7499 3.74976V33.7499H3.74976C1.68022 33.7499 0 35.4301 0 37.4997C0 39.5699 1.68022 41.2501 3.74976 41.2501H33.7499V71.2495C33.7499 73.3198 35.4301 75 37.4997 75C39.5699 75 41.2501 73.3198 41.2501 71.2495V41.2501H71.2495C73.3198 41.2501 75 39.5699 75 37.4997C75 35.4301 73.3198 33.7499 71.2495 33.7499Z"
+      fill="white"
+    />
+  </svg>
+);

@@ -206,9 +206,10 @@ const TestNamer = (props: {
         <button
           className={compStyles.OpeningBtn}
           onClick={() => setIsOpen(true)}
+          disabled={props.currentStateOfTest.type === ""}
         >
           <p>
-            {`Test name in ${selectedLang?.toUpperCase()}: `}
+            {`Название теста:`}
             {
               props.currentStateOfTest[selectedLang as TLangOption["value"]]
                 .name

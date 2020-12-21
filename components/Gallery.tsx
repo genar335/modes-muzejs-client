@@ -19,7 +19,7 @@ const Gallery = (props: {
 
   return (
     <div className={styles.Gallery}>
-      <h1>Test gallery</h1>
+      <h1 className={styles.GalleryHeader}>Галлерея тестов</h1>
       {/* {<div className={styles.SearchAndFilter}>
         <div className={styles.SearchContainer}>
           <input type="search" name="testSearch" id="testSearch" />

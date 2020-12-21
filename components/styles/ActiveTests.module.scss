@@ -7,18 +7,26 @@ $f-s-bg-colour: rgb(236 221 210);
   align-items: center;
   height: 100vh;
   width: 100vw;
+  margin-top: 4rem;
 
   //align-items: center;
 
-  h1 {
-    margin: 5% 0 2.5%;
-    align-self: center;
-    font-size: 46px;
+  .ActiveTestsHeader {
+    font-family: Montserrat;
+    font-size: 68px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 59px;
+    letter-spacing: 0em;
+    text-align: center;
+    margin: 10rem;
+
+    color: #3c5463;
   }
   .CarouselContainer {
     background-color: $f-s-bg-colour;
     width: 100%;
-    padding: 0 3rem;
+    padding: 0 10rem;
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
