@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
-import Carousel from "react-multi-carousel";
+import React, { useCallback, useEffect, useState } from "react";
+// import Carousel from "react-multi-carousel";
+// import { Carousel } from "primereact/carousel";
 import TestCard from "./TestCard";
 import styles from "./styles/ActiveTests.module.scss";
-import { brown } from "./constants";
+import { brown, white } from "./constants";
 import { NextRouter, useRouter } from "next/router";
 import { ITest } from "../@types/test";
 import Axios from "axios";
+import Test from "../pages/client/test";
+import { useEmblaCarousel } from "embla-carousel/react";
 
 const ActiveTests = (props: {
   // getActiveTests: (active: boolean) => Promise<any>;
@@ -67,15 +70,16 @@ const ActiveTests = (props: {
 
   const Arrow = () => (
     <svg
-      width="15"
-      height="26"
-      viewBox="0 0 15 26"
+      width="56"
+      height="56"
+      viewBox="0 0 56 56"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
+      <circle cx="28" cy="28" r="28" fill="#2F4858" />
       <path
-        d="M2 24L13 13L2 2"
-        stroke="#2F4858"
+        d="M22 41L35 28L22 15"
+        stroke="white"
         stroke-width="3"
         stroke-linecap="round"
         stroke-linejoin="round"
@@ -83,13 +87,57 @@ const ActiveTests = (props: {
     </svg>
   );
 
+  const viewportCss = {
+    overflow: "hidden",
+    width: "100%",
+  };
+  const containerCss = {
+    display: "flex",
+  };
+  const slideCss = {
+    position: "relative",
+    minWidth: "33%",
+  };
+
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: false,
+    align: "start",
+  });
+
+  // const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
+  // const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
+
+  const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [
+    emblaApi,
+  ]);
+  const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [
+    emblaApi,
+  ]);
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    // setPrevBtnEnabled(emblaApi.canScrollPrev());
+    // setNextBtnEnabled(emblaApi.canScrollNext());
+  }, [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    emblaApi.on("select", onSelect);
+    onSelect();
+  }, [emblaApi, onSelect]);
+
+  useEffect(() => {
+    if (emblaApi) {
+      // Embla API is ready
+    }
+  }, [emblaApi]);
+
   return (
     <div className={styles.ActiveTestsContainer}>
       <h1 className={styles.ActiveTestsHeader}>Активные тесты</h1>
 
       <div className={styles.CarouselContainer}>
         {addATest(handleAddTestClick)}
-        <Carousel
+        {/* <Carousel
           responsive={responsive}
           ssr
           containerClass={styles.Carousel}
@@ -98,23 +146,53 @@ const ActiveTests = (props: {
           customLeftArrow={<CustomLeftArrow />}
           showDots
           // dotListClass={styles.customDotListStyle}
+        > */}
+        <button
+          // disabled={prevBtnEnabled}
+          style={{
+            transform: "rotate(180deg)",
+            backgroundColor: "rgba(0, 0, 0, 0)",
+            border: "none",
+            width: "min-width",
+            left: "-25%",
+          }}
+          onClick={scrollPrev}
         >
-          {props.activeTests.map((test: ITest, iterator: number) => (
-            <TestCard
-              key={iterator}
-              iterator={iterator}
-              colour="white"
-              _id={test._id || "NA"}
-              active={true}
-              nameInRu={test.ru.name}
-              fullTest={test}
-              // parentComponentTestFetcher={getTests}
-              // mainTestFetcher={props.updateTheTests}
-              updateTests={props.updateTheTests}
-              fetchAllTests={props.fetchAllTests}
-            />
-          ))}
-        </Carousel>
+          {Arrow()}
+        </button>
+        <div id="carouselViewport" style={viewportCss} ref={emblaRef}>
+          <div id="carouselContainer" style={containerCss}>
+            {props.activeTests.map((test: ITest, iterator: number) => (
+              <div id="carouselSlide" style={slideCss}>
+                <TestCard
+                  key={iterator}
+                  iterator={iterator}
+                  colour="white"
+                  _id={test._id || "NA"}
+                  active={true}
+                  nameInRu={test.ru.name}
+                  fullTest={test}
+                  // parentComponentTestFetcher={getTests}
+                  // mainTestFetcher={props.updateTheTests}
+                  updateTests={props.updateTheTests}
+                  fetchAllTests={props.fetchAllTests}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+        <button
+          // disabled={nextBtnEnabled}
+          style={{
+            backgroundColor: "rgba(0, 0, 0, 0)",
+            border: "none",
+            width: "min-width",
+          }}
+          onClick={scrollNext}
+        >
+          {Arrow()}
+        </button>
+        {/* </Carousel> */}
       </div>
     </div>
   );

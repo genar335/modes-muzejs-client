@@ -6,11 +6,13 @@ import Switch from "react-switch";
 import Toggle from "react-toggle";
 import Axios, { AxiosError, AxiosResponse } from "axios";
 import { devURL } from "./constants";
-import { ITest } from "../@types/test";
+import { ITest, TTestTypes } from "../@types/test";
 import { NextRouter, useRouter } from "next/router";
 import { motion, useAnimation } from "framer-motion";
 // const klik = require("/klik.mp3");
 import useSound from "use-sound";
+import { parse } from "graphql";
+import { borderRadius } from "react-select/src/theme";
 // import Switch from "./Switch";
 
 const TestCard = (props: {
@@ -25,8 +27,9 @@ const TestCard = (props: {
   updateTests: (testID: string) => void;
   fetchAllTests: () => Promise<void>;
 }) => {
-  const CardStyle: Object = {
+  const CardStyle = {
     background: `rgb(${props.colour})`,
+    color: props.colour === "brown" ? "#FFFFFF" : "#2F4858",
   };
 
   const [isDCModalOpen, setIsDCModalOpen] = useState<boolean>(false);
@@ -67,8 +70,10 @@ const TestCard = (props: {
 
   const handleActiveChange = async () => {
     // setSwichIsActive(!switchIsActive);
+
     await changeTestState(props._id, !isTestActive);
     console.log("Calling all tests");
+
     setTimeout(() => {
       props.updateTests(props._id);
     }, 10);
@@ -86,16 +91,35 @@ const TestCard = (props: {
     //   transition: { duration: 0.3 },
     // });
     // deleteSound();
-    setIsDCModalOpen(true);
-    // Axios.get(`${devURL}tests/deleteTestByID?testToDelete=${props._id}`)
-    //   .catch((error: AxiosError) => alert(error))
-    //   .then((response) => {
-    //     console.log(response);
-    //     props.fetchAllTests();
-    //   });
+
+    Axios.get(`${devURL}tests/deleteTestByID?testToDelete=${props._id}`)
+      .catch((error: AxiosError) => alert(error))
+      .then((response) => {
+        console.log(response);
+        props.fetchAllTests();
+      });
   };
 
   const cardControls = useAnimation();
+
+  const parseTestTypeValueToLabel = (testTypeToParse: TTestTypes["type"]) => {
+    let parsedLabel: string;
+    switch (testTypeToParse) {
+      case "PP":
+        parsedLabel = "Фото – Фото";
+        break;
+      case "PT":
+        parsedLabel = "Фото – Текст";
+        break;
+      case "TT":
+        parsedLabel = "Фото – Фото";
+        break;
+      default:
+        parsedLabel = "Неизвестно";
+        break;
+    }
+    return parsedLabel;
+  };
 
   return (
     <div className={styles.TestCardBackground}>
@@ -112,6 +136,7 @@ const TestCard = (props: {
           <DeletionConfirmationModal
             isVisible={isDCModalOpen}
             toggleModal={setIsDCModalOpen}
+            deletionOfTest={handleDeleteIconClick}
           />
         )}
         {/* <Switch isOn={isTestActive} handleToggle={handleActiveChange} /> */}
@@ -128,9 +153,10 @@ const TestCard = (props: {
             handleDiameter={18}
             width={46}
             height={30}
-            // disabled={test.type === ""}
           />
-          <h2 className={styles.TestType}>{props.fullTest?.type}</h2>
+          <p className={styles.TestType}>
+            {parseTestTypeValueToLabel(props.fullTest.type)}
+          </p>
         </div>
         {/* 
       //! Need to figure out how to time the switch
@@ -138,11 +164,16 @@ const TestCard = (props: {
         <button onClick={handleEditIconClick} className={styles.EditIcon}>
           {EditIcon()}
         </button>
-        <h3 onClick={handleActiveChange}>Test title in ru: {props.nameInRu}</h3>
-        <h5 className={styles.FirstQ}>
-          {`${props.fullTest.ru.pages[0].QnAPairs[0].question.slice(0, 60)}...`}
-        </h5>
-        <button className={styles.DeleteIcon} onClick={handleDeleteIconClick}>
+        <p className={styles.CardHeader}>"{props.nameInRu}"</p>
+        <p className={styles.TestLastEdit}>
+          {new Date(props.fullTest.updatedAt)
+            .toLocaleDateString()
+            .replaceAll(/\//g, ".")}
+        </p>
+        <button
+          className={styles.DeleteIcon}
+          onClick={(e) => setIsDCModalOpen(true)}
+        >
           {DeleteIcon()}
         </button>
       </motion.div>
@@ -153,32 +184,79 @@ const TestCard = (props: {
 export const DeletionConfirmationModal = (props: {
   isVisible: boolean;
   toggleModal: (toggler: boolean) => void;
+  deletionOfTest: () => void;
 }) => {
+  useEffect(() => {
+    // document.body.style.position = "fixed";
+    // document.body.style.top = `-${window.scrollY}px`;
+    document.body.style.overflow = "hidden";
+    return () => {
+      // document.body.style.position = "";
+      // document.body.style.top = "";
+      document.body.style.overflow = "";
+    };
+  }, []);
+
+  const BtnStyle: React.CSSProperties = {
+    backgroundColor: "#2f4858",
+    color: "#ffffff",
+    borderColor: "#2f4858",
+    borderRadius: "14px",
+    borderStyle: "solid",
+    width: "5rem",
+    height: "3rem",
+    margin: "0 1rem",
+    fontSize: "20px",
+  };
+
   return (
     <div
       style={{
         width: "100%",
         height: "100%",
-        backgroundColor: "darkgoldenrod",
-        position: "absolute",
+        background: "rgba(224, 188, 163, 0.6)",
+        // opacity: 0.6,
+        position: "fixed",
         top: 0,
         left: 0,
         zIndex: 10,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
       <div
         style={{
           position: "relative",
-          width: "70%",
+          width: "75%",
           height: "70%",
+          backgroundColor: "#ffffff",
+          opacity: 1,
+          borderRadius: "14px",
+          zIndex: 11,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          color: "#2F4858",
         }}
       >
-        <h1>Внимание!</h1>
-        <p>Хотите ли вы удалить этот тест?</p>
-        <p>Операция не обратима.</p>
+        {InfoIcon()}
+        <p
+          style={{
+            margin: "2rem 0 0 0",
+          }}
+        >
+          Хотите ли вы удалить этот тест?
+        </p>
+        <p>Операция необратима.</p>
         <div>
-          <button>Да</button>
-          <button onClick={(e) => props.toggleModal(false)}>Нет</button>
+          <button onClick={props.deletionOfTest} style={BtnStyle}>
+            Да
+          </button>
+          <button style={BtnStyle} onClick={(e) => props.toggleModal(false)}>
+            Нет
+          </button>
         </div>
       </div>
     </div>
@@ -197,6 +275,22 @@ export const EditIcon = () => (
     <path
       d="M21.1738 0C9.67259 0 0.348755 9.32446 0.348755 20.8252C0.348755 32.3259 9.67259 41.6512 21.1738 41.6512C32.6751 41.6512 42 32.3265 42 20.8252C42 9.32391 32.6751 0 21.1738 0ZM31.0738 14.9868L29.0958 16.9648L25.0693 12.9387L23.5418 14.4662L27.5683 18.4926L17.6924 28.3676L13.6663 24.3418L12.1388 25.8693L16.1649 29.8955L15.1809 30.8795L15.1621 30.8608C15.053 31.0405 14.8756 31.1715 14.6648 31.2183L10.9102 32.0555C10.854 32.0681 10.7968 32.0742 10.7403 32.0742C10.5353 32.0742 10.3362 31.9936 10.1887 31.8456C9.99927 31.6569 9.92041 31.3844 9.97873 31.1232L10.8155 27.3697C10.8627 27.1591 10.9941 26.9813 11.1734 26.8724L11.1544 26.8534L27.0472 10.96C27.2802 10.7274 27.6587 10.7274 27.8917 10.9607L31.0741 14.1424C31.3071 14.3754 31.3071 14.7538 31.0738 14.9868Z"
       fill="#2F4858"
+    />
+  </svg>
+);
+
+export const InfoIcon = () => (
+  <svg
+    width="94"
+    height="94"
+    viewBox="0 0 94 94"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle cx="47" cy="47" r="47" fill="#E0BCA3" />
+    <path
+      d="M42.9794 37.8704H51.0206V70H42.9794V37.8704ZM47 33.3914C45.5223 33.3914 44.3196 32.8937 43.3918 31.8984C42.4639 30.903 42 29.6688 42 28.1957C42 26.7226 42.4639 25.4884 43.3918 24.493C44.3196 23.4977 45.5223 23 47 23C48.4777 23 49.6804 23.4778 50.6082 24.4333C51.5361 25.3888 52 26.5832 52 28.0165C52 29.5693 51.5361 30.8632 50.6082 31.8984C49.6804 32.8937 48.4777 33.3914 47 33.3914Z"
+      fill="white"
     />
   </svg>
 );

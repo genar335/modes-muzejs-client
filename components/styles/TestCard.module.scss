@@ -1,4 +1,4 @@
-$f-s-bg-colour: rgb(236 221 210);
+$f-s-bg-colour: rgb(223 188 163);
 .TestCardBackground {
   display: flex;
   flex-direction: column;
@@ -20,6 +20,27 @@ $f-s-bg-colour: rgb(236 221 210);
     word-wrap: break-word;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .CardHeader {
+      font-family: Montserrat;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 22px;
+      letter-spacing: 0em;
+      text-align: center;
+      width: 90%;
+      margin: 0;
+    }
+
+    .TestLastEdit {
+      // align-self: flex-end;
+      position: relative;
+      bottom: -20%;
+      font-size: 20px;
+    }
 
     .ToggleTTContainer {
       display: flex;
@@ -29,13 +50,9 @@ $f-s-bg-colour: rgb(236 221 210);
       justify-content: space-between;
 
       .TestType {
-        margin: 0;
+        margin: 0.5rem 0 0;
+        font-size: larger;
       }
-    }
-
-    .FirstQ {
-      color: red;
-      margin: 0;
     }
 
     .EditIcon {
@@ -44,8 +61,8 @@ $f-s-bg-colour: rgb(236 221 210);
       border: none;
       width: min-content;
       position: relative;
-      top: -30%;
-      left: 75%;
+      top: -25%;
+      left: 35%;
     }
 
     .DeleteIcon {
@@ -53,8 +70,8 @@ $f-s-bg-colour: rgb(236 221 210);
       border: none;
       width: min-content;
       position: relative;
-      top: -77.85%;
-      left: 95%;
+      top: -102.5%;
+      left: 55%;
     }
   }
 }
