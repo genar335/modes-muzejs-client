@@ -22,6 +22,8 @@ function Test(props: any) {
 
   const [pages, setPages] = useState();
   const [pagesContent, setPagesContent] = useState<Array<IQnAPairs>>([]);
+  const [qnaOverlaps, setQnaOverlaps] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
     console.log(router.query);
@@ -41,6 +43,14 @@ function Test(props: any) {
     console.log(pagesPrep);
   }, [pagesContent]);
 
+  useEffect(() => {
+    if (qnaOverlaps === 3) {
+      console.log("OIOIO");
+    }
+    // setQnaOverlaps(qnaOverlaps + 1);
+    // setQnaOverlaps(1);
+  });
+
   return (
     <DndProvider backend={TouchBackend}>
       <div className={styles.pageContainer}>
@@ -49,7 +59,16 @@ function Test(props: any) {
           alt="logo"
           id={styles.MMlogo}
         />
-        <div className={styles.testContainer}>{pages && pages[0]}</div>
+        <div className={styles.testContainer}>
+          {pages && pages[currentPage]}
+        </div>
+        <button
+          onClick={(e) => {
+            currentPage + 1 && setCurrentPage(currentPage + 1);
+          }}
+        >
+          {">"}
+        </button>
       </div>
     </DndProvider>
   );
@@ -73,26 +92,32 @@ function Test(props: any) {
   }
 
   function handleStopOfADrag(event: DraggableEvent, data: DraggableData) {
-    CheckIfAnswerIntersectedTheQuestion(event);
+    if (CheckIfAnswerIntersectedTheQuestion(event)) {
+      console.log(event.target.parentNode.parentNode);
+      event.target.parentNode.parentNode.style.pointerEvents = "none";
+      setQnaOverlaps(qnaOverlaps + 1);
+    }
   }
 
   function CheckIfAnswerIntersectedTheQuestion(event: DraggableEvent) {
     const questionAbove = event.target.parentNode.parentNode.firstChild;
     const answerDragged = event.target.parentNode;
 
-
     const questionRect = questionAbove.getBoundingClientRect();
     const answerRect = answerDragged.getBoundingClientRect();
 
-
-    if (questionRect.x < answerRect.x + answerRect.width &&
-      questionRect.x + questionRect.width > answerRect.x) {
-      if (questionRect.y < answerRect.y + answerRect.height &&
-        questionRect.y + questionRect.height > answerRect.y) {
-        alert("Images intersect");
-        return true
+    if (
+      questionRect.x < answerRect.x + answerRect.width &&
+      questionRect.x + questionRect.width > answerRect.x
+    ) {
+      if (
+        questionRect.y < answerRect.y + answerRect.height &&
+        questionRect.y + questionRect.height > answerRect.y
+      ) {
+        // alert("Images intersect");
+        return true;
       } else {
-        return false
+        return false;
       }
     }
   }
