@@ -14,6 +14,10 @@ import { IQnA, IQnAPairs, ITest } from "../../@types/test";
 
 function Test(props: any) {
   const router = useRouter();
+
+  const [pages, setPages] = useState();
+  const [pagesContent, setPagesContent] = useState<Array<IQnAPairs>>([]);
+
   useEffect(() => {
     console.log(router.query);
 
@@ -27,46 +31,63 @@ function Test(props: any) {
     // createQnAPairs(activeLang.pages);
   }, []);
 
-  const [pagesContent, setPagesContent] = useState<Array<IQnAPairs>>([]);
-
-  const createQnAPairs = (pagesToRender: Array<Array<IQnAPairs>>) => {
-    // TODO
-    // Parse each QnA Pair
-  };
+  useEffect(() => {
+    const pagesPrep = prepareJSXOfPages();
+    console.log(pagesPrep);
+  }, [pagesContent]);
 
   return (
-    // <DndProvider backend={TouchBackend}>
-    <div className={styles.pageContainer}>
-      <img
-        src="https://www.fashionmuseumriga.lv/bitrix/templates/main_template/img/logo.png"
-        alt="logo"
-        id={styles.MMlogo}
-      />
-      <div className={styles.testContainer}>
-        {pagesContent.map((page, pageIterator: number) =>
-          page.QnAPairs.map((qnaPair: IQnA, iterator: number) => (
-            <div className={styles.qnaContainer}>
-              <div
-                className={styles.TCard}
-                id={`Question_${iterator}_p-${pageIterator}`}
-                key={iterator}
-              >
-                {qnaPair.question}
-              </div>
+    <DndProvider backend={TouchBackend}>
+      <div className={styles.pageContainer}>
+        <img
+          src="https://www.fashionmuseumriga.lv/bitrix/templates/main_template/img/logo.png"
+          alt="logo"
+          id={styles.MMlogo}
+        />
+        <div className={styles.testContainer}>{pages && pages[0]}</div>
+      </div>
+    </DndProvider>
+  );
+
+  function prepareJSXOfPages() {
+    console.log(pagesContent);
+    const pagesPrep = pagesContent.map((page, pageIterator: number) => (
+      <div
+        id={`page-${pageIterator}`}
+        key={pageIterator}
+        style={{
+          display: "flex",
+          justifyContent: "space-evenly",
+          width: "90%",
+          height: "90%",
+        }}
+      >
+        {page.QnAPairs.map((qnaPair: IQnA, iterator: number) => (
+          <div className={styles.qnaContainer}>
+            <div
+              className={styles.TCard}
+              id={`Question_${iterator}_p-${pageIterator}`}
+              key={iterator}
+            >
+              {qnaPair.question}
+            </div>
+            <Draggable>
               <div
                 className={styles.TCard}
                 id={`Answer_${iterator}_p-${pageIterator}`}
                 key={iterator}
               >
-                {qnaPair.question}
+                {qnaPair.answer}
               </div>
-            </div>
-          ))
-        )}
+            </Draggable>
+          </div>
+        ))}
       </div>
-    </div>
-    // </DndProvider>
-  );
+    ));
+    setPages(pagesPrep);
+    console.log(pages);
+    return pagesPrep;
+  }
 }
 
 export default Test;
