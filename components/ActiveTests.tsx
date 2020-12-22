@@ -87,16 +87,17 @@ const ActiveTests = (props: {
     </svg>
   );
 
-  const viewportCss = {
+  const viewportCss: React.CSSProperties = {
     overflow: "hidden",
     width: "100%",
+    paddingLeft: "3rem",
   };
-  const containerCss = {
+  const containerCss: React.CSSProperties = {
     display: "flex",
   };
-  const slideCss = {
+  const slideCss: React.CSSProperties = {
     position: "relative",
-    minWidth: "33%",
+    // minWidth: "33%",
   };
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -154,7 +155,8 @@ const ActiveTests = (props: {
             backgroundColor: "rgba(0, 0, 0, 0)",
             border: "none",
             width: "min-width",
-            left: "-25%",
+            position: "absolute",
+            left: "2%",
           }}
           onClick={scrollPrev}
         >
@@ -187,6 +189,8 @@ const ActiveTests = (props: {
             backgroundColor: "rgba(0, 0, 0, 0)",
             border: "none",
             width: "min-width",
+            position: "absolute",
+            right: "2%",
           }}
           onClick={scrollNext}
         >

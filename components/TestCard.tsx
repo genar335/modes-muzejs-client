@@ -122,11 +122,17 @@ const TestCard = (props: {
   };
 
   return (
-    <div className={styles.TestCardBackground}>
-      <motion.div
-        //* Animation
-        animate={cardControls}
-        //*
+    <motion.div animate={cardControls} className={styles.TestCardBackground}>
+      <button
+        className={styles.DeleteIcon}
+        onClick={(e) => setIsDCModalOpen(true)}
+      >
+        {DeleteIcon()}
+      </button>
+      <button onClick={handleEditIconClick} className={styles.EditIcon}>
+        {EditIcon()}
+      </button>
+      <div
         key={props._id}
         id={props._id}
         className={styles.TestCard}
@@ -161,23 +167,14 @@ const TestCard = (props: {
         {/* 
       //! Need to figure out how to time the switch
     */}
-        <button onClick={handleEditIconClick} className={styles.EditIcon}>
-          {EditIcon()}
-        </button>
         <p className={styles.CardHeader}>"{props.nameInRu}"</p>
         <p className={styles.TestLastEdit}>
           {new Date(props.fullTest.updatedAt)
             .toLocaleDateString()
             .replaceAll(/\//g, ".")}
         </p>
-        <button
-          className={styles.DeleteIcon}
-          onClick={(e) => setIsDCModalOpen(true)}
-        >
-          {DeleteIcon()}
-        </button>
-      </motion.div>
-    </div>
+      </div>
+    </motion.div>
   );
 };
 
@@ -228,8 +225,8 @@ export const DeletionConfirmationModal = (props: {
       <div
         style={{
           position: "relative",
-          width: "75%",
-          height: "70%",
+          width: "35%",
+          height: "40%",
           backgroundColor: "#ffffff",
           opacity: 1,
           borderRadius: "14px",

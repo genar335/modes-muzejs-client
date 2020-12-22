@@ -4,7 +4,7 @@ $f-s-bg-colour: rgb(223 188 163);
   flex-direction: column;
   width: 276.87px;
   height: 289.87px;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   overflow: scroll;
 
@@ -37,16 +37,17 @@ $f-s-bg-colour: rgb(223 188 163);
 
     .TestLastEdit {
       // align-self: flex-end;
-      position: relative;
-      bottom: -20%;
+      position: absolute;
+      bottom: 15%;
       font-size: 20px;
     }
 
     .ToggleTTContainer {
       display: flex;
-      width: 90%;
+      width: 50%;
       height: 10%;
-      margin: 1rem 0 0 0;
+      position: absolute;
+      top: 20%;
       justify-content: space-between;
 
       .TestType {
@@ -54,24 +55,23 @@ $f-s-bg-colour: rgb(223 188 163);
         font-size: larger;
       }
     }
+  }
+  .EditIcon {
+    // filter: invert(1);
+    background: none;
+    border: none;
+    width: min-content;
+    position: absolute;
+    top: 7%;
+    right: 7%;
+  }
 
-    .EditIcon {
-      // filter: invert(1);
-      background: none;
-      border: none;
-      width: min-content;
-      position: relative;
-      top: -25%;
-      left: 35%;
-    }
-
-    .DeleteIcon {
-      background: none;
-      border: none;
-      width: min-content;
-      position: relative;
-      top: -102.5%;
-      left: 55%;
-    }
+  .DeleteIcon {
+    background: none;
+    border: none;
+    width: min-content;
+    position: absolute;
+    bottom: 7%;
+    right: 7%;
   }
 }

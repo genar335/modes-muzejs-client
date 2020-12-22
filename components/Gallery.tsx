@@ -36,23 +36,31 @@ const Gallery = (props: {
         </select>} */}
       {/* </div> */}
       <div className={styles.tCardContainer}>
-        {props.testsToRender
-          ? props.testsToRender.map((test: ITest, iterator: number) => (
-              <TestCard
-                fullTest={test}
-                key={iterator}
-                colour="brown"
-                iterator={iterator}
-                _id={test._id || "NA"}
-                active={false}
-                nameInRu={test.ru.name}
-                // parentComponentTestFetcher={getTests}
-                // mainTestFetcher={props.updateTheTest}
-                updateTests={props.updateTheTests}
-                fetchAllTests={props.fetchAllTests}
-              />
-            ))
-          : null}
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            position: "relative",
+          }}
+        >
+          {props.testsToRender
+            ? props.testsToRender.map((test: ITest, iterator: number) => (
+                <TestCard
+                  fullTest={test}
+                  key={iterator}
+                  colour="brown"
+                  iterator={iterator}
+                  _id={test._id || "NA"}
+                  active={false}
+                  nameInRu={test.ru.name}
+                  // parentComponentTestFetcher={getTests}
+                  // mainTestFetcher={props.updateTheTest}
+                  updateTests={props.updateTheTests}
+                  fetchAllTests={props.fetchAllTests}
+                />
+              ))
+            : null}
+        </div>
       </div>
     </div>
   );
