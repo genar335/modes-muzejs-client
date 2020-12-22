@@ -36,15 +36,15 @@ const Gallery = (props: {
         </select>} */}
       {/* </div> */}
       <div className={styles.tCardContainer}>
-        <div
-          style={{
-            width: "100%",
-            height: "100%",
-            position: "relative",
-          }}
-        >
-          {props.testsToRender
-            ? props.testsToRender.map((test: ITest, iterator: number) => (
+        {props.testsToRender
+          ? props.testsToRender.map((test: ITest, iterator: number) => (
+              <div
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  position: "relative",
+                }}
+              >
                 <TestCard
                   fullTest={test}
                   key={iterator}
@@ -58,9 +58,9 @@ const Gallery = (props: {
                   updateTests={props.updateTheTests}
                   fetchAllTests={props.fetchAllTests}
                 />
-              ))
-            : null}
-        </div>
+              </div>
+            ))
+          : null}
       </div>
     </div>
   );

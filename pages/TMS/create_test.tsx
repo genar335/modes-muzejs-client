@@ -417,12 +417,20 @@ function create_test() {
     setIsTestFetching(false);
   };
 
+  const [langSwitchesStates, setLangSwitchesState] = useState({
+    ru: true,
+    lv: false,
+    en: false,
+  });
+
   const testLang: TLangOption["value"][] = ["ru", "lv", "en"];
   const handleLangSwitchChange = (
     checked: boolean,
     event: MouseEvent | React.SyntheticEvent<MouseEvent | KeyboardEvent, Event>,
     id: string
   ) => {
+    console.log(checked, "checked");
+    console.log(event, "event");
     console.log(id);
     setCurrentLang(id as TLangOption["value"]);
 
@@ -432,14 +440,19 @@ function create_test() {
     //     [lang]: !langSwitchesStates[lang],
     //   });
     // });
-    setActiveLangForSwitches(id as TLangOption["value"]);
+
+    // let tmp = langSwitchesStates;
+    // for (let key in tmp) {
+    //   if (key === id) {
+    //     tmp[key] = checked;
+    //   } else {
+    //     tmp[key] = false;
+    //   }
+    // }
+
+    // setLangSwitchesState(tmp);
   };
 
-  const [langSwitchesStates, setLangSwitchesState] = useState({
-    ru: true,
-    lv: false,
-    en: false,
-  });
   const renderLangSwitcher = (
     languagesToHaveSwitches: TLangOption["value"][]
   ) =>
@@ -611,7 +624,7 @@ function create_test() {
           {/* {renderLangSwitcher(testLang)} */}
           <div className={styles.LangSwitches}>
             <div className={styles.LScontainer}>
-              <Switch
+              {/* <Switch
                 id="ru"
                 onChange={handleLangSwitchChange}
                 checked={langSwitchesStates["ru"]}
@@ -623,11 +636,19 @@ function create_test() {
                 width={46}
                 height={30}
                 disabled={test.type === ""}
+              /> */}
+              <input
+                type="radio"
+                name="whichLang"
+                id="ru"
+                defaultChecked={true}
+                // checked={langSwitchesStates["ru"]}
+                onClick={(e) => setCurrentLang(e.currentTarget.id)}
               />
               <p className={styles.LSswitchLabel}>Русский</p>
             </div>
             <div className={styles.LScontainer}>
-              <Switch
+              {/* <Switch
                 id="en"
                 onChange={handleLangSwitchChange}
                 checked={langSwitchesStates["en"]}
@@ -639,11 +660,17 @@ function create_test() {
                 width={46}
                 height={30}
                 disabled={test.type === ""}
+              /> */}
+              <input
+                onClick={(e) => setCurrentLang(e.currentTarget.id)}
+                type="radio"
+                name="whichLang"
+                id="en"
               />
               <p className={styles.LSswitchLabel}>English</p>
             </div>
             <div className={styles.LScontainer}>
-              <Switch
+              {/* <Switch
                 id="lv"
                 onChange={handleLangSwitchChange}
                 checked={langSwitchesStates["lv"]}
@@ -655,6 +682,13 @@ function create_test() {
                 width={46}
                 height={30}
                 disabled={test.type === ""}
+              /> */}
+              <input
+                // checked={langSwitchesStates["lv"]}
+                onChange={(e) => setCurrentLang(e.currentTarget.id)}
+                type="radio"
+                name="whichLang"
+                id="lv"
               />
               <p className={styles.LSswitchLabel}>Latviešu</p>
             </div>
