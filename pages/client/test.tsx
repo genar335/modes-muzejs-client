@@ -8,9 +8,14 @@ import { Target } from "@interactjs/types";
 import QACard from "../../components/QACard";
 import { DndProvider } from "react-dnd";
 import { TouchBackend } from "react-dnd-touch-backend";
-import Draggable from "react-draggable";
+import Draggable, {
+  DraggableData,
+  DraggableEvent,
+  DraggableEventHandler,
+} from "react-draggable";
 import store from "store";
 import { IQnA, IQnAPairs, ITest } from "../../@types/test";
+import { URLCheckForLocalHost } from "../../components/constants";
 
 function Test(props: any) {
   const router = useRouter();
@@ -49,6 +54,49 @@ function Test(props: any) {
     </DndProvider>
   );
 
+  function imgOrText(data: string) {
+    console.log(data);
+    console.log(data.match(URLCheckForLocalHost));
+    if (data.match(URLCheckForLocalHost) !== null) {
+      return (
+        <img
+          style={{
+            width: "100%",
+          }}
+          src={data}
+          alt=":("
+        />
+      );
+    } else {
+      return <p>data</p>;
+    }
+  }
+
+  function handleStopOfADrag(event: DraggableEvent, data: DraggableData) {
+    CheckIfAnswerIntersectedTheQuestion(event);
+  }
+
+  function CheckIfAnswerIntersectedTheQuestion(event: DraggableEvent) {
+    const questionAbove = event.target.parentNode.parentNode.firstChild;
+    const answerDragged = event.target.parentNode;
+
+
+    const questionRect = questionAbove.getBoundingClientRect();
+    const answerRect = answerDragged.getBoundingClientRect();
+
+
+    if (questionRect.x < answerRect.x + answerRect.width &&
+      questionRect.x + questionRect.width > answerRect.x) {
+      if (questionRect.y < answerRect.y + answerRect.height &&
+        questionRect.y + questionRect.height > answerRect.y) {
+        alert("Images intersect");
+        return true
+      } else {
+        return false
+      }
+    }
+  }
+
   function prepareJSXOfPages() {
     console.log(pagesContent);
     const pagesPrep = pagesContent.map((page, pageIterator: number) => (
@@ -69,15 +117,15 @@ function Test(props: any) {
               id={`Question_${iterator}_p-${pageIterator}`}
               key={iterator}
             >
-              {qnaPair.question}
+              {imgOrText(qnaPair.question)}
             </div>
-            <Draggable>
+            <Draggable onStop={handleStopOfADrag}>
               <div
                 className={styles.TCard}
                 id={`Answer_${iterator}_p-${pageIterator}`}
                 key={iterator}
               >
-                {qnaPair.answer}
+                {imgOrText(qnaPair.answer)}
               </div>
             </Draggable>
           </div>
