@@ -22,7 +22,10 @@ function Test(props: any) {
 
   const [pages, setPages] = useState();
   const [pagesContent, setPagesContent] = useState<Array<IQnAPairs>>([]);
-  const [qnaOverlaps, setQnaOverlaps] = useState(0);
+  // const [qnaOverlaps, setQnaOverlaps] = useState(0);
+  const qnaOverlaps = useRef({
+    counter: 0,
+  });
   const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
@@ -43,14 +46,10 @@ function Test(props: any) {
     console.log(pagesPrep);
   }, [pagesContent]);
 
-  useEffect(() => {
-    if (qnaOverlaps === 3) {
-      console.log("OIOIO");
-    }
-    // setQnaOverlaps(qnaOverlaps + 1);
-    // setQnaOverlaps(1);
-  });
 
+  // Increase the render count on every re-render
+  // ref.current.renderCount += 1;
+  console.log(qnaOverlaps.current.counter);
   return (
     <DndProvider backend={TouchBackend}>
       <div className={styles.pageContainer}>
@@ -64,7 +63,9 @@ function Test(props: any) {
         </div>
         <button
           onClick={(e) => {
-            currentPage + 1 && setCurrentPage(currentPage + 1);
+            console.log(pagesContent.length, "state", currentPage);
+            currentPage < pagesContent.length - 1 &&
+              setCurrentPage(currentPage + 1);
           }}
         >
           {">"}
@@ -95,7 +96,14 @@ function Test(props: any) {
     if (CheckIfAnswerIntersectedTheQuestion(event)) {
       console.log(event.target.parentNode.parentNode);
       event.target.parentNode.parentNode.style.pointerEvents = "none";
-      setQnaOverlaps(qnaOverlaps + 1);
+      console.log(qnaOverlaps, "overlaps");
+      // setQnaOverlaps(qnaOverlaps + 1);
+      qnaOverlaps.current.counter += 1;
+      if (qnaOverlaps.current.counter === 3) {
+        qnaOverlaps.current.counter = 0;
+        currentPage < pagesContent.length - 1 &&
+          setCurrentPage(currentPage + 1);
+      }
     }
   }
 
