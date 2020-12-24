@@ -58,7 +58,7 @@ $transitionDuration: 0.3s;
 
   .ModalContainer {
     width: 60%;
-    height: 50%;
+    height: 80%;
     background-color: whitesmoke;
     border: whitesmoke solid;
     border-radius: 25px;
@@ -69,7 +69,7 @@ $transitionDuration: 0.3s;
 
     .CloseBTN {
       position: relative;
-      top: -30px;
+      top: -20px;
       left: 50.5%;
     }
 
@@ -143,6 +143,7 @@ $transitionDuration: 0.3s;
       }
 
       .SaveBtn {
+        margin-top: 2rem;
         background-color: rgba(0, 0, 0, 0);
         border: none;
       }

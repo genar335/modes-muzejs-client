@@ -141,18 +141,6 @@ function create_test() {
     // setCurrentLang(lang);
     setActiveLangForSwitches(lang);
   };
-  /*   const handleClick = () => {
-    setTest({
-      ru: {
-        name: "imya",
-        pages: test.ru.pages,
-      },
-      lv: test.lv,
-      en: test.en,
-      pages: test.pages,
-      type: "TP",
-    });
-  }; */
 
   type TTypeOptions = {
     value: "TT" | "TP" | "PP";
@@ -173,15 +161,15 @@ function create_test() {
     });
   };
 
-  function savePage(page: any) {
+  function savePage(page: any, lang: "ru" | "lv" | "en") {
     console.log(page);
-    let tmp = test[currentLang].pages;
+    let tmp = test[lang].pages;
     tmp[activePage].QnAPairs = page;
     console.log(tmp);
     setTest({
       ...test,
-      [currentLang]: {
-        ...test[currentLang],
+      [lang]: {
+        ...test[lang],
         pages: tmp,
       },
     });
@@ -721,15 +709,6 @@ function create_test() {
             currentPages={test.pages}
           />
         </div>
-
-        {/* <PhotoManager
-          togglePhotoManager={openPhotos}
-          displayed={isPhotoManagerOpen}
-          currentCard={currentCard}
-          setCurrentCard={setCurrentCard}
-          pageToRender={test[currentLang].pages[activePage].QnAPairs}
-          saveChanges={savePage}
-        /> */}
         <TestPreview
           togglePhotoManager={openPhotos}
           activePage={activePage}
@@ -737,6 +716,7 @@ function create_test() {
           setCurrentLang={activateCurrentLang}
           // currentTestState={test}
           pageToRender={test[currentLang].pages[activePage].QnAPairs}
+          fullTest={test}
           testType={test.type}
           saveChanges={savePage}
           setCurrentCard={saveCurrentCard}

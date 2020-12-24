@@ -25,6 +25,7 @@ const TestPreview = (props: {
   saveChanges: (page: any) => void;
   togglePhotoManager: (toggle: boolean, cardID: string) => void;
   setCurrentCard: React.Dispatch<React.SetStateAction<undefined>>;
+  fullTest: ITest;
 }) => {
   const [isQOpen, setisQOpen] = useState(false);
   const [isAOpen, setisAOpen] = useState(false);
@@ -38,19 +39,20 @@ const TestPreview = (props: {
   // console.log(props.pageToRender);
   // props.pageToRender.map((ele) => console.log(ele.question));
 
-  let tmp = props.pageToRender;
+  // let tmp = props.pageToRender;
 
   const saveNewData = (
     qid: number,
     data: string,
-    whatToSave: "answer" | "question"
+    whatToSave: "answer" | "question",
+    lang: "ru" | "lv" | "en"
   ) => {
     // console.log("from data saving", qid);
-
-    tmp[qid][whatToSave] = data;
+    let tmpLocal = props.fullTest[lang].pages[props.activePage].QnAPairs;
+    tmpLocal[qid][whatToSave] = data;
     // console.log(tmp[qid][whatToSave]);
     // console.log("from save new data", tmp);
-    props.saveChanges(tmp);
+    props.saveChanges(tmpLocal, lang);
   };
 
   const handleQuestionKeyPress = (
@@ -61,24 +63,105 @@ const TestPreview = (props: {
 
   const textEntryCountLimit: number = 180;
 
+  const qaTextEntryHeaderStyle: React.CSSProperties = {
+    color: "rgb(47	71	88)",
+    fontSize: "30px",
+    margin: "0",
+  };
+
+  const qaTextEntryPContainer: React.CSSProperties = {
+    display: "flex",
+    justifyContent: "space-around",
+    alignItems: "center",
+    width: "100%",
+  };
+
+  const qaTextEntryContainer: React.CSSProperties = {
+    width: "90%",
+    height: "30%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  };
+
+  const qaTextEntryCharCounter: React.CSSProperties = {
+    color: "rgb(47 71 88)",
+    fontSize: "25px",
+    margin: "0",
+  };
   function q_a_TextEntry(type: "answer" | "question", id: number) {
     // console.log("id", id);
     return (
       <>
-        <textarea
-          autoFocus
-          className={compStyles.textInputForQandA}
-          // type="text"
-          name="qaTextEntry"
-          id={String(id)}
-          value={props.pageToRender[id][type]}
-          maxLength={textEntryCountLimit}
-          onChange={(e) => saveNewData(id, e.currentTarget.value, type)}
-        />
-        <p className={compStyles.textInputQnACounter}>
+        <div style={qaTextEntryContainer}>
+          <div style={qaTextEntryPContainer}>
+            <p style={qaTextEntryHeaderStyle}>RU</p>
+            <p style={qaTextEntryCharCounter}>
+              {
+                props.fullTest.ru.pages[props.activePage].QnAPairs[id][type]
+                  .length
+              }
+              /{textEntryCountLimit}
+            </p>
+          </div>
+          <textarea
+            // * RU
+            autoFocus
+            className={compStyles.textInputForQandA}
+            name="qaTextEntry"
+            id={String(id)}
+            value={props.fullTest.ru.pages[props.activePage].QnAPairs[id][type]}
+            // value={props.pageToRender[id][type]}
+            maxLength={textEntryCountLimit}
+            onChange={(e) => saveNewData(id, e.currentTarget.value, type, "ru")}
+          />
+        </div>
+        <div style={qaTextEntryContainer}>
+          <div style={qaTextEntryPContainer}>
+            <p style={qaTextEntryHeaderStyle}>EN</p>
+            <p style={qaTextEntryCharCounter}>
+              {
+                props.fullTest.en.pages[props.activePage].QnAPairs[id][type]
+                  .length
+              }
+              /{textEntryCountLimit}
+            </p>
+          </div>
+          <textarea
+            // * EN
+            className={compStyles.textInputForQandA}
+            name="qaTextEntry"
+            id={String(id)}
+            value={props.fullTest.en.pages[props.activePage].QnAPairs[id][type]}
+            maxLength={textEntryCountLimit}
+            onChange={(e) => saveNewData(id, e.currentTarget.value, type, "en")}
+          />
+        </div>
+        <div style={qaTextEntryContainer}>
+          <div style={qaTextEntryPContainer}>
+            <p style={qaTextEntryHeaderStyle}>LV</p>
+            <p style={qaTextEntryCharCounter}>
+              {
+                props.fullTest.lv.pages[props.activePage].QnAPairs[id][type]
+                  .length
+              }
+              /{textEntryCountLimit}
+            </p>
+          </div>
+          <textarea
+            // * LV
+            className={compStyles.textInputForQandA}
+            name="qaTextEntry"
+            value={props.fullTest.lv.pages[props.activePage].QnAPairs[id][type]}
+            maxLength={textEntryCountLimit}
+            onChange={(e) => saveNewData(id, e.currentTarget.value, type, "lv")}
+          />
+        </div>
+        {/* <p className={compStyles.textInputQnACounter}>
           Character count: {props.pageToRender[id][type].length} /{" "}
           {textEntryCountLimit}
-        </p>
+        </p> */}
       </>
     );
   }
