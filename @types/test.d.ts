@@ -30,9 +30,9 @@ export interface ITest {
   active: boolean;
 }
 
-export type TTestTypes = {
-  type: "TT" | "PP" | "PT";
-};
+export interface TTestTypes extends String {
+  type: "TT" | "PP" | "PT" | "TP";
+}
 
 type TLangOption = {
   /**

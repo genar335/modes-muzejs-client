@@ -143,13 +143,14 @@ function create_test() {
   };
 
   type TTypeOptions = {
-    value: "TT" | "TP" | "PP";
+    value: "TT" | "TP" | "PP" | "PT";
     label: "Text – Text" | "Text – Photo" | "Photo – Photo";
   };
   const typeOptions: Array<TTypeOptions> = [
     { value: "TT", label: "Текст – Текст" },
     { value: "TP", label: "Текст – Фото" },
     { value: "PP", label: "Фото – Фото" },
+    { value: "PT", label: "Фото – Текст" },
   ];
 
   const [testType, setTestType] = useState<TTestTypes>();

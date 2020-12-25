@@ -166,35 +166,51 @@ const TestPreview = (props: {
     );
   }
 
-  const handleQuestionChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    // console.log(`${event.currentTarget.id}:`, event.currentTarget.value);
-    saveNewData(
-      Number(event.currentTarget.id),
-      event.currentTarget.value,
-      "question"
-    );
-  };
+  // const handleQuestionChange = (
+  //   event: React.ChangeEvent<HTMLTextAreaElement>
+  // ) => {
+  //   // console.log(`${event.currentTarget.id}:`, event.currentTarget.value);
+  //   saveNewData(
+  //     Number(event.currentTarget.id),
+  //     event.currentTarget.value,
+  //     "question"
+  //   );
+  // };
 
-  const handleModalOpening = (
-    event: React.MouseEvent<HTMLSpanElement, MouseEvent>
-  ) => {
-    if (event.currentTarget.classList.contains(compStyles.question)) {
-      let tmpModalsArray = Array.from(
-        document.getElementsByClassName(addCompStyles.ModalContainerBG)
-      );
-      tmpModalsArray.forEach((modal) => {
-        if (modal.id !== event.currentTarget.id) {
-          modal.classList.add(compStyles.HideModal);
-        } else {
-          modal.classList.remove(compStyles.HideModal);
-        }
-      });
-      // console.log(tmpModalsArray);
-      setisQOpen(true);
+  // const handleModalOpening = (
+  //   event: React.MouseEvent<HTMLSpanElement, MouseEvent>
+  // ) => {
+  //   if (event.currentTarget.classList.contains(compStyles.question)) {
+  //     let tmpModalsArray = Array.from(
+  //       document.getElementsByClassName(addCompStyles.ModalContainerBG)
+  //     );
+  //     tmpModalsArray.forEach((modal) => {
+  //       if (modal.id !== event.currentTarget.id) {
+  //         modal.classList.add(compStyles.HideModal);
+  //       } else {
+  //         modal.classList.remove(compStyles.HideModal);
+  //       }
+  //     });
+  //     // console.log(tmpModalsArray);
+  //     setisQOpen(true);
+  //   }
+  // };
+
+  function testTypeToQaCard(tt: TTestTypes, cardType: "question" | "answer") {
+    let content: "text" | "img";
+    if (cardType === "question") {
+      tt === ("TT" as String) || tt === ("TP" as String)
+        ? (content = "text")
+        : (content = "img");
+      return content;
+    } else if (cardType === "answer") {
+      tt === ("TT" as String) || tt === ("PT" as String)
+        ? (content = "text")
+        : (content = "img");
+      return content;
     }
-  };
+    return "text";
+  }
 
   const pageBody = () =>
     props.pageToRender.map((qna: IQnA, qnaIterator: number) => (
@@ -206,7 +222,8 @@ const TestPreview = (props: {
         <QACard
           setCurrentCard={props.setCurrentCard}
           cardType="question"
-          cardContents={props.testType === "PP" ? "img" : "text"}
+          // cardContents={props.testType === "PP" ? "img" : "text"}
+          cardContents={testTypeToQaCard(props.testType, "question")}
           iterator={qnaIterator}
           setSelectedLanguage={setSelectedLanguage}
           inputEnabler={inputEnabler}
@@ -223,7 +240,8 @@ const TestPreview = (props: {
         <QACard
           setCurrentCard={props.setCurrentCard}
           cardType="answer"
-          cardContents={props.testType === "TT" ? "text" : "img"}
+          // cardContents={props.testType === "TT" ? "text" : "img"}
+          cardContents={testTypeToQaCard(props.testType, "answer")}
           iterator={qnaIterator}
           setSelectedLanguage={setSelectedLanguage}
           inputEnabler={inputEnabler}
