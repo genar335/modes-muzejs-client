@@ -14,37 +14,29 @@ function Languages(props: any) {
         alt="logo"
         id={styles.MMlogo}
       ></img>
-      <div className={styles.langContainer}>
-        <Link href={`/client/test?testid=${testid}&lang=ru`}>
-          <a>
-            <img
-              onClick={(e) => store.set("activeLang", "ru")}
-              src="https://cdn.countryflags.com/thumbs/russia/flag-round-250.png"
-              alt="rus"
-              className={styles.flag}
-            />
-          </a>
-        </Link>
-        <Link href={`/client/test?testid=${testid}&lang=lv`}>
-          <a>
-            <img
-              onClick={(e) => store.set("activeLang", "lv")}
-              src="https://cdn.countryflags.com/thumbs/latvia/flag-round-250.png"
-              alt="lv"
-              className={styles.flag}
-            />
-          </a>
-        </Link>
-        <Link href={`/client/test?testid=${testid}&lang=en`}>
-          <a>
-            <img
-              onClick={(e) => store.set("activeLang", "en")}
-              src="https://cdn.countryflags.com/thumbs/united-kingdom/flag-round-250.png"
-              alt="eng"
-              className={styles.flag}
-            />
-          </a>
-        </Link>
+      <div className={styles.LangSelectContainer}>
+        <div className={styles.LangHeaders}>
+          <h1>Lūdzu, izvēleties valodu!</h1>
+          <h1>Пожалуйста, выберите язык!</h1>
+          <h1>Please, choose a language!</h1>
+        </div>
+        <div className={styles.langLinkContainer}>
+          <div className={styles.LinksContainer}>
+            <Link href={`/client/test?testid=${testid}&lang=ru`}>
+              <p>Русский</p>
+            </Link>
+          </div>
+          <div className={styles.LinksContainer}>
+            <Link href={`/client/test?testid=${testid}&lang=lv`}>
+              <p>Latviesu</p>
+            </Link>
+          </div>
+          <div className={styles.LinksContainer}>
+            <Link href={`/client/test?testid=${testid}&lang=en`}>
+              <p>English</p>
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );
