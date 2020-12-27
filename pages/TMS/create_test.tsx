@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import io from "socket.io-client";
+// import io from "socket.io-client";
 import Select, {
   components,
-  ControlProps,
+  // ControlProps,
   Props,
   StylesConfig,
 } from "react-select";
@@ -20,7 +20,7 @@ import Axios, { AxiosResponse } from "axios";
 import { NextRouter, useRouter } from "next/router";
 import PleaseWaitModal from "../../components/PleaseWaitModal";
 import store from "store";
-import ReactSwitch from "react-switch";
+// import ReactSwitch from "react-switch";
 import chroma from "chroma-js";
 
 function create_test() {
