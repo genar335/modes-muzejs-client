@@ -19,11 +19,6 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/TMS/create_test.js"
     ],
-    "/TMS/main": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/TMS/main.js"
-    ],
     "/_app": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
@@ -34,30 +29,10 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/client/languages": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/client/languages.js"
-    ],
-    "/client/success": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/client/success.js"
-    ],
     "/client/test": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/chunks/pages/client/test.js"
-    ],
-    "/client/test_selection": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/client/test_selection.js"
-    ],
-    "/next/dist/pages/_error": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/next/dist/pages/_error.js"
     ]
   },
   "ampFirstPages": []
