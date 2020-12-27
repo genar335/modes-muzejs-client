@@ -31,6 +31,7 @@ function Test(props: any) {
   const [currentPage, setCurrentPage] = useState(0);
 
   const refsToQuestions = useRef([]);
+  const refsToAnswersHandles = useRef([]);
 
   useEffect(() => {
     console.log(router.query);
@@ -137,11 +138,17 @@ function Test(props: any) {
 
     const relatedQuestion =
       refsToQuestions.current[Number(answerDraggedIterator)];
-    console.log(relatedQuestion.getBoundingClientRect());
-    // const questionAbove = event.target.parentNode.parentNode.firstChild;
+    console.log(
+      answerDragged.parentElement.style,
+      answerDragged.parentElement,
+      "answer"
+    );
+
+    const relatedAnswerHandle =
+      refsToAnswersHandles.current[Number(answerDraggedIterator)];
 
     const questionRect = relatedQuestion.getBoundingClientRect();
-    const answerRect = answerDragged.getBoundingClientRect();
+    const answerRect = relatedAnswerHandle.getBoundingClientRect();
 
     if (
       questionRect.x < answerRect.x + answerRect.width &&
@@ -149,6 +156,8 @@ function Test(props: any) {
       questionRect.y < answerRect.y + answerRect.height &&
       questionRect.y + questionRect.height > answerRect.y
     ) {
+      console.log(answerDragged.parentElement?.parentElement, "oi");
+      // answerDragged.parentElement!.style.filter = "brightness(0.5)";
       return true;
     } else {
       return false;
@@ -197,12 +206,7 @@ function Test(props: any) {
       >
         <div>{imgOrText(qnaPair.question)}</div>
         <div
-          ref={(ele) =>
-            (refsToQuestions.current[
-              iterator
-              // `Question_${iterator}_p-${pageIterator}`
-            ] = ele)
-          }
+          ref={(ele) => (refsToQuestions.current[iterator] = ele)}
           style={{
             position: "absolute",
             bottom: "-20%",
@@ -222,7 +226,18 @@ function Test(props: any) {
           id={`Answer_${iterator}_p-${pageIterator}`}
           key={iterator}
         >
-          {imgOrText(qnaPair.answer)}
+          <div>{imgOrText(qnaPair.answer)}</div>
+          <div
+            ref={(ele) => (refsToAnswersHandles.current[iterator] = ele)}
+            style={{
+              position: "absolute",
+              top: "-15%",
+              right: "45%",
+              zIndex: 1,
+            }}
+          >
+            {StickSemiCircle()}
+          </div>
         </div>
       </Draggable>
     ));
@@ -307,6 +322,42 @@ const StickCircle = () => (
       transform="translate(0 6.956)"
       fill="#c6aa96"
     />
+  </svg>
+);
+
+const StickSemiCircle = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="25"
+    height="32.818"
+    viewBox="0 0 25 22.818"
+  >
+    <line
+      id="Line_2"
+      data-name="Line 2"
+      y2="17"
+      transform="translate(12.5 13.818)"
+      fill="none"
+      stroke="#c6aa96"
+      // stroke-linecap="round"
+      stroke-width="4"
+    />
+    <g
+      id="Path_4"
+      data-name="Path 4"
+      transform="translate(0 -10.682)"
+      fill="none"
+    >
+      <path
+        d="M12.5,20.584C19.4,20.584,25,5.6,25,12.5a12.5,12.5,0,0,1-25,0C0,5.6,5.6,20.584,12.5,20.584Z"
+        stroke="none"
+      />
+      <path
+        d="M 12.5 25 C 5.596439838409424 25 -1.77635683940025e-15 19.40356063842773 -1.77635683940025e-15 12.50000095367432 C -1.77635683940025e-15 11.20769023895264 0.196135088801384 10.68245220184326 0.5602183938026428 10.68245220184326 C 2.141078472137451 10.68245220184326 6.888750553131104 20.583740234375 12.5 20.583740234375 C 18.1108283996582 20.583740234375 22.85856437683105 10.68245220184326 24.43978118896484 10.68245220184326 C 24.80409240722656 10.68245220184326 25 11.20726871490479 25 12.50000095367432 C 25 19.40356063842773 19.40356063842773 25 12.5 25 Z"
+        stroke="none"
+        fill="#c6aa96"
+      />
+    </g>
   </svg>
 );
 
