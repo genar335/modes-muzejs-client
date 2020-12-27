@@ -16,9 +16,9 @@ function Languages(props: any) {
       ></img>
       <div className={styles.LangSelectContainer}>
         <div className={styles.LangHeaders}>
-          <h1>Lūdzu, izvēleties valodu!</h1>
-          <h1>Пожалуйста, выберите язык!</h1>
-          <h1>Please, choose a language!</h1>
+          <p>Lūdzu, izvēleties valodu!</p>
+          <p>Пожалуйста, выберите язык!</p>
+          <p>Please, choose a language!</p>
         </div>
         <div className={styles.langLinkContainer}>
           <div className={styles.LinksContainer}>
