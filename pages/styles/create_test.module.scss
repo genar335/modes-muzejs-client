@@ -41,17 +41,17 @@ $bg-colour: rgb(190 171 155);
   }
 
   .LangSwitcher {
-    grid-row: 3/8;
-    grid-column: 2;
+    grid-row: 2;
+    grid-column: 4;
     justify-self: flex-end;
     display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+    flex-direction: row;
+    justify-content: flex-end;
     // align-items: center;
     width: 100%;
     height: 100%;
-    background: #efddd1;
-    border-radius: 17px;
+    // background: #efddd1;
+    // border-radius: 17px;
 
     .LangSwitcherHeader {
       justify-self: center;
@@ -69,23 +69,28 @@ $bg-colour: rgb(190 171 155);
 
     .LangSwitches {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       align-self: center;
-      width: 80%;
+      width: min-content;
+      justify-content: flex-end;
 
       .LScontainer {
         display: flex;
         align-items: center;
+        height: min-content;
+        margin: -0.5rem 0rem 0 1rem;
         // justify-content: space-between;
 
         input[type="radio"]:after {
-          width: 15px;
-          height: 15px;
-          border-radius: 15px;
-          top: -2px;
-          left: -1px;
+          width: 57px;
+          height: 57px;
+          border-radius: 50%;
+          top: -20px;
+          left: -20px;
           position: relative;
-          background-color: #d1d3d1;
+          background-color: #2f4858;
+          -webkit-box-shadow: inset 0px 0px 15px -6px #000000;
+          box-shadow: inset 0px 0px 15px -6px #000000;
           content: "";
           display: inline-block;
           visibility: visible;
@@ -98,12 +103,12 @@ $bg-colour: rgb(190 171 155);
         }
 
         input[type="radio"]:checked:after {
-          width: 15px;
-          height: 15px;
-          border-radius: 15px;
-          top: -2px;
-          left: -1px;
-          position: relative;
+          // width: 15px;
+          // height: 15px;
+          // border-radius: 15px;
+          // top: -2px;
+          // left: -1px;
+          // position: relative;
           background-color: rgb(11 180 150);
           content: "";
           display: inline-block;
@@ -112,14 +117,19 @@ $bg-colour: rgb(190 171 155);
         }
 
         .LSswitchLabel {
-          margin-left: 3rem;
+          // margin-left: 3rem;
           // margin: 0 0 0 1rem;
+          color: whitesmoke;
+          position: relative;
+          z-index: 1;
           flex-grow: 4;
           font-family: Montserrat;
           font-style: normal;
           font-weight: 500;
-          font-size: 25px;
+          font-size: 15px;
           line-height: 22px;
+          left: -20px;
+          bottom: -6px;
         }
       }
     }
@@ -147,7 +157,7 @@ $bg-colour: rgb(190 171 155);
     // margin: -3rem 0 0;
     grid-row: 6/8;
     grid-column: 1;
-    width: 100%;
+    width: 50%;
     height: 100%;
     margin: 0;
     display: flex;
@@ -161,7 +171,9 @@ $bg-colour: rgb(190 171 155);
       font-family: Montserrat;
       font-style: normal;
       font-weight: 500;
-      font-size: 40px;
+      font-size: 30px;
+      // margin-left: 1.7rem;
+      align-self: end;
     }
 
     .PageControllerBtnsContainer {
@@ -200,7 +212,7 @@ $bg-colour: rgb(190 171 155);
     grid-row: 4;
     // grid-column: 1/2;
     width: 100%;
-    height: 75%;
+    height: 60%;
     // height: 3rem;
     justify-self: flex-start;
     // align-self: center;
@@ -254,15 +266,16 @@ $bg-colour: rgb(190 171 155);
     border: solid rgb(222 213 205) 1px;
     border-radius: 17px;
     box-sizing: border-box;
-    padding: 2rem;
+    padding: 1rem;
 
     .TPHeader {
       font-family: Montserrat;
       font-style: normal;
       font-weight: 500;
-      font-size: 40px;
+      font-size: 30px;
+
       line-height: 29px;
-      margin: 1rem 0 1rem;
+      margin: 0.5rem 0 1rem;
     }
   }
 
@@ -323,6 +336,16 @@ $bg-colour: rgb(190 171 155);
     // height: 3rem;
     // color: whitesmoke;
     // background-color: #2f4858;
+  }
+
+  .FPEditorMainContainer {
+    grid-row: 3/5;
+    grid-column: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   button:hover {
