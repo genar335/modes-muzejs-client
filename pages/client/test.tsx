@@ -2,21 +2,22 @@ import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 // import interact from "interactjs";
 import styles from "../styles/test.module.scss";
-import OptionTop from "../../components/OptionTop";
-import OptionBottom from "../../components/OptionBottom";
-import { Target } from "@interactjs/types";
-import QACard from "../../components/QACard";
+// import OptionTop from "../../components/OptionTop";
+// import OptionBottom from "../../components/OptionBottom";
+// import { Target } from "@interactjs/types";
+// import QACard from "../../components/QACard";
 import { DndProvider } from "react-dnd";
 import { TouchBackend } from "react-dnd-touch-backend";
 import Draggable, {
   DraggableData,
   DraggableEvent,
-  DraggableEventHandler,
+  // DraggableEventHandler,
 } from "react-draggable";
 import store from "store";
 import { IQnA, IQnAPairs, ITest, TLangOption } from "../../@types/test";
 import { URLCheckForLocalHost } from "../../components/constants";
-import { coordsToEvent } from "@interactjs/utils/pointerUtils";
+// import { coordsToEvent } from "@interactjs/utils/pointerUtils";
+import { motion } from "framer-motion";
 
 function Test(props: any) {
   const router = useRouter();
@@ -65,7 +66,7 @@ function Test(props: any) {
             <p>An error has occured, try realoding the page.</p>
           )}
         </div>
-        <button
+        {/* <button
           onClick={(e) => {
             console.log(pagesContent.length, "state", currentPage);
             currentPage < pagesContent.length - 1 &&
@@ -73,7 +74,7 @@ function Test(props: any) {
           }}
         >
           {">"}
-        </button>
+        </button> */}
       </div>
     </DndProvider>
   );
@@ -254,19 +255,27 @@ function Test(props: any) {
 
     let preparedPairsShuffled = page.QnAPairs.map(
       (qnaPair: IQnA, iterator: number) => (
-        <div
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={variantsQnAPairs}
           key={`QuestionAnswerP-${iterator}_p-${pageIterator}`}
           className={styles.qnaContainer}
         >
           {questions[iterator]}
           {tmp[iterator]}
-        </div>
+        </motion.div>
       )
     );
 
     return preparedPairsShuffled;
   }
 }
+
+const variantsQnAPairs = {
+  visible: { opacity: 1 },
+  hidden: { opacity: 0 },
+};
 
 function shuffle(array: []) {
   let m = array.length;
