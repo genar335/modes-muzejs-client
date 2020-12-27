@@ -16,6 +16,10 @@ export interface ITest {
    */
   pages: number;
   /**
+   * @param emailSender Sets whether there is an email option at the end of the test
+   */
+  emailSender: Boolean;
+  /**
    * @param en English version of test contents.
    */
   en: ILangSpecificBody;

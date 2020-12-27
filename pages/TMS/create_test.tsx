@@ -123,9 +123,14 @@ function create_test() {
     },
     type: "",
     active: false,
+    emailSender: false
   };
   const [test, setTest] = useState<ITest>(testTemplateWithThreeCards);
-
+  const setEmail = (bool: boolean): void => 
+    setTest({
+      ...test,
+      emailSender: bool
+    })
   useEffect(() => {
     console.log("Test has changed");
     store.set("testInProgress", test);
@@ -651,7 +656,7 @@ function create_test() {
             </div>
           </div>
         </div>
-        <FinalPageEditor />
+        <FinalPageEditor emailState={test.emailSender} toggleEmail={setEmail} />
         <div className={styles.TestType}>
           <Select
             placeholder={test.type || "Выберите тип теста..."}
