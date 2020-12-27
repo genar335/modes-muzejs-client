@@ -189,50 +189,29 @@ function Test(props: any) {
     pageIterator: number,
     refsToQuestions
   ): React.ReactNode {
-    // let preparedPairs: JSX.Element[] = page.QnAPairs.map(
-    //   (qnaPair: IQnA, iterator: number) => (
-    //     <div
-    //       key={`QuestionAnswerP-${iterator}_p-${pageIterator}`}
-    //       className={styles.qnaContainer}
-    //     >
-    //       <div
-    //         ref={(ele) =>
-    //           (refsToQuestions.current[
-    //             iterator
-    //             // `Question_${iterator}_p-${pageIterator}`
-    //           ] = ele)
-    //         }
-    //         className={styles.TCard}
-    //         id={`Question_${iterator}_p-${pageIterator}`}
-    //         key={`Question_${iterator}_p-${pageIterator}`}
-    //       >
-    //         {imgOrText(qnaPair.question)}
-    //       </div>
-    //       <Draggable onStop={handleStopOfADrag}>
-    //         <div
-    //           className={styles.TCard}
-    //           id={`Answer_${iterator}_p-${pageIterator}`}
-    //           key={iterator}
-    //         >
-    //           {imgOrText(qnaPair.answer)}
-    //         </div>
-    //       </Draggable>
-    //     </div>
-    //   )
-    // );
     let questions = page.QnAPairs.map((qnaPair: IQnA, iterator: number) => (
       <div
-        ref={(ele) =>
-          (refsToQuestions.current[
-            iterator
-            // `Question_${iterator}_p-${pageIterator}`
-          ] = ele)
-        }
         className={styles.TCard}
         id={`Question_${iterator}_p-${pageIterator}`}
         key={`Question_${iterator}_p-${pageIterator}`}
       >
-        {imgOrText(qnaPair.question)}
+        <div>{imgOrText(qnaPair.question)}</div>
+        <div
+          ref={(ele) =>
+            (refsToQuestions.current[
+              iterator
+              // `Question_${iterator}_p-${pageIterator}`
+            ] = ele)
+          }
+          style={{
+            position: "absolute",
+            bottom: "-20%",
+            right: "45%",
+            zIndex: 1,
+          }}
+        >
+          {StickCircle()}
+        </div>
       </div>
     ));
 
@@ -259,6 +238,9 @@ function Test(props: any) {
           initial="hidden"
           animate="visible"
           variants={variantsQnAPairs}
+          transition={{
+            duration: "1.5",
+          }}
           key={`QuestionAnswerP-${iterator}_p-${pageIterator}`}
           className={styles.qnaContainer}
         >
@@ -298,5 +280,34 @@ function shuffle(array: []) {
 
   return array;
 }
+
+const StickCircle = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="23"
+    height="39.956"
+    viewBox="0 0 23 29.956"
+  >
+    <line
+      id="Line_1"
+      data-name="Line 1"
+      y2="20"
+      transform="translate(11.458 2)"
+      fill="none"
+      stroke="#c6aa96"
+      // stroke-linecap=""
+      stroke-width="4"
+    />
+    <circle
+      id="Ellipse_4"
+      data-name="Ellipse 4"
+      cx="11.5"
+      cy="11.5"
+      r="11.5"
+      transform="translate(0 6.956)"
+      fill="#c6aa96"
+    />
+  </svg>
+);
 
 export default Test;
