@@ -28,7 +28,7 @@ function Languages(props: any) {
           </div>
           <div className={styles.LinksContainer}>
             <Link href={`/client/test?testid=${testid}&lang=lv`}>
-              <p>Latviesu</p>
+              <p>Latviešu</p>
             </Link>
           </div>
           <div className={styles.LinksContainer}>
