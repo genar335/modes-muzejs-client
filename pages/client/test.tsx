@@ -14,19 +14,22 @@ import Draggable, {
   DraggableEventHandler,
 } from "react-draggable";
 import store from "store";
-import { IQnA, IQnAPairs, ITest } from "../../@types/test";
+import { IQnA, IQnAPairs, ITest, TLangOption } from "../../@types/test";
 import { URLCheckForLocalHost } from "../../components/constants";
+import { coordsToEvent } from "@interactjs/utils/pointerUtils";
 
 function Test(props: any) {
   const router = useRouter();
 
-  const [pages, setPages] = useState();
+  const [pages, setPages] = useState<JSX.Element[]>();
   const [pagesContent, setPagesContent] = useState<Array<IQnAPairs>>([]);
   // const [qnaOverlaps, setQnaOverlaps] = useState(0);
   const qnaOverlaps = useRef({
     counter: 0,
   });
   const [currentPage, setCurrentPage] = useState(0);
+
+  const refsToQuestions = useRef([]);
 
   useEffect(() => {
     console.log(router.query);
@@ -42,14 +45,11 @@ function Test(props: any) {
   }, []);
 
   useEffect(() => {
-    const pagesPrep = prepareJSXOfPages();
-    console.log(pagesPrep);
+    const pagesPrep = prepareJSXOfPages(refsToQuestions);
+    // console.log(pagesPrep);
   }, [pagesContent]);
 
-
-  // Increase the render count on every re-render
-  // ref.current.renderCount += 1;
-  console.log(qnaOverlaps.current.counter);
+  // console.log(qnaOverlaps.current.counter);
   return (
     <DndProvider backend={TouchBackend}>
       <div className={styles.pageContainer}>
@@ -59,7 +59,11 @@ function Test(props: any) {
           id={styles.MMlogo}
         />
         <div className={styles.testContainer}>
-          {pages && pages[currentPage]}
+          {pages !== undefined ? (
+            pages![currentPage]
+          ) : (
+            <p>An error has occured, try realoding the page.</p>
+          )}
         </div>
         <button
           onClick={(e) => {
@@ -74,9 +78,13 @@ function Test(props: any) {
     </DndProvider>
   );
 
-  function imgOrText(data: string) {
-    console.log(data);
-    console.log(data.match(URLCheckForLocalHost));
+  /**
+   * Returns either an <img> or <p> containig the `data`
+   * @param data string containing eihter the text of a question/answer or a link to the image
+   */
+  function imgOrText(data: string): JSX.Element {
+    // console.log(data);
+    // console.log(data.match(URLCheckForLocalHost));
     if (data.match(URLCheckForLocalHost) !== null) {
       return (
         <img
@@ -101,36 +109,55 @@ function Test(props: any) {
       qnaOverlaps.current.counter += 1;
       if (qnaOverlaps.current.counter === 3) {
         qnaOverlaps.current.counter = 0;
-        currentPage < pagesContent.length - 1 &&
+        if (currentPage < pagesContent.length - 1) {
+          refsToQuestions.current = [];
           setCurrentPage(currentPage + 1);
+        }
       }
     }
   }
 
+  /**
+   * Checks whether the dragged element intersects its question.
+   * @param event refer to React Draggable
+   */
   function CheckIfAnswerIntersectedTheQuestion(event: DraggableEvent) {
-    const questionAbove = event.target.parentNode.parentNode.firstChild;
-    const answerDragged = event.target.parentNode;
+    const answerDragged: Element = event.target!.parentElement;
+    const answerDraggedID = answerDragged.id;
+    // const relatedQuestion = document.getElementById(
+    //   `Question${answerDraggedID.slice(answerDraggedID.indexOf("_"))}`
+    // );
+    // console.log(relatedQuestion, "qID");
+    const answerDraggedIterator = answerDraggedID.slice(
+      answerDraggedID.indexOf("_") + 1,
+      answerDraggedID.lastIndexOf("_")
+    );
+    console.log(answerDraggedIterator, "answer id iterator");
 
-    const questionRect = questionAbove.getBoundingClientRect();
+    const relatedQuestion =
+      refsToQuestions.current[Number(answerDraggedIterator)];
+    console.log(relatedQuestion.getBoundingClientRect());
+    // const questionAbove = event.target.parentNode.parentNode.firstChild;
+
+    const questionRect = relatedQuestion.getBoundingClientRect();
     const answerRect = answerDragged.getBoundingClientRect();
 
     if (
       questionRect.x < answerRect.x + answerRect.width &&
-      questionRect.x + questionRect.width > answerRect.x
+      questionRect.x + questionRect.width > answerRect.x &&
+      questionRect.y < answerRect.y + answerRect.height &&
+      questionRect.y + questionRect.height > answerRect.y
     ) {
-      if (
-        questionRect.y < answerRect.y + answerRect.height &&
-        questionRect.y + questionRect.height > answerRect.y
-      ) {
-        // alert("Images intersect");
-        return true;
-      } else {
-        return false;
-      }
+      return true;
+    } else {
+      return false;
     }
   }
 
-  function prepareJSXOfPages() {
+  /**
+   * Wraps question and answer pairs into a div (containing 3 pairs in this case)
+   */
+  function prepareJSXOfPages(refsToQuestions) {
     console.log(pagesContent);
     const pagesPrep = pagesContent.map((page, pageIterator: number) => (
       <div
@@ -143,32 +170,124 @@ function Test(props: any) {
           height: "90%",
         }}
       >
-        {page.QnAPairs.map((qnaPair: IQnA, iterator: number) => (
-          <div className={styles.qnaContainer}>
-            <div
-              className={styles.TCard}
-              id={`Question_${iterator}_p-${pageIterator}`}
-              key={iterator}
-            >
-              {imgOrText(qnaPair.question)}
-            </div>
-            <Draggable onStop={handleStopOfADrag}>
-              <div
-                className={styles.TCard}
-                id={`Answer_${iterator}_p-${pageIterator}`}
-                key={iterator}
-              >
-                {imgOrText(qnaPair.answer)}
-              </div>
-            </Draggable>
-          </div>
-        ))}
+        {qnaPairsToJSX(page, pageIterator, refsToQuestions)}
       </div>
     ));
     setPages(pagesPrep);
     console.log(pages);
     return pagesPrep;
   }
+
+  /**
+   * Returns an array of JSX Elements containing question and answer cards (which are shuffled randomly before rendering) in pairs
+   * @param page Array of question and answer pairs to be rendered
+   * @param pageIterator page (int) to which the array corresponds
+   */
+  function qnaPairsToJSX(
+    page: IQnAPairs,
+    pageIterator: number,
+    refsToQuestions
+  ): React.ReactNode {
+    // let preparedPairs: JSX.Element[] = page.QnAPairs.map(
+    //   (qnaPair: IQnA, iterator: number) => (
+    //     <div
+    //       key={`QuestionAnswerP-${iterator}_p-${pageIterator}`}
+    //       className={styles.qnaContainer}
+    //     >
+    //       <div
+    //         ref={(ele) =>
+    //           (refsToQuestions.current[
+    //             iterator
+    //             // `Question_${iterator}_p-${pageIterator}`
+    //           ] = ele)
+    //         }
+    //         className={styles.TCard}
+    //         id={`Question_${iterator}_p-${pageIterator}`}
+    //         key={`Question_${iterator}_p-${pageIterator}`}
+    //       >
+    //         {imgOrText(qnaPair.question)}
+    //       </div>
+    //       <Draggable onStop={handleStopOfADrag}>
+    //         <div
+    //           className={styles.TCard}
+    //           id={`Answer_${iterator}_p-${pageIterator}`}
+    //           key={iterator}
+    //         >
+    //           {imgOrText(qnaPair.answer)}
+    //         </div>
+    //       </Draggable>
+    //     </div>
+    //   )
+    // );
+    let questions = page.QnAPairs.map((qnaPair: IQnA, iterator: number) => (
+      <div
+        ref={(ele) =>
+          (refsToQuestions.current[
+            iterator
+            // `Question_${iterator}_p-${pageIterator}`
+          ] = ele)
+        }
+        className={styles.TCard}
+        id={`Question_${iterator}_p-${pageIterator}`}
+        key={`Question_${iterator}_p-${pageIterator}`}
+      >
+        {imgOrText(qnaPair.question)}
+      </div>
+    ));
+
+    let answers = page.QnAPairs.map((qnaPair: IQnA, iterator: number) => (
+      <Draggable onStop={handleStopOfADrag}>
+        <div
+          className={styles.TCard}
+          id={`Answer_${iterator}_p-${pageIterator}`}
+          key={iterator}
+        >
+          {imgOrText(qnaPair.answer)}
+        </div>
+      </Draggable>
+    ));
+
+    let tmp = shuffle(answers);
+    console.log(tmp);
+
+    console.log(questions, answers);
+
+    let preparedPairsShuffled = page.QnAPairs.map(
+      (qnaPair: IQnA, iterator: number) => (
+        <div
+          key={`QuestionAnswerP-${iterator}_p-${pageIterator}`}
+          className={styles.qnaContainer}
+        >
+          {questions[iterator]}
+          {tmp[iterator]}
+        </div>
+      )
+    );
+
+    return preparedPairsShuffled;
+  }
+}
+
+function shuffle(array: []) {
+  let m = array.length;
+  let t;
+  let i;
+
+  console.log(m, t, i);
+  // While there remain elements to shuffle…
+  while (m) {
+    // Pick a remaining element…
+    i = Math.floor(Math.random() * m--);
+    console.log(i, "i");
+
+    // And swap it with the current element.
+    t = array[m];
+    array[m] = array[i];
+    array[i] = t;
+    console.log(array);
+  }
+
+  return array;
 }
 
 export default Test;
