@@ -81,7 +81,7 @@ function Test(props: any) {
           )}
         </div>
 
-        <button
+        {/* <button
           onClick={(e) => {
             refsToQuestions.current.forEach((question) =>
               console.log(question.parentElement)
@@ -92,7 +92,7 @@ function Test(props: any) {
           }}
         >
           Refs
-        </button>
+        </button> */}
       </div>
     </DndProvider>
     /* </AnimatePresence> */
@@ -110,6 +110,8 @@ function Test(props: any) {
         <img
           style={{
             width: "100%",
+            height: "100%",
+            objectFit: "contain",
           }}
           src={data}
           alt=":("
@@ -129,10 +131,6 @@ function Test(props: any) {
       event.target.parentElement.parentElement.parentElement.parentElement.style.pointerEvents =
         "none";
 
-      console.log(
-        event.target.parentElement.parentElement.parentElement,
-        "hello"
-      );
       // setQnaOverlaps(qnaOverlaps + 1);
       qnaOverlaps.current.counter += 1;
       console.log(qnaOverlaps, "overlaps");
@@ -152,8 +150,7 @@ function Test(props: any) {
    */
   function CheckIfAnswerIntersectedTheQuestion(event: DraggableEvent) {
     setqaRectPositions({});
-    const answerDragged: Element = event.target!.parentElement.parentElement
-      .parentElement;
+    const answerDragged: Element = event.target!.parentElement.parentElement;
     console.log(answerDragged, "answer");
     const answerDraggedID = answerDragged.id;
     // const relatedQuestion = document.getElementById(
@@ -248,7 +245,14 @@ function Test(props: any) {
           id={`Question_${iterator}_p-${pageIterator}`}
           key={`Question_${iterator}_p-${pageIterator}`}
         >
-          <div>{imgOrText(qnaPair.question)}</div>
+          <div
+            style={{
+              height: "100%",
+              boxSizing: "border-box",
+            }}
+          >
+            {imgOrText(qnaPair.question)}
+          </div>
         </div>
         <div
           ref={(ele) => (refsToQuestions.current[iterator] = ele)}
@@ -278,8 +282,13 @@ function Test(props: any) {
             id={`Answer_${iterator}_p-${pageIterator}`}
             key={iterator}
           >
-            <div>
-              <div>{imgOrText(qnaPair.answer)}</div>
+            <div
+              style={{
+                height: "100%",
+                boxSizing: "border-box",
+              }}
+            >
+              {imgOrText(qnaPair.answer)}
             </div>
           </div>
           <div
@@ -354,64 +363,72 @@ function shuffle(array: []) {
 const StickCircle = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="23"
-    height="29.956"
-    viewBox="0 0 23 29.956"
+    width="19"
+    height="26.956"
+    viewBox="0 0 19 26.956"
   >
-    <line
-      id="Line_1"
-      data-name="Line 1"
-      y2="20"
-      transform="translate(11.458 2)"
-      fill="none"
-      stroke="#c6aa96"
-      // stroke-linecap=""
-      strokeWidth="4"
-    />
-    <circle
-      id="Ellipse_4"
-      data-name="Ellipse 4"
-      cx="11.5"
-      cy="11.5"
-      r="11.5"
-      transform="translate(0 6.956)"
-      fill="#c6aa96"
-    />
+    <g
+      id="Group_35"
+      data-name="Group 35"
+      transform="translate(-115.882 -241.137)"
+    >
+      <line
+        id="Line_1"
+        data-name="Line 1"
+        y2="11"
+        transform="translate(125.357 243.137)"
+        fill="none"
+        stroke="#c6aa96"
+        stroke-linecap="round"
+        stroke-width="4"
+      />
+      <circle
+        id="Ellipse_4"
+        data-name="Ellipse 4"
+        cx="9.5"
+        cy="9.5"
+        r="9.5"
+        transform="translate(115.882 249.094)"
+        fill="#c6aa96"
+      />
+    </g>
   </svg>
 );
 
 const StickSemiCircle = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="25"
-    height="32.818"
-    viewBox="0 0 25 22.818"
+    width="19"
+    height="18.761"
+    viewBox="0 0 19 18.761"
   >
-    <line
-      id="Line_2"
-      data-name="Line 2"
-      y2="17"
-      transform="translate(12.5 13.818)"
-      fill="none"
-      stroke="#c6aa96"
-      // stroke-linecap="round"
-      strokeWidth="4"
-    />
-    <g
-      id="Path_4"
-      data-name="Path 4"
-      transform="translate(0 -10.682)"
-      fill="none"
-    >
-      <path
-        d="M12.5,20.584C19.4,20.584,25,5.6,25,12.5a12.5,12.5,0,0,1-25,0C0,5.6,5.6,20.584,12.5,20.584Z"
-        stroke="none"
+    <g id="Group_34" data-name="Group 34" transform="translate(-115.996 0)">
+      <line
+        id="Line_4"
+        data-name="Line 4"
+        y2="11"
+        transform="translate(125.357 5.761)"
+        fill="none"
+        stroke="#c6aa96"
+        stroke-linecap="round"
+        stroke-width="4"
       />
-      <path
-        d="M 12.5 25 C 5.596439838409424 25 -1.77635683940025e-15 19.40356063842773 -1.77635683940025e-15 12.50000095367432 C -1.77635683940025e-15 11.20769023895264 0.196135088801384 10.68245220184326 0.5602183938026428 10.68245220184326 C 2.141078472137451 10.68245220184326 6.888750553131104 20.583740234375 12.5 20.583740234375 C 18.1108283996582 20.583740234375 22.85856437683105 10.68245220184326 24.43978118896484 10.68245220184326 C 24.80409240722656 10.68245220184326 25 11.20726871490479 25 12.50000095367432 C 25 19.40356063842773 19.40356063842773 25 12.5 25 Z"
-        stroke="none"
-        fill="#c6aa96"
-      />
+      <g
+        id="Path_11"
+        data-name="Path 11"
+        transform="translate(115.996 -7.551)"
+        fill="none"
+      >
+        <path
+          d="M9.5,11.26c5.247,0,9.5-7.007,9.5-1.76a9.5,9.5,0,0,1-19,0C0,4.253,4.253,11.26,9.5,11.26Z"
+          stroke="none"
+        />
+        <path
+          d="M 0.8809738159179688 7.550793647766113 C 2.390966415405273 7.550793647766113 5.682500839233398 11.26012802124023 9.5 11.26012802124023 C 13.31717872619629 11.26012802124023 16.60886001586914 7.551321029663086 18.11902618408203 7.550793647766113 C 18.68457794189453 7.550596237182617 19 8.070477485656738 19 9.499998092651367 C 19 14.74670791625977 14.74670028686523 18.99999809265137 9.5 18.99999809265137 C 4.253299713134766 18.99999809265137 0 14.74670791625977 0 9.499998092651367 C 0 8.070796966552734 0.3156604766845703 7.550793647766113 0.8809738159179688 7.550793647766113 Z"
+          stroke="none"
+          fill="#c6aa96"
+        />
+      </g>
     </g>
   </svg>
 );
