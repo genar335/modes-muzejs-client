@@ -17,7 +17,7 @@ import store from "store";
 import { IQnA, IQnAPairs, ITest, TLangOption } from "../../@types/test";
 import { URLCheckForLocalHost } from "../../components/constants";
 // import { coordsToEvent } from "@interactjs/utils/pointerUtils";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 function Test(props: any) {
   const router = useRouter();
@@ -30,8 +30,19 @@ function Test(props: any) {
   });
   const [currentPage, setCurrentPage] = useState(0);
 
-  const refsToQuestions = useRef([]);
-  const refsToAnswersHandles = useRef([]);
+  const [qaRectPositions, setqaRectPositions] = useState<{
+    q: DOMRect;
+    a: DOMRect;
+  }>({
+    q: {},
+    a: {},
+  });
+  useEffect(() => {
+    console.log(qaRectPositions.a?.x, qaRectPositions.q?.x, "x, x");
+  }, [qaRectPositions]);
+
+  const refsToQuestions = useRef<HTMLElement[]>([]);
+  const refsToAnswersHandles = useRef<HTMLElement[]>([]);
 
   useEffect(() => {
     console.log(router.query);
@@ -39,8 +50,9 @@ function Test(props: any) {
     //TODO: direct to /client/success?testid=${testid}&lang=${lang} once test is finished
     const chosenLang: "ru" | "en" | "lv" = router.query.lang!;
     const test: ITest = store.get("theTest");
+    console.log(chosenLang);
 
-    console.log(test[store.get("activeLang")]);
+    // console.log(test[store.get("activeLang")]);
 
     setPagesContent(test[store.get("activeLang")].pages);
     // createQnAPairs(activeLang.pages);
@@ -53,6 +65,7 @@ function Test(props: any) {
 
   // console.log(qnaOverlaps.current.counter);
   return (
+    // <AnimatePresence>
     <DndProvider backend={TouchBackend}>
       <div className={styles.pageContainer}>
         <img
@@ -67,17 +80,22 @@ function Test(props: any) {
             <p>An error has occured, try realoding the page.</p>
           )}
         </div>
-        {/* <button
+
+        <button
           onClick={(e) => {
-            console.log(pagesContent.length, "state", currentPage);
-            currentPage < pagesContent.length - 1 &&
-              setCurrentPage(currentPage + 1);
+            refsToQuestions.current.forEach((question) =>
+              console.log(question.parentElement)
+            );
+            refsToAnswersHandles.current.forEach((answer) =>
+              console.log(answer.parentElement)
+            );
           }}
         >
-          {">"}
-        </button> */}
+          Refs
+        </button>
       </div>
     </DndProvider>
+    /* </AnimatePresence> */
   );
 
   /**
@@ -103,12 +121,17 @@ function Test(props: any) {
   }
 
   function handleStopOfADrag(event: DraggableEvent, data: DraggableData) {
+    console.log(event);
+
     if (CheckIfAnswerIntersectedTheQuestion(event)) {
-      console.log(event.target.parentNode.parentNode);
-      event.target.parentNode.parentNode.style.pointerEvents = "none";
-      console.log(qnaOverlaps, "overlaps");
+      // console.log(event.target.parentNode.parentNode);
+      // event.target.parentNode.parentNode.style.pointerEvents = "none";
+      event.target.parentNode.style.pointerEvents = "none";
+
+      console.log(event.target.parentNode);
       // setQnaOverlaps(qnaOverlaps + 1);
       qnaOverlaps.current.counter += 1;
+      console.log(qnaOverlaps, "overlaps");
       if (qnaOverlaps.current.counter === 3) {
         qnaOverlaps.current.counter = 0;
         if (currentPage < pagesContent.length - 1) {
@@ -124,43 +147,50 @@ function Test(props: any) {
    * @param event refer to React Draggable
    */
   function CheckIfAnswerIntersectedTheQuestion(event: DraggableEvent) {
-    const answerDragged: Element = event.target!.parentElement;
+    setqaRectPositions({});
+    const answerDragged: Element = event.target!.parentElement.parentElement;
+    console.log(answerDragged);
     const answerDraggedID = answerDragged.id;
     // const relatedQuestion = document.getElementById(
-    //   `Question${answerDraggedID.slice(answerDraggedID.indexOf("_"))}`
+    //   `Question_${answerDraggedID.slice(answerDraggedID.indexOf("_"))}`
     // );
-    // console.log(relatedQuestion, "qID");
+
     const answerDraggedIterator = answerDraggedID.slice(
       answerDraggedID.indexOf("_") + 1,
       answerDraggedID.lastIndexOf("_")
     );
-    console.log(answerDraggedIterator, "answer id iterator");
-
-    const relatedQuestion =
-      refsToQuestions.current[Number(answerDraggedIterator)];
-    console.log(
-      answerDragged.parentElement.style,
-      answerDragged.parentElement,
-      "answer"
-    );
 
     const relatedAnswerHandle =
       refsToAnswersHandles.current[Number(answerDraggedIterator)];
+    console.log(relatedAnswerHandle);
 
-    const questionRect = relatedQuestion.getBoundingClientRect();
+    const relatedQuestionHandle =
+      refsToQuestions.current[Number(answerDraggedIterator)];
+    console.log(relatedQuestionHandle);
+
+    const questionRect = relatedQuestionHandle.getBoundingClientRect();
     const answerRect = relatedAnswerHandle.getBoundingClientRect();
+    // let answerRect = answerDragged.parentElement!.getBoundingClientRect();
+    setqaRectPositions({
+      q: questionRect,
+      a: answerRect,
+    });
 
     if (
       questionRect.x < answerRect.x + answerRect.width &&
-      questionRect.x + questionRect.width > answerRect.x &&
-      questionRect.y < answerRect.y + answerRect.height &&
-      questionRect.y + questionRect.height > answerRect.y
+      questionRect.x + questionRect.width > answerRect.x
     ) {
-      console.log(answerDragged.parentElement?.parentElement, "oi");
-      // answerDragged.parentElement!.style.filter = "brightness(0.5)";
-      return true;
-    } else {
-      return false;
+      if (
+        questionRect.y < answerRect.y + answerRect.height &&
+        questionRect.y + questionRect.height > answerRect.y
+      ) {
+        console.log(answerDragged.parentElement?.parentElement, "oi");
+        // answerDragged.parentElement!.style.filter = "brightness(0.5)";
+        alert("Intersection");
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 
@@ -168,7 +198,7 @@ function Test(props: any) {
    * Wraps question and answer pairs into a div (containing 3 pairs in this case)
    */
   function prepareJSXOfPages(refsToQuestions) {
-    console.log(pagesContent);
+    // console.log(pagesContent);
     const pagesPrep = pagesContent.map((page, pageIterator: number) => (
       <div
         id={`page-${pageIterator}`}
@@ -184,7 +214,7 @@ function Test(props: any) {
       </div>
     ));
     setPages(pagesPrep);
-    console.log(pages);
+    // console.log(pages);
     return pagesPrep;
   }
 
@@ -208,10 +238,10 @@ function Test(props: any) {
         <div
           ref={(ele) => (refsToQuestions.current[iterator] = ele)}
           style={{
-            position: "absolute",
-            bottom: "-20%",
-            right: "45%",
-            zIndex: 1,
+            // position: "absolute",
+            // bottom: "-20%",
+            // right: "45%",
+            zIndex: 100,
           }}
         >
           {StickCircle()}
@@ -230,10 +260,10 @@ function Test(props: any) {
           <div
             ref={(ele) => (refsToAnswersHandles.current[iterator] = ele)}
             style={{
-              position: "absolute",
-              top: "-15%",
-              right: "45%",
-              zIndex: 1,
+              // position: "absolute",
+              // top: "-15%",
+              // right: "45%",
+              zIndex: 100,
             }}
           >
             {StickSemiCircle()}
@@ -242,10 +272,11 @@ function Test(props: any) {
       </Draggable>
     ));
 
-    let tmp = shuffle(answers);
-    console.log(tmp);
+    let answersShuffled = shuffle(answers);
+    let questionsShuffled = shuffle(questions);
+    // console.log(tmp);
 
-    console.log(questions, answers);
+    // console.log(questions, answers);
 
     let preparedPairsShuffled = page.QnAPairs.map(
       (qnaPair: IQnA, iterator: number) => (
@@ -259,8 +290,10 @@ function Test(props: any) {
           key={`QuestionAnswerP-${iterator}_p-${pageIterator}`}
           className={styles.qnaContainer}
         >
+          {/* {questionsShuffled[iterator]}
+           */}
           {questions[iterator]}
-          {tmp[iterator]}
+          {answersShuffled[iterator]}
         </motion.div>
       )
     );
@@ -279,18 +312,18 @@ function shuffle(array: []) {
   let t;
   let i;
 
-  console.log(m, t, i);
+  // console.log(m, t, i);
   // While there remain elements to shuffle…
   while (m) {
     // Pick a remaining element…
     i = Math.floor(Math.random() * m--);
-    console.log(i, "i");
+    // console.log(i, "i");
 
     // And swap it with the current element.
     t = array[m];
     array[m] = array[i];
     array[i] = t;
-    console.log(array);
+    // console.log(array);
   }
 
   return array;
@@ -311,7 +344,7 @@ const StickCircle = () => (
       fill="none"
       stroke="#c6aa96"
       // stroke-linecap=""
-      stroke-width="4"
+      strokeWidth="4"
     />
     <circle
       id="Ellipse_4"
@@ -340,7 +373,7 @@ const StickSemiCircle = () => (
       fill="none"
       stroke="#c6aa96"
       // stroke-linecap="round"
-      stroke-width="4"
+      strokeWidth="4"
     />
     <g
       id="Path_4"

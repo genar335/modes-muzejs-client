@@ -41,7 +41,7 @@
       //     align-self: center;
       //   }
       .TCard {
-        position: relative;
+        // position: relative;
         border-radius: 15px;
         width: 50%;
         padding: 1rem;
@@ -49,7 +49,7 @@
         height: min-content;
         border: #cba992 solid 3px;
         background-color: black;
-        z-index: 2;
+        // z-index: 10;
         // padding: 10rem;
       }
     }
