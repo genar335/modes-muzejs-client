@@ -126,9 +126,13 @@ function Test(props: any) {
     if (CheckIfAnswerIntersectedTheQuestion(event)) {
       // console.log(event.target.parentNode.parentNode);
       // event.target.parentNode.parentNode.style.pointerEvents = "none";
-      event.target.parentNode.style.pointerEvents = "none";
+      event.target.parentElement.parentElement.parentElement.parentElement.style.pointerEvents =
+        "none";
 
-      console.log(event.target.parentNode);
+      console.log(
+        event.target.parentElement.parentElement.parentElement,
+        "hello"
+      );
       // setQnaOverlaps(qnaOverlaps + 1);
       qnaOverlaps.current.counter += 1;
       console.log(qnaOverlaps, "overlaps");
@@ -148,8 +152,9 @@ function Test(props: any) {
    */
   function CheckIfAnswerIntersectedTheQuestion(event: DraggableEvent) {
     setqaRectPositions({});
-    const answerDragged: Element = event.target!.parentElement.parentElement;
-    console.log(answerDragged);
+    const answerDragged: Element = event.target!.parentElement.parentElement
+      .parentElement;
+    console.log(answerDragged, "answer");
     const answerDraggedID = answerDragged.id;
     // const relatedQuestion = document.getElementById(
     //   `Question_${answerDraggedID.slice(answerDraggedID.indexOf("_"))}`
@@ -159,14 +164,15 @@ function Test(props: any) {
       answerDraggedID.indexOf("_") + 1,
       answerDraggedID.lastIndexOf("_")
     );
+    console.log("answerDraggedId", answerDraggedID);
 
     const relatedAnswerHandle =
       refsToAnswersHandles.current[Number(answerDraggedIterator)];
-    console.log(relatedAnswerHandle);
+    console.log(relatedAnswerHandle, "handles");
 
     const relatedQuestionHandle =
       refsToQuestions.current[Number(answerDraggedIterator)];
-    console.log(relatedQuestionHandle);
+    console.log(relatedQuestionHandle, "handles");
 
     const questionRect = relatedQuestionHandle.getBoundingClientRect();
     const answerRect = relatedAnswerHandle.getBoundingClientRect();
@@ -226,21 +232,29 @@ function Test(props: any) {
   function qnaPairsToJSX(
     page: IQnAPairs,
     pageIterator: number,
-    refsToQuestions
+    refsToQuestions: { current: (HTMLDivElement | null)[] }
   ): React.ReactNode {
     let questions = page.QnAPairs.map((qnaPair: IQnA, iterator: number) => (
       <div
-        className={styles.TCard}
-        id={`Question_${iterator}_p-${pageIterator}`}
-        key={`Question_${iterator}_p-${pageIterator}`}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
       >
-        <div>{imgOrText(qnaPair.question)}</div>
+        <div
+          className={styles.TCard}
+          id={`Question_${iterator}_p-${pageIterator}`}
+          key={`Question_${iterator}_p-${pageIterator}`}
+        >
+          <div>{imgOrText(qnaPair.question)}</div>
+        </div>
         <div
           ref={(ele) => (refsToQuestions.current[iterator] = ele)}
           style={{
-            // position: "absolute",
-            // bottom: "-20%",
-            // right: "45%",
+            marginTop: "-0.1rem",
+            width: "min-content",
             zIndex: 100,
           }}
         >
@@ -252,18 +266,28 @@ function Test(props: any) {
     let answers = page.QnAPairs.map((qnaPair: IQnA, iterator: number) => (
       <Draggable onStop={handleStopOfADrag}>
         <div
-          className={styles.TCard}
-          id={`Answer_${iterator}_p-${pageIterator}`}
-          key={iterator}
+          style={{
+            display: "flex",
+            flexDirection: "column-reverse",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
-          <div>{imgOrText(qnaPair.answer)}</div>
+          <div
+            className={styles.TCard}
+            id={`Answer_${iterator}_p-${pageIterator}`}
+            key={iterator}
+          >
+            <div>
+              <div>{imgOrText(qnaPair.answer)}</div>
+            </div>
+          </div>
           <div
             ref={(ele) => (refsToAnswersHandles.current[iterator] = ele)}
             style={{
-              // position: "absolute",
-              // top: "-15%",
-              // right: "45%",
               zIndex: 100,
+              marginBottom: "-0.35rem",
+              width: "min-content",
             }}
           >
             {StickSemiCircle()}
@@ -278,25 +302,23 @@ function Test(props: any) {
 
     // console.log(questions, answers);
 
-    let preparedPairsShuffled = page.QnAPairs.map(
-      (qnaPair: IQnA, iterator: number) => (
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={variantsQnAPairs}
-          transition={{
-            duration: "1.5",
-          }}
-          key={`QuestionAnswerP-${iterator}_p-${pageIterator}`}
-          className={styles.qnaContainer}
-        >
-          {/* {questionsShuffled[iterator]}
-           */}
-          {questions[iterator]}
-          {answersShuffled[iterator]}
-        </motion.div>
-      )
-    );
+    let preparedPairsShuffled = page.QnAPairs.map((_, iterator: number) => (
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={variantsQnAPairs}
+        transition={{
+          duration: "1.5",
+        }}
+        key={`QuestionAnswerP-${iterator}_p-${pageIterator}`}
+        className={styles.qnaContainer}
+      >
+        {/* {questionsShuffled[iterator]} */}
+
+        {questions[iterator]}
+        {answersShuffled[iterator]}
+      </motion.div>
+    ));
 
     return preparedPairsShuffled;
   }
@@ -333,7 +355,7 @@ const StickCircle = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="23"
-    height="39.956"
+    height="29.956"
     viewBox="0 0 23 29.956"
   >
     <line
