@@ -1,11 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useReducer, useRef, useState } from "react";
 import { useRouter } from "next/router";
 // import interact from "interactjs";
 import styles from "../styles/test.module.scss";
-// import OptionTop from "../../components/OptionTop";
-// import OptionBottom from "../../components/OptionBottom";
-// import { Target } from "@interactjs/types";
-// import QACard from "../../components/QACard";
 import { DndProvider } from "react-dnd";
 import { TouchBackend } from "react-dnd-touch-backend";
 import Draggable, {
@@ -16,8 +12,8 @@ import Draggable, {
 import store from "store";
 import { IQnA, IQnAPairs, ITest, TLangOption } from "../../@types/test";
 import { URLCheckForLocalHost } from "../../components/constants";
-// import { coordsToEvent } from "@interactjs/utils/pointerUtils";
 import { motion, AnimatePresence } from "framer-motion";
+import TestProgressBar from "../../components/TestProgressBar";
 
 function Test(props: any) {
   const router = useRouter();
@@ -28,7 +24,30 @@ function Test(props: any) {
   const qnaOverlaps = useRef({
     counter: 0,
   });
-  const [currentPage, setCurrentPage] = useState(0);
+  // const [currentPage, setCurrentPage] = useState<number>(0);
+  const initalPage = { count: 0 };
+
+  function reducer(page, action) {
+    switch (action.type) {
+      case "increment":
+        return { count: page.count + 1 };
+      default:
+        throw new Error();
+    }
+  }
+
+  const [page, dispatch] = useReducer(reducer, initalPage);
+  useEffect(() => {
+    if (
+      page.count === pagesContent.length &&
+      page.count !== 0 &&
+      pagesContent.length !== 0
+    ) {
+      router.push("http://localhost:3000/client/success");
+      console.log(page.count);
+      console.log(pagesContent.length);
+    }
+  });
 
   const [qaRectPositions, setqaRectPositions] = useState<{
     q: DOMRect;
@@ -37,9 +56,9 @@ function Test(props: any) {
     q: {},
     a: {},
   });
-  useEffect(() => {
-    console.log(qaRectPositions.a?.x, qaRectPositions.q?.x, "x, x");
-  }, [qaRectPositions]);
+  // useEffect(() => {
+  //   console.log(qaRectPositions.a?.x, qaRectPositions.q?.x, "x, x");
+  // }, [qaRectPositions]);
 
   const refsToQuestions = useRef<HTMLElement[]>([]);
   const refsToAnswersHandles = useRef<HTMLElement[]>([]);
@@ -55,6 +74,7 @@ function Test(props: any) {
     // console.log(test[store.get("activeLang")]);
 
     setPagesContent(test[store.get("activeLang")].pages);
+
     // createQnAPairs(activeLang.pages);
   }, []);
 
@@ -65,37 +85,31 @@ function Test(props: any) {
 
   // console.log(qnaOverlaps.current.counter);
   return (
-    // <AnimatePresence>
     <DndProvider backend={TouchBackend}>
-      <div className={styles.pageContainer}>
-        <img
-          src="https://www.fashionmuseumriga.lv/bitrix/templates/main_template/img/logo.png"
-          alt="logo"
-          id={styles.MMlogo}
-        />
-        <div className={styles.testContainer}>
-          {pages !== undefined ? (
-            pages![currentPage]
-          ) : (
-            <p>An error has occured, try realoding the page.</p>
-          )}
+      <AnimatePresence>
+        <div className={styles.pageContainer}>
+          <img
+            src="https://www.fashionmuseumriga.lv/bitrix/templates/main_template/img/logo.png"
+            alt="Fashion Museum"
+            id={styles.MMlogo}
+          />
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className={styles.testContainer}
+          >
+            {pages !== undefined && (
+              <TestProgressBar
+                activePage={page.count}
+                numberOfPages={pages?.length}
+              />
+            )}
+            {pages !== undefined && pages![page.count]}
+          </motion.div>
         </div>
-
-        {/* <button
-          onClick={(e) => {
-            refsToQuestions.current.forEach((question) =>
-              console.log(question.parentElement)
-            );
-            refsToAnswersHandles.current.forEach((answer) =>
-              console.log(answer.parentElement)
-            );
-          }}
-        >
-          Refs
-        </button> */}
-      </div>
+      </AnimatePresence>
     </DndProvider>
-    /* </AnimatePresence> */
   );
 
   /**
@@ -123,8 +137,6 @@ function Test(props: any) {
   }
 
   function handleStopOfADrag(event: DraggableEvent, data: DraggableData) {
-    console.log(event);
-
     if (CheckIfAnswerIntersectedTheQuestion(event)) {
       // console.log(event.target.parentNode.parentNode);
       // event.target.parentNode.parentNode.style.pointerEvents = "none";
@@ -133,13 +145,15 @@ function Test(props: any) {
 
       // setQnaOverlaps(qnaOverlaps + 1);
       qnaOverlaps.current.counter += 1;
-      console.log(qnaOverlaps, "overlaps");
+
       if (qnaOverlaps.current.counter === 3) {
-        qnaOverlaps.current.counter = 0;
-        if (currentPage < pagesContent.length - 1) {
+        if (page.count < pagesContent.length - 1) {
           refsToQuestions.current = [];
-          setCurrentPage(currentPage + 1);
+          // setCurrentPage(currentPage + 1);
+          dispatch({ type: "increment" });
+          console.log(page.count, "pages", pagesContent.length, "pagesContent");
         }
+        qnaOverlaps.current.counter = 0;
       }
     }
   }
@@ -151,7 +165,7 @@ function Test(props: any) {
   function CheckIfAnswerIntersectedTheQuestion(event: DraggableEvent) {
     setqaRectPositions({});
     const answerDragged: Element = event.target!.parentElement.parentElement;
-    console.log(answerDragged, "answer");
+
     const answerDraggedID = answerDragged.id;
     // const relatedQuestion = document.getElementById(
     //   `Question_${answerDraggedID.slice(answerDraggedID.indexOf("_"))}`
@@ -161,15 +175,14 @@ function Test(props: any) {
       answerDraggedID.indexOf("_") + 1,
       answerDraggedID.lastIndexOf("_")
     );
-    console.log("answerDraggedId", answerDraggedID);
 
     const relatedAnswerHandle =
       refsToAnswersHandles.current[Number(answerDraggedIterator)];
-    console.log(relatedAnswerHandle, "handles");
+    // console.log(relatedAnswerHandle, "handles");
 
     const relatedQuestionHandle =
       refsToQuestions.current[Number(answerDraggedIterator)];
-    console.log(relatedQuestionHandle, "handles");
+    // console.log(relatedQuestionHandle, "handles");
 
     const questionRect = relatedQuestionHandle.getBoundingClientRect();
     const answerRect = relatedAnswerHandle.getBoundingClientRect();
@@ -187,9 +200,8 @@ function Test(props: any) {
         questionRect.y < answerRect.y + answerRect.height &&
         questionRect.y + questionRect.height > answerRect.y
       ) {
-        console.log(answerDragged.parentElement?.parentElement, "oi");
+        // console.log(answerDragged.parentElement?.parentElement, "oi");
         // answerDragged.parentElement!.style.filter = "brightness(0.5)";
-        alert("Intersection");
         return true;
       } else {
         return false;
@@ -313,8 +325,8 @@ function Test(props: any) {
 
     let preparedPairsShuffled = page.QnAPairs.map((_, iterator: number) => (
       <motion.div
-        initial="hidden"
-        animate="visible"
+        // initial="hidden"
+        // animate="visible"
         variants={variantsQnAPairs}
         transition={{
           duration: "1.5",
@@ -379,8 +391,8 @@ const StickCircle = () => (
         transform="translate(125.357 243.137)"
         fill="none"
         stroke="#c6aa96"
-        stroke-linecap="round"
-        stroke-width="4"
+        strokeLinecap="round"
+        strokeWidth="4"
       />
       <circle
         id="Ellipse_4"
@@ -410,8 +422,8 @@ const StickSemiCircle = () => (
         transform="translate(125.357 5.761)"
         fill="none"
         stroke="#c6aa96"
-        stroke-linecap="round"
-        stroke-width="4"
+        strokeLinecap="round"
+        strokeWidth="4"
       />
       <g
         id="Path_11"
