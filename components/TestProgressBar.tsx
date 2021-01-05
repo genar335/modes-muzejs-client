@@ -6,21 +6,25 @@ const TestProgressBar = (props: {
   activePage: number;
 }) => {
   const indicatorStyle: React.CSSProperties = {
-    width: "1rem",
-    height: "1rem",
+    width: "0.6rem",
+    height: "0.6rem",
+    margin: "0 0.4rem",
     backgroundColor: "#c6aa96",
     borderRadius: "50%",
     borderStyle: "solid",
     borderColor: "#c6aa96",
+    borderWidth: "2px",
   };
 
   const indicatorActiveStyle: React.CSSProperties = {
-    width: "1rem",
-    height: "1rem",
+    width: "0.6rem",
+    height: "0.6rem",
+    margin: "0 0.4rem",
     backgroundColor: "rgba(0, 0, 0, 0)",
     borderRadius: "50%",
     borderStyle: "solid",
     borderColor: "#c6aa96",
+    borderWidth: "2px",
   };
 
   /**
@@ -51,7 +55,7 @@ const TestProgressBar = (props: {
     <div
       id="ProgressBarContainer"
       style={{
-        width: "50%",
+        width: "min-content",
         display: "flex",
         justifyContent: "space-evenly",
       }}

@@ -84,33 +84,6 @@ function Test(props: any) {
   }, [pagesContent]);
 
   // console.log(qnaOverlaps.current.counter);
-  return (
-    <DndProvider backend={TouchBackend}>
-      <AnimatePresence>
-        <div className={styles.pageContainer}>
-          <img
-            src="https://www.fashionmuseumriga.lv/bitrix/templates/main_template/img/logo.png"
-            alt="Fashion Museum"
-            id={styles.MMlogo}
-          />
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className={styles.testContainer}
-          >
-            {pages !== undefined && (
-              <TestProgressBar
-                activePage={page.count}
-                numberOfPages={pages?.length}
-              />
-            )}
-            {pages !== undefined && pages![page.count]}
-          </motion.div>
-        </div>
-      </AnimatePresence>
-    </DndProvider>
-  );
 
   /**
    * Returns either an <img> or <p> containig the `data`
@@ -125,7 +98,9 @@ function Test(props: any) {
           style={{
             width: "100%",
             height: "100%",
-            objectFit: "contain",
+            objectFit: "cover",
+            borderRadius: "16px",
+            border: "#cba992 solid 3px",
           }}
           src={data}
           alt=":("
@@ -269,7 +244,7 @@ function Test(props: any) {
         <div
           ref={(ele) => (refsToQuestions.current[iterator] = ele)}
           style={{
-            marginTop: "-0.1rem",
+            marginTop: "0.2rem",
             width: "min-content",
             zIndex: 100,
           }}
@@ -343,106 +318,134 @@ function Test(props: any) {
 
     return preparedPairsShuffled;
   }
-}
 
-const variantsQnAPairs = {
-  visible: { opacity: 1 },
-  hidden: { opacity: 0 },
-};
+  const variantsQnAPairs = {
+    visible: { opacity: 1 },
+    hidden: { opacity: 0 },
+  };
 
-function shuffle(array: []) {
-  let m = array.length;
-  let t;
-  let i;
+  function shuffle(array: []) {
+    let m = array.length;
+    let t;
+    let i;
 
-  // console.log(m, t, i);
-  // While there remain elements to shuffle…
-  while (m) {
-    // Pick a remaining element…
-    i = Math.floor(Math.random() * m--);
-    // console.log(i, "i");
+    // console.log(m, t, i);
+    // While there remain elements to shuffle…
+    while (m) {
+      // Pick a remaining element…
+      i = Math.floor(Math.random() * m--);
+      // console.log(i, "i");
 
-    // And swap it with the current element.
-    t = array[m];
-    array[m] = array[i];
-    array[i] = t;
-    // console.log(array);
+      // And swap it with the current element.
+      t = array[m];
+      array[m] = array[i];
+      array[i] = t;
+      // console.log(array);
+    }
+
+    return array;
   }
 
-  return array;
-}
-
-const StickCircle = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="19"
-    height="26.956"
-    viewBox="0 0 19 26.956"
-  >
-    <g
-      id="Group_35"
-      data-name="Group 35"
-      transform="translate(-115.882 -241.137)"
+  const StickCircle = () => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="19"
+      height="26.956"
+      viewBox="0 0 19 26.956"
     >
-      <line
-        id="Line_1"
-        data-name="Line 1"
-        y2="11"
-        transform="translate(125.357 243.137)"
-        fill="none"
-        stroke="#c6aa96"
-        strokeLinecap="round"
-        strokeWidth="4"
-      />
-      <circle
-        id="Ellipse_4"
-        data-name="Ellipse 4"
-        cx="9.5"
-        cy="9.5"
-        r="9.5"
-        transform="translate(115.882 249.094)"
-        fill="#c6aa96"
-      />
-    </g>
-  </svg>
-);
-
-const StickSemiCircle = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="19"
-    height="18.761"
-    viewBox="0 0 19 18.761"
-  >
-    <g id="Group_34" data-name="Group 34" transform="translate(-115.996 0)">
-      <line
-        id="Line_4"
-        data-name="Line 4"
-        y2="11"
-        transform="translate(125.357 5.761)"
-        fill="none"
-        stroke="#c6aa96"
-        strokeLinecap="round"
-        strokeWidth="4"
-      />
       <g
-        id="Path_11"
-        data-name="Path 11"
-        transform="translate(115.996 -7.551)"
-        fill="none"
+        id="Group_35"
+        data-name="Group 35"
+        transform="translate(-115.882 -241.137)"
       >
-        <path
-          d="M9.5,11.26c5.247,0,9.5-7.007,9.5-1.76a9.5,9.5,0,0,1-19,0C0,4.253,4.253,11.26,9.5,11.26Z"
-          stroke="none"
+        <line
+          id="Line_1"
+          data-name="Line 1"
+          y2="11"
+          transform="translate(125.357 243.137)"
+          fill="none"
+          stroke="#c6aa96"
+          strokeLinecap="round"
+          strokeWidth="4"
         />
-        <path
-          d="M 0.8809738159179688 7.550793647766113 C 2.390966415405273 7.550793647766113 5.682500839233398 11.26012802124023 9.5 11.26012802124023 C 13.31717872619629 11.26012802124023 16.60886001586914 7.551321029663086 18.11902618408203 7.550793647766113 C 18.68457794189453 7.550596237182617 19 8.070477485656738 19 9.499998092651367 C 19 14.74670791625977 14.74670028686523 18.99999809265137 9.5 18.99999809265137 C 4.253299713134766 18.99999809265137 0 14.74670791625977 0 9.499998092651367 C 0 8.070796966552734 0.3156604766845703 7.550793647766113 0.8809738159179688 7.550793647766113 Z"
-          stroke="none"
+        <circle
+          id="Ellipse_4"
+          data-name="Ellipse 4"
+          cx="9.5"
+          cy="9.5"
+          r="9.5"
+          transform="translate(115.882 249.094)"
           fill="#c6aa96"
         />
       </g>
-    </g>
-  </svg>
-);
+    </svg>
+  );
 
+  const StickSemiCircle = () => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="19"
+      height="18.761"
+      viewBox="0 0 19 18.761"
+    >
+      <g id="Group_34" data-name="Group 34" transform="translate(-115.996 0)">
+        <line
+          id="Line_4"
+          data-name="Line 4"
+          y2="11"
+          transform="translate(125.357 5.761)"
+          fill="none"
+          stroke="#c6aa96"
+          strokeLinecap="round"
+          strokeWidth="4"
+        />
+        <g
+          id="Path_11"
+          data-name="Path 11"
+          transform="translate(115.996 -7.551)"
+          fill="none"
+        >
+          <path
+            d="M9.5,11.26c5.247,0,9.5-7.007,9.5-1.76a9.5,9.5,0,0,1-19,0C0,4.253,4.253,11.26,9.5,11.26Z"
+            stroke="none"
+          />
+          <path
+            d="M 0.8809738159179688 7.550793647766113 C 2.390966415405273 7.550793647766113 5.682500839233398 11.26012802124023 9.5 11.26012802124023 C 13.31717872619629 11.26012802124023 16.60886001586914 7.551321029663086 18.11902618408203 7.550793647766113 C 18.68457794189453 7.550596237182617 19 8.070477485656738 19 9.499998092651367 C 19 14.74670791625977 14.74670028686523 18.99999809265137 9.5 18.99999809265137 C 4.253299713134766 18.99999809265137 0 14.74670791625977 0 9.499998092651367 C 0 8.070796966552734 0.3156604766845703 7.550793647766113 0.8809738159179688 7.550793647766113 Z"
+            stroke="none"
+            fill="#c6aa96"
+          />
+        </g>
+      </g>
+    </svg>
+  );
+
+  return (
+    <DndProvider backend={TouchBackend}>
+      <AnimatePresence>
+        <div className={styles.pageContainer}>
+          <img
+            src="https://www.fashionmuseumriga.lv/bitrix/templates/main_template/img/logo.png"
+            alt="Fashion Museum"
+            id={styles.MMlogo}
+          />
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className={styles.testContainer}
+          >
+            {pages !== undefined && (
+              <TestProgressBar
+                activePage={page.count}
+                numberOfPages={pages?.length}
+                // numberOfPages={10}
+              />
+            )}
+            {pages !== undefined && pages![page.count]}
+          </motion.div>
+        </div>
+      </AnimatePresence>
+    </DndProvider>
+  );
+}
 export default Test;

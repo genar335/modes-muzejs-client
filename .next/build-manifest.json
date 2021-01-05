@@ -29,11 +29,6 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/client/languages.js"
     ],
-    "/client/success": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/client/success.js"
-    ],
     "/client/test": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",

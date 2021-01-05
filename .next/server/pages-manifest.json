@@ -3,6 +3,5 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/client/test": "pages/client/test.js",
-  "/client/success": "pages/client/success.js",
   "/client/languages": "pages/client/languages.js"
 }
