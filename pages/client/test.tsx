@@ -5,8 +5,10 @@ import styles from "../styles/test.module.scss";
 import { DndProvider } from "react-dnd";
 import { TouchBackend } from "react-dnd-touch-backend";
 import Draggable, {
+  DraggableCore,
   DraggableData,
   DraggableEvent,
+  DraggableEventHandler,
   // DraggableEventHandler,
 } from "react-draggable";
 import store from "store";
@@ -43,7 +45,9 @@ function Test(props: any) {
       page.count !== 0 &&
       pagesContent.length !== 0
     ) {
-      router.push("http://localhost:3000/client/success");
+      setTimeout(() => {
+        router.push("http://localhost:3000/client/success");
+      }, 300);
       console.log(page.count);
       console.log(pagesContent.length);
     }
@@ -62,6 +66,7 @@ function Test(props: any) {
 
   const refsToQuestions = useRef<HTMLElement[]>([]);
   const refsToAnswersHandles = useRef<HTMLElement[]>([]);
+  const refsToAnswersPositions = useRef([]);
 
   useEffect(() => {
     console.log(router.query);
@@ -111,15 +116,58 @@ function Test(props: any) {
     }
   }
 
-  function handleStopOfADrag(event: DraggableEvent, data: DraggableData) {
-    if (CheckIfAnswerIntersectedTheQuestion(event)) {
+  function handleDrag(event: DraggableEventHandler, data: DraggableData) {
+    // console.log(data);
+    let tmp = event.target.parentElement.parentElement.id;
+    // console.log(tmp);
+    const id = tmp.slice(tmp.indexOf("_") + 1, tmp.lastIndexOf("_"));
+    // console.log(id);
+    refsToAnswersPositions.current[id] = {
+      position: data,
+    };
+  }
+
+  function handleStartOfDrag(
+    event: DraggableEventHandler,
+    data: DraggableData
+  ) {
+    console.log(event.target.parentElement.parentElement.parentElement);
+  }
+
+  function handleStopOfADrag(
+    event: DraggableEventHandler,
+    data: DraggableData
+  ) {
+    console.log(data);
+
+    let tmp = event.target.parentElement.parentElement.id;
+    const id = tmp.slice(tmp.indexOf("_") + 1, tmp.lastIndexOf("_"));
+    console.log(id, "idid");
+    const { questionRect, answerRect } = getRectangles(event);
+
+    console.log(event);
+
+    if (CheckIfAnswerIntersectedTheQuestion(questionRect, answerRect)) {
       // console.log(event.target.parentNode.parentNode);
       // event.target.parentNode.parentNode.style.pointerEvents = "none";
       event.target.parentElement.parentElement.parentElement.parentElement.style.pointerEvents =
         "none";
+      event.target.style.borderColor = "green";
 
-      // setQnaOverlaps(qnaOverlaps + 1);
       qnaOverlaps.current.counter += 1;
+
+      const questionContainer: HTMLElement =
+        refsToQuestions.current[id].parentElement;
+      console.log(questionContainer, "123123");
+
+      console.log(refsToAnswersHandles.current[id]);
+
+      refsToAnswersHandles.current[id].parentElement.style.transform =
+        "translate(0px, 0px)";
+      refsToAnswersHandles.current[id].parentElement.style.marginTop = "-1rem";
+      questionContainer.appendChild(
+        refsToAnswersHandles.current[id].parentElement
+      );
 
       if (qnaOverlaps.current.counter === 3) {
         if (page.count < pagesContent.length - 1) {
@@ -130,37 +178,30 @@ function Test(props: any) {
         }
         qnaOverlaps.current.counter = 0;
       }
+    } else {
     }
+    // refsToAnswersPositions.current[id] = {
+    //   position: {
+    //     x: data.x,
+    //     y: data.y,
+    //     deltaX: data.x - data.lastX,
+    //     deltaY: data.y - data.lastY,
+    //   },
+    // };
+    refsToAnswersPositions.current[id] = {
+      position: data,
+    };
   }
 
   /**
    * Checks whether the dragged element intersects its question.
    * @param event refer to React Draggable
    */
-  function CheckIfAnswerIntersectedTheQuestion(event: DraggableEvent) {
-    setqaRectPositions({});
-    const answerDragged: Element = event.target!.parentElement.parentElement;
-
-    const answerDraggedID = answerDragged.id;
-    // const relatedQuestion = document.getElementById(
-    //   `Question_${answerDraggedID.slice(answerDraggedID.indexOf("_"))}`
-    // );
-
-    const answerDraggedIterator = answerDraggedID.slice(
-      answerDraggedID.indexOf("_") + 1,
-      answerDraggedID.lastIndexOf("_")
-    );
-
-    const relatedAnswerHandle =
-      refsToAnswersHandles.current[Number(answerDraggedIterator)];
-    // console.log(relatedAnswerHandle, "handles");
-
-    const relatedQuestionHandle =
-      refsToQuestions.current[Number(answerDraggedIterator)];
-    // console.log(relatedQuestionHandle, "handles");
-
-    const questionRect = relatedQuestionHandle.getBoundingClientRect();
-    const answerRect = relatedAnswerHandle.getBoundingClientRect();
+  function CheckIfAnswerIntersectedTheQuestion(
+    questionRect: DOMRect,
+    answerRect: DOMRect
+  ) {
+    // const { questionRect, answerRect } = getRectangles(event);
     // let answerRect = answerDragged.parentElement!.getBoundingClientRect();
     setqaRectPositions({
       q: questionRect,
@@ -182,6 +223,30 @@ function Test(props: any) {
         return false;
       }
     }
+  }
+
+  function getRectangles(event: DraggableEventHandler) {
+    setqaRectPositions({});
+    const answerDragged: Element = event.target!.parentElement.parentElement;
+
+    const answerDraggedID = answerDragged.id;
+    // const relatedQuestion = document.getElementById(
+    //   `Question_${answerDraggedID.slice(answerDraggedID.indexOf("_"))}`
+    // );
+    const answerDraggedIterator = answerDraggedID.slice(
+      answerDraggedID.indexOf("_") + 1,
+      answerDraggedID.lastIndexOf("_")
+    );
+
+    const relatedAnswerHandle =
+      refsToAnswersHandles.current[Number(answerDraggedIterator)];
+    // console.log(relatedAnswerHandle, "handles");
+    const relatedQuestionHandle =
+      refsToQuestions.current[Number(answerDraggedIterator)];
+    // console.log(relatedQuestionHandle, "handles");
+    const questionRect = relatedQuestionHandle.getBoundingClientRect();
+    const answerRect = relatedAnswerHandle.getBoundingClientRect();
+    return { questionRect, answerRect };
   }
 
   /**
@@ -254,8 +319,27 @@ function Test(props: any) {
       </div>
     ));
 
+    for (let i = 0; i < page.QnAPairs.length; i++) {
+      refsToAnswersPositions.current[i] = {
+        position: {
+          x: 0,
+          y: 0,
+        },
+      };
+    }
+
     let answers = page.QnAPairs.map((qnaPair: IQnA, iterator: number) => (
-      <Draggable onStop={handleStopOfADrag}>
+      <Draggable
+        axis="both"
+        // onTouchStart={handleStartOfDrag}
+        onDrag={handleDrag}
+        // position={refsToAnswersPositions.current[iterator].position}
+        onStop={handleStopOfADrag}
+        // position={null}
+        // grid={[25, 25]}
+        defaultPosition={{ x: 0, y: 0 }}
+        scale={1}
+      >
         <div
           style={{
             display: "flex",
