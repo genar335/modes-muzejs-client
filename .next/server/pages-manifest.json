@@ -3,6 +3,5 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/TMS/create_test": "pages/TMS/create_test.js",
-  "/TMS/main": "pages/TMS/main.js",
-  "/client/test": "pages/client/test.js"
+  "/TMS/main": "pages/TMS/main.js"
 }

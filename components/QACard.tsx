@@ -196,7 +196,13 @@ const QACard = (props: {
               className={compStyles.SelectedIMGPreview}
               src={props.pageContents}
               // src={props.pageContents.match(URLCheck) ? props.pageContents : ""}
-              alt="No image"
+              alt="
+              Width: 235px 
+              Height: 245px
+              Aspect ratio is 47:49
+
+              Click to select an image
+              "
               ref={QACardRefIMG}
               onClick={(e) => fileInputRef.current.click()}
             />

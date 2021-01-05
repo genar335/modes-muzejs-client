@@ -173,7 +173,9 @@ function Test(props: any) {
         if (page.count < pagesContent.length - 1) {
           refsToQuestions.current = [];
           // setCurrentPage(currentPage + 1);
-          dispatch({ type: "increment" });
+          setTimeout(() => {
+            dispatch({ type: "increment" });
+          }, 400);
           console.log(page.count, "pages", pagesContent.length, "pagesContent");
         }
         qnaOverlaps.current.counter = 0;
@@ -503,6 +505,30 @@ function Test(props: any) {
     </svg>
   );
 
+  const ExitBtn = (size: string) => (
+    <svg
+      // className={compStyles.CloseBTN}
+      onClick={() =>
+        router.push(
+          `http://localhost:3000/client/languages?testid=${
+            store.get("theTest").id
+          }`
+        )
+      }
+      width={size}
+      height={size}
+      viewBox="0 0 56 56"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle cx="28" cy="28" r="28" fill="#2F4858" />
+      <path
+        d="M38.5626 36.4501L30.1126 28L38.5628 19.5498C39.1458 18.9669 39.1458 18.0203 38.5626 17.4372C37.9797 16.8543 37.0332 16.8543 36.4502 17.4372L28 25.8874L19.5498 17.4372C18.9668 16.8543 18.0203 16.8543 17.4374 17.4372C16.8542 18.0203 16.8542 18.9669 17.4372 19.5498L25.8874 28L17.4374 36.4501C16.8542 37.0332 16.8542 37.9797 17.4372 38.5627C18.0203 39.1458 18.9668 39.1458 19.55 38.5627L28 30.1126L36.45 38.5627C37.0332 39.1458 37.9797 39.1458 38.5628 38.5627C39.1458 37.9797 39.1458 37.0332 38.5626 36.4501Z"
+        fill="white"
+      />
+    </svg>
+  );
+
   return (
     <DndProvider backend={TouchBackend}>
       <AnimatePresence>
@@ -518,6 +544,17 @@ function Test(props: any) {
             exit={{ opacity: 0 }}
             className={styles.testContainer}
           >
+            <button
+              style={{
+                position: "absolute",
+                right: "5%",
+                top: "5%",
+                backgroundColor: "rgba(0, 0, 0, 0)",
+                border: "none",
+              }}
+            >
+              {ExitBtn("35")}
+            </button>
             {pages !== undefined && (
               <TestProgressBar
                 activePage={page.count}
