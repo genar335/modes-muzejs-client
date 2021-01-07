@@ -159,7 +159,12 @@ const QACard = (props: {
       .then((res) => {
         console.log(res);
         setimgLocation(res.data);
-        props.saveIMG(props.iterator, res.data, props.cardType);
+        props.saveIMG(
+          props.iterator,
+          res.data,
+          props.cardType,
+          'all'
+        );
       })
       .catch((err) => console.error(err));
   }
@@ -216,7 +221,7 @@ const QACard = (props: {
               id={`${props.cardType}_${props.iterator}_page-${props.pageNumber}`}
               // onChange={(e) => console.log("YAyyy")}
               className={compStyles.SelectedIMGPreview}
-              src={props.pageContents}
+              src={imgLocation || props.pageContents}
               // src={props.pageContents.match(URLCheck) ? props.pageContents : ""}
               alt="
               Width: 235px 

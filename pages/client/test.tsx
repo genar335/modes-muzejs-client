@@ -112,7 +112,7 @@ function Test(props: any) {
         />
       );
     } else {
-      return <p>data</p>;
+      return <p>{data}</p>;
     }
   }
 
