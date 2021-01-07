@@ -104,6 +104,8 @@ function create_test() {
           QnAPairs: qnaEmptyNArray(currentNumberOfPairsForQnAPairs),
         },
       ],
+      finalPageTextHeading: "",
+      finalPageTextBody: "",
     },
     lv: {
       name: "",
@@ -112,6 +114,8 @@ function create_test() {
           QnAPairs: qnaEmptyNArray(currentNumberOfPairsForQnAPairs),
         },
       ],
+      finalPageTextHeading: "",
+      finalPageTextBody: "",
     },
     ru: {
       name: "",
@@ -120,17 +124,19 @@ function create_test() {
           QnAPairs: qnaEmptyNArray(currentNumberOfPairsForQnAPairs),
         },
       ],
+      finalPageTextHeading: "",
+      finalPageTextBody: "",
     },
     type: "",
     active: false,
-    emailSender: false
+    emailSender: false,
   };
   const [test, setTest] = useState<ITest>(testTemplateWithThreeCards);
-  const setEmail = (bool: boolean): void => 
+  const setEmail = (bool: boolean): void =>
     setTest({
       ...test,
-      emailSender: bool
-    })
+      emailSender: bool,
+    });
   useEffect(() => {
     console.log("Test has changed");
     store.set("testInProgress", test);
@@ -594,6 +600,9 @@ function create_test() {
     }),
   };
 
+  const [isFinalPageOpen, setisFinalPageOpen] = useState<boolean>(false);
+  const openModal = (bool: boolean) => setisFinalPageOpen(bool);
+
   return (
     <AnimatePresence>
       {/* {isVisible && ( */}
@@ -656,7 +665,14 @@ function create_test() {
             </div>
           </div>
         </div>
-        <FinalPageEditor emailState={test.emailSender} toggleEmail={setEmail} />
+        <FinalPageEditor
+          emailState={test.emailSender}
+          toggleEmail={setEmail}
+          toggleModal={openModal}
+          isOpen={isFinalPageOpen}
+          saveTest={saveTest}
+          currentStateOfTest={test}
+        />
         <div className={styles.TestType}>
           <Select
             placeholder={test.type || "Выберите тип теста..."}

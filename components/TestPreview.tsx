@@ -48,6 +48,8 @@ const TestPreview = (props: {
     lang: "ru" | "lv" | "en"
   ) => {
     // console.log("from data saving", qid);
+    console.log(data);
+    // if (data.match())
     let tmpLocal = props.fullTest[lang].pages[props.activePage].QnAPairs;
     tmpLocal[qid][whatToSave] = data;
     // console.log(tmp[qid][whatToSave]);

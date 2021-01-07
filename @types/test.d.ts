@@ -62,6 +62,8 @@ interface ILangSpecificBody {
    * ]`
    */
   pages: Array<IQnAPairs>;
+  finalPageTextHeading: string;
+  finalPageTextBody: string;
 }
 
 interface IQnAPairs {

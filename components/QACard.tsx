@@ -87,7 +87,7 @@ const QACard = (props: {
     file: string,
     fileName: string
   ) => {
-    let fileLocation: string;
+    let fileLocation: string = "";
     try {
       console.log("Sending", file);
       const locationOfTheFile = await Axios.post(
@@ -104,9 +104,8 @@ const QACard = (props: {
   };
 
   const handleFileinput = async (event: React.FormEvent<HTMLFormElement>) => {
-    let tmp = [];
     event.preventDefault();
-    console.log(fileInputRef.current.files[0]);
+
     if (fileInputRef.current?.files !== null) {
       const chosenFile: File = fileInputRef!.current!.files[0];
       console.log(chosenFile);
@@ -126,21 +125,44 @@ const QACard = (props: {
           } else {
             props.saveIMG(props.iterator, fileContents, props.cardType);
           }
-          // console.log(QACardRefIMG.current.src, "OI");
+          console.log(QACardRefIMG.current.src, "OI");
         } catch (error) {
           alert(
             "There was an error reading the file. Please try again, or choose a differenet file"
           );
+          console.error(error);
         }
       }
     } else {
       alert("No file has been chosen.");
     }
-    // sendTheDataToTheServer(tmp, setRecievedIMGLocation);
 
-    // tmp.pop();
-    // setRecievedIMGLocation([]);
+    // const resp = await sendTheDataToTheServerToParse(
+    //   fileInputRef.current.files[0],
+    //   fileInputRef.current.files[0].name
+    // );
+    // console.log(resp);
   };
+
+  const [imgLocation, setimgLocation] = useState("");
+
+  function handleFileinputChange(event: React.ChangeEvent<HTMLInputElement>) {
+    console.log(event.target.files[0]);
+    let fd = new FormData();
+    fd.append("image", event.target.files[0]);
+    console.log(fd.getAll("image"));
+    Axios.post("http://localhost:4000/testimg", fd, {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        setimgLocation(res.data);
+        props.saveIMG(props.iterator, res.data, props.cardType);
+      })
+      .catch((err) => console.error(err));
+  }
 
   useEffect(() => {
     console.log("Input has ", fileInputRef.current?.files);
@@ -211,6 +233,7 @@ const QACard = (props: {
               type="file"
               accept="image/*"
               ref={fileInputRef}
+              onChange={handleFileinputChange}
             />
             <input
               className={compStyles.FileSubmiter}
