@@ -29,15 +29,10 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/client/languages.js"
     ],
-    "/client/test": [
+    "/client/success": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/client/test.js"
-    ],
-    "/client/test_selection": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/client/test_selection.js"
+      "static/chunks/pages/client/success.js"
     ]
   },
   "ampFirstPages": []

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+
 .pageContainer {
     background-color: #010713;
     color: #cba992;
@@ -19,6 +21,10 @@
 
     .textContainer {
         text-align: center;
+
+        .congratsHeader {
+            font-size: 53px;
+        }
     }
 
     .finishBtn {

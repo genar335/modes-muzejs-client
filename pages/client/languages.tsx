@@ -16,19 +16,19 @@ function Languages(props: any) {
       ></img>
       <div className={styles.LangSelectContainer}>
         <div className={styles.LangHeaders}>
-          <p>Lūdzu, izvēleties valodu!</p>
+          <p>Lūdzu, izvēleties savu valodu!</p>
           <p>Пожалуйста, выберите язык!</p>
-          <p>Please, choose a language!</p>
+          <p>Please, choose your language!</p>
         </div>
         <div className={styles.langLinkContainer}>
-          <div className={styles.LinksContainer}>
-            <Link href={`/client/test?testid=${testid}&lang=ru`}>
-              <p>Русский</p>
+        <div className={styles.LinksContainer}>
+            <Link href={`/client/test?testid=${testid}&lang=lv`}>
+              <p>Latviešu</p>
             </Link>
           </div>
           <div className={styles.LinksContainer}>
-            <Link href={`/client/test?testid=${testid}&lang=lv`}>
-              <p>Latviešu</p>
+            <Link href={`/client/test?testid=${testid}&lang=ru`}>
+              <p>Русский</p>
             </Link>
           </div>
           <div className={styles.LinksContainer}>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
 
 .pageContainer {
   background-color: #010713;
@@ -10,7 +10,7 @@
   
   #MMlogo {
     width: 167px;
-    opacity: 0.52;
+    //opacity: 0.52;
     margin: 2rem 0 0 2rem;
     position: absolute;
     top: 0;
@@ -24,6 +24,7 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    font-family: 'Montserrat', sans-serif;
 
     .LangHeaders {
       color: #c6aa96;
@@ -31,6 +32,7 @@
       //font-weight: 500;
       font-size: 30px;
       justify-content: space-around;
+      align-items: center;
       p {
         margin-bottom: 3rem;
       }
@@ -49,6 +51,7 @@
         border: solid #c6aa96 1px;
         background-color: #c6aa96;
         border-radius: 10px;
+        box-shadow: 0px 5px black;
         width: 25%;
         height: 100%;
         display: flex;
