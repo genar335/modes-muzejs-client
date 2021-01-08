@@ -48,11 +48,26 @@ const TestPreview = (props: {
     lang: "ru" | "lv" | "en"
   ) => {
     // console.log("from data saving", qid);
-    let tmpLocal = props.fullTest[lang].pages[props.activePage].QnAPairs;
-    tmpLocal[qid][whatToSave] = data;
-    // console.log(tmp[qid][whatToSave]);
-    // console.log("from save new data", tmp);
-    props.saveChanges(tmpLocal, lang);
+    console.log(data);
+    // if (data.match())
+    if (lang === "all") {
+      let tmpLocal = props.fullTest.ru.pages[props.activePage].QnAPairs;
+      tmpLocal[qid][whatToSave] = data;
+      props.saveChanges(tmpLocal, "ru");
+      tmpLocal = props.fullTest.en.pages[props.activePage].QnAPairs;
+      tmpLocal[qid][whatToSave] = data;
+
+      props.saveChanges(tmpLocal, "en");
+      tmpLocal = props.fullTest.lv.pages[props.activePage].QnAPairs;
+      tmpLocal[qid][whatToSave] = data;
+      props.saveChanges(tmpLocal, "lv");
+    } else {
+      let tmpLocal = props.fullTest[lang].pages[props.activePage].QnAPairs;
+      tmpLocal[qid][whatToSave] = data;
+      // console.log(tmp[qid][whatToSave]);
+      // console.log("from save new data", tmp);
+      props.saveChanges(tmpLocal, lang);
+    }
   };
 
   const handleQuestionKeyPress = (
