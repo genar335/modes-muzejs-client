@@ -23,6 +23,7 @@ import store from "store";
 // import ReactSwitch from "react-switch";
 import chroma from "chroma-js";
 import FinalPageEditor from "../../components/FinalPageEditor";
+import TestPreviewer from "../../components/TestPreviewer";
 
 function create_test() {
   // useEffect(() => {
@@ -603,6 +604,10 @@ function create_test() {
   const [isFinalPageOpen, setisFinalPageOpen] = useState<boolean>(false);
   const openModal = (bool: boolean) => setisFinalPageOpen(bool);
 
+  const [isTestPreviewerOpen, setisTestPreviewerOpen] = useState<boolean>(
+    false
+  );
+
   return (
     <AnimatePresence>
       {/* {isVisible && ( */}
@@ -711,6 +716,20 @@ function create_test() {
           saveChanges={savePage}
           setCurrentCard={saveCurrentCard}
         />
+        <TestPreviewer isOpen={isTestPreviewerOpen} setIsOpen={setisTestPreviewerOpen} test={test} />
+        <button
+          onClick={() => setisTestPreviewerOpen(true)}
+          disabled={test.type === ""}
+          style={{
+            background: "none",
+            border: "none",
+            gridRow: "12 / 14",
+            gridColumn: "4",
+            justifySelf: "flex-start",
+          }}
+        >
+          {PreviewBtn()}
+        </button>
         <button
           className={styles.SaveTestBtn}
           disabled={test.type === ""}
@@ -805,6 +824,24 @@ function removePageIcon() {
         stroke="white"
         stroke-width="2"
         stroke-linecap="round"
+      />
+    </svg>
+  );
+}
+
+function PreviewBtn() {
+  return (
+    <svg
+      width="200"
+      height="59"
+      viewBox="0 0 200 59"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect width="200" height="59" rx="29.5" fill="#E0BCA3" />
+      <path
+        d="M49.5185 21.2V38H51.8945V23.288H61.6385V38H63.9905V21.2H49.5185ZM76.3094 25.16C74.4374 25.16 72.8054 25.88 71.7734 27.296V25.28H69.5654V42.656H71.8694V36.08C72.9254 37.448 74.5094 38.144 76.3094 38.144C80.0294 38.144 82.7414 35.552 82.7414 31.64C82.7414 27.752 80.0294 25.16 76.3094 25.16ZM76.1174 36.128C73.6934 36.128 71.8454 34.352 71.8454 31.64C71.8454 28.952 73.6934 27.176 76.1174 27.176C78.5654 27.176 80.4134 28.952 80.4134 31.64C80.4134 34.352 78.5654 36.128 76.1174 36.128ZM98.3049 31.712C98.3049 27.8 95.6889 25.16 92.0169 25.16C88.3449 25.16 85.6329 27.872 85.6329 31.64C85.6329 35.432 88.3689 38.144 92.4729 38.144C94.5849 38.144 96.3369 37.424 97.4889 36.08L96.2169 34.592C95.2809 35.624 94.0329 36.128 92.5449 36.128C90.0249 36.128 88.2249 34.64 87.9369 32.408H98.2569C98.2809 32.192 98.3049 31.904 98.3049 31.712ZM92.0169 27.104C94.2489 27.104 95.8569 28.616 96.0969 30.752H87.9369C88.1769 28.592 89.8089 27.104 92.0169 27.104ZM111.263 31.4C112.535 30.896 113.303 29.912 113.303 28.544C113.303 26.456 111.503 25.28 108.503 25.28H102.599V38H108.719C112.103 38 113.735 36.704 113.735 34.496C113.735 32.888 112.943 31.832 111.263 31.4ZM104.855 27.056H108.311C110.063 27.056 110.999 27.656 110.999 28.88C110.999 30.104 110.063 30.752 108.311 30.752H104.855V27.056ZM108.551 36.224H104.855V32.408H108.695C110.591 32.408 111.431 33.032 111.431 34.352C111.431 35.648 110.447 36.224 108.551 36.224ZM123.941 29.6L120.365 29.576V25.28H118.061V38L123.581 38.024C126.989 38.048 128.909 36.512 128.909 33.752C128.909 31.136 127.181 29.624 123.941 29.6ZM123.389 36.272L120.365 36.248V31.256L123.389 31.304C125.501 31.328 126.557 32.048 126.557 33.728C126.557 35.432 125.477 36.296 123.389 36.272ZM143.842 25.16C140.506 25.16 137.962 27.296 137.482 30.488H134.89V25.28H132.586V38H134.89V32.624H137.458C137.89 35.888 140.458 38.144 143.842 38.144C147.562 38.144 150.298 35.432 150.298 31.64C150.298 27.824 147.562 25.16 143.842 25.16ZM143.842 36.128C141.466 36.128 139.666 34.376 139.666 31.64C139.666 28.928 141.466 27.176 143.842 27.176C146.194 27.176 148.018 28.928 148.018 31.64C148.018 34.376 146.194 36.128 143.842 36.128Z"
+        fill="white"
       />
     </svg>
   );

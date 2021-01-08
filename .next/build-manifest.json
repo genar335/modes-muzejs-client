@@ -14,10 +14,10 @@
     "static/development/_ssgManifest.js"
   ],
   "pages": {
-    "/TMS/main": [
+    "/TMS/create_test": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/TMS/main.js"
+      "static/chunks/pages/TMS/create_test.js"
     ],
     "/_app": [
       "static/chunks/main.js",
@@ -29,15 +29,10 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/client/languages": [
+    "/client/success": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/client/languages.js"
-    ],
-    "/client/test": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/client/test.js"
+      "static/chunks/pages/client/success.js"
     ]
   },
   "ampFirstPages": []

@@ -16,6 +16,7 @@ import { IQnA, IQnAPairs, ITest, TLangOption } from "../../@types/test";
 import { URLCheckForLocalHost } from "../../components/constants";
 import { motion, AnimatePresence } from "framer-motion";
 import TestProgressBar from "../../components/TestProgressBar";
+import pointerEvents from "@interactjs/pointer-events/base";
 
 function Test(props: any) {
   const router = useRouter();
@@ -69,17 +70,20 @@ function Test(props: any) {
   const refsToAnswersPositions = useRef([]);
 
   useEffect(() => {
-    console.log(router.query);
+    if (props.test) {
+      setPagesContent(props.test.ru.pages);
+    } else {
+      console.log(router.query);
 
-    //TODO: direct to /client/success?testid=${testid}&lang=${lang} once test is finished
-    const chosenLang: "ru" | "en" | "lv" = router.query.lang!;
-    const test: ITest = store.get("theTest");
-    console.log(chosenLang);
+      //TODO: direct to /client/success?testid=${testid}&lang=${lang} once test is finished
+      const chosenLang: "ru" | "en" | "lv" = router.query.lang!;
+      const test: ITest = store.get("theTest");
+      console.log(chosenLang);
 
-    // console.log(test[store.get("activeLang")]);
+      // console.log(test[store.get("activeLang")]);
 
-    setPagesContent(test[store.get("activeLang")].pages);
-
+      setPagesContent(test[store.get("activeLang")].pages);
+    }
     // createQnAPairs(activeLang.pages);
   }, []);
 
@@ -125,13 +129,6 @@ function Test(props: any) {
     refsToAnswersPositions.current[id] = {
       position: data,
     };
-  }
-
-  function handleStartOfDrag(
-    event: DraggableEventHandler,
-    data: DraggableData
-  ) {
-    console.log(event.target.parentElement.parentElement.parentElement);
   }
 
   function handleStopOfADrag(
@@ -529,10 +526,31 @@ function Test(props: any) {
     </svg>
   );
 
+  function checkWhetherIsPreview() {
+    if (props.test) {
+      const PreviewStyle: React.CSSProperties = {
+        width: "100%",
+        height: "100%",
+      };
+      return PreviewStyle;
+    }
+    return {};
+  }
+
   return (
     <DndProvider backend={TouchBackend}>
       <AnimatePresence>
-        <div className={styles.pageContainer}>
+        {props.test && (
+          <button
+            onClick={() => {
+              console.log("123");
+              dispatch({ type: "increment" });
+            }}
+          >
+            {">"}
+          </button>
+        )}
+        <div className={styles.pageContainer} style={checkWhetherIsPreview()}>
           <img
             src="https://www.fashionmuseumriga.lv/bitrix/templates/main_template/img/logo.png"
             alt="Fashion Museum"
@@ -544,17 +562,19 @@ function Test(props: any) {
             exit={{ opacity: 0 }}
             className={styles.testContainer}
           >
-            <button
-              style={{
-                position: "absolute",
-                right: "5%",
-                top: "5%",
-                backgroundColor: "rgba(0, 0, 0, 0)",
-                border: "none",
-              }}
-            >
-              {ExitBtn("35")}
-            </button>
+            {!props.test && (
+              <button
+                style={{
+                  position: "absolute",
+                  right: "5%",
+                  top: "5%",
+                  backgroundColor: "rgba(0, 0, 0, 0)",
+                  border: "none",
+                }}
+              >
+                {ExitBtn("35")}
+              </button>
+            )}
             {pages !== undefined && (
               <TestProgressBar
                 activePage={page.count}
@@ -562,7 +582,18 @@ function Test(props: any) {
                 // numberOfPages={10}
               />
             )}
-            {pages !== undefined && pages![page.count]}
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                pointerEvents: `${props.test && "none"}` as "none",
+              }}
+            >
+              {pages !== undefined && pages![page.count]}
+            </div>
           </motion.div>
         </div>
       </AnimatePresence>

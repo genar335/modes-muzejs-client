@@ -159,12 +159,7 @@ const QACard = (props: {
       .then((res) => {
         console.log(res);
         setimgLocation(res.data);
-        props.saveIMG(
-          props.iterator,
-          res.data,
-          props.cardType,
-          'all'
-        );
+        props.saveIMG(props.iterator, res.data, props.cardType, "all");
       })
       .catch((err) => console.error(err));
   }
@@ -235,16 +230,17 @@ const QACard = (props: {
             />
             <input
               className={compStyles.FileChooser}
+              style={{ display: "none" }}
               type="file"
               accept="image/*"
               ref={fileInputRef}
               onChange={handleFileinputChange}
             />
-            <input
+            {/* <input
               className={compStyles.FileSubmiter}
               type="submit"
               value="Upload the image"
-            />
+            /> */}
           </form>
         )}
       </div>
