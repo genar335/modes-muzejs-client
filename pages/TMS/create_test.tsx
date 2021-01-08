@@ -22,6 +22,7 @@ import PleaseWaitModal from "../../components/PleaseWaitModal";
 import store from "store";
 // import ReactSwitch from "react-switch";
 import chroma from "chroma-js";
+import FinalPageEditor from "../../components/FinalPageEditor";
 
 function create_test() {
   // useEffect(() => {
@@ -122,9 +123,14 @@ function create_test() {
     },
     type: "",
     active: false,
+    emailSender: false
   };
   const [test, setTest] = useState<ITest>(testTemplateWithThreeCards);
-
+  const setEmail = (bool: boolean): void => 
+    setTest({
+      ...test,
+      emailSender: bool
+    })
   useEffect(() => {
     console.log("Test has changed");
     store.set("testInProgress", test);
@@ -609,81 +615,48 @@ function create_test() {
           />
         </div>
         <div className={styles.LangSwitcher}>
-          <p className={styles.LangSwitcherHeader}>Языки</p>
+          {/* <p className={styles.LangSwitcherHeader}>Языки</p> */}
           {/* {renderLangSwitcher(testLang)} */}
           <div className={styles.LangSwitches}>
             <div className={styles.LScontainer}>
-              {/* <Switch
-                id="ru"
-                onChange={handleLangSwitchChange}
-                checked={langSwitchesStates["ru"]}
-                onColor="#0AB496"
-                offColor="#8A8A8A"
-                uncheckedIcon={false}
-                checkedIcon={false}
-                handleDiameter={18}
-                width={46}
-                height={30}
-                disabled={test.type === ""}
-              /> */}
               <input
                 type="radio"
                 name="whichLang"
                 id="ru"
                 defaultChecked={true}
                 // checked={langSwitchesStates["ru"]}
-                onClick={(e) => setCurrentLang(e.currentTarget.id)}
+                onClick={(e) =>
+                  setCurrentLang(e.currentTarget.id as TLangOption["value"])
+                }
               />
-              <p className={styles.LSswitchLabel}>Русский</p>
+              <p className={styles.LSswitchLabel}>RUS</p>
             </div>
             <div className={styles.LScontainer}>
-              {/* <Switch
-                id="en"
-                onChange={handleLangSwitchChange}
-                checked={langSwitchesStates["en"]}
-                onColor="#0AB496"
-                offColor="#8A8A8A"
-                uncheckedIcon={false}
-                checkedIcon={false}
-                handleDiameter={18}
-                width={46}
-                height={30}
-                disabled={test.type === ""}
-              /> */}
               <input
-                onClick={(e) => setCurrentLang(e.currentTarget.id)}
+                onClick={(e) =>
+                  setCurrentLang(e.currentTarget.id as TLangOption["value"])
+                }
                 type="radio"
                 name="whichLang"
                 id="en"
               />
-              <p className={styles.LSswitchLabel}>English</p>
+              <p className={styles.LSswitchLabel}>ENG</p>
             </div>
             <div className={styles.LScontainer}>
-              {/* <Switch
-                id="lv"
-                onChange={handleLangSwitchChange}
-                checked={langSwitchesStates["lv"]}
-                onColor="#0AB496"
-                offColor="#8A8A8A"
-                uncheckedIcon={false}
-                checkedIcon={false}
-                handleDiameter={18}
-                width={46}
-                height={30}
-                disabled={test.type === ""}
-              /> */}
               <input
                 // checked={langSwitchesStates["lv"]}
-                onChange={(e) => setCurrentLang(e.currentTarget.id)}
+                onChange={(e) =>
+                  setCurrentLang(e.currentTarget.id as TLangOption["value"])
+                }
                 type="radio"
                 name="whichLang"
                 id="lv"
               />
-              <p className={styles.LSswitchLabel}>Latviešu</p>
+              <p className={styles.LSswitchLabel}>LAT</p>
             </div>
           </div>
         </div>
-
+        <FinalPageEditor emailState={test.emailSender} toggleEmail={setEmail} />
         <div className={styles.TestType}>
           <Select
             placeholder={test.type || "Выберите тип теста..."}

@@ -2,5 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/client/languages": "pages/client/languages.js"
+  "/client/languages": "pages/client/languages.js",
+  "/client/test_selection": "pages/client/test_selection.js",
+  "/client/test": "pages/client/test.js"
 }
