@@ -90,7 +90,7 @@ const FinalPageEditor = (props: {
   const PTagStyle: React.CSSProperties = {
     background: "#e0bca3",
     borderRadius: "31.5px",
-    color: "smokeshite",
+    color: "rgba(47,72,88,1)",
     width: "8%",
     height: "30%",
     display: "flex",

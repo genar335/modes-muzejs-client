@@ -128,9 +128,9 @@ function create_test() {
       finalPageTextHeading: '',
       finalPageTextBody: ''
     },
+    emailSender: false,
     type: "",
     active: false,
-    emailSender: false,
   };
   const [test, setTest] = useState<ITest>(testTemplateWithThreeCards);
   const setEmail = (bool: boolean): void =>

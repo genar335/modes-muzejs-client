@@ -17,6 +17,8 @@ import { URLCheckForLocalHost } from "../../components/constants";
 import { motion, AnimatePresence } from "framer-motion";
 import TestProgressBar from "../../components/TestProgressBar";
 import pointerEvents from "@interactjs/pointer-events/base";
+import { Arrow } from "../../components/PagesController";
+import { borderRadius } from "react-select/src/theme";
 
 function Test(props: any) {
   const router = useRouter();
@@ -60,7 +62,7 @@ function Test(props: any) {
       !props.test
     ) {
       setTimeout(() => {
-        router.push("http://localhost:3000/client/success");
+        // router.push("http://localhost:3000/client/success");
       }, 500);
       console.log(page.count);
       console.log(pagesContent.length);
@@ -82,6 +84,8 @@ function Test(props: any) {
   const refsToAnswersHandles = useRef<HTMLElement[]>([]);
   const refsToAnswersPositions = useRef([]);
 
+  const [test, setTest] = useState<ITest>();
+
   useEffect(() => {
     if (props.test) {
       setPagesContent(props.test.ru.pages);
@@ -91,6 +95,7 @@ function Test(props: any) {
       //TODO: direct to /client/success?testid=${testid}&lang=${lang} once test is finished
       const chosenLang: "ru" | "en" | "lv" = router.query.lang!;
       const test: ITest = store.get("theTest");
+      setTest(test);
       console.log(chosenLang);
 
       // console.log(test[store.get("activeLang")]);
@@ -261,6 +266,66 @@ function Test(props: any) {
     return { questionRect, answerRect };
   }
 
+  const TestCompletionAcknowledgement = (): {
+    ru: string;
+    lv: string;
+    en: string;
+  } => {
+    return {
+      ru: `Тест "${store.get("theTest").ru.name}" пройден.`,
+      lv: `Tests "${store.get("theTest").lv.name}" ir pabeigts.`,
+      en: `Test "${store.get("theTest").en.name}" is compeleted.`,
+    };
+  };
+
+  function prepareLastPageJSX(
+    body: string,
+    heading: string,
+    email: boolean
+  ): JSX.Element {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-evenly",
+          alignItems: "center",
+          flexDirection: "column",
+          width: "70%",
+          height: "100%",
+        }}
+      >
+        <h1>{heading}</h1>
+        <h2>{TestCompletionAcknowledgement()[getLang()]}</h2>
+        <p>{body}</p>
+        {email && (
+          <input
+            style={{
+              background: "rgba(0, 0, 0, 0)",
+              color: "#C6AA96",
+              border: "#C6AA96 solid 1px",
+              borderRadius: "16px",
+            }}
+            placeholder="example@mail.com"
+            type="email"
+            name="userInfo"
+            id="userEmail"
+          />
+        )}
+        <button>
+          {getLang() === "en"
+            ? "Finish"
+            : getLang() === "lv"
+            ? "Pabeigt"
+            : "Закончить"}
+        </button>
+      </div>
+    );
+
+    function getLang() {
+      return store.get("activeLang") as TLangOption["value"];
+    }
+  }
+
   /**
    * Wraps question and answer pairs into a div (containing 3 pairs in this case)
    */
@@ -280,6 +345,19 @@ function Test(props: any) {
         {qnaPairsToJSX(page, pageIterator, refsToQuestions)}
       </div>
     ));
+    let tmp: ITest = store.get("theTest");
+    const {
+      finalPageTextBody,
+      finalPageTextHeading,
+    }: { finalPageTextBody: string; finalPageTextHeading: string } = tmp[
+      store.get("activeLang") as TLangOption["value"]
+    ];
+    const lastPage = prepareLastPageJSX(
+      finalPageTextBody,
+      finalPageTextHeading,
+      tmp.emailSender as boolean
+    );
+    pagesPrep.push(lastPage);
     setPages(pagesPrep);
     // console.log(pages);
     return pagesPrep;
@@ -560,24 +638,29 @@ function Test(props: any) {
             style={{
               position: "absolute",
               top: "50%",
-              right: "15%",
+              right: "10%",
+              border: "none",
+              background: "none",
             }}
             onClick={() => {
               console.log("123");
               dispatch({ type: "increment" });
             }}
           >
-            {">"}
+            {Arrow("60", "84")}
           </button>
           <button
             style={{
               position: "absolute",
               top: "50%",
-              left: "15%",
+              left: "10%",
+              transform: "rotate(180deg)",
+              background: "none",
+              border: "none",
             }}
             onClick={() => dispatch({ type: "decrement" })}
           >
-            {"<"}
+            {Arrow("60", "84")}
           </button>
         </>
       )}

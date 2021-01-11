@@ -52,11 +52,23 @@ const TestPreviewer = (props: {
         </button>
         <div
           style={{
-            width: "80%",
-            height: "70%",
+            width: "85%",
+            height: "85%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            boxSizing: "border-box",
+            background: "white",
           }}
         >
-          <Test test={props.test} />
+          <div
+            style={{
+              width: "80%",
+              height: "80%",
+            }}
+          >
+            <Test test={props.test} />
+          </div>
         </div>
       </div>
     )
