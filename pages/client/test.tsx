@@ -54,7 +54,7 @@ function Test(props: any) {
   const [page, dispatch] = useReducer(reducer, initalPage);
   useEffect(() => {
     if (
-      page.count === pagesContent.length &&
+      page.count + 1 === pagesContent.length &&
       page.count !== 0 &&
       pagesContent.length !== 0 &&
       !props.test
