@@ -49,24 +49,28 @@ const TestPreview = (props: {
   ) => {
     // console.log("from data saving", qid);
     console.log(data);
-    // if (data.match())
+    console.log(lang);
     if (lang === "all") {
       let tmpLocal = props.fullTest.ru.pages[props.activePage].QnAPairs;
       tmpLocal[qid][whatToSave] = data;
       props.saveChanges(tmpLocal, "ru");
       tmpLocal = props.fullTest.en.pages[props.activePage].QnAPairs;
       tmpLocal[qid][whatToSave] = data;
-
       props.saveChanges(tmpLocal, "en");
       tmpLocal = props.fullTest.lv.pages[props.activePage].QnAPairs;
       tmpLocal[qid][whatToSave] = data;
       props.saveChanges(tmpLocal, "lv");
     } else {
-      let tmpLocal = props.fullTest[lang].pages[props.activePage].QnAPairs;
+      console.log(
+        props.fullTest[props.currentLanguage].pages[props.activePage].QnAPairs
+      );
+      let tmpLocal =
+        props.fullTest[props.currentLanguage].pages[props.activePage].QnAPairs;
+      console.log(tmpLocal);
       tmpLocal[qid][whatToSave] = data;
       // console.log(tmp[qid][whatToSave]);
       // console.log("from save new data", tmp);
-      props.saveChanges(tmpLocal, lang);
+      props.saveChanges(tmpLocal, props.currentLanguage);
     }
   };
 

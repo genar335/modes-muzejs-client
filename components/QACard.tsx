@@ -164,9 +164,9 @@ const QACard = (props: {
       .catch((err) => console.error(err));
   }
 
-  useEffect(() => {
-    console.log("Input has ", fileInputRef.current?.files);
-  }, [fileInputRef.current]);
+  // useEffect(() => {
+  //   console.log("Input has ", fileInputRef.current?.files);
+  // }, [fileInputRef.current]);
 
   return (
     <div className={`${compStyles[props.cardType]}`}>
@@ -216,8 +216,12 @@ const QACard = (props: {
               id={`${props.cardType}_${props.iterator}_page-${props.pageNumber}`}
               // onChange={(e) => console.log("YAyyy")}
               className={compStyles.SelectedIMGPreview}
-              src={imgLocation || props.pageContents}
-              // src={props.pageContents.match(URLCheck) ? props.pageContents : ""}
+              // src={/* imgLocation || */ props.pageContents}
+              src={
+                props.pageContents.match(URLCheckForLocalHost) !== null
+                  ? props.pageContents
+                  : ""
+              }
               alt="
               Width: 235px 
               Height: 245px
