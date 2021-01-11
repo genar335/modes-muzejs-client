@@ -61,16 +61,13 @@ const TestPreview = (props: {
       tmpLocal[qid][whatToSave] = data;
       props.saveChanges(tmpLocal, "lv");
     } else {
-      console.log(
-        props.fullTest[props.currentLanguage].pages[props.activePage].QnAPairs
-      );
-      let tmpLocal =
-        props.fullTest[props.currentLanguage].pages[props.activePage].QnAPairs;
+      console.log(props.fullTest[lang].pages[props.activePage].QnAPairs);
+      let tmpLocal = props.fullTest[lang].pages[props.activePage].QnAPairs;
       console.log(tmpLocal);
       tmpLocal[qid][whatToSave] = data;
       // console.log(tmp[qid][whatToSave]);
       // console.log("from save new data", tmp);
-      props.saveChanges(tmpLocal, props.currentLanguage);
+      props.saveChanges(tmpLocal, lang);
     }
   };
 
