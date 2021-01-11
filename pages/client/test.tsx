@@ -58,8 +58,8 @@ function Test(props: any) {
     if (
       page.count + 1 === pagesContent.length &&
       page.count !== 0 &&
-      pagesContent.length !== 0 &&
-      !props.test
+      pagesContent.length !== 0
+      // !props.test
     ) {
       setTimeout(() => {
         // router.push("http://localhost:3000/client/success");
@@ -387,15 +387,15 @@ function Test(props: any) {
           id={`Question_${iterator}_p-${pageIterator}`}
           key={`Question_${iterator}_p-${pageIterator}`}
         >
-          <div
+          {/* <div
             style={{
               height: "100%",
               boxSizing: "border-box",
             }}
-          >
-            {imgOrText(qnaPair.question)}
-          </div>
+          > */}
+          {imgOrText(qnaPair.question)}
         </div>
+        {/* </div> */}
         <div
           ref={(ele) => (refsToQuestions.current[iterator] = ele)}
           style={{
@@ -432,6 +432,7 @@ function Test(props: any) {
       >
         <div
           style={{
+            // position: "absolute",
             display: "flex",
             flexDirection: "column-reverse",
             justifyContent: "center",
