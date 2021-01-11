@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+
 .formContainer {
 
     background-color: #010713;
@@ -11,6 +13,15 @@
     &.hidden {
         display: none;
     }
+
+    .subHeaderContainer {
+        width: 168px;
+
+        .subHeader {
+            font-size: 36px;
+        }
+    }
+    
 
     .theForm {
         display: flex;

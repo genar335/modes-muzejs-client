@@ -27,6 +27,9 @@ const TestPreviewer = (props: {
           style={{
             background: "none",
             border: "none",
+            position: "absolute",
+            top: "13%",
+            right: "8.3%",
           }}
           onClick={() => props.setIsOpen(false)}
         >

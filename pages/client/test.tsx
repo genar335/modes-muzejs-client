@@ -31,9 +31,21 @@ function Test(props: any) {
   const initalPage = { count: 0 };
 
   function reducer(page, action) {
+    console.log(pages?.length);
+    console.log(page.count, "counter");
     switch (action.type) {
       case "increment":
-        return { count: page.count + 1 };
+        if (page.count + 1 !== pages?.length) {
+          return { count: page.count + 1 };
+        } else {
+          return { count: page.count };
+        }
+      case "decrement":
+        if (page.count !== 0) {
+          return { count: page.count - 1 };
+        } else {
+          return { count: page.count };
+        }
       default:
         throw new Error();
     }
@@ -44,11 +56,12 @@ function Test(props: any) {
     if (
       page.count === pagesContent.length &&
       page.count !== 0 &&
-      pagesContent.length !== 0
+      pagesContent.length !== 0 &&
+      !props.test
     ) {
       setTimeout(() => {
         router.push("http://localhost:3000/client/success");
-      }, 300);
+      }, 500);
       console.log(page.count);
       console.log(pagesContent.length);
     }
@@ -506,6 +519,7 @@ function Test(props: any) {
     <svg
       // className={compStyles.CloseBTN}
       onClick={() =>
+        !props.test &&
         router.push(
           `http://localhost:3000/client/languages?testid=${
             store.get("theTest").id
@@ -539,9 +553,15 @@ function Test(props: any) {
 
   return (
     <DndProvider backend={TouchBackend}>
-      <AnimatePresence>
-        {props.test && (
+      {/* <AnimatePresence> */}
+      {props.test && (
+        <>
           <button
+            style={{
+              position: "absolute",
+              top: "50%",
+              right: "15%",
+            }}
             onClick={() => {
               console.log("123");
               dispatch({ type: "increment" });
@@ -549,54 +569,66 @@ function Test(props: any) {
           >
             {">"}
           </button>
-        )}
-        <div className={styles.pageContainer} style={checkWhetherIsPreview()}>
-          <img
-            src="https://www.fashionmuseumriga.lv/bitrix/templates/main_template/img/logo.png"
-            alt="Fashion Museum"
-            id={styles.MMlogo}
-          />
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className={styles.testContainer}
+          <button
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "15%",
+            }}
+            onClick={() => dispatch({ type: "decrement" })}
           >
-            {!props.test && (
-              <button
-                style={{
-                  position: "absolute",
-                  right: "5%",
-                  top: "5%",
-                  backgroundColor: "rgba(0, 0, 0, 0)",
-                  border: "none",
-                }}
-              >
-                {ExitBtn("35")}
-              </button>
-            )}
-            {pages !== undefined && (
-              <TestProgressBar
-                activePage={page.count}
-                numberOfPages={pages?.length}
-                // numberOfPages={10}
-              />
-            )}
-            <div
+            {"<"}
+          </button>
+        </>
+      )}
+
+      <div className={styles.pageContainer} style={checkWhetherIsPreview()}>
+        <img
+          src="https://www.fashionmuseumriga.lv/bitrix/templates/main_template/img/logo.png"
+          alt="Fashion Museum"
+          id={styles.MMlogo}
+        />
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className={styles.testContainer}
+        >
+          {!props.test && (
+            <button
               style={{
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                pointerEvents: `${props.test && "none"}` as "none",
+                position: "absolute",
+                right: "5%",
+                top: "5%",
+                backgroundColor: "rgba(0, 0, 0, 0)",
+                border: "none",
               }}
             >
-              {pages !== undefined && pages![page.count]}
-            </div>
-          </motion.div>
-        </div>
-      </AnimatePresence>
+              {ExitBtn("35")}
+            </button>
+          )}
+          {pages !== undefined && (
+            <TestProgressBar
+              activePage={page.count}
+              numberOfPages={pages?.length}
+              // numberOfPages={10}
+            />
+          )}
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              pointerEvents: `${props.test && "none"}` as "none",
+            }}
+          >
+            {pages !== undefined && pages![page.count]}
+          </div>
+        </motion.div>
+      </div>
+      {/* </AnimatePresence> */}
     </DndProvider>
   );
 }

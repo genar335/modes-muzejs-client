@@ -24,6 +24,7 @@ function Success(props: any) {
     const shareable = true; //from test props - store.get()?
 
     const text = {
+        //the text here will be in test props, this is temporary
         en: ["Congratulations", "You have completed the test "],
         ru: ["Поздравляем", "Вы прошли тест "],
         lv: ["Apsveicam", ""]
@@ -33,8 +34,8 @@ function Success(props: any) {
         <div className={styles.pageContainer}>
             <img src="https://www.fashionmuseumriga.lv/bitrix/templates/main_template/img/logo.png" alt="logo" id={styles.MMlogo}/>
             <div className={styles.textContainer}>
-                <h1>Congration</h1>
-                <h3>You have completed the test "{testName}"</h3>
+                <h1 className="congratsHeader">Congratualations!</h1>
+                <h1 className="congratsHeader">You have completed the test "{testName}"</h1>
             </div>
             <EmailForm 
                 show={shareable}

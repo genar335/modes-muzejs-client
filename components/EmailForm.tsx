@@ -27,6 +27,7 @@ function EmailForm(props: any) {
     }
 
     const text = {
+        //the text here will be in test props, this is temporary
         en: ["Share your results", "Submit"],
         ru: ["Поделиться результатом", "Отправить"],
         lv: ["noshareot", "nosubmitot"]
@@ -34,7 +35,7 @@ function EmailForm(props: any) {
 
     return(
         <div className={`${styles.formContainer} ${!props.show ? styles.hidden : null}`} onSubmit={handleSubmit}>
-            <h2>Share your reuslts {/* language handling conditional */}</h2>
+            <h2 className="subHeader">Хотите получить результат и подписаться на новости Музея?</h2>
             <form className={styles.theForm}>
                 <label htmlFor="email">Your Email Address:</label>
                 <input type="text" id="email" name="email" onChange={handleEmailChange}/>
