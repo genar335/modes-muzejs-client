@@ -105,8 +105,8 @@ function create_test() {
           QnAPairs: qnaEmptyNArray(currentNumberOfPairsForQnAPairs),
         },
       ],
-      finalPageTextHeading: '',
-      finalPageTextBody: ''
+      finalPageTextHeading: "",
+      finalPageTextBody: "",
     },
     lv: {
       name: "",
@@ -115,8 +115,8 @@ function create_test() {
           QnAPairs: qnaEmptyNArray(currentNumberOfPairsForQnAPairs),
         },
       ],
-      finalPageTextHeading: '',
-      finalPageTextBody: ''
+      finalPageTextHeading: "",
+      finalPageTextBody: "",
     },
     ru: {
       name: "",
@@ -125,8 +125,8 @@ function create_test() {
           QnAPairs: qnaEmptyNArray(currentNumberOfPairsForQnAPairs),
         },
       ],
-      finalPageTextHeading: '',
-      finalPageTextBody: ''
+      finalPageTextHeading: "",
+      finalPageTextBody: "",
     },
     emailSender: false,
     type: "",
@@ -620,14 +620,12 @@ function create_test() {
       >
         <PleaseWaitModal isDisplayed={isTestFetching!} />
         <FMLogo />
-        <div className={styles.TestNaming}>
-          <TestNamer
-            currentLang={currentLang}
-            setCurrentLang={activateCurrentLang}
-            saveTest={saveTest}
-            currentStateOfTest={test}
-          />
-        </div>
+        <TestNamer
+          currentLang={currentLang}
+          setCurrentLang={activateCurrentLang}
+          saveTest={saveTest}
+          currentStateOfTest={test}
+        />
         <div className={styles.LangSwitcher}>
           {/* <p className={styles.LangSwitcherHeader}>Языки</p> */}
           {/* {renderLangSwitcher(testLang)} */}
@@ -719,6 +717,7 @@ function create_test() {
           isOpen={isTestPreviewerOpen}
           setIsOpen={setisTestPreviewerOpen}
           test={test}
+          activeLanguage={currentLang}
         />
         <button
           onClick={() => setisTestPreviewerOpen(true)}

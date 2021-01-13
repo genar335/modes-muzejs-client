@@ -81,8 +81,6 @@ const TestNamer = (props: {
     });
   };
 
-  const inputEnabler = () => {};
-
   const handleNameEntry = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
   };
@@ -148,7 +146,7 @@ const TestNamer = (props: {
             }`}
             disabled
           >
-            {lang.toLocaleUpperCase()}
+            {lang === "ru" ? "RUS" : lang === "lv" ? "LAT" : "ENG"}
           </button>
           <input
             id={lang}

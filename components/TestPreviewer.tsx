@@ -28,8 +28,8 @@ const TestPreviewer = (props: {
             background: "none",
             border: "none",
             position: "absolute",
-            top: "13%",
-            right: "8.3%",
+            top: "5%",
+            right: "5.7%",
           }}
           onClick={() => props.setIsOpen(false)}
         >
@@ -59,6 +59,8 @@ const TestPreviewer = (props: {
             alignItems: "center",
             boxSizing: "border-box",
             background: "white",
+            border: "1px solid white",
+            borderRadius: "31px",
           }}
         >
           <div
@@ -67,7 +69,7 @@ const TestPreviewer = (props: {
               height: "80%",
             }}
           >
-            <Test test={props.test} />
+            <Test test={props.test} activeLanguage={props.activeLanguage} />
           </div>
         </div>
       </div>

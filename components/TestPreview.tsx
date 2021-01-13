@@ -80,8 +80,8 @@ const TestPreview = (props: {
   const textEntryCountLimit: number = 180;
 
   const qaTextEntryHeaderStyle: React.CSSProperties = {
-    color: "rgb(47	71	88)",
-    fontSize: "30px",
+    color: "whitesmoke",
+    fontSize: "24px",
     margin: "0",
   };
 
@@ -89,15 +89,19 @@ const TestPreview = (props: {
     display: "flex",
     justifyContent: "space-around",
     alignItems: "center",
-    width: "100%",
+    width: "7.5%",
+    height: "3rem",
+    border: "1px solid rgba(0,0,0,0)",
+    borderRadius: "31px",
+    backgroundColor: "rgb(214	180	156	)",
   };
 
   const qaTextEntryContainer: React.CSSProperties = {
     width: "90%",
-    height: "30%",
+    height: "35%",
     display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
     alignItems: "center",
   };
 
@@ -105,6 +109,7 @@ const TestPreview = (props: {
     color: "rgb(47 71 88)",
     fontSize: "25px",
     margin: "0",
+    width: "5%",
   };
   function q_a_TextEntry(type: "answer" | "question", id: number) {
     // console.log("id", id);
@@ -112,14 +117,7 @@ const TestPreview = (props: {
       <>
         <div style={qaTextEntryContainer}>
           <div style={qaTextEntryPContainer}>
-            <p style={qaTextEntryHeaderStyle}>RU</p>
-            <p style={qaTextEntryCharCounter}>
-              {
-                props.fullTest.ru.pages[props.activePage].QnAPairs[id][type]
-                  .length
-              }
-              /{textEntryCountLimit}
-            </p>
+            <p style={qaTextEntryHeaderStyle}>RUS</p>
           </div>
           <textarea
             // * RU
@@ -132,17 +130,17 @@ const TestPreview = (props: {
             maxLength={textEntryCountLimit}
             onChange={(e) => saveNewData(id, e.currentTarget.value, type, "ru")}
           />
+          <p style={qaTextEntryCharCounter}>
+            {
+              props.fullTest.ru.pages[props.activePage].QnAPairs[id][type]
+                .length
+            }
+            /{textEntryCountLimit}
+          </p>
         </div>
         <div style={qaTextEntryContainer}>
           <div style={qaTextEntryPContainer}>
-            <p style={qaTextEntryHeaderStyle}>EN</p>
-            <p style={qaTextEntryCharCounter}>
-              {
-                props.fullTest.en.pages[props.activePage].QnAPairs[id][type]
-                  .length
-              }
-              /{textEntryCountLimit}
-            </p>
+            <p style={qaTextEntryHeaderStyle}>ENG</p>
           </div>
           <textarea
             // * EN
@@ -153,17 +151,17 @@ const TestPreview = (props: {
             maxLength={textEntryCountLimit}
             onChange={(e) => saveNewData(id, e.currentTarget.value, type, "en")}
           />
+          <p style={qaTextEntryCharCounter}>
+            {
+              props.fullTest.en.pages[props.activePage].QnAPairs[id][type]
+                .length
+            }
+            /{textEntryCountLimit}
+          </p>
         </div>
         <div style={qaTextEntryContainer}>
           <div style={qaTextEntryPContainer}>
-            <p style={qaTextEntryHeaderStyle}>LV</p>
-            <p style={qaTextEntryCharCounter}>
-              {
-                props.fullTest.lv.pages[props.activePage].QnAPairs[id][type]
-                  .length
-              }
-              /{textEntryCountLimit}
-            </p>
+            <p style={qaTextEntryHeaderStyle}>LAT</p>
           </div>
           <textarea
             // * LV
@@ -173,6 +171,13 @@ const TestPreview = (props: {
             maxLength={textEntryCountLimit}
             onChange={(e) => saveNewData(id, e.currentTarget.value, type, "lv")}
           />
+          <p style={qaTextEntryCharCounter}>
+            {
+              props.fullTest.lv.pages[props.activePage].QnAPairs[id][type]
+                .length
+            }
+            /{textEntryCountLimit}
+          </p>
         </div>
         {/* <p className={compStyles.textInputQnACounter}>
           Character count: {props.pageToRender[id][type].length} /{" "}

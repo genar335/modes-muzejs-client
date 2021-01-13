@@ -33,7 +33,7 @@ const FinalPageEditor = (props: {
     fontSize: "30px",
     textAlign: "center",
     width: "100%",
-    margin: "1rem 0 1.5rem 0",
+    margin: "0rem 0 1.6rem 0",
   };
 
   const HeaderBtnContainer: React.CSSProperties = {
@@ -45,6 +45,7 @@ const FinalPageEditor = (props: {
   };
 
   const BTNOpenModel: React.CSSProperties = {
+    gridColumn: "3",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
@@ -110,7 +111,7 @@ const FinalPageEditor = (props: {
             style={{
               color: "rgb(47 71	88)	",
               fontSize: "24px",
-              margin: "1rem 0 1rem 0",
+              margin: "1rem 0 ",
             }}
           >
             Текст
@@ -124,6 +125,7 @@ const FinalPageEditor = (props: {
             style={{
               fontSize: "24px",
               marginRight: "1rem",
+              paddingRight: "0.4rem",
               fontFamily: "Montserrat , sans-serif",
             }}
           >

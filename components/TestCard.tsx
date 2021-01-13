@@ -27,9 +27,9 @@ const TestCard = (props: {
   updateTests: (testID: string) => void;
   fetchAllTests: () => Promise<void>;
 }) => {
-  const CardStyle = {
-    background: `rgb(${props.colour})`,
+  const CardStyle: React.CSSProperties = {
     color: props.colour === "brown" ? "#FFFFFF" : "#2F4858",
+    backgroundColor: `rgb(red)`,
   };
 
   const [isDCModalOpen, setIsDCModalOpen] = useState<boolean>(false);
@@ -122,7 +122,13 @@ const TestCard = (props: {
   };
 
   return (
-    <motion.div animate={cardControls} className={styles.TestCardBackground}>
+    <motion.div
+      animate={cardControls}
+      className={styles.TestCardBackground}
+      style={{
+        backgroundColor: `rgb(${props.colour})`,
+      }}
+    >
       <button
         className={styles.DeleteIcon}
         onClick={(e) => setIsDCModalOpen(true)}

@@ -272,9 +272,15 @@ function Test(props: any) {
     en: string;
   } => {
     return {
-      ru: `Тест "${store.get("theTest").ru.name}" пройден.`,
-      lv: `Tests "${store.get("theTest").lv.name}" ir pabeigts.`,
-      en: `Test "${store.get("theTest").en.name}" is compeleted.`,
+      ru: `Тест "${
+        props.test[props.activeLanguage].name || store.get("theTest").ru.name
+      }" пройден.`,
+      lv: `Tests "${
+        props.test[props.activeLanguage].name || store.get("theTest").lv.name
+      }" ir pabeigts.`,
+      en: `Test "${
+        props.test[props.activeLanguage].name || store.get("theTest").en.name
+      }" is compeleted.`,
     };
   };
 
@@ -283,6 +289,7 @@ function Test(props: any) {
     heading: string,
     email: boolean
   ): JSX.Element {
+    console.log(heading, body);
     return (
       <div
         style={{
@@ -345,18 +352,21 @@ function Test(props: any) {
         {qnaPairsToJSX(page, pageIterator, refsToQuestions)}
       </div>
     ));
+
     let tmp: ITest = store.get("theTest");
     const {
       finalPageTextBody,
       finalPageTextHeading,
-    }: { finalPageTextBody: string; finalPageTextHeading: string } = tmp[
-      store.get("activeLang") as TLangOption["value"]
-    ];
+    }: { finalPageTextBody: string; finalPageTextHeading: string } =
+      props.test[props.activeLanguage] ||
+      tmp[store.get("activeLang") as TLangOption["value"]];
+
     const lastPage = prepareLastPageJSX(
       finalPageTextBody,
       finalPageTextHeading,
       tmp.emailSender as boolean
     );
+
     pagesPrep.push(lastPage);
     setPages(pagesPrep);
     // console.log(pages);
@@ -638,7 +648,7 @@ function Test(props: any) {
           <button
             style={{
               position: "absolute",
-              top: "50%",
+              top: "46%",
               right: "10%",
               border: "none",
               background: "none",
@@ -653,7 +663,7 @@ function Test(props: any) {
           <button
             style={{
               position: "absolute",
-              top: "50%",
+              top: "46%",
               left: "10%",
               transform: "rotate(180deg)",
               background: "none",
@@ -667,11 +677,13 @@ function Test(props: any) {
       )}
 
       <div className={styles.pageContainer} style={checkWhetherIsPreview()}>
-        <img
-          src="https://www.fashionmuseumriga.lv/bitrix/templates/main_template/img/logo.png"
-          alt="Fashion Museum"
-          id={styles.MMlogo}
-        />
+        {!props.test && (
+          <img
+            src="https://www.fashionmuseumriga.lv/bitrix/templates/main_template/img/logo.png"
+            alt="Fashion Museum"
+            id={styles.MMlogo}
+          />
+        )}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
