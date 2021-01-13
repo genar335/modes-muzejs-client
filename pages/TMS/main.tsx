@@ -107,6 +107,7 @@ const main = () => {
       <PleaseWaitModal isDisplayed={!hasEverythingFetched} />
       <ActiveTests
         // getActiveTests={getTestsByActive}
+        tests={tests}
         activeTests={tests.activeTests}
         updateTheTests={toggleTest}
         fetchAllTests={getAllTests}

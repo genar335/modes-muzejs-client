@@ -8,7 +8,7 @@ import Axios, { AxiosError, AxiosResponse } from "axios";
 import { devURL } from "./constants";
 import { ITest, TTestTypes } from "../@types/test";
 import { NextRouter, useRouter } from "next/router";
-import { motion, useAnimation } from "framer-motion";
+import { AnimatePresence, motion, useAnimation } from "framer-motion";
 // const klik = require("/klik.mp3");
 import useSound from "use-sound";
 import { parse } from "graphql";
@@ -29,13 +29,11 @@ const TestCard = (props: {
 }) => {
   const CardStyle: React.CSSProperties = {
     color: props.colour === "brown" ? "#FFFFFF" : "#2F4858",
-    backgroundColor: `rgb(red)`,
+    backgroundColor: props.colour === "brown" ? "rgb(224	188	163	)" : "#ffffff",
   };
 
   const [isDCModalOpen, setIsDCModalOpen] = useState<boolean>(false);
 
-  const [playClick] = useSound("/klik.mp3");
-  const [deleteSound] = useSound("/move-to-trash.mp3");
   const router: NextRouter = useRouter();
   const forwardToTestEdit = (testID: string) => {
     router.push(`/TMS/create_test?testToEdit=${testID}`);
@@ -76,22 +74,15 @@ const TestCard = (props: {
 
     setTimeout(() => {
       props.updateTests(props._id);
-    }, 10);
+    }, 200);
   };
 
   const handleEditIconClick = async () => {
-    playClick();
+    // playClick();
     forwardToTestEdit(props._id);
   };
 
   const handleDeleteIconClick = async () => {
-    //* animating opacity from 1 to 0 in 0.3 seconds
-    // await cardControls.start({
-    //   opacity: 0,
-    //   transition: { duration: 0.3 },
-    // });
-    // deleteSound();
-
     Axios.get(`${devURL}tests/deleteTestByID?testToDelete=${props._id}`)
       .catch((error: AxiosError) => alert(error))
       .then((response) => {
@@ -103,84 +94,84 @@ const TestCard = (props: {
   const cardControls = useAnimation();
 
   const parseTestTypeValueToLabel = (testTypeToParse: TTestTypes["type"]) => {
-    let parsedLabel: string;
     switch (testTypeToParse) {
       case "PP":
-        parsedLabel = "Фото – Фото";
-        break;
+        return "Фото – Фото";
       case "PT":
-        parsedLabel = "Фото – Текст";
-        break;
+        return "Фото – Текст";
       case "TT":
-        parsedLabel = "Фото – Фото";
-        break;
+        return "Фото – Фото";
+      case "TP":
+        return "Текст – Фото";
       default:
-        parsedLabel = "Неизвестно";
-        break;
+        console.log(testTypeToParse);
+        return "Неизвестно";
     }
-    return parsedLabel;
   };
 
+  console.log(props.colour);
+
   return (
-    <motion.div
-      animate={cardControls}
-      className={styles.TestCardBackground}
-      style={{
-        backgroundColor: `rgb(${props.colour})`,
-      }}
-    >
-      <button
-        className={styles.DeleteIcon}
-        onClick={(e) => setIsDCModalOpen(true)}
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className={styles.TestCardBackground}
       >
-        {DeleteIcon()}
-      </button>
-      <button onClick={handleEditIconClick} className={styles.EditIcon}>
-        {EditIcon()}
-      </button>
-      <div
-        key={props._id}
-        id={props._id}
-        className={styles.TestCard}
-        style={CardStyle}
-      >
-        {isDCModalOpen && (
-          <DeletionConfirmationModal
-            isVisible={isDCModalOpen}
-            toggleModal={setIsDCModalOpen}
-            deletionOfTest={handleDeleteIconClick}
-          />
-        )}
-        {/* <Switch isOn={isTestActive} handleToggle={handleActiveChange} /> */}
-        {/* <Switch onChange={handleActiveChange} checked={isTestActive} /> */}
-        <div className={styles.ToggleTTContainer}>
-          <Switch
-            id="activationToggle"
-            onChange={handleActiveChange}
-            checked={props.active}
-            onColor="#0AB496"
-            offColor="#8A8A8A"
-            uncheckedIcon={false}
-            checkedIcon={false}
-            handleDiameter={18}
-            width={46}
-            height={30}
-          />
-          <p className={styles.TestType}>
-            {parseTestTypeValueToLabel(props.fullTest.type)}
-          </p>
-        </div>
-        {/* 
+        <button
+          className={styles.DeleteIcon}
+          onClick={(e) => setIsDCModalOpen(true)}
+        >
+          {DeleteIcon()}
+        </button>
+        <button onClick={handleEditIconClick} className={styles.EditIcon}>
+          {EditIcon()}
+        </button>
+        <div
+          key={props._id}
+          id={props._id}
+          className={styles.TestCard}
+          style={CardStyle}
+        >
+          {isDCModalOpen && (
+            <DeletionConfirmationModal
+              isVisible={isDCModalOpen}
+              toggleModal={setIsDCModalOpen}
+              deletionOfTest={handleDeleteIconClick}
+            />
+          )}
+          {/* <Switch isOn={isTestActive} handleToggle={handleActiveChange} /> */}
+          {/* <Switch onChange={handleActiveChange} checked={isTestActive} /> */}
+          <div className={styles.ToggleTTContainer}>
+            <Switch
+              id="activationToggle"
+              onChange={handleActiveChange}
+              checked={props.active}
+              onColor="#0AB496"
+              offColor="#8A8A8A"
+              uncheckedIcon={false}
+              checkedIcon={false}
+              handleDiameter={18}
+              width={46}
+              height={30}
+            />
+            <p className={styles.TestType}>
+              {parseTestTypeValueToLabel(props.fullTest.type)}
+            </p>
+          </div>
+          {/* 
       //! Need to figure out how to time the switch
     */}
-        <p className={styles.CardHeader}>"{props.nameInRu}"</p>
-        <p className={styles.TestLastEdit}>
-          {new Date(props.fullTest.updatedAt)
-            .toLocaleDateString()
-            .replaceAll(/\//g, ".")}
-        </p>
-      </div>
-    </motion.div>
+          <p className={styles.CardHeader}>"{props.nameInRu}"</p>
+          <p className={styles.TestLastEdit}>
+            {new Date(props.fullTest.updatedAt)
+              .toLocaleDateString()
+              .replaceAll(/\//g, ".")}
+          </p>
+        </div>
+      </motion.div>
+    </AnimatePresence>
   );
 };
 

@@ -273,13 +273,16 @@ function Test(props: any) {
   } => {
     return {
       ru: `Тест "${
-        props.test[props.activeLanguage].name || store.get("theTest").ru.name
+        /* props.test[props.activeLanguage].name || */ store.get("theTest").ru
+          .name
       }" пройден.`,
       lv: `Tests "${
-        props.test[props.activeLanguage].name || store.get("theTest").lv.name
+        /* props.test[props.activeLanguage].name || */ store.get("theTest").lv
+          .name
       }" ir pabeigts.`,
       en: `Test "${
-        props.test[props.activeLanguage].name || store.get("theTest").en.name
+        /* props.test[props.activeLanguage].name || */ store.get("theTest").en
+          .name
       }" is compeleted.`,
     };
   };
@@ -358,7 +361,7 @@ function Test(props: any) {
       finalPageTextBody,
       finalPageTextHeading,
     }: { finalPageTextBody: string; finalPageTextHeading: string } =
-      props.test[props.activeLanguage] ||
+      // props.test[props.activeLanguage] ||
       tmp[store.get("activeLang") as TLangOption["value"]];
 
     const lastPage = prepareLastPageJSX(

@@ -9,6 +9,8 @@ import { ITest } from "../@types/test";
 import Axios from "axios";
 import Test from "../pages/client/test";
 import { useEmblaCarousel } from "embla-carousel/react";
+import Carousel from "react-multi-carousel";
+import Collapsible from "react-collapsible";
 
 const ActiveTests = (props: {
   // getActiveTests: (active: boolean) => Promise<any>;
@@ -87,58 +89,36 @@ const ActiveTests = (props: {
     </svg>
   );
 
-  const viewportCss: React.CSSProperties = {
-    overflow: "hidden",
-    width: "100%",
-    paddingLeft: "3rem",
-  };
-  const containerCss: React.CSSProperties = {
-    display: "flex",
-  };
+  const [TestCardArray, setTestCardArray] = useState<Array<React.ReactNode>>(
+    []
+  );
+
   const slideCss: React.CSSProperties = {
+    width: "min-content",
+    height: "min-content",
     position: "relative",
-    // minWidth: "33%",
   };
 
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    loop: false,
-    align: "start",
-  });
-
-  // const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
-  // const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
-
-  const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [
-    emblaApi,
-  ]);
-  const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [
-    emblaApi,
-  ]);
-  const onSelect = useCallback(() => {
-    if (!emblaApi) return;
-    // setPrevBtnEnabled(emblaApi.canScrollPrev());
-    // setNextBtnEnabled(emblaApi.canScrollNext());
-  }, [emblaApi]);
-
   useEffect(() => {
-    if (!emblaApi) return;
-    emblaApi.on("select", onSelect);
-    onSelect();
-  }, [emblaApi, onSelect]);
-
-  useEffect(() => {
-    if (emblaApi) {
-      // Embla API is ready
-    }
-  }, [emblaApi]);
+    setTestCardArray(PrepareTestCardsJSX(props, slideCss));
+  }, [props.tests]);
 
   return (
     <div className={styles.ActiveTestsContainer}>
       <h1 className={styles.ActiveTestsHeader}>Активные тесты</h1>
 
       <div className={styles.CarouselContainer}>
-        {addATest(handleAddTestClick)}
-        {/* <Carousel
+        <div
+          style={{
+            width: "100%",
+            display: "grid",
+            gridTemplateColumns: "repeat(4, 1fr)",
+            // gridTemplateRows: 'auto',
+            placeItems: "center",
+          }}
+        >
+          <div style={slideCss}>{addATest(handleAddTestClick)}</div>
+          {/* <Carousel
           responsive={responsive}
           ssr
           containerClass={styles.Carousel}
@@ -148,54 +128,22 @@ const ActiveTests = (props: {
           showDots
           // dotListClass={styles.customDotListStyle}
         > */}
-        <button
-          // disabled={prevBtnEnabled}
-          style={{
-            transform: "rotate(180deg)",
-            backgroundColor: "rgba(0, 0, 0, 0)",
-            border: "none",
-            width: "min-width",
-            position: "absolute",
-            left: "2%",
-          }}
-          onClick={scrollPrev}
-        >
-          {Arrow()}
-        </button>
-        <div id="carouselViewport" style={viewportCss} ref={emblaRef}>
-          <div id="carouselContainer" style={containerCss}>
-            {props.activeTests.map((test: ITest, iterator: number) => (
-              <div id="carouselSlide" style={slideCss}>
-                <TestCard
-                  key={iterator}
-                  iterator={iterator}
-                  colour="white"
-                  _id={test._id || "NA"}
-                  active={true}
-                  nameInRu={test.ru.name}
-                  fullTest={test}
-                  // parentComponentTestFetcher={getTests}
-                  // mainTestFetcher={props.updateTheTests}
-                  updateTests={props.updateTheTests}
-                  fetchAllTests={props.fetchAllTests}
-                />
-              </div>
-            ))}
-          </div>
+          {TestCardArray.slice(0, 3)}
         </div>
-        <button
-          // disabled={nextBtnEnabled}
-          style={{
-            backgroundColor: "rgba(0, 0, 0, 0)",
-            border: "none",
-            width: "min-width",
-            position: "absolute",
-            right: "2%",
-          }}
-          onClick={scrollNext}
+        {/* <div> */}
+        <Collapsible
+          contentInnerClassName={styles.CollapsibleContentInner}
+          contentOuterClassName={styles.CollapsibleContentOuter}
+          triggerClassName={styles.CollapsibleTrigger}
+          triggerOpenedClassName={styles.CollapsibleTriggerOpen}
+          className={styles.Collapsible}
+          openedClassName={styles.Collapsible}
+          trigger={<div style={{ transform: "rotate(90deg)" }}>{Arrow()}</div>}
         >
-          {Arrow()}
-        </button>
+          {/* {PrepareTestCardsJSX(props, slideCss)} */}
+          {TestCardArray.slice(3)}
+        </Collapsible>
+        {/* </div> */}
         {/* </Carousel> */}
       </div>
     </div>
@@ -203,6 +151,31 @@ const ActiveTests = (props: {
 };
 
 export default ActiveTests;
+function PrepareTestCardsJSX(
+  props: {
+    activeTests: ITest[];
+    updateTheTests: (testID: string) => void;
+    fetchAllTests: () => Promise<void>;
+  },
+  slideCss: React.CSSProperties
+): React.ReactNode {
+  return props.activeTests.map((test: ITest, iterator: number) => (
+    <div id={`carouselSlide_${iterator}`} style={slideCss}>
+      <TestCard
+        key={iterator}
+        iterator={iterator}
+        colour="white"
+        _id={test._id || "NA"}
+        active={true}
+        nameInRu={test.ru.name}
+        fullTest={test}
+        updateTests={props.updateTheTests}
+        fetchAllTests={props.fetchAllTests}
+      />
+    </div>
+  ));
+}
+
 function addATest(handleAddTestClick: () => void) {
   return (
     <div
