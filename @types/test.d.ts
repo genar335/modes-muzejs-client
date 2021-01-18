@@ -10,7 +10,7 @@ export interface ITest {
    * + PT: photo-text.
    */
   type: TTestTypes.type;
-  // type: "TT" | "PP" | "PT";
+  // type: "TT" | "PP" | "PT" | "TP";
   /**
    * @param pages Number of pages used in the test for all languages.
    */

@@ -61,10 +61,10 @@ function Test(props: any) {
       pagesContent.length !== 0
       // !props.test
     ) {
-      setTimeout(() => {
-        // router.push("http://localhost:3000/client/success");
-        alert("Yaya");
-      }, 500);
+      // setTimeout(() => {
+      //   // router.push("http://localhost:3000/client/success");
+      //   // alert("Yaya");
+      // }, 500);
       console.log(page.count);
       console.log(pagesContent.length);
     }
@@ -112,6 +112,10 @@ function Test(props: any) {
   }, [pagesContent]);
 
   // console.log(qnaOverlaps.current.counter);
+
+  function isImgOrText(data: string): boolean {
+    return data.match(URLCheckForLocalHost) ? true : false;
+  }
 
   /**
    * Returns either an <img> or <p> containig the `data`
@@ -215,7 +219,8 @@ function Test(props: any) {
     event.target.parentElement.parentElement.parentElement.parentElement.style.pointerEvents =
       "none";
     //* Applies a greenish border around answer cards.
-    event.target.style.border = "solid 5 px rgb(37	180	150	)";
+    event.target.style.border = "solid 5 px rgb(37, 180, 150)";
+    event.target.style.borderColor = "rgb(73 180 150)";
     event.target.parentElement.parentElement.parentElement.style.position =
       "inherit";
   }
@@ -397,6 +402,34 @@ function Test(props: any) {
     return pagesPrep;
   }
 
+  const textCardCSSSetting: React.CSSProperties = {
+    display: "flex",
+    justifyContent: "center",
+    width: "320px",
+    height: "min-content",
+    // padding: "1rem",
+    border: "3px solid rgb(198	169	149	)",
+  };
+
+  function setStyleAccordingToTestType(cardData: string): React.CSSProperties {
+    switch (test?.type) {
+      case "PP":
+        return {
+          width: "250px",
+          height: "259.37px",
+        };
+      case "TT":
+        return textCardCSSSetting;
+      default:
+        return isImgOrText(cardData)
+          ? {
+              width: "320px",
+              height: "347px",
+            }
+          : textCardCSSSetting;
+    }
+  }
+
   /**
    * Returns an array of JSX Elements containing question and answer cards (which are shuffled randomly before rendering) in pairs
    * @param page Array of question and answer pairs to be rendered
@@ -420,6 +453,7 @@ function Test(props: any) {
           className={styles.TCard}
           id={`Question_${iterator}_p-${pageIterator}`}
           key={`Question_${iterator}_p-${pageIterator}`}
+          style={setStyleAccordingToTestType(qnaPair.question)}
         >
           {/* <div
             style={{
@@ -433,7 +467,7 @@ function Test(props: any) {
         <div
           ref={(ele) => (refsToQuestions.current[iterator] = ele)}
           style={{
-            marginTop: "0.2rem",
+            marginTop: isImgOrText(qnaPair.question) ? "0.2rem" : "",
             width: "min-content",
             zIndex: 100,
           }}
@@ -472,12 +506,14 @@ function Test(props: any) {
             flexDirection: "column-reverse",
             justifyContent: "center",
             alignItems: "center",
+            // border: "3px solid rgb(198	169	149	)",
           }}
         >
           <div
             className={styles.TCard}
             id={`Answer_${iterator}_p-${pageIterator}`}
             key={iterator}
+            style={setStyleAccordingToTestType(qnaPair.answer)}
           >
             <div
               style={{
@@ -492,7 +528,7 @@ function Test(props: any) {
             ref={(ele) => (refsToAnswersHandles.current[iterator] = ele)}
             style={{
               zIndex: 100,
-              marginBottom: "-0.35rem",
+              marginBottom: isImgOrText(qnaPair.answer) ? "-0.35rem" : "",
               width: "min-content",
             }}
           >
@@ -646,11 +682,29 @@ function Test(props: any) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <circle cx="28" cy="28" r="28" fill="#2F4858" />
+      <g id="Group_28" data-name="Group 28" transform="translate(-1194 -73)">
+        <circle
+          id="Ellipse_8"
+          data-name="Ellipse 8"
+          cx="16.5"
+          cy="16.5"
+          r="16.5"
+          transform="translate(1194 73)"
+          fill="#c6aa96"
+        />
+        <path
+          id="Icon_ionic-ios-close"
+          data-name="Icon ionic-ios-close"
+          d="M23.921,21.5l7.3-7.3A1.71,1.71,0,0,0,28.8,11.786l-7.3,7.3-7.3-7.3A1.71,1.71,0,1,0,11.788,14.2l7.3,7.3-7.3,7.3a1.71,1.71,0,1,0,2.418,2.418l7.3-7.3,7.3,7.3A1.71,1.71,0,1,0,31.218,28.8Z"
+          transform="translate(1188.715 67.711)"
+          fill="#1b212e"
+        />
+      </g>
+      {/* <circle cx="28" cy="28" r="28" fill="#2F4858" />
       <path
         d="M38.5626 36.4501L30.1126 28L38.5628 19.5498C39.1458 18.9669 39.1458 18.0203 38.5626 17.4372C37.9797 16.8543 37.0332 16.8543 36.4502 17.4372L28 25.8874L19.5498 17.4372C18.9668 16.8543 18.0203 16.8543 17.4374 17.4372C16.8542 18.0203 16.8542 18.9669 17.4372 19.5498L25.8874 28L17.4374 36.4501C16.8542 37.0332 16.8542 37.9797 17.4372 38.5627C18.0203 39.1458 18.9668 39.1458 19.55 38.5627L28 30.1126L36.45 38.5627C37.0332 39.1458 37.9797 39.1458 38.5628 38.5627C39.1458 37.9797 39.1458 37.0332 38.5626 36.4501Z"
-        fill="white"
-      />
+        fill="white" */}
+      {/* /> */}
     </svg>
   );
 
@@ -718,14 +772,15 @@ function Test(props: any) {
           {!props.test && (
             <button
               style={{
+                opacity: "70%",
                 position: "absolute",
-                right: "5%",
+                right: "0%",
                 top: "5%",
                 backgroundColor: "rgba(0, 0, 0, 0)",
                 border: "none",
               }}
             >
-              {ExitBtn("35")}
+              {ExitBtn("65")}
             </button>
           )}
           {pages !== undefined && (
