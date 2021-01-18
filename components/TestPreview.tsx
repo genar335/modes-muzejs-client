@@ -22,7 +22,7 @@ const TestPreview = (props: {
   pageToRender: IQnA[];
   setCurrentLang: (lang: TLangOption["value"]) => void;
   testType: ITest["type"];
-  saveChanges: (page: any) => void;
+  saveChanges: (page: any, lang?: TLangOption["value"]) => void;
   togglePhotoManager: (toggle: boolean, cardID: string) => void;
   setCurrentCard: React.Dispatch<React.SetStateAction<undefined>>;
   fullTest: ITest;
@@ -45,7 +45,7 @@ const TestPreview = (props: {
     qid: number,
     data: string,
     whatToSave: "answer" | "question",
-    lang: "ru" | "lv" | "en"
+    lang: "ru" | "lv" | "en" | "all" | undefined
   ) => {
     // console.log("from data saving", qid);
     console.log(data);
@@ -61,8 +61,8 @@ const TestPreview = (props: {
       tmpLocal[qid][whatToSave] = data;
       props.saveChanges(tmpLocal, "lv");
     } else {
-      console.log(props.fullTest[lang].pages[props.activePage].QnAPairs);
-      let tmpLocal = props.fullTest[lang].pages[props.activePage].QnAPairs;
+      console.log(props.fullTest[lang!].pages[props.activePage].QnAPairs);
+      let tmpLocal = props.fullTest[lang!].pages[props.activePage].QnAPairs;
       console.log(tmpLocal);
       tmpLocal[qid][whatToSave] = data;
       // console.log(tmp[qid][whatToSave]);
@@ -252,7 +252,7 @@ const TestPreview = (props: {
           testType={props.testType}
           q_a_TextEntry={q_a_TextEntry}
           togglePhotoManager={props.togglePhotoManager}
-          currentLang={props.currentLanguage}
+          currentLang={props.currentLanguage || "ru"}
           pageContents={props.pageToRender[qnaIterator]["question"]}
           pageNumber={props.activePage}
           saveIMG={saveNewData}

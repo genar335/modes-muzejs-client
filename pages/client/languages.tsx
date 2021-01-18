@@ -21,10 +21,16 @@ function Languages(props: any) {
           <p>Please, choose your language!</p>
         </div>
         <div className={styles.langLinkContainer}>
-        <div className={styles.LinksContainer}>
-            <Link href={`/client/test?testid=${testid}&lang=lv`}>
+          <div className={styles.LinksContainer}>
+            <button
+              onClick={() => {
+                store.set("activeLang", "lv");
+                router.push(`/client/test?testid=${testid}&lang=lv`);
+              }}
+            >
+              {/*     href={`/client/test?testid=${testid}&lang=lv`}> */}
               <p>Latviešu</p>
-            </Link>
+            </button>
           </div>
           <div className={styles.LinksContainer}>
             <Link href={`/client/test?testid=${testid}&lang=ru`}>

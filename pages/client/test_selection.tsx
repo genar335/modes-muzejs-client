@@ -6,7 +6,7 @@ import { ITest } from "../../@types/test";
 
 function test_selection(props: any) {
   const [testObjs, setTestObjs] = useState([]); //array with test objects
-  const url = "http://localhost:4000/tests/getTest?active=true";
+  const url = "http://192.168.8.100:4000/tests/getTest?active=true";
 
   const getActiveTests = (url: string) => {
     Axios.get(url)
@@ -15,7 +15,7 @@ function test_selection(props: any) {
         setTestObjs(res.data);
       })
       .catch((error) => alert(error));
-  }
+  };
 
   useEffect(() => {
     getActiveTests(url);
@@ -29,11 +29,9 @@ function test_selection(props: any) {
         id={styles.MMlogo}
       />
       <div className={styles.galleryContainer}>
-        {testObjs.map((test: ITest) => 
-            <TestCardClient
-                title={test.ru.name}
-                testData={test}/>
-        )}
+        {testObjs.map((test: ITest) => (
+          <TestCardClient title={test.ru.name} testData={test} />
+        ))}
       </div>
     </div>
   );

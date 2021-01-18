@@ -5,7 +5,7 @@ import addCompStyles from "./styles/TestNamer.module.scss";
 import { closeBtn, CreateLangSwitchers, SaveBtn } from "./TestNamer";
 import { URLCheck, URLCheckForLocalHost } from "./constants";
 import { resolve } from "path";
-import { sendTheDataToTheServer } from "./PhotoManager";
+// import { sendTheDataToTheServer } from "./PhotoManager";
 import Axios from "axios";
 
 const QACard = (props: {
@@ -26,7 +26,8 @@ const QACard = (props: {
   saveIMG: (
     qid: number,
     data: string,
-    whatToSave: "answer" | "question"
+    whatToSave: "answer" | "question",
+    langSetting?: "all" | TLangOption["value"]
   ) => void;
 }) => {
   const charLimit = 90;
@@ -55,7 +56,7 @@ const QACard = (props: {
   // }, [QACardRef.current]);
 
   const handleCardReference = () => {
-    props.setCurrentCard(QACardRefIMG);
+    props.setCurrentCard(QACardRefIMG as any);
     // props.togglePhotoManager(false, `${props.cardType}_${props.iterator}`);
   };
 
@@ -65,7 +66,7 @@ const QACard = (props: {
   //   Array<string>
   // >([]);
   const [readIMG, setReadIMG] = useState<string>();
-  const fileInputRef = useRef(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const readAnImage = async (imageToBeRead: Blob) => {
     const tmpFileReader: FileReader = new FileReader();
@@ -105,9 +106,10 @@ const QACard = (props: {
 
   const handleFileinput = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    if (fileInputRef.current?.files !== null) {
-      const chosenFile: File = fileInputRef!.current!.files[0];
+    const tmpCurrent = fileInputRef.current!;
+    const files = tmpCurrent.files;
+    if (files !== null) {
+      const chosenFile: File = files[0] as File;
       console.log(chosenFile);
       if (fileInputRef.current) {
         try {
@@ -125,7 +127,7 @@ const QACard = (props: {
           } else {
             props.saveIMG(props.iterator, fileContents, props.cardType);
           }
-          console.log(QACardRefIMG.current.src, "OI");
+          // console.log(QACardRefIMG.current!.src, "OI");
         } catch (error) {
           alert(
             "There was an error reading the file. Please try again, or choose a differenet file"
@@ -147,9 +149,10 @@ const QACard = (props: {
   const [imgLocation, setimgLocation] = useState("");
 
   function handleFileinputChange(event: React.ChangeEvent<HTMLInputElement>) {
-    console.log(event.target.files[0]);
+    // console.log(event.target.files[0]);
+    const file = event!.target!.files![0] || new File([], "err");
     let fd = new FormData();
-    fd.append("image", event.target.files[0]);
+    fd.append("image", file);
     console.log(fd.getAll("image"));
     Axios.post("http://localhost:4000/testimg", fd, {
       headers: {
@@ -230,7 +233,7 @@ const QACard = (props: {
               Click to select an image
               "
               ref={QACardRefIMG}
-              onClick={(e) => fileInputRef.current.click()}
+              onClick={(e) => fileInputRef!.current!.click()}
             />
             <input
               className={compStyles.FileChooser}

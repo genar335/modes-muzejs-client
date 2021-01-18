@@ -33,11 +33,17 @@ const PagesController = (props: {
 
   const didMountRef = useRef();
 
-  const CustomRightArrow = ({ onClick, ...rest }) => {
-    const {
-      onMove,
-      carouselState: { currentSlide, deviceType },
-    } = rest;
+  const CustomRightArrow = ({
+    onClick,
+    ...rest
+  }: {
+    onClick: any;
+    rest: any;
+  }) => {
+    // const {
+    //   onMove,
+    //   carouselState: { currentSlide, deviceType },
+    // } = rest;
     // onMove means if dragging or swiping in progress.
     return (
       <button className={compStyle.carRightArrow} onClick={() => onClick()}>
@@ -46,11 +52,17 @@ const PagesController = (props: {
     );
   };
 
-  const CustomLeftArrow = ({ onClick, ...rest }) => {
-    const {
-      onMove,
-      carouselState: { currentSlide, deviceType },
-    } = rest;
+  const CustomLeftArrow = ({
+    onClick,
+    ...rest
+  }: {
+    onClick: any;
+    rest: any;
+  }) => {
+    // const {
+    //   onMove,
+    //   carouselState: { currentSlide, deviceType },
+    // } = rest;
     return (
       <button onClick={() => onClick()} className={compStyle.carLeftArrow}>
         {Arrow()}
@@ -74,8 +86,8 @@ const PagesController = (props: {
           containerClass={compStyle.Carousel}
           itemClass={compStyle.Item}
           responsive={responsive}
-          customRightArrow={<CustomRightArrow />}
-          customLeftArrow={<CustomLeftArrow />}
+          // customRightArrow={<CustomRightArrow />}
+          // customLeftArrow={<CustomLeftArrow />}
           dotListClass={compStyle.CarouselDots}
           showDots
           // ssr

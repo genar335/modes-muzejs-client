@@ -1,11 +1,12 @@
 import React from "react";
-import { ITest } from "../@types/test";
+import { ITest, TLangOption } from "../@types/test";
 import Test from "../pages/client/test";
 
 const TestPreviewer = (props: {
   isOpen: boolean;
   setIsOpen: (bool: boolean) => void;
   test: ITest;
+  activeLanguage: TLangOption["value"];
 }) => {
   return (
     props.isOpen && (

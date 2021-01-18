@@ -1,4 +1,4 @@
-$bg-colour: rgb(190 171 155);
+$bg-colour: rgb(190, 171, 155);
 $transitionDuration: 0.3s;
 
 .PhotosContainer {
@@ -115,7 +115,7 @@ $transitionDuration: 0.3s;
         }
 
         .Page {
-          border: rgb(4 10 23) 1px;
+          border: rgb(4, 10, 23) 1px;
           border-radius: 6px;
           width: 80%;
           height: 100%;
@@ -127,7 +127,7 @@ $transitionDuration: 0.3s;
           div {
             width: 95%;
             height: 93%;
-            background-color: rgb(4 10 23);
+            background-color: rgb(4, 10, 23);
             display: flex;
             justify-content: center;
             align-items: center;

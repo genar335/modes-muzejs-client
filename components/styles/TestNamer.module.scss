@@ -1,4 +1,4 @@
-$bg-colour: rgb(190 171 155);
+$bg-colour: rgb(190, 171, 155);
 $transitionDuration: 0.3s;
 
 .ModalOpener {
@@ -21,7 +21,7 @@ $transitionDuration: 0.3s;
     display: flex;
     justify-content: space-between;
     & p {
-      color: rgb(47 71 88);
+      color: rgb(47, 71, 88);
       height: min-content;
       overflow: scroll;
       font-size: 20px;
@@ -92,15 +92,15 @@ $transitionDuration: 0.3s;
 
         .LangButton {
           position: static;
-          color: rgb(52 72 86);
+          color: rgb(52, 72, 86);
           border: none;
           width: 6rem;
           background-color: rgba($color: #000000, $alpha: 0);
           font-size: x-large;
           &.ButtonPressed {
-            background-color: rgb(218 189 166);
+            background-color: rgb(218, 189, 166);
             border-radius: 25px;
-            border: solid rgb(218 189 166) 0.1rem;
+            border: solid rgb(218, 189, 166) 0.1rem;
             color: whitesmoke;
             appearance: none;
           }
@@ -131,7 +131,7 @@ $transitionDuration: 0.3s;
           font-size: large;
           padding: 0 1rem;
           background-color: whitesmoke;
-          border: solid rgb(52 72 86) 0.1rem;
+          border: solid rgb(52, 72, 86) 0.1rem;
           margin-left: 1rem;
           width: 70%;
         }

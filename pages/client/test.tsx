@@ -62,7 +62,7 @@ function Test(props: any) {
       // !props.test
     ) {
       // setTimeout(() => {
-      //   // router.push("http://localhost:3000/client/success");
+      //   // router.push("http://192.168.8.100:3000/client/success");
       //   // alert("Yaya");
       // }, 500);
       console.log(page.count);
@@ -94,14 +94,16 @@ function Test(props: any) {
       console.log(router.query);
 
       //TODO: direct to /client/success?testid=${testid}&lang=${lang} once test is finished
-      const chosenLang: "ru" | "en" | "lv" = router.query.lang!;
+      const chosenLang: "ru" | "en" | "lv" = router.query
+        .lang! as TLangOption["value"];
       const test: ITest = store.get("theTest");
+
       setTest(test);
       console.log(chosenLang);
 
-      // console.log(test[store.get("activeLang")]);
-
-      setPagesContent(test[store.get("activeLang")].pages);
+      setPagesContent(
+        test[store.get("activeLang") as TLangOption["value"]].pages
+      );
     }
     // createQnAPairs(activeLang.pages);
   }, []);
@@ -342,7 +344,7 @@ function Test(props: any) {
         <button
           onClick={() =>
             router.push(
-              `http://localhost:3000/client/languages?testid=${
+              `http://192.168.8.100:3000/client/languages?testid=${
                 store.get("theTest").id
               }`
             )
@@ -671,7 +673,7 @@ function Test(props: any) {
       onClick={() =>
         !props.test &&
         router.push(
-          `http://localhost:3000/client/languages?testid=${
+          `http://192.168.8.100:3000/client/languages?testid=${
             store.get("theTest").id
           }`
         )

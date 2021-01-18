@@ -17,6 +17,7 @@ const ActiveTests = (props: {
   activeTests: ITest[];
   updateTheTests: (testID: string) => void;
   fetchAllTests: () => Promise<void>;
+  tests: { activeTests: ITest[]; inActiveTests: ITest[] };
 }) => {
   const responsive = {
     superLargeDesktop: {
@@ -45,30 +46,30 @@ const ActiveTests = (props: {
     router.push(`/TMS/create_test`);
   };
 
-  const CustomRightArrow = ({ onClick, ...rest }) => {
-    const {
-      onMove,
-      carouselState: { currentSlide, deviceType },
-    } = rest;
-    // onMove means if dragging or swiping in progress.
-    return (
-      <button className={styles.carRightArrow} onClick={() => onClick()}>
-        {Arrow()}
-      </button>
-    );
-  };
+  // const CustomRightArrow = ({ onClick, ...rest }) => {
+  //   const {
+  //     onMove,
+  //     carouselState: { currentSlide, deviceType },
+  //   } = rest;
+  //   // onMove means if dragging or swiping in progress.
+  //   return (
+  //     <button className={styles.carRightArrow} onClick={() => onClick()}>
+  //       {Arrow()}
+  //     </button>
+  //   );
+  // };
 
-  const CustomLeftArrow = ({ onClick, ...rest }) => {
-    const {
-      onMove,
-      carouselState: { currentSlide, deviceType },
-    } = rest;
-    return (
-      <button onClick={() => onClick()} className={styles.carLeftArrow}>
-        {Arrow()}
-      </button>
-    );
-  };
+  // const CustomLeftArrow = ({ onClick, ...rest }) => {
+  //   const {
+  //     onMove,
+  //     carouselState: { currentSlide, deviceType },
+  //   } = rest;
+  //   return (
+  //     <button onClick={() => onClick()} className={styles.carLeftArrow}>
+  //       {Arrow()}
+  //     </button>
+  //   );
+  // };
 
   const Arrow = () => (
     <svg
@@ -158,7 +159,7 @@ function PrepareTestCardsJSX(
     fetchAllTests: () => Promise<void>;
   },
   slideCss: React.CSSProperties
-): React.ReactNode {
+): React.ReactNode[] {
   return props.activeTests.map((test: ITest, iterator: number) => (
     <div id={`carouselSlide_${iterator}`} style={slideCss}>
       <TestCard

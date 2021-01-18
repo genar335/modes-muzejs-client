@@ -1,5 +1,5 @@
 {
-  "name": "learn-starter",
+  "name": "fashion-museum",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,7 +8,6 @@
     "start": "next start"
   },
   "dependencies": {
-    "@types/axios": "^0.14.0",
     "@types/sass": "^1.16.0",
     "@zeit/next-sass": "^1.0.1",
     "axios": "^0.20.0",
@@ -19,7 +18,7 @@
     "framer-motion": "^2.9.5",
     "graphql": "^15.3.0",
     "interactjs": "^1.10.0",
-    "next": "9.5.3",
+    "next": "^9.5.3",
     "next-images": "^1.5.0",
     "primereact": "^5.0.2",
     "pure-react-carousel": "^1.27.6",
