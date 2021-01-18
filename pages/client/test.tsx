@@ -63,6 +63,7 @@ function Test(props: any) {
     ) {
       setTimeout(() => {
         // router.push("http://localhost:3000/client/success");
+        alert("Yaya");
       }, 500);
       console.log(page.count);
       console.log(pagesContent.length);
@@ -165,34 +166,33 @@ function Test(props: any) {
     if (CheckIfAnswerIntersectedTheQuestion(questionRect, answerRect)) {
       // console.log(event.target.parentNode.parentNode);
       // event.target.parentNode.parentNode.style.pointerEvents = "none";
-      event.target.parentElement.parentElement.parentElement.parentElement.style.pointerEvents =
-        "none";
-      event.target.style.borderColor = "green";
+      applyCSSToMatchedCards(event);
 
       qnaOverlaps.current.counter += 1;
 
-      const questionContainer: HTMLElement =
-        refsToQuestions.current[id].parentElement;
-      console.log(questionContainer, "123123");
+      const questionContainer: HTMLElement = refsToQuestions.current[id]
+        .parentElement!;
+      // console.log(questionContainer, "123123");
 
-      console.log(refsToAnswersHandles.current[id]);
+      // console.log(refsToAnswersHandles.current[id]);
 
-      refsToAnswersHandles.current[id].parentElement.style.transform =
+      refsToAnswersHandles.current[id].parentElement!.style.transform =
         "translate(0px, 0px)";
-      refsToAnswersHandles.current[id].parentElement.style.marginTop = "-1rem";
+      refsToAnswersHandles.current[id].parentElement!.style.marginTop = "-1rem";
       questionContainer.appendChild(
-        refsToAnswersHandles.current[id].parentElement
+        refsToAnswersHandles.current[id].parentElement!
       );
 
       if (qnaOverlaps.current.counter === 3) {
-        if (page.count < pagesContent.length - 1) {
-          refsToQuestions.current = [];
-          // setCurrentPage(currentPage + 1);
-          setTimeout(() => {
-            dispatch({ type: "increment" });
-          }, 400);
-          console.log(page.count, "pages", pagesContent.length, "pagesContent");
-        }
+        // alert(pagesContent.length);
+        // if (page.count < pagesContent.length - 1) {
+        refsToQuestions.current = [];
+        // setCurrentPage(currentPage + 1);
+        setTimeout(() => {
+          dispatch({ type: "increment" });
+        }, 1000);
+        console.log(page.count, "pages", pagesContent.length, "pagesContent");
+        // }
         qnaOverlaps.current.counter = 0;
       }
     } else {
@@ -208,6 +208,16 @@ function Test(props: any) {
     refsToAnswersPositions.current[id] = {
       position: data,
     };
+  }
+
+  function applyCSSToMatchedCards(event: DraggableEventHandler) {
+    //* Sets the contasiner of cards to be uncliclable/untouchable.
+    event.target.parentElement.parentElement.parentElement.parentElement.style.pointerEvents =
+      "none";
+    //* Applies a greenish border around answer cards.
+    event.target.style.border = "solid 5 px rgb(37	180	150	)";
+    event.target.parentElement.parentElement.parentElement.style.position =
+      "inherit";
   }
 
   /**
@@ -273,16 +283,19 @@ function Test(props: any) {
   } => {
     return {
       ru: `Тест "${
-        /* props.test[props.activeLanguage].name || */ store.get("theTest").ru
-          .name
+        props.test
+          ? props.test[props.activeLanguage].name
+          : store.get("theTest").ru.name
       }" пройден.`,
       lv: `Tests "${
-        /* props.test[props.activeLanguage].name || */ store.get("theTest").lv
-          .name
+        props.test
+          ? props.test[props.activeLanguage].name
+          : store.get("theTest").lv.name
       }" ir pabeigts.`,
       en: `Test "${
-        /* props.test[props.activeLanguage].name || */ store.get("theTest").en
-          .name
+        props.test
+          ? props.test[props.activeLanguage].name
+          : store.get("theTest").en.name
       }" is compeleted.`,
     };
   };
@@ -321,7 +334,15 @@ function Test(props: any) {
             id="userEmail"
           />
         )}
-        <button>
+        <button
+          onClick={() =>
+            router.push(
+              `http://localhost:3000/client/languages?testid=${
+                store.get("theTest").id
+              }`
+            )
+          }
+        >
           {getLang() === "en"
             ? "Finish"
             : getLang() === "lv"
@@ -445,7 +466,8 @@ function Test(props: any) {
       >
         <div
           style={{
-            // position: "absolute",
+            position: "absolute",
+            bottom: "10%",
             display: "flex",
             flexDirection: "column-reverse",
             justifyContent: "center",
