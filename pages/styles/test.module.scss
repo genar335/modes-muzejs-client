@@ -1,6 +1,8 @@
 .pageContainer {
   background-color: #010713;
-  height: 100vh;
+  // min-height: 100vh;
+  // max-height: min-content;
+  height: 101vh;
   width: 100vw;
   box-sizing: border-box;
   display: flex;
@@ -51,7 +53,7 @@
         // height: 50%;
         // height: calc(50% * 1.1);
         // border: #cba992 solid 3px;
-        background-color: black;
+        background-color: #010713;
         // z-index: 10;
         // padding: 10rem;
         // position: absolute;

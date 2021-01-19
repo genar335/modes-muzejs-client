@@ -320,44 +320,148 @@ function Test(props: any) {
           height: "100%",
         }}
       >
-        <h1>{heading}</h1>
-        <h2>{TestCompletionAcknowledgement()[getLang()]}</h2>
-        <p>{body}</p>
-        {email && (
-          <input
-            style={{
-              background: "rgba(0, 0, 0, 0)",
-              color: "#C6AA96",
-              border: "#C6AA96 solid 1px",
-              borderRadius: "16px",
-            }}
-            placeholder="example@mail.com"
-            type="email"
-            name="userInfo"
-            id="userEmail"
-          />
-        )}
-        <button
-          onClick={() =>
-            router.push(
-              `http://192.168.8.100:3000/client/languages?testid=${
-                store.get("theTest").id
-              }`
-            )
-          }
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
         >
-          {getLang() === "en"
-            ? "Finish"
-            : getLang() === "lv"
-            ? "Pabeigt"
-            : "Закончить"}
-        </button>
+          <h1
+            style={{
+              color: "#c6aa96",
+              textAlign: "center",
+              fontWeight: 300,
+              fontSize: "60px",
+              margin: "0",
+            }}
+          >
+            {heading}
+          </h1>
+          {/* <h2
+            style={{
+              fontSize: "47px",
+              fontWeight: 300,
+              textAlign: "center",
+            }}
+          >
+            {TestCompletionAcknowledgement()[getLang()]}
+          </h2> */}
+          <p
+            style={{
+              fontSize: "36px",
+              fontWeight: 100,
+              textAlign: "center",
+            }}
+          >
+            {body}
+          </p>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            width: "70%",
+            height: "30%",
+            justifyContent: "space-around",
+          }}
+        >
+          {email && (
+            // <form onSubmit={(e) => e.preventDefault()}>
+            <input
+              style={{
+                // position: "absolute",
+                background: "rgba(0, 0, 0, 0)",
+                color: "#C6AA96",
+                border: "#C6AA96 solid 3px",
+                padding: "0",
+                borderRadius: "16px",
+                // width: "100%",
+                height: "30%",
+                fontSize: "35px",
+                textAlign: "center",
+              }}
+              placeholder="example@mail.com"
+              type="email"
+              name="userInfo"
+              id="userEmail"
+            />
+          )}
+          <button
+            style={{
+              width: "100%",
+              height: "45%",
+              backgroundColor: "#C6AA96",
+              border: "none",
+              borderRadius: "16px",
+              padding: "0",
+              // WebkitTextFillColor: "transparent",
+              // WebkitBackgroundClip: "text",
+            }}
+            onClick={() =>
+              router.push(
+                `http://192.168.8.100:3000/client/languages?testid=${
+                  store.get("theTest").id
+                }`
+              )
+            }
+          >
+            <p
+              style={{
+                margin: "0",
+                color: "black",
+                fontFamily: "Montserrat",
+                fontSize: "40px",
+                fontWeight: 700,
+                background: "whatever",
+                letterSpacing: 6,
+                // WebkitTextFillColor: "transparent",
+                // WebkitBackgroundClip: "text",
+              }}
+            >
+              {getBtnText().toLocaleUpperCase()}
+            </p>
+          </button>
+        </div>
       </div>
     );
+
+    function getBtnText(): string {
+      return getLang() === "en"
+        ? "Finish"
+        : getLang() === "lv"
+        ? "Pabeigt"
+        : "Закончить";
+    }
 
     function getLang() {
       return store.get("activeLang") as TLangOption["value"];
     }
+  }
+
+  function prepareFirstPage(): JSX.Element {
+    return (
+      <div
+        style={{
+          position: "absolute",
+          width: "100vw",
+          height: "100vh",
+          background: "black",
+          zIndex: 10000,
+        }}
+      >
+        <video
+          onEnded={() => dispatch({ type: "increment" })}
+          controls
+          autoPlay
+          style={{
+            width: "100%",
+          }}
+        >
+          <source src="/Test_Example.mp4" type="video/mp4" />
+        </video>
+      </div>
+    );
   }
 
   /**
@@ -365,7 +469,10 @@ function Test(props: any) {
    */
   function prepareJSXOfPages(refsToQuestions) {
     // console.log(pagesContent);
-    const pagesPrep = pagesContent.map((page, pageIterator: number) => (
+    let pagesPrep: JSX.Element[] = [];
+    console.log(pagesPrep);
+    pagesPrep.push(prepareFirstPage());
+    const tmpPages = pagesContent.map((page, pageIterator: number) => (
       <div
         id={`page-${pageIterator}`}
         key={pageIterator}
@@ -373,13 +480,13 @@ function Test(props: any) {
           display: "flex",
           justifyContent: "space-evenly",
           width: "90%",
-          height: "90%",
+          height: "88%",
         }}
       >
         {qnaPairsToJSX(page, pageIterator, refsToQuestions)}
       </div>
     ));
-
+    pagesPrep.push(tmpPages);
     let tmp: ITest = store.get("theTest");
     const {
       finalPageTextBody,
@@ -771,24 +878,24 @@ function Test(props: any) {
             />
           )}
           <motion.div key="testContainerAnima" className={styles.testContainer}>
-            {!props.test && (
+            {pagesContent.length != page.count && (
               <button
                 style={{
                   opacity: "70%",
                   position: "absolute",
-                  right: "0%",
+                  right: "2%",
                   top: "5%",
                   backgroundColor: "rgba(0, 0, 0, 0)",
                   border: "none",
                 }}
               >
-                {ExitBtn("65")}
+                {ExitBtn("45")}
               </button>
             )}
             {pages !== undefined && (
               <TestProgressBar
-                activePage={page.count}
-                numberOfPages={pages?.length}
+                activePage={page.count - 1}
+                numberOfPages={pages?.length - 1}
                 // numberOfPages={10}
               />
             )}

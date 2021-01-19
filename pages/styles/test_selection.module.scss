@@ -4,7 +4,7 @@
   width: 100vw;
   display: flex;
   justify-content: center;
-  align-items: center;
+  //   align-items: center;
 
   #MMlogo {
     width: 167px;
@@ -15,6 +15,7 @@
     left: 0;
   }
   .galleryContainer {
+    margin-top: 10rem;
     width: 93vw;
     height: min-content;
     display: flex;

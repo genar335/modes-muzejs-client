@@ -7,6 +7,18 @@ function Languages(props: any) {
   const router = useRouter();
   const { testid } = router.query;
 
+  const btnStyle: React.CSSProperties = {
+    height: "100%",
+    width: "100%",
+    border: "none",
+    background: "none",
+  };
+
+  const pStyle: React.CSSProperties = {
+    margin: "0",
+    fontFamily: `"Montserrat", sans-serif`,
+  };
+
   return (
     <div className={styles.pageContainer}>
       <img
@@ -23,24 +35,37 @@ function Languages(props: any) {
         <div className={styles.langLinkContainer}>
           <div className={styles.LinksContainer}>
             <button
+              style={btnStyle}
               onClick={() => {
                 store.set("activeLang", "lv");
                 router.push(`/client/test?testid=${testid}&lang=lv`);
               }}
             >
               {/*     href={`/client/test?testid=${testid}&lang=lv`}> */}
-              <p>Latviešu</p>
+              <p style={pStyle}>Latviešu</p>
             </button>
           </div>
           <div className={styles.LinksContainer}>
-            <Link href={`/client/test?testid=${testid}&lang=ru`}>
-              <p>Русский</p>
-            </Link>
+            <button
+              style={btnStyle}
+              onClick={() => {
+                store.set("activeLang", "ru");
+                router.push(`/client/test?testid=${testid}&lang=ru`);
+              }}
+            >
+              <p style={pStyle}>Русский</p>
+            </button>
           </div>
           <div className={styles.LinksContainer}>
-            <Link href={`/client/test?testid=${testid}&lang=en`}>
-              <p>English</p>
-            </Link>
+            <button
+              style={btnStyle}
+              onClick={() => {
+                store.set("activeLang", "en");
+                router.push(`/client/test?testid=${testid}&lang=en`);
+              }}
+            >
+              <p style={pStyle}>English</p>
+            </button>
           </div>
         </div>
       </div>
