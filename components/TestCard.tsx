@@ -93,22 +93,6 @@ const TestCard = (props: {
 
   const cardControls = useAnimation();
 
-  const parseTestTypeValueToLabel = (testTypeToParse: TTestTypes["type"]) => {
-    switch (testTypeToParse) {
-      case "PP":
-        return "Фото – Фото";
-      case "PT":
-        return "Фото – Текст";
-      case "TT":
-        return "Фото – Фото";
-      case "TP":
-        return "Текст – Фото";
-      default:
-        console.log(testTypeToParse);
-        return "Неизвестно";
-    }
-  };
-
   console.log(props.colour);
 
   return (
@@ -305,5 +289,23 @@ export const DeleteIcon = () => (
     />
   </svg>
 );
+
+export const parseTestTypeValueToLabel = (
+  testTypeToParse: TTestTypes["type"]
+) => {
+  switch (testTypeToParse) {
+    case "PP":
+      return "Фото – Фото";
+    case "PT":
+      return "Фото – Текст";
+    case "TT":
+      return "Фото – Фото";
+    case "TP":
+      return "Текст – Фото";
+    default:
+      console.log(testTypeToParse);
+      return "Неизвестно";
+  }
+};
 
 export default TestCard;

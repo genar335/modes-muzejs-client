@@ -1,23 +1,25 @@
 .pageContainer {
-    background-color: #010713;
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background-color: #010713;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    #MMlogo {
-        width: 167px;
-        opacity: 0.52;
-        margin: 2rem 0 0 2rem;
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-    .galleryContainer {
-        width: 93vw;
-        display: flex;
-        flex-flow: row wrap;
-        align-content: flex-start;
-    }
+  #MMlogo {
+    width: 167px;
+    opacity: 0.52;
+    margin: 2rem 0 0 2rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .galleryContainer {
+    width: 93vw;
+    height: min-content;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    align-content: flex-start;
+  }
 }

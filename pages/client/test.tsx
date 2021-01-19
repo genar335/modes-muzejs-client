@@ -147,6 +147,7 @@ function Test(props: any) {
 
   function handleDrag(event: DraggableEventHandler, data: DraggableData) {
     // console.log(data);
+    // alert("Dragging");
     let tmp = event.target.parentElement.parentElement.id;
     // console.log(tmp);
     const id = tmp.slice(tmp.indexOf("_") + 1, tmp.lastIndexOf("_"));
@@ -161,19 +162,15 @@ function Test(props: any) {
     data: DraggableData
   ) {
     console.log(data);
-
     let tmp = event.target.parentElement.parentElement.id;
     const id = tmp.slice(tmp.indexOf("_") + 1, tmp.lastIndexOf("_"));
     console.log(id, "idid");
     const { questionRect, answerRect } = getRectangles(event);
-
     console.log(event);
-
     if (CheckIfAnswerIntersectedTheQuestion(questionRect, answerRect)) {
       // console.log(event.target.parentNode.parentNode);
       // event.target.parentNode.parentNode.style.pointerEvents = "none";
       applyCSSToMatchedCards(event);
-
       qnaOverlaps.current.counter += 1;
 
       const questionContainer: HTMLElement = refsToQuestions.current[id]
@@ -194,9 +191,9 @@ function Test(props: any) {
         // if (page.count < pagesContent.length - 1) {
         refsToQuestions.current = [];
         // setCurrentPage(currentPage + 1);
-        setTimeout(() => {
-          dispatch({ type: "increment" });
-        }, 1000);
+        // setTimeout(() => {
+        dispatch({ type: "increment" });
+        // }, 1000);
         console.log(page.count, "pages", pagesContent.length, "pagesContent");
         // }
         qnaOverlaps.current.counter = 0;
@@ -262,7 +259,6 @@ function Test(props: any) {
   function getRectangles(event: DraggableEventHandler) {
     setqaRectPositions({});
     const answerDragged: Element = event.target!.parentElement.parentElement;
-
     const answerDraggedID = answerDragged.id;
     // const relatedQuestion = document.getElementById(
     //   `Question_${answerDraggedID.slice(answerDraggedID.indexOf("_"))}`
@@ -508,6 +504,7 @@ function Test(props: any) {
             flexDirection: "column-reverse",
             justifyContent: "center",
             alignItems: "center",
+            zIndex: 100,
             // border: "3px solid rgb(198	169	149	)",
           }}
         >
@@ -757,56 +754,59 @@ function Test(props: any) {
         </>
       )}
 
-      <div className={styles.pageContainer} style={checkWhetherIsPreview()}>
-        {!props.test && (
-          <img
-            src="https://www.fashionmuseumriga.lv/bitrix/templates/main_template/img/logo.png"
-            alt="Fashion Museum"
-            id={styles.MMlogo}
-          />
-        )}
+      <AnimatePresence exitBeforeEnter>
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className={styles.testContainer}
+          key="animatedPage"
+          initial={{ opacity: 0, y: -100 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 500 }}
+          className={styles.pageContainer}
+          style={checkWhetherIsPreview()}
         >
           {!props.test && (
-            <button
-              style={{
-                opacity: "70%",
-                position: "absolute",
-                right: "0%",
-                top: "5%",
-                backgroundColor: "rgba(0, 0, 0, 0)",
-                border: "none",
-              }}
-            >
-              {ExitBtn("65")}
-            </button>
-          )}
-          {pages !== undefined && (
-            <TestProgressBar
-              activePage={page.count}
-              numberOfPages={pages?.length}
-              // numberOfPages={10}
+            <img
+              src="https://www.fashionmuseumriga.lv/bitrix/templates/main_template/img/logo.png"
+              alt="Fashion Museum"
+              id={styles.MMlogo}
             />
           )}
-          <div
-            style={{
-              width: "100%",
-              height: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              pointerEvents: `${props.test && "none"}` as "none",
-            }}
-          >
-            {pages !== undefined && pages![page.count]}
-          </div>
+          <motion.div key="testContainerAnima" className={styles.testContainer}>
+            {!props.test && (
+              <button
+                style={{
+                  opacity: "70%",
+                  position: "absolute",
+                  right: "0%",
+                  top: "5%",
+                  backgroundColor: "rgba(0, 0, 0, 0)",
+                  border: "none",
+                }}
+              >
+                {ExitBtn("65")}
+              </button>
+            )}
+            {pages !== undefined && (
+              <TestProgressBar
+                activePage={page.count}
+                numberOfPages={pages?.length}
+                // numberOfPages={10}
+              />
+            )}
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                pointerEvents: `${props.test && "none"}` as "none",
+              }}
+            >
+              {pages !== undefined && pages![page.count]}
+            </div>
+          </motion.div>
         </motion.div>
-      </div>
-      {/* </AnimatePresence> */}
+      </AnimatePresence>
     </DndProvider>
   );
 }
