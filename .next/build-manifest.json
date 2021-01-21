@@ -19,11 +19,6 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/TMS/create_test.js"
     ],
-    "/TMS/main": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/TMS/main.js"
-    ],
     "/_app": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
@@ -33,6 +28,11 @@
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
+    ],
+    "/client/test": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/client/test.js"
     ]
   },
   "ampFirstPages": []

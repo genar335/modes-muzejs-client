@@ -20,7 +20,11 @@ import pointerEvents from "@interactjs/pointer-events/base";
 import { Arrow } from "../../components/PagesController";
 import { borderRadius } from "react-select/src/theme";
 
-function Test(props: any) {
+function Test(props: {
+  test: ITest;
+  activeLanguage: TLangOption["value"];
+  fromPreview?: boolean;
+}) {
   const router = useRouter();
 
   const [pages, setPages] = useState<JSX.Element[]>();
@@ -471,7 +475,7 @@ function Test(props: any) {
     // console.log(pagesContent);
     let pagesPrep: JSX.Element[] = [];
     console.log(pagesPrep);
-    pagesPrep.push(prepareFirstPage());
+    !props.fromPreview && pagesPrep.push(prepareFirstPage());
     const tmpPages = pagesContent.map((page, pageIterator: number) => (
       <div
         id={`page-${pageIterator}`}
@@ -878,7 +882,7 @@ function Test(props: any) {
             />
           )}
           <motion.div key="testContainerAnima" className={styles.testContainer}>
-            {pagesContent.length != page.count && (
+            {pagesContent.length != page.count && !props.fromPreview && (
               <button
                 style={{
                   opacity: "70%",
@@ -892,10 +896,21 @@ function Test(props: any) {
                 {ExitBtn("45")}
               </button>
             )}
+            {console.log(props.fromPreview)}
             {pages !== undefined && (
               <TestProgressBar
-                activePage={page.count - 1}
-                numberOfPages={pages?.length - 1}
+                // activePage={!props.fromPreview ? page.count - 1 : page.count}
+                activePage={
+                  props.fromPreview == undefined ? page.count - 1 : page.count
+                }
+                numberOfPages={
+                  props.fromPreview == undefined
+                    ? pages.length - 1
+                    : pages.length
+                }
+                // numberOfPages={
+                //   !props.fromPreview ? pages?.length - 1 : page.count
+                // }
                 // numberOfPages={10}
               />
             )}

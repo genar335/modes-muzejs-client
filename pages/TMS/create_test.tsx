@@ -187,7 +187,7 @@ function create_test() {
     });
   };
 
-  function savePage(page: any, lang: "ru" | "lv" | "en" | "undefined") {
+  function savePage(page: any, lang?: "ru" | "lv" | "en" | "undefined") {
     console.log(page);
     if (lang !== undefined) {
       let tmp = test[lang as "ru" | "lv" | "en"].pages;
@@ -550,7 +550,7 @@ function create_test() {
     </svg>
   );
 
-  const DropdownIndicator = (props: typeof DropdownIndicator) => {
+  const DropdownIndicator: any = (props: typeof DropdownIndicator) => {
     return (
       <components.DropdownIndicator {...props}>
         {customChevron()}
@@ -559,7 +559,7 @@ function create_test() {
   };
 
   const testTypeSelectStyles: StylesConfig = {
-    container: (provided, state) => ({
+    container: (provided: any, state: any) => ({
       ...provided,
       width: "100%",
       height: "100%",
@@ -569,24 +569,24 @@ function create_test() {
       // display: "flex",
       // justifyContent: "space-between",
     }),
-    valueContainer: (provided, state) => ({
+    valueContainer: (provided: any, state: any) => ({
       ...provided,
       paddingLeft: "1rem",
     }),
-    placeholder: (provided, state) => ({
+    placeholder: (provided: any, state: any) => ({
       ...provided,
       color: "rgb(47	71	88	)",
       marginLeft: "-.1rem",
     }),
-    indicatorSeparator: (provided, state) => ({
+    indicatorSeparator: (provided: any, state: any) => ({
       display: "none",
     }),
-    dropdownIndicator: (provided, state) => ({
+    dropdownIndicator: (provided: any, state: any) => ({
       ...provided,
       marginRight: "0.9rem",
       color: "#2F4858",
     }),
-    option: (provided, state: Props<Record<string, unknown>>) => ({
+    option: (provided: any, state: Props<Record<string, unknown>>) => ({
       ...provided,
       // borderBottom: "1px dotted pink",
       background: state.isFocused ? "#EFDDD1" : chroma("EFDDD1").darken().hex(),
@@ -607,7 +607,7 @@ function create_test() {
 
     //   return { ...provided, opacity, transition };
     // },
-    menu: (provided, state) => ({
+    menu: (provided: any, state: any) => ({
       ...provided,
       fontSize: "20px",
       background: "#EFDDD1",
@@ -700,7 +700,9 @@ function create_test() {
         />
         <div className={styles.TestType}>
           <Select
-            placeholder={parseTestTypeValueToLabel(test.type) || "Выберите тип теста..."}
+            placeholder={
+              parseTestTypeValueToLabel(test.type) || "Выберите тип теста..."
+            }
             options={typeOptions}
             className={styles.TestTypeSelect}
             // defaultValue={convertType()}

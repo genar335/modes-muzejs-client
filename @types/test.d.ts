@@ -1,5 +1,5 @@
 export interface ITest {
-  updatedAt: string | number | Date;
+  updatedAt?: string | number | Date;
   private _id?: string | undefined;
   /**
    * @param type Describes avaialable elements for composing the test page.
@@ -19,7 +19,7 @@ export interface ITest {
   /**
    * @param emailSender Sets whether there is an email option at the end of the test
    */
-  emailSender: Boolean;
+  emailSender: boolean;
   /**
    * @param en English version of test contents.
    */
