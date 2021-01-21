@@ -8,6 +8,7 @@ export interface ITest {
    * + TT: text-text.
    * + PP: photo-photo.
    * + PT: photo-text.
+   * + TP: text-photo
    */
   type: TTestTypes.type;
   // type: "TT" | "PP" | "PT" | "TP";

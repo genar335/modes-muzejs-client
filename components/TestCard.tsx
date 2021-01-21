@@ -1,19 +1,11 @@
 import React, { useEffect, useState } from "react";
-import editIcon from "../GAssets/create_icon_big.png";
-import deleteIcon from "../GAssets/delete-black-24dp.svg";
 import styles from "./styles/TestCard.module.scss";
 import Switch from "react-switch";
-import Toggle from "react-toggle";
 import Axios, { AxiosError, AxiosResponse } from "axios";
 import { devURL } from "./constants";
 import { ITest, TTestTypes } from "../@types/test";
 import { NextRouter, useRouter } from "next/router";
 import { AnimatePresence, motion, useAnimation } from "framer-motion";
-// const klik = require("/klik.mp3");
-import useSound from "use-sound";
-import { parse } from "graphql";
-import { borderRadius } from "react-select/src/theme";
-// import Switch from "./Switch";
 
 const TestCard = (props: {
   iterator: number;
@@ -89,6 +81,7 @@ const TestCard = (props: {
         console.log(response);
         props.fetchAllTests();
       });
+    setIsDCModalOpen(false);
   };
 
   const cardControls = useAnimation();
@@ -105,7 +98,7 @@ const TestCard = (props: {
       >
         <button
           className={styles.DeleteIcon}
-          onClick={(e) => setIsDCModalOpen(true)}
+          onClick={(_) => setIsDCModalOpen(true)}
         >
           {DeleteIcon()}
         </button>
@@ -159,11 +152,11 @@ const TestCard = (props: {
   );
 };
 
-export const DeletionConfirmationModal = (props: {
+export function DeletionConfirmationModal(props: {
   isVisible: boolean;
   toggleModal: (toggler: boolean) => void;
   deletionOfTest: () => void;
-}) => {
+}) {
   useEffect(() => {
     // document.body.style.position = "fixed";
     // document.body.style.top = `-${window.scrollY}px`;
@@ -239,7 +232,7 @@ export const DeletionConfirmationModal = (props: {
       </div>
     </div>
   );
-};
+}
 
 export const EditIcon = () => (
   <svg

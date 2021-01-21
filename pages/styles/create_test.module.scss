@@ -79,7 +79,14 @@ $bg-colour: rgb(190, 171, 155);
         align-items: center;
         height: min-content;
         margin: -0.5rem 0rem 0 1rem;
+
         // justify-content: space-between;
+
+        input[type="radio"]:disabled {
+          // filter: brightness(0.1);
+          filter: opacity(0.5);
+          pointer-events: none;
+        }
 
         input[type="radio"]:after {
           width: 57px;
@@ -116,9 +123,24 @@ $bg-colour: rgb(190, 171, 155);
           border: 2px solid white;
         }
 
-        .LSswitchLabel {
-          // margin-left: 3rem;
-          // margin: 0 0 0 1rem;
+        // .LSswitchLabel {
+        //   // margin-left: 3rem;
+        //   // margin: 0 0 0 1rem;
+        //   pointer-events: none;
+        //   color: whitesmoke;
+        //   position: relative;
+        //   z-index: 1;
+        //   flex-grow: 4;
+        //   font-family: Montserrat;
+        //   font-style: normal;
+        //   font-weight: 500;
+        //   font-size: 15px;
+        //   line-height: 22px;
+        //   left: -20px;
+        //   bottom: -6px;
+        // }
+
+        #lsSwitchLabelRU {
           pointer-events: none;
           color: whitesmoke;
           position: relative;
@@ -130,7 +152,35 @@ $bg-colour: rgb(190, 171, 155);
           font-size: 15px;
           line-height: 22px;
           left: -20px;
-          bottom: -6px;
+          bottom: -7px;
+        }
+        #lsSwitchLabelLV {
+          pointer-events: none;
+          color: whitesmoke;
+          position: relative;
+          z-index: 1;
+          flex-grow: 4;
+          font-family: Montserrat;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 15px;
+          line-height: 22px;
+          left: -18px;
+          bottom: -7px;
+        }
+        #lsSwitchLabelEN {
+          pointer-events: none;
+          color: whitesmoke;
+          position: relative;
+          z-index: 1;
+          flex-grow: 4;
+          font-family: Montserrat;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 15px;
+          line-height: 22px;
+          left: -21px;
+          bottom: -7px;
         }
       }
     }
@@ -280,6 +330,7 @@ $bg-colour: rgb(190, 171, 155);
   }
 
   .SaveTestBtn {
+    padding: 0;
     border: none;
     background-color: rgba(0, 0, 0, 0);
     grid-row: 12/14;
@@ -308,8 +359,9 @@ $bg-colour: rgb(190, 171, 155);
   }
 
   .ExitBtn {
-    width: 200px;
-    height: 59px;
+    // width: 200px;
+    // height: 59px;
+
     background-color: rgba(0, 0, 0, 0);
     border: none;
 
@@ -336,6 +388,20 @@ $bg-colour: rgb(190, 171, 155);
     // height: 3rem;
     // color: whitesmoke;
     // background-color: #2f4858;
+    padding: 0;
+  }
+
+  .PreviewerBtn {
+    padding: 0;
+    background: none;
+    border: none;
+    grid-row: 12 / 14;
+    grid-column: 3/4;
+    justify-self: flex-start;
+
+    &:disabled {
+      // filter: brightness(0.5);
+    }
   }
 
   .FPEditorMainContainer {
@@ -349,6 +415,10 @@ $bg-colour: rgb(190, 171, 155);
   }
 
   button:hover {
-    filter: brightness(1.5);
+    filter: brightness(1.1);
+  }
+  button:disabled {
+    // background-color: rgba(0, 0, 0, 1);
+    filter: opacity(0.5);
   }
 }

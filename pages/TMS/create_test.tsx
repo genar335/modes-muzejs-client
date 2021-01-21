@@ -24,6 +24,7 @@ import store from "store";
 import chroma from "chroma-js";
 import FinalPageEditor from "../../components/FinalPageEditor";
 import TestPreviewer from "../../components/TestPreviewer";
+import { parseTestTypeValueToLabel } from "../../components/TestCard";
 
 function create_test() {
   // useEffect(() => {
@@ -157,7 +158,18 @@ function create_test() {
 
   type TTypeOptions = {
     value: "TT" | "TP" | "PP" | "PT";
-    label: "Text – Text" | "Text – Photo" | "Photo – Photo";
+    label:
+      | "Text – Text"
+      | "Text – Photo"
+      | "Photo – Photo"
+      | "Текст – Текст"
+      | "Текст – Фото"
+      | "Фото – Фото"
+      | "Фото – Текст"
+      | "Teksts – Teksts"
+      | "Teksts – Foto"
+      | "Foto – Foto"
+      | "Foto – Teksts";
   };
   const typeOptions: Array<TTypeOptions> = [
     { value: "TT", label: "Текст – Текст" },
@@ -175,18 +187,20 @@ function create_test() {
     });
   };
 
-  function savePage(page: any, lang: "ru" | "lv" | "en") {
+  function savePage(page: any, lang: "ru" | "lv" | "en" | "undefined") {
     console.log(page);
-    let tmp = test[lang].pages;
-    tmp[activePage].QnAPairs = page;
-    console.log(tmp);
-    setTest({
-      ...test,
-      [lang]: {
-        ...test[lang],
-        pages: tmp,
-      },
-    });
+    if (lang !== undefined) {
+      let tmp = test[lang as "ru" | "lv" | "en"].pages;
+      tmp[activePage].QnAPairs = page;
+      console.log(tmp);
+      setTest({
+        ...test,
+        [lang]: {
+          ...test[lang as "ru" | "lv" | "en"],
+          pages: tmp,
+        },
+      });
+    }
   }
 
   const maxPageLimit: number = 10;
@@ -562,7 +576,7 @@ function create_test() {
     placeholder: (provided, state) => ({
       ...provided,
       color: "rgb(47	71	88	)",
-      marginLeft: "1rem",
+      marginLeft: "-.1rem",
     }),
     indicatorSeparator: (provided, state) => ({
       display: "none",
@@ -632,6 +646,7 @@ function create_test() {
           <div className={styles.LangSwitches}>
             <div className={styles.LScontainer}>
               <input
+                disabled={test.type === ""}
                 type="radio"
                 name="whichLang"
                 id="ru"
@@ -641,10 +656,13 @@ function create_test() {
                   setCurrentLang(e.currentTarget.id as TLangOption["value"])
                 }
               />
-              <p className={styles.LSswitchLabel}>RUS</p>
+              <p id={styles.lsSwitchLabelRU} className={styles.LSswitchLabel}>
+                RUS
+              </p>
             </div>
             <div className={styles.LScontainer}>
               <input
+                disabled={test.type === ""}
                 onClick={(e) =>
                   setCurrentLang(e.currentTarget.id as TLangOption["value"])
                 }
@@ -652,10 +670,13 @@ function create_test() {
                 name="whichLang"
                 id="en"
               />
-              <p className={styles.LSswitchLabel}>ENG</p>
+              <p id={styles.lsSwitchLabelEN} className={styles.LSswitchLabel}>
+                ENG
+              </p>
             </div>
             <div className={styles.LScontainer}>
               <input
+                disabled={test.type === ""}
                 // checked={langSwitchesStates["lv"]}
                 onChange={(e) =>
                   setCurrentLang(e.currentTarget.id as TLangOption["value"])
@@ -664,7 +685,9 @@ function create_test() {
                 name="whichLang"
                 id="lv"
               />
-              <p className={styles.LSswitchLabel}>LAT</p>
+              <p id={styles.lsSwitchLabelLV} className={styles.LSswitchLabel}>
+                LAT
+              </p>
             </div>
           </div>
         </div>
@@ -677,7 +700,7 @@ function create_test() {
         />
         <div className={styles.TestType}>
           <Select
-            placeholder={test.type || "Выберите тип теста..."}
+            placeholder={parseTestTypeValueToLabel(test.type) || "Выберите тип теста..."}
             options={typeOptions}
             className={styles.TestTypeSelect}
             // defaultValue={convertType()}
@@ -722,13 +745,7 @@ function create_test() {
         <button
           onClick={() => setisTestPreviewerOpen(true)}
           disabled={test.type === ""}
-          style={{
-            background: "none",
-            border: "none",
-            gridRow: "12 / 14",
-            gridColumn: "4",
-            justifySelf: "flex-start",
-          }}
+          className={styles.PreviewerBtn}
         >
           {PreviewBtn()}
         </button>
