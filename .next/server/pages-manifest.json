@@ -2,7 +2,6 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js",
-  "/TMS/create_test": "pages/TMS/create_test.js",
-  "/": "pages/index.js"
+  "/client/test": "pages/client/test.js",
+  "/client/languages": "pages/client/languages.js"
 }

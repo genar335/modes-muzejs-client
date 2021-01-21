@@ -1,1 +1,0 @@
-{"ast":null,"code":"var __jsx = React.createElement;\nimport React from \"react\"; // import TestCard from \"../../components/testCard\";\n\nconst Gallery = props => {\n  return __jsx(\"div\", null, \"//* Search Bar //* Active tests component //* Test Gallery\", \"hello\");\n};\n\nexport default Gallery;","map":null,"metadata":{},"sourceType":"module"}

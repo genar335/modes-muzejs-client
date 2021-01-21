@@ -26,7 +26,7 @@ const TestCardClient = (props: { title: string; testData: ITest }) => {
         <p>{parseTestTypeValueToLabel(props.testData.type)}</p>
         <h2 className={styles.testName}>"{props.title}"</h2>
         <p className={styles.TestLastEdit}>
-          {new Date(props.testData.updatedAt)
+          {new Date(props.testData.updatedAt as string)
             .toLocaleDateString()
             .replaceAll(/\//g, ".")}
         </p>

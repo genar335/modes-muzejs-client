@@ -142,7 +142,7 @@ const TestCard = (props: {
     */}
           <p className={styles.CardHeader}>"{props.nameInRu}"</p>
           <p className={styles.TestLastEdit}>
-            {new Date(props.fullTest.updatedAt)
+            {new Date(props.fullTest.updatedAt as string)
               .toLocaleDateString()
               .replaceAll(/\//g, ".")}
           </p>

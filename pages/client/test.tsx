@@ -452,6 +452,8 @@ function Test(props: {
           height: "100vh",
           background: "black",
           zIndex: 10000,
+          top: 0,
+          left: 0,
         }}
       >
         <video
@@ -882,7 +884,7 @@ function Test(props: {
             />
           )}
           <motion.div key="testContainerAnima" className={styles.testContainer}>
-            {pagesContent.length != page.count && !props.fromPreview && (
+            {pages?.length - 1 != page.count && (
               <button
                 style={{
                   opacity: "70%",
