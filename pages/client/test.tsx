@@ -464,7 +464,7 @@ function Test(props: {
             width: "100%",
           }}
         >
-          <source src="/Test_Example.mp4" type="video/mp4" />
+          <source src="/Test_Example.webm" type="video/webm" />
         </video>
       </div>
     );
@@ -477,7 +477,7 @@ function Test(props: {
     // console.log(pagesContent);
     let pagesPrep: JSX.Element[] = [];
     console.log(pagesPrep);
-    props.fromPreview == undefined && pagesPrep.push(prepareFirstPage());
+    // props.fromPreview == undefined && pagesPrep.push(prepareFirstPage());
     const tmpPages = pagesContent.map((page, pageIterator: number) => (
       <div
         id={`page-${pageIterator}`}
@@ -492,7 +492,9 @@ function Test(props: {
         {qnaPairsToJSX(page, pageIterator, refsToQuestions)}
       </div>
     ));
-    pagesPrep.push(tmpPages);
+    console.log(tmpPages);
+    pagesPrep.push(...tmpPages);
+    console.log(pagesPrep);
     let tmp: ITest = store.get("theTest");
     const {
       finalPageTextBody,
