@@ -78,7 +78,7 @@ const TestPreviewer = (props: {
       </div>
     </div>
   ) : (
-    <p>Something went wrong</p>
+    <></>
   );
 };
 

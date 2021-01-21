@@ -60,7 +60,7 @@ const FinalPageEditor = (props: {
   const EmailContainer: React.CSSProperties = {
     display: "flex",
     alignItems: "center",
-    marginTop: "0.5rem",
+    // marginTop: "0.5rem",
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {

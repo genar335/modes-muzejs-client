@@ -475,7 +475,7 @@ function Test(props: {
     // console.log(pagesContent);
     let pagesPrep: JSX.Element[] = [];
     console.log(pagesPrep);
-    !props.fromPreview && pagesPrep.push(prepareFirstPage());
+    props.fromPreview == undefined && pagesPrep.push(prepareFirstPage());
     const tmpPages = pagesContent.map((page, pageIterator: number) => (
       <div
         id={`page-${pageIterator}`}

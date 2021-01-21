@@ -396,8 +396,8 @@ $bg-colour: rgb(190, 171, 155);
     background: none;
     border: none;
     grid-row: 12 / 14;
-    grid-column: 3/4;
-    justify-self: flex-start;
+    grid-column: 3/5;
+    justify-self: center;
 
     &:disabled {
       // filter: brightness(0.5);

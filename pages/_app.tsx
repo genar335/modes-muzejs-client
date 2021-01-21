@@ -6,11 +6,7 @@ import { AnimateSharedLayout } from "framer-motion";
 import React from "react";
 
 function App({ Component, pageProps }: AppProps) {
-  return (
-    <Container>
-      <Component {...pageProps} />;
-    </Container>
-  );
+  return <Component {...pageProps} />;
 }
 
 export default App;
