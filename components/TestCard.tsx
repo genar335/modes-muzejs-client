@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./styles/TestCard.module.scss";
 import Switch from "react-switch";
 import Axios, { AxiosError, AxiosResponse } from "axios";
-import { devURL } from "./constants";
+import { APIURL, devURL } from "./constants";
 import { ITest, TTestTypes } from "../@types/test";
 import { NextRouter, useRouter } from "next/router";
 import { AnimatePresence, motion, useAnimation } from "framer-motion";
@@ -43,7 +43,7 @@ const TestCard = (props: {
     let changedTest: ITest;
     try {
       const responseFromServer = await Axios.post(
-        `${devURL}tests/toggleTestActiveState`,
+        `${APIURL}tests/toggleTestActiveState`,
         {
           testID,
           isActive,
@@ -75,7 +75,7 @@ const TestCard = (props: {
   };
 
   const handleDeleteIconClick = async () => {
-    Axios.get(`${devURL}tests/deleteTestByID?testToDelete=${props._id}`)
+    Axios.get(`${APIURL}tests/deleteTestByID?testToDelete=${props._id}`)
       .catch((error: AxiosError) => alert(error))
       .then((response) => {
         console.log(response);
@@ -85,8 +85,6 @@ const TestCard = (props: {
   };
 
   const cardControls = useAnimation();
-
-  console.log(props.colour);
 
   return (
     <AnimatePresence>
@@ -296,7 +294,6 @@ export const parseTestTypeValueToLabel = (
     case "TP":
       return "Текст – Фото";
     default:
-      console.log(testTypeToParse);
       return "Неизвестно";
   }
 };

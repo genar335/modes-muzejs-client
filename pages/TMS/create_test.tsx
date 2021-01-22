@@ -28,7 +28,7 @@ import { parseTestTypeValueToLabel } from "../../components/TestCard";
 
 function create_test() {
   // useEffect(() => {
-  //   console.log("pages have changed");
+  //   ("pages have changed");
   //   socket.emit("Pages update", String(test.pages));
   //   if (test.pages >= 2) {
   //   }
@@ -46,24 +46,20 @@ function create_test() {
   // const [currentPages, setCurrentPages] = useState<number>(1);
   // let tmpPages: number = 0;
   const router: NextRouter = useRouter();
-  // console.log(router.qduery);
+  // (router.qduery);
 
   const [isTestFetched, setIsTestFetched] = useState<boolean>(true);
   const [isTestFetching, setIsTestFetching] = useState<boolean>();
 
   useEffect(() => {
     if (store.get("testInProgress") !== undefined) {
-      console.log(store.get("testInProgress"), "hello");
       setTest(store.get("testInProgress"));
     } else {
-      console.log(isTestFetching, "isTestFetching");
-      console.log(isTestFetching, "isTestFetching");
       if (router.query.testToEdit !== undefined) {
         setIsTestFetching(true);
         Axios.get(
           `http://192.168.8.100:4000/tests/getTestByID?testToEdit=${router.query.testToEdit}`
         ).then((response: AxiosResponse) => {
-          console.log(response.data);
           setIsTestFetching(false);
           setTest(response.data);
         });
@@ -140,13 +136,11 @@ function create_test() {
       emailSender: bool,
     });
   useEffect(() => {
-    console.log("Test has changed");
     store.set("testInProgress", test);
   }, [test]);
   const [isPhotoManagerOpen, setIsPhotoManagerOpen] = useState<boolean>(true);
   const openPhotos = (toggle: boolean, cardID: string) => {
     setIsPhotoManagerOpen(toggle);
-    console.log(cardID, "cards ID");
   };
 
   const saveTest = (test: ITest): void => setTest(test);
@@ -188,11 +182,9 @@ function create_test() {
   };
 
   function savePage(page: any, lang?: "ru" | "lv" | "en" | "undefined") {
-    console.log(page);
     if (lang !== undefined) {
       let tmp = test[lang as "ru" | "lv" | "en"].pages;
       tmp[activePage].QnAPairs = page;
-      console.log(tmp);
       setTest({
         ...test,
         [lang]: {
@@ -207,14 +199,12 @@ function create_test() {
   const handleNumberInputChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    console.log(event.currentTarget.value);
     if (
       Number(event.currentTarget.value) >= 2 &&
       event.currentTarget.value != undefined &&
       Number(event.currentTarget.value) <= maxPageLimit
     ) {
       if (Number(event.currentTarget.value) > test.pages) {
-        console.log("test");
         let tmpArray = [];
         for (
           let i = 0;
@@ -225,7 +215,6 @@ function create_test() {
             QnAPairs: qnaEmptyNArray(currentNumberOfPairsForQnAPairs),
           });
         }
-        console.log(...tmpArray);
         setTest({
           ...test,
           en: {
@@ -271,7 +260,6 @@ function create_test() {
       }
       // event.currentTarget.value = String(test.pages);
     }
-    console.log(test);
   };
 
   const removePage = async (
@@ -344,7 +332,6 @@ function create_test() {
   const areTheNamesFilledIn = (t: ITest) => {
     let hasPassed: boolean = true;
     for (let [key, value] of Object.entries(t)) {
-      console.log(key, value);
       if (testLang.includes(key as TLangOption["value"])) {
         if (value.name.length === 0) {
           hasPassed = false;
@@ -352,7 +339,6 @@ function create_test() {
         }
       }
     }
-    console.log(hasPassed, "hasPassed");
     return hasPassed;
   };
 
@@ -360,7 +346,6 @@ function create_test() {
     let hasPassed: boolean = true;
     for (let [key, value] of Object.entries(t)) {
       if (testLang.includes(key as TLangOption["value"])) {
-        console.log(t[key as TLangOption["value"]].pages);
         t[key as TLangOption["value"]].pages.forEach(
           (page: {
             QnAPairs: { question: string | any[]; answer: string | any[] }[];
@@ -370,12 +355,10 @@ function create_test() {
                 question: string | any[];
                 answer: string | any[];
               }) => {
-                console.log(qnaPair);
                 if (
                   qnaPair.question.length === 0 ||
                   qnaPair.answer.length === 0
                 ) {
-                  console.log("Wrong!");
                   hasPassed = false;
                 }
               }
@@ -439,9 +422,6 @@ function create_test() {
     event: MouseEvent | React.SyntheticEvent<MouseEvent | KeyboardEvent, Event>,
     id: string
   ) => {
-    console.log(checked, "checked");
-    console.log(event, "event");
-    console.log(id);
     setCurrentLang(id as TLangOption["value"]);
 
     // testLang.forEach((lang: TLangOption["value"]) => {
@@ -482,7 +462,6 @@ function create_test() {
       const correctType = typeOptions.find(
         (option: TTypeOptions) => option.value == test.type
       );
-      console.log(correctType, "123");
       return correctType || typeOptions[0];
     }
   };
@@ -537,9 +516,9 @@ function create_test() {
       <path
         d="M2 2L12 12L22 2"
         stroke="#2F4858"
-        stroke-width="3"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -764,7 +743,6 @@ function create_test() {
     const tmp = langSwitchesStates;
     for (const key in tmp) {
       if (key === id) {
-        console.log("Match", id);
         tmp[key as TLangOption["value"]] = true;
       } else {
         tmp[key as TLangOption["value"]] = false;
@@ -837,8 +815,8 @@ function removePageIcon() {
       <path
         d="M11.1692 18H23.5794"
         stroke="white"
-        stroke-width="2"
-        stroke-linecap="round"
+        strokeWidth="2"
+        strokeLinecap="round"
       />
     </svg>
   );
@@ -884,10 +862,10 @@ function ExitSVGRU() {
           id="Выйти"
           transform="translate(3538 2110)"
           fill="#fff"
-          font-size="43"
-          font-family="Montserrat-Medium, Montserrat"
-          font-weight="500"
-          letter-spacing="0.029em"
+          fontSize="43"
+          fontFamily="Montserrat-Medium, Montserrat"
+          fontWeight="500"
+          letterSpacing="0.029em"
         >
           <tspan x="0" y="0">
             Выйти

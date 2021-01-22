@@ -66,7 +66,6 @@ const TestNamer = (props: {
   ): void => {
     const nameInput = event.currentTarget.value;
 
-    console.log(langBuffer, "langbuffer");
     langBuffer[event.currentTarget.id as "ru" | "lv" | "en"] =
       event.currentTarget.value;
     console.log(langBuffer, "langbuffer");
@@ -126,9 +125,9 @@ const TestNamer = (props: {
         <path
           d="M22 41L35 28L22 15"
           stroke="white"
-          stroke-width="3"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </svg>
     );
@@ -139,7 +138,7 @@ const TestNamer = (props: {
     let i: number = 0;
     for (const lang in currentNames) {
       inputs.push(
-        <div className={compStyles.BtnInputContainer}>
+        <div className={compStyles.BtnInputContainer} key={`input_${i}`}>
           <button
             className={`${btnStyle.LangButton} ${
               true ? btnStyle.ButtonPressed : null

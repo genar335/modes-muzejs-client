@@ -44,6 +44,7 @@ const Gallery = (props: {
                   height: "100%",
                   position: "relative",
                 }}
+                key={`cardBG_${iterator}`}
               >
                 <TestCard
                   fullTest={test}

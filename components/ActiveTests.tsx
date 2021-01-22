@@ -83,9 +83,9 @@ const ActiveTests = (props: {
       <path
         d="M22 41L35 28L22 15"
         stroke="white"
-        stroke-width="3"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -138,7 +138,6 @@ const ActiveTests = (props: {
           {TestCardArray.slice(0, 3)}
         </div>
         {/* <div> */}
-        {console.log(TestCardArray.length < 3, TestCardArray.length)}
         <Collapsible
           ref={collapsibleRef}
           contentInnerClassName={styles.CollapsibleContentInner}
@@ -181,7 +180,11 @@ function PrepareTestCardsJSX(
   slideCss: React.CSSProperties
 ): React.ReactNode[] {
   return props.activeTests.map((test: ITest, iterator: number) => (
-    <div id={`carouselSlide_${iterator}`} style={slideCss}>
+    <div
+      id={`carouselSlide_${iterator}`}
+      style={slideCss}
+      key={`slide_${iterator}`}
+    >
       <TestCard
         key={iterator}
         iterator={iterator}

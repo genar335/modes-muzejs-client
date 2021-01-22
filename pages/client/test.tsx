@@ -13,7 +13,7 @@ import Draggable, {
 } from "react-draggable";
 import store from "store";
 import { IQnA, IQnAPairs, ITest, TLangOption } from "../../@types/test";
-import { URLCheckForLocalHost } from "../../components/constants";
+import { devURL, URLCheckForLocalHost } from "../../components/constants";
 import { motion, AnimatePresence } from "framer-motion";
 import TestProgressBar from "../../components/TestProgressBar";
 import pointerEvents from "@interactjs/pointer-events/base";
@@ -65,10 +65,6 @@ function Test(props: {
       pagesContent.length !== 0
       // !props.test
     ) {
-      // setTimeout(() => {
-      //   // router.push("http://192.168.8.100:3000/client/success");
-      //   // alert("Yaya");
-      // }, 500);
       console.log(page.count);
       console.log(pagesContent.length);
     }
@@ -404,9 +400,7 @@ function Test(props: {
             }}
             onClick={() =>
               router.push(
-                `http://192.168.8.100:3000/client/languages?testid=${
-                  store.get("theTest").id
-                }`
+                `${devURL}client/languages?testid=${store.get("theTest").id}`
               )
             }
           >
@@ -785,9 +779,7 @@ function Test(props: {
       onClick={() =>
         !props.test &&
         router.push(
-          `http://192.168.8.100:3000/client/languages?testid=${
-            store.get("theTest").id
-          }`
+          `${devURL}client/languages?testid=${store.get("theTest").id}`
         )
       }
       width={size}

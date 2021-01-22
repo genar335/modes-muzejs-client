@@ -129,9 +129,9 @@ export const Arrow = (width?: string, height?: string) => (
     <path
       d="M2 24L13 13L2 2"
       stroke="#2F4858"
-      stroke-width="3"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );
