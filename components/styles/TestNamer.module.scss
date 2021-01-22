@@ -3,7 +3,7 @@ $transitionDuration: 0.3s;
 
 .ModalOpener {
   // margin: 1rem;
-  height: 100%;
+  height: 60%;
   width: 100%;
   padding-right: 1rem;
   display: flex;
@@ -13,7 +13,7 @@ $transitionDuration: 0.3s;
     border: rgba($color: #000000, $alpha: 0);
     background: none;
     padding-left: 1rem;
-    height: 100%;
+    // height: 100%;
     width: 100%;
     justify-content: space-between;
     align-items: center;
@@ -23,8 +23,8 @@ $transitionDuration: 0.3s;
     & p {
       color: rgb(47, 71, 88);
       height: min-content;
-      overflow: scroll;
       font-size: 20px;
+      margin: 0 0 0 -0.1rem;
       font-family: "Montserrat";
     }
 

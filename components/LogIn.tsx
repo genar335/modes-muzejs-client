@@ -22,7 +22,7 @@ const LogIn = () => {
     setIsLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:4000/users/log_in",
+        "http://192.168.8.100:4000/users/log_in",
         {
           name: inputData.name as string,
           password: inputData.pass as string,

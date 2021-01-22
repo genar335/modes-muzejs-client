@@ -269,7 +269,7 @@ export {};
 //   upIMGs: any[],
 //   setRecievedIMGLocation: React.Dispatch<React.SetStateAction<string[]>>
 // ) {
-//   Axios.post("http://localhost:4000/tests/testIMG", upIMGs)
+//   Axios.post("http://192.168.8.100:4000/tests/testIMG", upIMGs)
 //     .then(function (response) {
 //       console.log(response.data);
 //       setRecievedIMGLocation(response.data);

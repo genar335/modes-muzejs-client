@@ -30,7 +30,7 @@ const FinalPageEditor = (props: {
 
   const MOCHeader: React.CSSProperties = {
     justifySelf: "flex-start",
-    fontSize: "30px",
+    fontSize: "24px",
     textAlign: "center",
     width: "100%",
     margin: "0rem 0 1.6rem 0",
@@ -50,17 +50,19 @@ const FinalPageEditor = (props: {
     justifyContent: "space-between",
     alignItems: "center",
     boxSizing: "border-box",
-    padding: "0 1rem 0",
+    // padding: "0 1rem 0",
     width: "100%",
     backgroundColor: "rgba(0, 0, 0, 0)",
     border: "2px solid rgba(224, 188, 163, 0.94)",
     borderRadius: "16.5px",
+    fontFamily: "Montserrat",
   };
 
   const EmailContainer: React.CSSProperties = {
     display: "flex",
-    alignItems: "center",
     // marginTop: "0.5rem",
+    margin: "-0.5rem 0 0 0.5rem",
+    alignItems: "center",
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {

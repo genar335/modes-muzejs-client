@@ -13,7 +13,7 @@ import compStyles from "./styles/TestPreview.module.scss";
 import addCompStyles from "./styles/TestNamer.module.scss";
 import { closeBtn, CreateLangSwitchers, SaveBtn } from "./TestNamer";
 import QACard from "./QACard";
-import { URLCheckForLocalHost } from "./constants";
+import { URLCheckForLocalhost } from "./constants";
 
 const TestPreview = (props: {
   activePage: number;

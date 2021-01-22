@@ -14,12 +14,12 @@ const main = () => {
   const getTestsByActive = async (isTestActive: boolean): Promise<any> => {
     try {
       const tests = await Axios.get(
-        `http://localhost:4000/tests/getTest?active=${isTestActive}`
+        `http://192.168.8.100:4000/tests/getTest?active=${isTestActive}`
       );
       console.log(tests.data, "recieved tests");
       return tests.data as ITest[];
     } catch (error) {
-      alert(error);
+      console.log(Object.keys(error), error.message);
       return [];
     }
   };
@@ -36,17 +36,22 @@ const main = () => {
 
   const getAllTests = async () => {
     setHasEverythingFetched(false);
-    const serverResponse = await Axios.get(`${devURL}tests/allTests`);
-    const data = serverResponse.data;
-    setHasEverythingFetched(true);
-    console.log(data);
-    let tmpactiveTests: Array<ITest> = [];
-    let tmpinActiveTests: Array<ITest> = [];
-    filterTests(tmpactiveTests, tmpinActiveTests, data);
-    setTests({
-      activeTests: tmpactiveTests,
-      inActiveTests: tmpinActiveTests,
-    });
+
+    try {
+      const serverResponse = await Axios.get(`${devURL}tests/allTests`);
+      const data = serverResponse.data;
+      console.log(data);
+      setHasEverythingFetched(true);
+      let tmpactiveTests: Array<ITest> = [];
+      let tmpinActiveTests: Array<ITest> = [];
+      filterTests(tmpactiveTests, tmpinActiveTests, data);
+      setTests({
+        activeTests: tmpactiveTests,
+        inActiveTests: tmpinActiveTests,
+      });
+    } catch (error) {
+      console.log(Object.keys(error), error.message);
+    }
   };
 
   const filterTests = (

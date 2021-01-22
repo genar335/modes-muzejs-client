@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 // import Carousel from "react-multi-carousel";
 // import { Carousel } from "primereact/carousel";
 import TestCard from "./TestCard";
@@ -104,6 +104,12 @@ const ActiveTests = (props: {
     setTestCardArray(PrepareTestCardsJSX(props, slideCss));
   }, [props.tests]);
 
+  function isTriggerDisabled(ref) {
+    console.log(ref.props.triggerDisabled);
+  }
+
+  const collapsibleRef = useRef(null);
+
   return (
     <div className={styles.ActiveTestsContainer}>
       <h1 className={styles.ActiveTestsHeader}>Активные тесты</h1>
@@ -132,14 +138,28 @@ const ActiveTests = (props: {
           {TestCardArray.slice(0, 3)}
         </div>
         {/* <div> */}
+        {console.log(TestCardArray.length < 3, TestCardArray.length)}
         <Collapsible
+          ref={collapsibleRef}
           contentInnerClassName={styles.CollapsibleContentInner}
           contentOuterClassName={styles.CollapsibleContentOuter}
           triggerClassName={styles.CollapsibleTrigger}
           triggerOpenedClassName={styles.CollapsibleTriggerOpen}
           className={styles.Collapsible}
           openedClassName={styles.Collapsible}
-          trigger={<div style={{ transform: "rotate(90deg)" }}>{Arrow()}</div>}
+          triggerDisabled={TestCardArray.length <= 3}
+          trigger={
+            <div
+              style={{
+                transform: "rotate(90deg)",
+                filter: collapsibleRef.current?.props?.triggerDisabled
+                  ? "brightness(0.5)"
+                  : "brightness(1)",
+              }}
+            >
+              {Arrow()}
+            </div>
+          }
         >
           {/* {PrepareTestCardsJSX(props, slideCss)} */}
           {TestCardArray.slice(3)}

@@ -1,6 +1,6 @@
 export const brown: string = "236 221 210";
 export const white: string = "255 255 255";
-export const APIURL: string = "http://localhost:4000/";
+export const APIURL: string = "http://192.168.8.100:4000/";
 //* Carousel settings for responsivnes
 export const responsive = {
   superLargeDesktop: {
@@ -24,7 +24,7 @@ export const responsive = {
 //* Regex checks
 export const URLCheck = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
 export const URLCheckForLocalHost = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}/;
-export const devURL = "http://localhost:4000/";
+export const devURL = "http://192.168.8.100:4000/";
 
 //* Drag n Drop related
 export const ItemTypes = {

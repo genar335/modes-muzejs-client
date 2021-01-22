@@ -129,7 +129,7 @@ function Test(props: {
    */
   function imgOrText(data: string): JSX.Element {
     // console.log(data);
-    // console.log(data.match(URLCheckForLocalHost));
+    // console.log(data.match(URLCheckFor192.168.8.100));
     if (data.match(URLCheckForLocalHost) !== null) {
       return (
         <img
@@ -477,7 +477,7 @@ function Test(props: {
     // console.log(pagesContent);
     let pagesPrep: JSX.Element[] = [];
     console.log(pagesPrep);
-    // props.fromPreview == undefined && pagesPrep.push(prepareFirstPage());
+    props.fromPreview == undefined && pagesPrep.push(prepareFirstPage());
     const tmpPages = pagesContent.map((page, pageIterator: number) => (
       <div
         id={`page-${pageIterator}`}

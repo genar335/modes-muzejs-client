@@ -8,6 +8,7 @@ $f-s-bg-colour: rgb(236, 221, 210);
   height: min-content;
   width: 100vw;
   margin-top: 12rem;
+  box-sizing: border-box;
 
   //align-items: center;
 
@@ -26,10 +27,11 @@ $f-s-bg-colour: rgb(236, 221, 210);
   .CarouselContainer {
     background-color: #efddd1;
     width: 100%;
+    overflow: hidden;
     // height: calc(min-content + 1rem);
     height: min-content;
-    padding: 0 10rem;
-    box-sizing: border-box;
+    // padding: 0 10rem;
+    // box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -82,7 +84,7 @@ $f-s-bg-colour: rgb(236, 221, 210);
     }
 
     .CollapsibleContentOuter {
-      width: 100%;
+      width: 108%;
     }
 
     .CollapsibleContentInner {
@@ -102,6 +104,10 @@ $f-s-bg-colour: rgb(236, 221, 210);
       margin: 1rem;
       transition: transform 400ms;
       transform: rotateX(180deg);
+      &:disabled {
+        pointer-events: none;
+        filter: brightness(0.5);
+      }
     }
 
     .AddTestCard {

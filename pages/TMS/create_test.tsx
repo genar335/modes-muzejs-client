@@ -61,7 +61,7 @@ function create_test() {
       if (router.query.testToEdit !== undefined) {
         setIsTestFetching(true);
         Axios.get(
-          `http://localhost:4000/tests/getTestByID?testToEdit=${router.query.testToEdit}`
+          `http://192.168.8.100:4000/tests/getTestByID?testToEdit=${router.query.testToEdit}`
         ).then((response: AxiosResponse) => {
           console.log(response.data);
           setIsTestFetching(false);
@@ -397,10 +397,9 @@ function create_test() {
       return false;
     }
     if (!areAllPagesFilledIn(testToCheck)) {
-      alert("Not every field is filled in");
+      alert("Not every page is filled in");
       return false;
     }
-
     return true;
   };
 
@@ -414,16 +413,11 @@ function create_test() {
     if (checkTheTest(test)) {
       try {
         const response = await Axios.post(
-          "http://localhost:4000/tests/create",
+          "http://192.168.8.100:4000/tests/create",
           test
         );
-        console.log(response.data);
-        //! Need to notify user somehow
-        //? Perhaps a modal with confirmation, or a card preview?
-        // setTimeout(() => {
-        // router.replace("http://localhost:3000/TMS/main");
-        // }, 1000);
-        router.replace("http://localhost:3000/TMS/main");
+
+        router.replace("http://192.168.8.100:3000/TMS/main");
       } catch (error) {
         alert(error);
       }
@@ -495,7 +489,7 @@ function create_test() {
 
   const handleExitFromTheTest = () => {
     store.remove("testInProgress");
-    router.replace("http://localhost:3000/TMS/main");
+    router.replace("http://192.168.8.100:3000/TMS/main");
   };
 
   const PageCounter = (
