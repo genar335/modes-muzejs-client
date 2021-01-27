@@ -635,7 +635,8 @@ function Test(props: {
         <div
           ref={(ele) => (refsToQuestions.current[iterator] = ele)}
           style={{
-            marginTop: isImgOrText(qnaPair.question) ? "0.2rem" : "",
+            marginTop: isImgOrText(qnaPair.question) ? "0.2rem" : "-0.1rem",
+
             width: "min-content",
             zIndex: 100,
           }}
@@ -698,7 +699,9 @@ function Test(props: {
             ref={(ele) => (refsToAnswersHandles.current[iterator] = ele)}
             style={{
               zIndex: 100,
-              marginBottom: isImgOrText(qnaPair.answer) ? "-0.35rem" : "",
+              marginBottom: isImgOrText(qnaPair.answer)
+                ? "-0.35rem"
+                : "-0.3rem",
               width: "min-content",
             }}
           >
