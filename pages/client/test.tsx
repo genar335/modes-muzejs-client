@@ -315,8 +315,8 @@ function Test(props: {
           display: "flex",
           justifyContent: "space-evenly",
           alignItems: "center",
-          flexDirection: "column",
-          width: "70%",
+          flexDirection: "row",
+          width: "100%",
           height: "100%",
         }}
       >
@@ -350,7 +350,7 @@ function Test(props: {
           <p
             style={{
               fontSize: "36px",
-              fontWeight: 100,
+              fontWeight: 300,
               textAlign: "center",
             }}
           >
@@ -361,14 +361,15 @@ function Test(props: {
           style={{
             display: "flex",
             flexDirection: "column",
-            width: "70%",
-            height: "30%",
+            width: "40%",
+            height: "160px",
             justifyContent: "space-around",
           }}
         >
           {email && (
             // <form onSubmit={(e) => e.preventDefault()}>
             <input
+              autoComplete="off"
               style={{
                 // position: "absolute",
                 background: "rgba(0, 0, 0, 0)",
@@ -471,7 +472,7 @@ function Test(props: {
     // console.log(pagesContent);
     let pagesPrep: JSX.Element[] = [];
     console.log(pagesPrep);
-    props.fromPreview == undefined && pagesPrep.push(prepareFirstPage());
+    // props.fromPreview == undefined && pagesPrep.push(prepareFirstPage());
     const tmpPages = pagesContent.map((page, pageIterator: number) => (
       <div
         id={`page-${pageIterator}`}

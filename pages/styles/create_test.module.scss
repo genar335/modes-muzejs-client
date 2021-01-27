@@ -400,10 +400,6 @@ $bg-colour: rgb(190, 171, 155);
     grid-row: 12 / 14;
     grid-column: 3/5;
     justify-self: center;
-
-    &:disabled {
-      // filter: brightness(0.5);
-    }
   }
 
   .FPEditorMainContainer {
