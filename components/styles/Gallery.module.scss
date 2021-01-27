@@ -15,7 +15,7 @@ $f-s-bg-colour: rgb(236, 221, 210);
 
   width: 100vw;
   height: min-content;
-  padding: 0 5rem 0;
+  // padding: 0 5rem 0;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -75,6 +75,8 @@ $f-s-bg-colour: rgb(236, 221, 210);
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: auto;
+    width: 100%;
+    place-items: center;
     grid-row-gap: 3rem;
     grid-column-gap: 3rem;
     // width: 80%;

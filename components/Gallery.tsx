@@ -40,8 +40,8 @@ const Gallery = (props: {
           ? props.testsToRender.map((test: ITest, iterator: number) => (
               <div
                 style={{
-                  width: "100%",
-                  height: "100%",
+                  width: "min-content",
+                  height: "min-content",
                   position: "relative",
                 }}
                 key={`cardBG_${iterator}`}

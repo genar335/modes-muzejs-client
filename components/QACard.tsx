@@ -224,13 +224,12 @@ const QACard = (props: {
                   ? props.pageContents
                   : ""
               }
-              alt="
-              Width: 235px 
+              alt={`
+              Click here to select the image 
+              Width: 245px
               Height: 245px
-              Aspect ratio is 47:49
-
-              Click to select an image
-              "
+              Aspect ratio: ~ 1:1 
+              `}
               ref={QACardRefIMG}
               onClick={(e) => fileInputRef!.current!.click()}
             />
