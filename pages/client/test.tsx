@@ -534,7 +534,17 @@ function Test(props: {
     console.log(pagesPrep);
     // props.fromPreview == undefined && pagesPrep.push(prepareFirstPage());
     const tmpPages = pagesContent.map((page, pageIterator: number) => (
-      <div
+      // <AnimatePresence>
+      <motion.div
+        initial={{
+          opacity: 0,
+        }}
+        animate={{
+          opacity: 1,
+        }}
+        exit={{
+          opacity: 0,
+        }}
         id={`page-${pageIterator}`}
         key={pageIterator}
         style={{
@@ -545,7 +555,8 @@ function Test(props: {
         }}
       >
         {qnaPairsToJSX(page, pageIterator, refsToQuestions)}
-      </div>
+      </motion.div>
+      // </AnimatePresence>
     ));
     // console.log(tmpPages);
     pagesPrep.push(...tmpPages);
@@ -957,11 +968,11 @@ function Test(props: {
                 {ExitBtn("45")}
               </button>
             )}
-            {pages !== undefined && (
+            {pages !== undefined && page.count !== pages?.length - 1 && (
               <TestProgressBar
                 // activePage={!props.fromPreview ? page.count - 1 : page.count}
                 activePage={
-                  props.fromPreview == undefined ? page.count - 1 : page.count
+                  /* props.fromPreview == undefined ? page.count - 1 : */ page.count
                 }
                 numberOfPages={
                   props.fromPreview == undefined
