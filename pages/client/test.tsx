@@ -149,6 +149,7 @@ function Test(props: {
             margin: "0",
             padding: "1rem",
             boxSizing: "border-box",
+            textAlign: "center",
           }}
         >
           {data}
@@ -180,16 +181,23 @@ function Test(props: {
       )
     ) {
       let tmp = event.target.parentElement.parentElement.id;
-      console.log(event.target.parentElement.parentElement.classList);
-      console.log(event.target.parentElement.parentElement);
       const id = tmp.slice(tmp.indexOf("_") + 1, tmp.lastIndexOf("_"));
-      console.log(id, "id is");
-      const { questionRect, answerRect } = getRectangles(event);
-      console.log(event);
+      const { questionRect, answerRect } = getRectanglesFromEvent(event);
+
+      const intersections: Array<boolean> = refsToQuestions.current.map(
+        (q) =>
+          CheckIfAnswerIntersectedTheQuestion(
+            q.getBoundingClientRect(),
+            answerRect
+          )!
+      );
+
+      console.log(intersections);
+
       if (CheckIfAnswerIntersectedTheQuestion(questionRect, answerRect)) {
         // console.log(event.target.parentNode.parentNode);
         // event.target.parentNode.parentNode.style.pointerEvents = "none";
-        applyCSSToMatchedCards(event);
+        applyCSSToMatchedCards(event, refsToQuestions.current[id]);
         qnaOverlaps.current.counter += 1;
 
         console.log(refsToQuestions.current[id]);
@@ -208,6 +216,8 @@ function Test(props: {
           refsToAnswersHandles.current[id].parentElement!
         );
 
+        // event.target.style.pointerEvents.parentElement = "none";
+
         if (qnaOverlaps.current.counter === 3) {
           // alert(pagesContent.length);
           // if (page.count < pagesContent.length - 1) {
@@ -221,6 +231,7 @@ function Test(props: {
           qnaOverlaps.current.counter = 0;
         }
       } else {
+        intersections.includes(true) && flashScreen();
       }
       // refsToAnswersPositions.current[id] = {
       //   position: {
@@ -230,7 +241,6 @@ function Test(props: {
       //     deltaY: data.y - data.lastY,
       //   },
       // };
-      flashScreen();
       refsToAnswersPositions.current[id] = {
         position: data,
       };
@@ -245,10 +255,17 @@ function Test(props: {
     setTimeout(() => (testBody.style.boxShadow = "none"), 500);
   }
 
-  function applyCSSToMatchedCards(event: DraggableEventHandler) {
-    //* Sets the contasiner of cards to be uncliclable/untouchable.
-    event.target.parentElement.parentElement.parentElement.parentElement.style.pointerEvents =
-      "none";
+  function applyCSSToMatchedCards(
+    event: DraggableEventHandler,
+    answer: HTMLElement
+  ) {
+    // // Sets the contasiner of cards to be unclickable/untouchable.
+    // event.target.parentElement.parentElement.parentElement.parentElement.style.pointerEvents =
+    //   "none";
+    console.log(answer.parentElement);
+    answer.parentElement.style.pointerEvents = "none";
+    // answer.style.width = "100rem";
+
     //* Applies a greenish border around answer cards.
     console.log(event.target.tagName);
     if (event.target.tagName == "P") {
@@ -294,13 +311,12 @@ function Test(props: {
         // console.log(answerDragged.parentElement?.parentElement, "oi");
         // answerDragged.parentElement!.style.filter = "brightness(0.5)";
         return true;
-      } else {
-        return false;
       }
     }
+    return false;
   }
 
-  function getRectangles(event: DraggableEventHandler) {
+  function getRectanglesFromEvent(event: DraggableEventHandler) {
     setqaRectPositions({});
     const answerDragged: Element = event.target!.parentElement.parentElement;
     const answerDraggedID = answerDragged.id;

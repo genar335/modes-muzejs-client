@@ -3,7 +3,5 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/client/languages": "pages/client/languages.js",
-  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js",
-  "/client/test_selection": "pages/client/test_selection.js",
   "/client/test": "pages/client/test.js"
 }
