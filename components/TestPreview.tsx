@@ -13,7 +13,8 @@ import compStyles from "./styles/TestPreview.module.scss";
 import addCompStyles from "./styles/TestNamer.module.scss";
 import { closeBtn, CreateLangSwitchers, SaveBtn } from "./TestNamer";
 import QACard from "./QACard";
-import { URLCheckForLocalhost } from "./constants";
+import { q_a_maxLength, textEntryCountLimit } from "./constants";
+// import { URLCheckForLocalhost } from "./constants";
 
 const TestPreview = (props: {
   activePage: number;
@@ -77,8 +78,6 @@ const TestPreview = (props: {
     event.key === "Enter" ? console.log("Efnter") : undefined;
   };
 
-  const textEntryCountLimit: number = 180;
-
   const qaTextEntryHeaderStyle: React.CSSProperties = {
     color: "whitesmoke",
     fontSize: "24px",
@@ -111,6 +110,7 @@ const TestPreview = (props: {
     margin: "0",
     width: "5%",
   };
+
   function q_a_TextEntry(type: "answer" | "question", id: number) {
     // console.log("id", id);
     return (

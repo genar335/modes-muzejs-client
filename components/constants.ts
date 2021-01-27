@@ -24,10 +24,16 @@ export const responsive = {
   },
 };
 //* Regex checks
-export const URLCheck:RegExp= /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
+export const URLCheck: RegExp = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
 export const URLCheckForLocalHost: RegExp = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}/;
 
 //* Drag n Drop related
 export const ItemTypes = {
   QCARD: "qcard",
 };
+
+//* Max input length numbers
+export const testNameMaxLength: number = 50;
+export const textEntryCountLimit: number = 180;
+export const finalPageHeaderLimit: number = 60;
+export const finalPageBodyLimit: number = 80;

@@ -5,6 +5,7 @@ import { ITest, TLangOption } from "../@types/test";
 import { useEffect } from "react";
 import LangBtnController from "./LangBtnController";
 import btnStyle from "./styles/LanguageBtn.module.scss";
+import { testNameMaxLength } from "./constants";
 
 const TestNamer = (props: {
   currentLang: TLangOption["value"] | undefined;
@@ -152,11 +153,16 @@ const TestNamer = (props: {
             key={i}
             type="text"
             placeholder="Enter text name"
+            maxLength={testNameMaxLength}
             // value={currentNames[selectedLang as TLangOption["value"]]}
             value={langBuffer[lang as "ru" | "en" | "lv"]}
             className={compStyles.TNameInput}
             onChange={handleNameChange}
           />
+          <p>
+            {props.currentStateOfTest[lang as TLangOption["value"]].name.length}{" "}
+            / {testNameMaxLength}
+          </p>
         </div>
       );
       i++;

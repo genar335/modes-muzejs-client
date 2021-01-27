@@ -5,6 +5,7 @@ import styles from "../pages/styles/create_test.module.scss";
 import { ITest, TLangOption } from "../@types/test";
 import { SaveBtn } from "./TestNamer";
 import { borderRadius } from "react-select/src/theme";
+import { finalPageBodyLimit, finalPageHeaderLimit } from "./constants";
 
 const FinalPageEditor = (props: {
   toggleEmail: (bool: boolean) => void;
@@ -81,11 +82,12 @@ const FinalPageEditor = (props: {
   };
 
   const InputStyle: React.CSSProperties = {
+    textAlign: "center",
     border: "2px solid #2f4858",
     boxSizing: "border-box",
     borderRadius: "32px",
-    width: "100%",
-    height: "35%",
+    width: "80%",
+    height: "100%",
     marginBottom: "1rem",
     fontSize: "larger",
     padding: "0 1rem",
@@ -202,38 +204,68 @@ const FinalPageEditor = (props: {
                     <div
                       style={{
                         width: "85%",
+                        // display: "flex",
+                        // flexDirection: "row",
                       }}
                     >
-                      <input
-                        style={InputStyle}
-                        id={`${lang}_${iterator}_Header`}
-                        name="Heading"
-                        onChange={handleInputChange}
-                        placeholder={`Верхний текст на ${
-                          lang === "lv"
-                            ? "латышском"
-                            : lang === "en"
-                            ? "английском"
-                            : "русском"
-                        } языке`}
-                        type="text"
-                        defaultValue={props.test[lang].finalPageTextHeading}
-                      />
-                      <input
-                        style={InputStyle}
-                        id={`${lang}_${iterator}_Body`}
-                        name="Body"
-                        onChange={handleInputChange}
-                        placeholder={`Нижний текст на ${
-                          lang === "lv"
-                            ? "латышском"
-                            : lang === "en"
-                            ? "английском"
-                            : "русском"
-                        } языке`}
-                        type="text"
-                        defaultValue={props.test[lang].finalPageTextBody}
-                      />
+                      <div
+                        style={{
+                          justifyContent: "space-around",
+                          display: "flex",
+                          flexDirection: "row",
+                          height: "3rem",
+                        }}
+                      >
+                        <input
+                          maxLength={finalPageHeaderLimit}
+                          style={InputStyle}
+                          id={`${lang}_${iterator}_Header`}
+                          name="Heading"
+                          onChange={handleInputChange}
+                          placeholder={`Верхний текст на ${
+                            lang === "lv"
+                              ? "латышском"
+                              : lang === "en"
+                              ? "английском"
+                              : "русском"
+                          } языке`}
+                          type="text"
+                          defaultValue={props.test[lang].finalPageTextHeading}
+                        />
+                        <p>
+                          {props.test[lang].finalPageTextHeading.length} /{" "}
+                          {finalPageHeaderLimit}
+                        </p>
+                      </div>
+                      <div
+                        style={{
+                          justifyContent: "space-around",
+                          display: "flex",
+                          flexDirection: "row",
+                          height: "3rem",
+                        }}
+                      >
+                        <input
+                          maxLength={finalPageBodyLimit}
+                          style={InputStyle}
+                          id={`${lang}_${iterator}_Body`}
+                          name="Body"
+                          onChange={handleInputChange}
+                          placeholder={`Нижний текст на ${
+                            lang === "lv"
+                              ? "латышском"
+                              : lang === "en"
+                              ? "английском"
+                              : "русском"
+                          } языке`}
+                          type="text"
+                          defaultValue={props.test[lang].finalPageTextBody}
+                        />
+                        <p>
+                          {props.test[lang].finalPageTextBody.length} /{" "}
+                          {finalPageBodyLimit}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 )
