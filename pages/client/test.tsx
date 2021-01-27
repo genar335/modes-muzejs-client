@@ -150,6 +150,7 @@ function Test(props: {
             padding: "1rem",
             boxSizing: "border-box",
             textAlign: "center",
+            lineHeight: "110%",
           }}
         >
           {data}
@@ -385,6 +386,7 @@ function Test(props: {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            width: "50%",
           }}
         >
           <h1
