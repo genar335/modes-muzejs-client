@@ -141,7 +141,20 @@ function Test(props: {
         />
       );
     } else {
-      return <p>{data}</p>;
+      return (
+        // <div>
+        <p
+          style={{
+            width: "100%",
+            margin: "0",
+            padding: "1rem",
+            boxSizing: "border-box",
+          }}
+        >
+          {data}
+        </p>
+        // </div>
+      );
     }
   }
 
@@ -161,56 +174,66 @@ function Test(props: {
     event: DraggableEventHandler,
     data: DraggableData
   ) {
-    console.log(data);
-    let tmp = event.target.parentElement.parentElement.id;
-    const id = tmp.slice(tmp.indexOf("_") + 1, tmp.lastIndexOf("_"));
-    console.log(id, "idid");
-    const { questionRect, answerRect } = getRectangles(event);
-    console.log(event);
-    if (CheckIfAnswerIntersectedTheQuestion(questionRect, answerRect)) {
-      // console.log(event.target.parentNode.parentNode);
-      // event.target.parentNode.parentNode.style.pointerEvents = "none";
-      applyCSSToMatchedCards(event);
-      qnaOverlaps.current.counter += 1;
+    if (
+      event.target.parentElement.parentElement.classList[0].includes(
+        "test_TCard"
+      )
+    ) {
+      let tmp = event.target.parentElement.parentElement.id;
+      console.log(event.target.parentElement.parentElement.classList);
+      console.log(event.target.parentElement.parentElement);
+      const id = tmp.slice(tmp.indexOf("_") + 1, tmp.lastIndexOf("_"));
+      console.log(id, "id is");
+      const { questionRect, answerRect } = getRectangles(event);
+      console.log(event);
+      if (CheckIfAnswerIntersectedTheQuestion(questionRect, answerRect)) {
+        // console.log(event.target.parentNode.parentNode);
+        // event.target.parentNode.parentNode.style.pointerEvents = "none";
+        applyCSSToMatchedCards(event);
+        qnaOverlaps.current.counter += 1;
 
-      const questionContainer: HTMLElement = refsToQuestions.current[id]
-        .parentElement!;
-      // console.log(questionContainer, "123123");
+        console.log(refsToQuestions.current[id]);
 
-      // console.log(refsToAnswersHandles.current[id]);
+        const questionContainer: HTMLElement = refsToQuestions.current[id]
+          .parentElement!;
+        // console.log(questionContainer, "123123");
 
-      refsToAnswersHandles.current[id].parentElement!.style.transform =
-        "translate(0px, 0px)";
-      refsToAnswersHandles.current[id].parentElement!.style.marginTop = "-1rem";
-      questionContainer.appendChild(
-        refsToAnswersHandles.current[id].parentElement!
-      );
+        // console.log(refsToAnswersHandles.current[id]);
 
-      if (qnaOverlaps.current.counter === 3) {
-        // alert(pagesContent.length);
-        // if (page.count < pagesContent.length - 1) {
-        refsToQuestions.current = [];
-        // setCurrentPage(currentPage + 1);
-        // setTimeout(() => {
-        dispatch({ type: "increment" });
-        // }, 1000);
-        console.log(page.count, "pages", pagesContent.length, "pagesContent");
-        // }
-        qnaOverlaps.current.counter = 0;
+        refsToAnswersHandles.current[id].parentElement!.style.transform =
+          "translate(0px, 0px)";
+        refsToAnswersHandles.current[id].parentElement!.style.marginTop =
+          "-1rem";
+        questionContainer.appendChild(
+          refsToAnswersHandles.current[id].parentElement!
+        );
+
+        if (qnaOverlaps.current.counter === 3) {
+          // alert(pagesContent.length);
+          // if (page.count < pagesContent.length - 1) {
+          refsToQuestions.current = [];
+          // setCurrentPage(currentPage + 1);
+          // setTimeout(() => {
+          dispatch({ type: "increment" });
+          // }, 1000);
+          console.log(page.count, "pages", pagesContent.length, "pagesContent");
+          // }
+          qnaOverlaps.current.counter = 0;
+        }
+      } else {
       }
-    } else {
+      // refsToAnswersPositions.current[id] = {
+      //   position: {
+      //     x: data.x,
+      //     y: data.y,
+      //     deltaX: data.x - data.lastX,
+      //     deltaY: data.y - data.lastY,
+      //   },
+      // };
+      refsToAnswersPositions.current[id] = {
+        position: data,
+      };
     }
-    // refsToAnswersPositions.current[id] = {
-    //   position: {
-    //     x: data.x,
-    //     y: data.y,
-    //     deltaX: data.x - data.lastX,
-    //     deltaY: data.y - data.lastY,
-    //   },
-    // };
-    refsToAnswersPositions.current[id] = {
-      position: data,
-    };
   }
 
   function applyCSSToMatchedCards(event: DraggableEventHandler) {
@@ -218,10 +241,22 @@ function Test(props: {
     event.target.parentElement.parentElement.parentElement.parentElement.style.pointerEvents =
       "none";
     //* Applies a greenish border around answer cards.
-    event.target.style.border = "solid 5 px rgb(37, 180, 150)";
-    event.target.style.borderColor = "rgb(73 180 150)";
-    event.target.parentElement.parentElement.parentElement.style.position =
-      "inherit";
+    console.log(event.target.tagName);
+    if (event.target.tagName == "P") {
+      console.log(event.target.parentElement.parentElement.style.border);
+      event.target.parentElement.parentElement.style.border =
+        "solid 5px rgb(37, 180, 150)";
+      event.target.parentElement.parentElement.parentElement.style.position =
+        "inherit";
+      console.log(event.target.parentElement.parentElement.style.border);
+    } else if (event.target.tagName == "IMG") {
+      console.log(event.target);
+      // event.target.style.border = "none";
+      event.target.style.border = "solid 5px rgb(37, 180, 150)";
+      event.target.style.borderColor = "rgb(73, 180, 150,)";
+      event.target.parentElement.parentElement.parentElement.style.position =
+        "inherit";
+    }
   }
 
   /**
@@ -487,9 +522,9 @@ function Test(props: {
         {qnaPairsToJSX(page, pageIterator, refsToQuestions)}
       </div>
     ));
-    console.log(tmpPages);
+    // console.log(tmpPages);
     pagesPrep.push(...tmpPages);
-    console.log(pagesPrep);
+    // console.log(pagesPrep);
     let tmp: ITest = store.get("theTest");
     const {
       finalPageTextBody,
@@ -563,15 +598,15 @@ function Test(props: {
           key={`Question_${iterator}_p-${pageIterator}`}
           style={setStyleAccordingToTestType(qnaPair.question)}
         >
-          {/* <div
+          <div
             style={{
               height: "100%",
               boxSizing: "border-box",
             }}
-          > */}
-          {imgOrText(qnaPair.question)}
+          >
+            {imgOrText(qnaPair.question)}
+          </div>
         </div>
-        {/* </div> */}
         <div
           ref={(ele) => (refsToQuestions.current[iterator] = ele)}
           style={{
@@ -627,6 +662,7 @@ function Test(props: {
             <div
               style={{
                 height: "100%",
+                width: "100%",
                 boxSizing: "border-box",
               }}
             >
@@ -720,7 +756,7 @@ function Test(props: {
           transform="translate(125.357 243.137)"
           fill="none"
           stroke="#c6aa96"
-          strokeLinecap="round"
+          // strokeLinecap="round"
           strokeWidth="4"
         />
         <circle
@@ -747,11 +783,11 @@ function Test(props: {
         <line
           id="Line_4"
           data-name="Line 4"
-          y2="11"
+          y2="110"
           transform="translate(125.357 5.761)"
           fill="none"
           stroke="#c6aa96"
-          strokeLinecap="round"
+          // strokeLinecap="round"
           strokeWidth="4"
         />
         <g
@@ -893,7 +929,6 @@ function Test(props: {
                 {ExitBtn("45")}
               </button>
             )}
-            {console.log(props.fromPreview)}
             {pages !== undefined && (
               <TestProgressBar
                 // activePage={!props.fromPreview ? page.count - 1 : page.count}
