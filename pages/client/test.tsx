@@ -230,10 +230,19 @@ function Test(props: {
       //     deltaY: data.y - data.lastY,
       //   },
       // };
+      flashScreen();
       refsToAnswersPositions.current[id] = {
         position: data,
       };
     }
+  }
+
+  async function flashScreen() {
+    const testBody: HTMLElement = document.getElementsByClassName(
+      styles.pageContainer
+    )[0] as HTMLElement;
+    testBody.style.boxShadow = "inset 0px 0px 30px 30px red";
+    setTimeout(() => (testBody.style.boxShadow = "none"), 500);
   }
 
   function applyCSSToMatchedCards(event: DraggableEventHandler) {

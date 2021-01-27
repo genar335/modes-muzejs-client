@@ -2,13 +2,14 @@
   background-color: #010713;
   // min-height: 100vh;
   // max-height: min-content;
-  height: 101vh;
+  height: 100vh;
   width: 100vw;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
   color: #cba992; //text color
+  transition: box-shadow cubic-bezier(0.27, -0.68, 0.65, 1.8) 0.8s;
 
   #MMlogo {
     width: 167px;
