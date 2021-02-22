@@ -25,12 +25,12 @@ function EmailForm(props: any) {
     }
   };
 
-  const text = {
-    //the text here will be in test props, this is temporary
-    en: ["Share your results", "Submit"],
-    ru: ["Поделиться результатом", "Отправить"],
-    lv: ["noshareot", "nosubmitot"],
-  };
+  // const text = {
+  //   //the text here will be in test props, this is temporary
+  //   en: ["Share your results", "Submit"],
+  //   ru: ["Поделиться результатом", "Отправить"],
+  //   lv: ["noshareot", "nosubmitot"],
+  // };
 
   return (
     <div
