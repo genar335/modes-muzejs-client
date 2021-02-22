@@ -104,9 +104,9 @@ const ActiveTests = (props: {
     setTestCardArray(PrepareTestCardsJSX(props, slideCss));
   }, [props.tests]);
 
-  function isTriggerDisabled(ref) {
-    console.log(ref.props.triggerDisabled);
-  }
+  // function isTriggerDisabled(ref) {
+  //   console.log(ref.props.triggerDisabled);
+  // }
 
   const collapsibleRef = useRef(null);
 
@@ -149,12 +149,12 @@ const ActiveTests = (props: {
           triggerDisabled={TestCardArray.length <= 3}
           trigger={
             <div
-              style={{
-                transform: "rotate(90deg)",
-                filter: collapsibleRef.current?.props?.triggerDisabled
-                  ? "brightness(0.5)"
-                  : "brightness(1)",
-              }}
+            // style={{
+            //   transform: "rotate(90deg)",
+            //   filter: collapsibleRef.current?.props?.triggerDisabled
+            //     ? "brightness(0.5)"
+            //     : "brightness(1)",
+            // }}
             >
               {Arrow()}
             </div>

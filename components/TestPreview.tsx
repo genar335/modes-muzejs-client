@@ -1,19 +1,10 @@
 import React, { useEffect, useState } from "react";
-import {
-  ILangSpecificBody,
-  IQnA,
-  IQnAPairs,
-  ITest,
-  TLangOption,
-  TTestTypes,
-} from "../@types/test";
+import { IQnA, ITest, TLangOption, TTestTypes } from "../@types/test";
 import styles from "../pages/styles/create_test.module.scss";
 import FMLogo from "./FMlogo";
 import compStyles from "./styles/TestPreview.module.scss";
-import addCompStyles from "./styles/TestNamer.module.scss";
-import { closeBtn, CreateLangSwitchers, SaveBtn } from "./TestNamer";
 import QACard from "./QACard";
-import { q_a_maxLength, textEntryCountLimit } from "./constants";
+import { textEntryCountLimit } from "./constants";
 // import { URLCheckForLocalhost } from "./constants";
 
 const TestPreview = (props: {
