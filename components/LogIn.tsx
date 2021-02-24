@@ -4,6 +4,7 @@ import styles from "./styles/LogIn.module.scss";
 //import loadingIcon from "../GAssets/loading_cat.gif";
 import loadingTriangle from "../GAssets/ball-triangle.svg";
 import Router from "next/router";
+import PleaseWaitModal from "./PleaseWaitModal";
 
 interface IUserLoginInfo {
   name?: string;
@@ -35,7 +36,7 @@ const LogIn = () => {
       await Router.push("/");
       //setIsLoading(false);
     } catch (error) {
-      alert(error);
+      console.error(error);
     }
   };
 
@@ -50,12 +51,7 @@ const LogIn = () => {
 
   return (
     <div className={styles.LogInFormContainer}>
-      {isLoading ? (
-        <div className={styles.loadingModal}>
-          <img src={loadingTriangle} alt="cat" />
-          <p>Please wait</p>
-        </div>
-      ) : null}
+      <PleaseWaitModal isDisplayed={isLoading} />
       <form onSubmit={handleFormSubmission} className={styles.infoForm}>
         <div id="u_name" className={styles.inputField}>
           <label htmlFor="name">Username:</label>

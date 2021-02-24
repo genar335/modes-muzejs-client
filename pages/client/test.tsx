@@ -375,6 +375,7 @@ function Test(props: {
         style={{
           display: "flex",
           justifyContent: "space-evenly",
+          
           alignItems: "center",
           flexDirection: "row",
           width: "100%",
