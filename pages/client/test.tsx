@@ -573,9 +573,9 @@ function Test(props: {
       en: string;
       lv: string;
     } = {
-      ru: "Соедените карточки!",
-      en: "Connect the cards!",
-      lv: "Savienojiet kartes!",
+      ru: "Найдите соответствие, переставляя нижние карточки.",
+      en: "Find a match by moving the bottom cards.",
+      lv: "Atrodiet atbilstību, pārliekot apakšējas kartītes.",
     };
     return (
       <div
@@ -587,7 +587,13 @@ function Test(props: {
           height: "40%",
         }}
       >
-        <h1 style={{ fontWeight: 400, fontSize: "xxx-large" }}>
+        <h1
+          style={{
+            fontWeight: 400,
+            fontSize: "xxx-large",
+            textAlign: "center",
+          }}
+        >
           {sampleTxt[store.get("activeLang") as TLangOption["value"]]}
         </h1>
         <button

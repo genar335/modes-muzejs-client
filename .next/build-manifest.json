@@ -14,6 +14,11 @@
     "static/development/_ssgManifest.js"
   ],
   "pages": {
+    "/TMS/create_test": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/TMS/create_test.js"
+    ],
     "/_app": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
@@ -33,11 +38,6 @@
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/chunks/pages/client/test.js"
-    ],
-    "/client/test_selection": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/client/test_selection.js"
     ]
   },
   "ampFirstPages": []
