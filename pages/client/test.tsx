@@ -375,7 +375,7 @@ function Test(props: {
         style={{
           display: "flex",
           justifyContent: "space-evenly",
-          
+
           alignItems: "center",
           flexDirection: "row",
           width: "100%",
@@ -502,6 +502,105 @@ function Test(props: {
   }
 
   function prepareFirstPage(): JSX.Element {
+    return txtExpalantion();
+  }
+
+  const start_test_btn = () => (
+    <svg width="116.656" height="113.191" viewBox="0 0 116.656 113.191">
+      <defs>
+        <filter
+          id="Path_14"
+          x="0"
+          y="0"
+          width="116.656"
+          height="113.191"
+          filterUnits="userSpaceOnUse"
+        >
+          <feOffset dy="3" input="SourceAlpha" />
+          <feGaussianBlur stdDeviation="3" result="blur" />
+          <feFlood flood-opacity="0.161" />
+          <feComposite operator="in" in2="blur" />
+          <feComposite in="SourceGraphic" />
+        </filter>
+      </defs>
+      <g
+        id="Icon_feather-arrow-right-circle"
+        data-name="Icon feather-arrow-right-circle"
+        transform="translate(11.503 6.771)"
+      >
+        <g transform="matrix(1, 0, 0, 1, -11.5, -6.77)" filter="url(#Path_14)">
+          <path
+            id="Path_14-2"
+            data-name="Path 14"
+            d="M95.656,47.6c0,24.629-20.742,44.6-46.328,44.6S3,72.225,3,47.6,23.742,3,49.328,3,95.656,22.966,95.656,47.6Z"
+            transform="translate(9 6)"
+            fill="none"
+            stroke="#c6aa96"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="6"
+          />
+        </g>
+        <path
+          id="Path_15"
+          data-name="Path 15"
+          d="M18,47.06,35.53,29.53,18,12"
+          transform="translate(28.825 17.295)"
+          fill="none"
+          stroke="#c6aa96"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="5"
+        />
+        <path
+          id="Path_16"
+          data-name="Path 16"
+          d="M12,18H47.06"
+          transform="translate(17.295 28.825)"
+          fill="none"
+          stroke="#c6aa96"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="5"
+        />
+      </g>
+    </svg>
+  );
+
+  function txtExpalantion(): JSX.Element {
+    const sampleTxt: {
+      ru: string;
+      en: string;
+      lv: string;
+    } = {
+      ru: "Соедените карточки!",
+      en: "Connect the cards!",
+      lv: "Savienojiet kartes!",
+    };
+    return (
+      <div
+        id="btn_txt_container"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-evenly",
+          height: "40%",
+        }}
+      >
+        <h1 style={{ fontWeight: 400 }}>
+          {sampleTxt[store.get("activeLang") as TLangOption["value"]]}
+        </h1>
+        <button
+          style={{ background: "none", border: "none" }}
+          onClick={() => dispatch({ type: "increment" })}
+        >
+          {start_test_btn()}
+        </button>
+      </div>
+    );
+  }
+
+  function ExplanatoryVideo(): JSX.Element {
     return (
       <div
         style={{
@@ -535,7 +634,7 @@ function Test(props: {
     // console.log(pagesContent);
     let pagesPrep: JSX.Element[] = [];
     console.log(pagesPrep);
-    // props.fromPreview == undefined && pagesPrep.push(prepareFirstPage());
+    props.fromPreview == undefined && pagesPrep.push(prepareFirstPage());
     const tmpPages = pagesContent.map((page, pageIterator: number) => (
       // <AnimatePresence>
       <motion.div
@@ -564,18 +663,24 @@ function Test(props: {
     // console.log(tmpPages);
     pagesPrep.push(...tmpPages);
     // console.log(pagesPrep);
-    let tmp: ITest = store.get("theTest");
+    let tmp: ITest;
+    if (props.fromPreview) {
+      tmp = store.get("testInProgress");
+    } else {
+      tmp = store.get("theTest");
+    }
+    console.log(tmp);
     const {
       finalPageTextBody,
       finalPageTextHeading,
     }: { finalPageTextBody: string; finalPageTextHeading: string } =
-      // props.test[props.activeLanguage] ||
-      tmp[store.get("activeLang") as TLangOption["value"]];
-
+      tmp[store.get("activeLang") as TLangOption["value"]] ||
+      props.test[props.activeLanguage];
+    console.log(tmp);
     const lastPage = prepareLastPageJSX(
       finalPageTextBody,
       finalPageTextHeading,
-      tmp.emailSender as boolean
+      tmp.emailSender /* as boolean */
     );
 
     pagesPrep.push(lastPage);
@@ -913,7 +1018,7 @@ function Test(props: {
             style={{
               position: "absolute",
               top: "46%",
-              right: "10%",
+              right: "3%",
               border: "none",
               background: "none",
             }}
@@ -928,7 +1033,7 @@ function Test(props: {
             style={{
               position: "absolute",
               top: "46%",
-              left: "10%",
+              left: "3%",
               transform: "rotate(180deg)",
               background: "none",
               border: "none",
@@ -957,7 +1062,7 @@ function Test(props: {
             />
           )}
           <motion.div key="testContainerAnima" className={styles.testContainer}>
-            {pages?.length - 1 != page.count && (
+            {pages?.length - 1 != page.count /* 578G */ && (
               <button
                 style={{
                   opacity: "70%",
@@ -971,6 +1076,7 @@ function Test(props: {
                 {ExitBtn("45")}
               </button>
             )}
+
             {pages !== undefined && page.count !== pages?.length - 1 && (
               <TestProgressBar
                 // activePage={!props.fromPreview ? page.count - 1 : page.count}

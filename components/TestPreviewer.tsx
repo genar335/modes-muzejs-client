@@ -8,6 +8,7 @@ const TestPreviewer = (props: {
   test: ITest;
   activeLanguage: TLangOption["value"];
 }) => {
+  console.log(props.activeLanguage);
   return props.isOpen ? (
     <div
       style={{

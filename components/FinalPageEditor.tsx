@@ -188,10 +188,12 @@ const FinalPageEditor = (props: {
               {props.testLang.map(
                 (lang: TLangOption["value"], iterator: number) => (
                   <div
+                    id="inner container with lang"
                     style={{
                       width: "75%",
                       height: "25%",
                       display: "flex",
+
                       flexDirection: "row",
                       justifyContent: "space-between",
                     }}
@@ -214,6 +216,7 @@ const FinalPageEditor = (props: {
                           display: "flex",
                           flexDirection: "row",
                           height: "3rem",
+                          marginBottom: "1rem",
                         }}
                       >
                         <input

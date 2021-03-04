@@ -433,7 +433,7 @@ function create_test() {
     en: false,
   });
 
-  const testLang: TLangOption["value"][] = ["ru", "lv", "en"];
+  const testLang: TLangOption["value"][] = ["ru", "en", "lv"];
   const handleLangSwitchChange = (
     checked: boolean,
     event: MouseEvent | React.SyntheticEvent<MouseEvent | KeyboardEvent, Event>,

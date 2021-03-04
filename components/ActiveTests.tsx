@@ -149,12 +149,12 @@ const ActiveTests = (props: {
           triggerDisabled={TestCardArray.length <= 3}
           trigger={
             <div
-            // style={{
-            //   transform: "rotate(90deg)",
-            //   filter: collapsibleRef.current?.props?.triggerDisabled
-            //     ? "brightness(0.5)"
-            //     : "brightness(1)",
-            // }}
+              style={{
+                transform: "rotate(90deg)",
+                //   filter: collapsibleRef.current?.props?.triggerDisabled
+                //     ? "brightness(0.5)"
+                //     : "brightness(1)",
+              }}
             >
               {Arrow()}
             </div>
