@@ -506,17 +506,17 @@ function Test(props: {
   }
 
   const start_test_btn = () => (
-    <svg width="116.656" height="113.191" viewBox="0 0 116.656 113.191">
+    <svg width="116.656" height="116.66" viewBox="0 0 116.656 116.66">
       <defs>
         <filter
           id="Path_14"
           x="0"
           y="0"
           width="116.656"
-          height="113.191"
+          height="116.66"
           filterUnits="userSpaceOnUse"
         >
-          <feOffset dy="3" input="SourceAlpha" />
+          <feOffset dy="3" />
           <feGaussianBlur stdDeviation="3" result="blur" />
           <feFlood flood-opacity="0.161" />
           <feComposite operator="in" in2="blur" />
@@ -532,7 +532,7 @@ function Test(props: {
           <path
             id="Path_14-2"
             data-name="Path 14"
-            d="M95.656,47.6c0,24.629-20.742,44.6-46.328,44.6S3,72.225,3,47.6,23.742,3,49.328,3,95.656,22.966,95.656,47.6Z"
+            d="M95.656,49.33A46.328,46.328,0,1,1,49.328,3,46.329,46.329,0,0,1,95.656,49.33Z"
             transform="translate(9 6)"
             fill="none"
             stroke="#c6aa96"
@@ -545,7 +545,7 @@ function Test(props: {
           id="Path_15"
           data-name="Path 15"
           d="M18,47.06,35.53,29.53,18,12"
-          transform="translate(28.825 17.295)"
+          transform="translate(28.825 19.03)"
           fill="none"
           stroke="#c6aa96"
           stroke-linecap="round"
@@ -556,7 +556,7 @@ function Test(props: {
           id="Path_16"
           data-name="Path 16"
           d="M12,18H47.06"
-          transform="translate(17.295 28.825)"
+          transform="translate(17.295 30.559)"
           fill="none"
           stroke="#c6aa96"
           stroke-linecap="round"
@@ -587,7 +587,7 @@ function Test(props: {
           height: "40%",
         }}
       >
-        <h1 style={{ fontWeight: 400 }}>
+        <h1 style={{ fontWeight: 400, fontSize: "xxx-large" }}>
           {sampleTxt[store.get("activeLang") as TLangOption["value"]]}
         </h1>
         <button
