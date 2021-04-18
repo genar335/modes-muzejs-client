@@ -61,7 +61,7 @@ function create_test() {
       if (router.query.testToEdit !== undefined) {
         setIsTestFetching(true);
         Axios.get(
-          `http://192.168.8.100:4000/tests/getTestByID?testToEdit=${router.query.testToEdit}`
+          `${APIURL}tests/getTestByID?testToEdit=${router.query.testToEdit}`
         ).then((response: AxiosResponse) => {
           console.log(response.data);
           setIsTestFetching(false);
@@ -412,12 +412,9 @@ function create_test() {
 
     if (checkTheTest(test)) {
       try {
-        const response = await Axios.post(
-          "http://192.168.8.100:4000/tests/create",
-          test
-        );
+        const response = await Axios.post(`${APIURL}tests/create`, test);
 
-        router.replace("http://192.168.8.100:3000/TMS/main");
+        router.replace(`${devURL}TMS/main`);
       } catch (error) {
         alert(error);
       }
@@ -489,7 +486,7 @@ function create_test() {
 
   const handleExitFromTheTest = () => {
     store.remove("testInProgress");
-    router.replace("http://192.168.8.100:3000/TMS/main");
+    router.replace(`${devURL}TMS/main`);
   };
 
   const PageCounter = (
@@ -884,9 +881,9 @@ function ExitSVGRU() {
           id="Выйти"
           transform="translate(3538 2110)"
           fill="#fff"
-          font-size="43"
+          fontSize="43"
           fontFamily="Montserrat-Medium, Montserrat"
-          font-weight="500"
+          fontWeight="500"
           letterSpacing="0.029em"
         >
           <tspan x="0" y="0">

@@ -290,7 +290,7 @@ export const parseTestTypeValueToLabel = (
     case "PT":
       return "Фото – Текст";
     case "TT":
-      return "Фото – Фото";
+      return "Tекст – Текст";
     case "TP":
       return "Текст – Фото";
     default:

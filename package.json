@@ -35,11 +35,8 @@
     "react-switch": "^5.0.1",
     "react-toggle": "^4.1.1",
     "sass": "^1.26.11",
-    "socket.io": "^2.3.0",
-    "socket.io-client": "^2.3.1",
     "store": "^2.0.12",
-    "urql": "^1.10.1",
-    "use-sound": "^2.0.1"
+    "urql": "^1.10.1"
   },
   "devDependencies": {
     "@interactjs/types": "^1.10.0",
