@@ -54,6 +54,7 @@ function create_test() {
   useEffect(() => {
     if (store.get("testInProgress") !== undefined) {
       console.log(store.get("testInProgress"), "hello");
+
       setTest(store.get("testInProgress"));
     } else {
       console.log(isTestFetching, "isTestFetching");
