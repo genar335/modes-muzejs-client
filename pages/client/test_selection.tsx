@@ -3,13 +3,14 @@ import React, { useEffect, useState } from "react";
 import TestCardClient from "../../components/TestCardClient";
 import styles from "../styles/test_selection.module.scss";
 import { ITest } from "../../@types/test";
+import { producionURL } from "../../components/constants";
 
 function test_selection(props: any) {
   const [testObjs, setTestObjs] = useState([]); //array with test objects
   const url = "http://192.168.8.100:4000/tests/getTest?active=true";
 
   const getActiveTests = (url: string) => {
-    Axios.get(url)
+    Axios.get(`${producionURL}tests/getTest?active=true`)
       .then((res) => {
         console.log(res);
         setTestObjs(res.data);

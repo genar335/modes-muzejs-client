@@ -13,7 +13,7 @@ import PagesController from "../../components/PagesController";
 import TestNamer from "../../components/TestNamer";
 import TestPreview from "../../components/TestPreview";
 import styles from "../styles/create_test.module.scss";
-import { APIURL, devURL } from "../../components/constants";
+import { producionURL, devURL } from "../../components/constants";
 import { AnimatePresence, motion } from "framer-motion";
 import Switch, { ReactSwitchProps } from "react-switch";
 import Axios, { AxiosResponse } from "axios";
@@ -38,7 +38,7 @@ function create_test() {
   //   socket.emit("Test changed", test);
   // }, [test]);
   // useEffect(() => {
-  //   const socket = io(APIURL, {
+  //   const socket = io(producionURL, {
   //     reconnectionDelayMax: 10000,
   //     query: "123",
   //   });
@@ -62,7 +62,7 @@ function create_test() {
       if (router.query.testToEdit !== undefined) {
         setIsTestFetching(true);
         Axios.get(
-          `${APIURL}tests/getTestByID?testToEdit=${router.query.testToEdit}`
+          `${producionURL}tests/getTestByID?testToEdit=${router.query.testToEdit}`
         ).then((response: AxiosResponse) => {
           console.log(response.data);
           setIsTestFetching(false);
@@ -413,7 +413,7 @@ function create_test() {
 
     if (checkTheTest(test)) {
       try {
-        const response = await Axios.post(`${APIURL}tests/create`, test);
+        const response = await Axios.post(`${producionURL}tests/create`, test);
 
         router.replace(`${devURL}TMS/main`);
       } catch (error) {
