@@ -3,7 +3,14 @@ import { IQnA, TLangOption } from "../@types/test";
 import compStyles from "./styles/TestPreview.module.scss";
 import addCompStyles from "./styles/TestNamer.module.scss";
 import { closeBtn, CreateLangSwitchers, SaveBtn } from "./TestNamer";
-import { APIURL, devURL, URLCheck, URLCheckForLocalHost } from "./constants";
+import {
+  APIURL,
+  devURL,
+  producionURL,
+  productionHost,
+  URLCheck,
+  URLCheckForLocalHost,
+} from "./constants";
 // import { sendTheDataToTheServer } from "./PhotoManager";
 import Axios from "axios";
 
@@ -90,10 +97,13 @@ const QACard = (props: {
     let fileLocation: string = "";
     try {
       console.log("Sending", file);
-      const locationOfTheFile = await Axios.post(`${APIURL}imgSaving`, {
-        fileName,
-        fileContents: file,
-      });
+      const locationOfTheFile = await Axios.post(
+        `${producionURL}tests/imgSaving`,
+        {
+          fileName,
+          fileContents: file,
+        }
+      );
       console.log(locationOfTheFile);
       fileLocation = locationOfTheFile.data;
     } catch (error) {
@@ -153,7 +163,7 @@ const QACard = (props: {
     let fd = new FormData();
     fd.append("image", file);
     console.log(fd.getAll("image"));
-    Axios.post(`${APIURL}testimg`, fd, {
+    Axios.post(`${producionURL}tests/testimg`, fd, {
       headers: {
         "content-type": "multipart/form-data",
       },

@@ -13,7 +13,11 @@ import Draggable, {
 } from "react-draggable";
 import store from "store";
 import { IQnA, IQnAPairs, ITest, TLangOption } from "../../@types/test";
-import { devURL, URLCheckForLocalHost } from "../../components/constants";
+import {
+  devURL,
+  producionURL,
+  URLCheckForLocalHost,
+} from "../../components/constants";
 import { motion, AnimatePresence } from "framer-motion";
 import TestProgressBar from "../../components/TestProgressBar";
 import pointerEvents from "@interactjs/pointer-events/base";
@@ -464,7 +468,9 @@ function Test(props: {
             }}
             onClick={() =>
               router.push(
-                `${devURL}client/languages?testid=${store.get("theTest").id}`
+                `${producionURL}client/languages?testid=${
+                  store.get("theTest").id
+                }`
               )
             }
           >
@@ -969,7 +975,7 @@ function Test(props: {
       onClick={() =>
         !props.test &&
         router.push(
-          `${devURL}client/languages?testid=${store.get("theTest").id}`
+          `${producionURL}client/languages?testid=${store.get("theTest").id}`
         )
       }
       width={size}
