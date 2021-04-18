@@ -1,7 +1,14 @@
 {
+  "/TMS/auth": "pages/TMS/auth.html",
+  "/TMS/create_test": "pages/TMS/create_test.html",
+  "/TMS/main": "pages/TMS/main.html",
   "/_app": "pages/_app.js",
+  "/client/languages": "pages/client/languages.html",
+  "/client/success": "pages/client/success.html",
+  "/client/test": "pages/client/test.html",
+  "/client/test_selection": "pages/client/test_selection.html",
+  "/": "pages/index.html",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/TMS/main": "pages/TMS/main.js",
-  "/TMS/create_test": "pages/TMS/create_test.js"
+  "/404": "pages/404.html"
 }

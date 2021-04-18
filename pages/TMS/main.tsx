@@ -2,7 +2,7 @@ import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import { ITest } from "../../@types/test";
 import ActiveTests from "../../components/ActiveTests";
-import { APIURL, devURL } from "../../components/constants";
+import { APIURL, devURL, producionURL } from "../../components/constants";
 import Gallery from "../../components/Gallery";
 import { motion } from "framer-motion";
 import styles from "../styles/main.module.scss";
@@ -38,7 +38,7 @@ const main = () => {
     setHasEverythingFetched(false);
 
     try {
-      const serverResponse = await Axios.get(`${APIURL}tests/allTests`);
+      const serverResponse = await Axios.get(`${producionURL}tests/allTests`);
       const data = serverResponse.data;
 
       setHasEverythingFetched(true);

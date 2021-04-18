@@ -3,6 +3,7 @@ export const white: string = "255 255 255";
 //* Host adressess
 // export const APIURL: string = "http://192.168.8.100:4000/";
 export const APIURL: string = "http://localhost:4000/"
+export const producionURL: string = 'https://fashionmuseumriga.fashionmuseumriga.com/api/quiz'
 // export const devURL: string = "http://192.168.8.100:3000/";
 export const devURL: string = 'http://localhost:3000/'
 //* Carousel settings for responsivnes
