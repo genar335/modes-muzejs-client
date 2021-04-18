@@ -16,6 +16,7 @@ import { IQnA, IQnAPairs, ITest, TLangOption } from "../../@types/test";
 import {
   devURL,
   producionURL,
+  productionHost,
   URLCheckForLocalHost,
 } from "../../components/constants";
 import { motion, AnimatePresence } from "framer-motion";
@@ -468,7 +469,7 @@ function Test(props: {
             }}
             onClick={() =>
               router.push(
-                `${producionURL}client/languages?testid=${
+                `${productionHost}client/languages?testid=${
                   store.get("theTest").id
                 }`
               )
