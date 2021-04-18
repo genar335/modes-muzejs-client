@@ -469,7 +469,7 @@ function Test(props: {
             }}
             onClick={() =>
               router.push(
-                `${productionHost}client/languages?testid=${
+                `${productionHost}/client/languages?testid=${
                   store.get("theTest").id
                 }`
               )
