@@ -491,7 +491,7 @@ function create_test() {
 
   const handleExitFromTheTest = () => {
     store.remove("testInProgress");
-    router.replace(`${productionHost}TMS/main`);
+    router.replace(`${productionHost}/TMS/main`);
   };
 
   const PageCounter = (
