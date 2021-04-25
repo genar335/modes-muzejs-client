@@ -56,23 +56,19 @@ function create_test() {
   const [isTestFetching, setIsTestFetching] = useState<boolean>();
 
   useEffect(() => {
-    if (store.get("testInProgress") !== undefined) {
+    console.log(isTestFetching, "isTestFetching");
+    if (router.query.testToEdit !== undefined) {
+      setIsTestFetching(true);
+      Axios.get(
+        `${producionURL}tests/getTestByID?testToEdit=${router.query.testToEdit}`
+      ).then((response: AxiosResponse) => {
+        console.log(response.data);
+        setIsTestFetching(false);
+        setTest(response.data);
+      });
+    } else if (store.get("testInProgress") !== undefined) {
       console.log(store.get("testInProgress"), "hello");
-
       setTest(store.get("testInProgress"));
-    } else {
-      console.log(isTestFetching, "isTestFetching");
-      console.log(isTestFetching, "isTestFetching");
-      if (router.query.testToEdit !== undefined) {
-        setIsTestFetching(true);
-        Axios.get(
-          `${producionURL}tests/getTestByID?testToEdit=${router.query.testToEdit}`
-        ).then((response: AxiosResponse) => {
-          console.log(response.data);
-          setIsTestFetching(false);
-          setTest(response.data);
-        });
-      }
     }
   }, []);
 
