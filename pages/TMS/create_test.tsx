@@ -490,6 +490,7 @@ function create_test() {
   };
 
   const handleExitFromTheTest = () => {
+    console.log("Hello there");
     store.remove("testInProgress");
     router.replace(`${productionHost}/TMS/main`);
   };

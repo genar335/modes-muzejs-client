@@ -98,7 +98,8 @@ const QACard = (props: {
     try {
       console.log("Sending", file);
       const locationOfTheFile = await Axios.post(
-        `${producionURL}tests/imgSaving`,
+        // `${producionURL}tests/imgSaving`,
+        `${APIURL}tests/imgSaving`,
         {
           fileName,
           fileContents: file,
@@ -163,7 +164,8 @@ const QACard = (props: {
     let fd = new FormData();
     fd.append("image", file);
     console.log(fd.getAll("image"));
-    Axios.post(`${producionURL}tests/testimg`, fd, {
+    // Axios.post(`${producionURL}tests/testimg`, fd, {
+    Axios.post(`http://localhost:4000/api/quiz/tests/testimg`, fd, {
       headers: {
         "content-type": "multipart/form-data",
       },
