@@ -60,12 +60,12 @@ function create_test() {
     console.log(isTestFetching, "isTestFetching");
     console.log(window.location.search);
     const testID = window.location.search;
-    console.log(testID.substr(testID.indexOf("=")));
+    console.log(testID.substr(testID.indexOf("=") + 1));
     if (router.query.testToEdit !== undefined) {
       setIsTestFetching(true);
       Axios.get(
         `${producionURL}tests/getTestByID?testToEdit=${testID.substr(
-          testID.indexOf("=")
+          testID.indexOf("=") + 1
         )}`
       ).then((response: AxiosResponse) => {
         console.log(response.data);
