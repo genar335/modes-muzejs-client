@@ -59,9 +59,9 @@ function create_test() {
   useEffect(() => {
     console.log(isTestFetching, "isTestFetching");
     console.log(window.location.search);
-    const testID = window.location.search;
-    console.log(testID.substr(testID.indexOf("=") + 1));
-    if (router.query.testToEdit !== undefined) {
+    if (window.location.search !== "") {
+      const testID = window.location.search;
+      console.log(testID.substr(testID.indexOf("=") + 1));
       setIsTestFetching(true);
       Axios.get(
         `${producionURL}tests/getTestByID?testToEdit=${testID.substr(
