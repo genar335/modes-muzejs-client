@@ -29,6 +29,7 @@ import chroma from "chroma-js";
 import FinalPageEditor from "../../components/FinalPageEditor";
 import TestPreviewer from "../../components/TestPreviewer";
 import { parseTestTypeValueToLabel } from "../../components/TestCard";
+import { route } from "next/dist/next-server/server/router";
 
 function create_test() {
   // useEffect(() => {
@@ -57,7 +58,7 @@ function create_test() {
 
   useEffect(() => {
     console.log(isTestFetching, "isTestFetching");
-    console.log(router.query);
+    console.log(window.location.search);
     if (router.query.testToEdit !== undefined) {
       setIsTestFetching(true);
       Axios.get(
