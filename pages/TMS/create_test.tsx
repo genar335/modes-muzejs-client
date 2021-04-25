@@ -53,10 +53,11 @@ function create_test() {
   // console.log(router.qduery);
 
   const [isTestFetched, setIsTestFetched] = useState<boolean>(true);
-  const [isTestFetching, setIsTestFetching] = useState<boolean>();
+  const [isTestFetching, setIsTestFetching] = useState<boolean>(false);
 
   useEffect(() => {
     console.log(isTestFetching, "isTestFetching");
+    console.log(router.query);
     if (router.query.testToEdit !== undefined) {
       setIsTestFetching(true);
       Axios.get(
