@@ -43,7 +43,7 @@ const ActiveTests = (props: {
 
   const handleAddTestClick = () => {
     // alert("Test addition should be happening right about now.");
-    router.push(`/TMS/create_test`);
+    router.push(`/tms/create_test`);
   };
 
   // const CustomRightArrow = ({ onClick, ...rest }) => {

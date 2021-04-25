@@ -28,7 +28,7 @@ const TestCard = (props: {
 
   const router: NextRouter = useRouter();
   const forwardToTestEdit = (testID: string) => {
-    router.push(`/TMS/create_test?testToEdit=${testID}`);
+    router.push(`/tms/create_test?testToEdit=${testID}`);
   };
 
   // console.log(props, "card props");
