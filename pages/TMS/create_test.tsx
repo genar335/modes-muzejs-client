@@ -419,7 +419,7 @@ function create_test() {
       try {
         const response = await Axios.post(`${producionURL}tests/create`, test);
 
-        router.replace(`${productionHost}TMS/main`);
+        router.replace(`${productionHost}/tms/main`);
       } catch (error) {
         alert(error);
       }
