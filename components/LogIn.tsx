@@ -5,6 +5,7 @@ import styles from "./styles/LogIn.module.scss";
 import loadingTriangle from "../GAssets/ball-triangle.svg";
 import Router from "next/router";
 import PleaseWaitModal from "./PleaseWaitModal";
+import { producionURL } from "./constants";
 
 interface IUserLoginInfo {
   name?: string;
@@ -23,7 +24,8 @@ const LogIn = () => {
     setIsLoading(true);
     try {
       const response = await axios.post(
-        "http://192.168.8.100:4000/users/log_in",
+        // "http://192.168.8.100:4000/users/log_in",
+        `${producionURL}users/log_in`
         {
           name: inputData.name as string,
           password: inputData.pass as string,
