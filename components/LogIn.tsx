@@ -20,7 +20,7 @@ const LogIn = () => {
   });
 
   const sendData = async () => {
-    console.log(inputData);
+    // console.log(inputData);
     setIsLoading(true);
     try {
       const response = await axios.post(
@@ -31,7 +31,7 @@ const LogIn = () => {
           password: inputData.pass as string,
         },
         {
-          withCredentials: true,
+          // withCredentials: true,
         }
       );
       console.log(response.status);
