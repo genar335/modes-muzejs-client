@@ -31,7 +31,7 @@ const LogIn = () => {
           password: inputData.pass as string,
         },
         {
-          // withCredentials: true,
+          withCredentials: true,
         }
       );
       console.log(response.status);
