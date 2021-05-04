@@ -7,6 +7,8 @@ import Router from "next/router";
 import PleaseWaitModal from "./PleaseWaitModal";
 import { producionURL } from "./constants";
 
+axios.defaults.withCredentials = true;
+
 interface IUserLoginInfo {
   name?: string;
   pass?: string;
