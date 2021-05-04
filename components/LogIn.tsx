@@ -35,6 +35,7 @@ const LogIn = () => {
         }
       );
       console.log(response.status);
+      console.log(response);
       await Router.push("/");
       //setIsLoading(false);
     } catch (error) {
