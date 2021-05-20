@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import styles from "./styles/TestCard.module.scss";
 import Switch from "react-switch";
 import Axios, { AxiosError, AxiosResponse } from "axios";
+Axios.defaults.headers.common["Authorization"] =
+  "Bearer " + localStorage.getItem("jwtToken");
 import { APIURL, devURL, producionURL } from "./constants";
 import { ITest, TTestTypes } from "../@types/test";
 import { NextRouter, useRouter } from "next/router";

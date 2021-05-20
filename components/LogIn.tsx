@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+axios.defaults.headers.common["Authorization"] =
+  "Bearer " + localStorage.getItem("jwtToken");
 import styles from "./styles/LogIn.module.scss";
 //import loadingIcon from "../GAssets/loading_cat.gif";
 import loadingTriangle from "../GAssets/ball-triangle.svg";
@@ -51,7 +53,8 @@ const LogIn = () => {
       // });
       console.log(response.status);
       console.log(response);
-      document.cookie = `user = ${response.data}`;
+      // document.cookie = `user = ${response.data}`;
+      localStorage.setItem("jwt", response.data);
       // await Router.push("/");
       setIsLoading(false);
     } catch (error) {

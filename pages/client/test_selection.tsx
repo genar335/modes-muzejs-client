@@ -1,4 +1,6 @@
 import Axios from "axios";
+Axios.defaults.headers.common["Authorization"] =
+  "Bearer " + localStorage.getItem("jwtToken");
 import React, { useEffect, useState } from "react";
 import TestCardClient from "../../components/TestCardClient";
 import styles from "../styles/test_selection.module.scss";

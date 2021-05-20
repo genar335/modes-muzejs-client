@@ -13,6 +13,8 @@ import {
 } from "./constants";
 // import { sendTheDataToTheServer } from "./PhotoManager";
 import Axios from "axios";
+Axios.defaults.headers.common["Authorization"] =
+  "Bearer " + localStorage.getItem("jwtToken");
 
 const QACard = (props: {
   cardType: "answer" | "question";

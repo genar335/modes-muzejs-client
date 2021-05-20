@@ -1,4 +1,6 @@
 import Axios from "axios";
+Axios.defaults.headers.common["Authorization"] =
+  "Bearer " + localStorage.getItem("jwtToken");
 import React, { useEffect, useState } from "react";
 import { ITest } from "../../@types/test";
 import ActiveTests from "../../components/ActiveTests";
@@ -23,9 +25,8 @@ const main = () => {
       return [];
     }
   };
-  const [hasEverythingFetched, setHasEverythingFetched] = useState<boolean>(
-    false
-  );
+  const [hasEverythingFetched, setHasEverythingFetched] =
+    useState<boolean>(false);
   const [tests, setTests] = useState<{
     activeTests: ITest[];
     inActiveTests: ITest[];

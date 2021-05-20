@@ -21,6 +21,8 @@ import {
 import { AnimatePresence, motion } from "framer-motion";
 import Switch, { ReactSwitchProps } from "react-switch";
 import Axios, { AxiosResponse } from "axios";
+Axios.defaults.headers.common["Authorization"] =
+  "Bearer " + localStorage.getItem("jwtToken");
 import { NextRouter, useRouter } from "next/router";
 import PleaseWaitModal from "../../components/PleaseWaitModal";
 import store from "store";
@@ -80,9 +82,8 @@ function create_test() {
 
   useEffect(() => {}, [router.query]);
 
-  const [currentCard, setCurrentCard] = useState<
-    React.MutableRefObject<null>
-  >();
+  const [currentCard, setCurrentCard] =
+    useState<React.MutableRefObject<null>>();
   const saveCurrentCard = (
     card: React.SetStateAction<React.MutableRefObject<null> | undefined>
   ) => setCurrentCard(card);
@@ -617,9 +618,8 @@ function create_test() {
   const [isFinalPageOpen, setisFinalPageOpen] = useState<boolean>(false);
   const openModal = (bool: boolean) => setisFinalPageOpen(bool);
 
-  const [isTestPreviewerOpen, setisTestPreviewerOpen] = useState<boolean>(
-    false
-  );
+  const [isTestPreviewerOpen, setisTestPreviewerOpen] =
+    useState<boolean>(false);
 
   return (
     <AnimatePresence>
