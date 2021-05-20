@@ -25,32 +25,33 @@ const LogIn = () => {
     // console.log(inputData);
     setIsLoading(true);
     try {
-      // const response = await axios.post(
-      //   // "http://192.168.8.100:4000/users/log_in",
-      //   `${producionURL}users/log_in`,
-      //   {
-      //     name: inputData.name as string,
-      //     password: inputData.pass as string,
-      //   } /* ,
-      //   {
-      //     withCredentials: true,
-
-      //   } */
-      // );
-
-      const response = await fetch(`${producionURL}users/log_in`, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+      const response = await axios.post(
+        // "http://192.168.8.100:4000/users/log_in",
+        `${producionURL}users/log_in`,
+        {
           name: inputData.name as string,
           password: inputData.pass as string,
-        }),
-      });
+        } /* ,
+        {
+          withCredentials: true,
+
+        } */
+      );
+
+      // const response = await fetch(`${producionURL}users/log_in`, {
+      //   method: "POST",
+      //   credentials: "include",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     name: inputData.name as string,
+      //     password: inputData.pass as string,
+      //   }),
+      // });
       console.log(response.status);
-      console.log(response.json());
+      console.log(response);
+      document.cookie = `user = ${response}`;
       // await Router.push("/");
       setIsLoading(false);
     } catch (error) {
