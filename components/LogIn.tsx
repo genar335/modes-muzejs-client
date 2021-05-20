@@ -37,9 +37,13 @@ const LogIn = () => {
 
       //   } */
       // );
+
       const response = await fetch(`${producionURL}users/log_in`, {
         method: "POST",
         credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
           name: inputData.name as string,
           password: inputData.pass as string,
