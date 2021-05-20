@@ -51,7 +51,7 @@ const LogIn = () => {
       // });
       console.log(response.status);
       console.log(response);
-      document.cookie = `user = ${response}`;
+      document.cookie = `user = ${response.data}`;
       // await Router.push("/");
       setIsLoading(false);
     } catch (error) {
