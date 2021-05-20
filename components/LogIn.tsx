@@ -25,18 +25,26 @@ const LogIn = () => {
     // console.log(inputData);
     setIsLoading(true);
     try {
-      const response = await axios.post(
-        // "http://192.168.8.100:4000/users/log_in",
-        `${producionURL}users/log_in`,
-        {
+      // const response = await axios.post(
+      //   // "http://192.168.8.100:4000/users/log_in",
+      //   `${producionURL}users/log_in`,
+      //   {
+      //     name: inputData.name as string,
+      //     password: inputData.pass as string,
+      //   } /* ,
+      //   {
+      //     withCredentials: true,
+
+      //   } */
+      // );
+      const response = await fetch(`${producionURL}users/log_in`, {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify({
           name: inputData.name as string,
           password: inputData.pass as string,
-        } /* ,
-        {
-          withCredentials: true,
-          
-        } */
-      );
+        }),
+      });
       console.log(response.status);
       console.log(response);
       await Router.push("/");
