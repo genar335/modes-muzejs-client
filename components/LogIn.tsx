@@ -7,7 +7,7 @@ import Router from "next/router";
 import PleaseWaitModal from "./PleaseWaitModal";
 import { producionURL } from "./constants";
 
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 
 interface IUserLoginInfo {
   name?: string;
@@ -47,7 +47,7 @@ const LogIn = () => {
       });
       console.log(response.status);
       console.log(response);
-      await Router.push("/");
+      // await Router.push("/");
       //setIsLoading(false);
     } catch (error) {
       console.error(error);
