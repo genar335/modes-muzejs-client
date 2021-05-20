@@ -50,9 +50,9 @@ const LogIn = () => {
         }),
       });
       console.log(response.status);
-      console.log(response);
+      console.log(response.json());
       // await Router.push("/");
-      //setIsLoading(false);
+      setIsLoading(false);
     } catch (error) {
       console.error(error);
     }
