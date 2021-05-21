@@ -1,6 +1,5 @@
 import Axios from "axios";
-Axios.defaults.headers.common["Authorization"] =
-  "Bearer " + localStorage.getItem("jwtToken");
+//const jwt = document.cookie.slice(document.cookie.indexOf('=') + 1);
 import React, { useEffect, useState } from "react";
 import { ITest } from "../../@types/test";
 import ActiveTests from "../../components/ActiveTests";
@@ -97,6 +96,8 @@ const main = () => {
   };
 
   useEffect(() => {
+    Axios.defaults.headers.common["Authorization"] =
+      "Bearer " + store.get("jwt");
     getAllTests();
   }, []);
 

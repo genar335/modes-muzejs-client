@@ -12,9 +12,11 @@ import {
   URLCheckForLocalHost,
 } from "./constants";
 // import { sendTheDataToTheServer } from "./PhotoManager";
+//
+//  const jwt = document.cookie.slice(document.cookie.indexOf('=') + 1);
+// Axios.defaults.headers.common["Authorization"] =
+//
 import Axios from "axios";
-Axios.defaults.headers.common["Authorization"] =
-  "Bearer " + localStorage.getItem("jwtToken");
 
 const QACard = (props: {
   cardType: "answer" | "question";
@@ -38,6 +40,10 @@ const QACard = (props: {
     langSetting?: "all" | TLangOption["value"]
   ) => void;
 }) => {
+  useEffect(() => {
+    Axios.defaults.headers.common["Authorization"] =
+      "Bearer " + store.get("jwt");
+  }, []);
   const charLimit = 90;
   const [isOpen, setIsOpen] = useState(false);
   // console.log(props.cardContents);

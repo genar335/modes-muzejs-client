@@ -1,6 +1,6 @@
 import { AppProps, Container } from "next/app";
 import "./styles/mainStyle.scss";
-
+import dynamic from "next/dynamic";
 import "react-multi-carousel/lib/styles.css";
 import { AnimateSharedLayout, motion } from "framer-motion";
 import React from "react";
@@ -28,4 +28,6 @@ function App({ Component, pageProps, router }: AppProps) {
   );
 }
 
-export default App;
+export default dynamic(() => Promise.resolve(App), {
+  ssr: false,
+});

@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-axios.defaults.headers.common["Authorization"] =
-  "Bearer " + localStorage.getItem("jwtToken");
+
 import styles from "./styles/LogIn.module.scss";
 //import loadingIcon from "../GAssets/loading_cat.gif";
 import loadingTriangle from "../GAssets/ball-triangle.svg";
 import Router from "next/router";
 import PleaseWaitModal from "./PleaseWaitModal";
 import { producionURL } from "./constants";
-
+import store from "store";
 // axios.defaults.withCredentials = true;
 
 interface IUserLoginInfo {
@@ -22,6 +21,19 @@ const LogIn = () => {
     name: "",
     pass: "",
   });
+
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    // //const jwt = document.cookie.slice(document.cookie.indexOf('=') + 1);
+    // Axios.defaults.headers.common["Authorization"] = "Bearer " + jwt;
+    axios.defaults.headers.common["Authorization"] =
+      "Bearer " + store.get("jwt");
+  }, []);
+
+  useEffect(() => {
+    store.set("jwt", token);
+  }, [token]);
 
   const sendData = async () => {
     // console.log(inputData);
@@ -40,21 +52,11 @@ const LogIn = () => {
         } */
       );
 
-      // const response = await fetch(`${producionURL}users/log_in`, {
-      //   method: "POST",
-      //   credentials: "include",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({
-      //     name: inputData.name as string,
-      //     password: inputData.pass as string,
-      //   }),
-      // });
       console.log(response.status);
       console.log(response);
-      // document.cookie = `user = ${response.data}`;
-      localStorage.setItem("jwt", response.data);
+
+      setToken(response.data);
+
       // await Router.push("/");
       setIsLoading(false);
     } catch (error) {

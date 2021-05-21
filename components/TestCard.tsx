@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./styles/TestCard.module.scss";
 import Switch from "react-switch";
 import Axios, { AxiosError, AxiosResponse } from "axios";
-Axios.defaults.headers.common["Authorization"] =
-  "Bearer " + localStorage.getItem("jwtToken");
+//const jwt = document.cookie.slice(document.cookie.indexOf('=') + 1);
 import { APIURL, devURL, producionURL } from "./constants";
 import { ITest, TTestTypes } from "../@types/test";
 import { NextRouter, useRouter } from "next/router";
@@ -21,6 +20,10 @@ const TestCard = (props: {
   updateTests: (testID: string) => void;
   fetchAllTests: () => Promise<void>;
 }) => {
+  useEffect(() => {
+    Axios.defaults.headers.common["Authorization"] =
+      "Bearer " + store.get("jwt");
+  }, []);
   const CardStyle: React.CSSProperties = {
     color: props.colour === "brown" ? "#FFFFFF" : "#2F4858",
     backgroundColor: props.colour === "brown" ? "rgb(224	188	163	)" : "#ffffff",

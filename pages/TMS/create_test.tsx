@@ -21,8 +21,8 @@ import {
 import { AnimatePresence, motion } from "framer-motion";
 import Switch, { ReactSwitchProps } from "react-switch";
 import Axios, { AxiosResponse } from "axios";
-Axios.defaults.headers.common["Authorization"] =
-  "Bearer " + localStorage.getItem("jwtToken");
+//const jwt = document.cookie.slice(document.cookie.indexOf('=') + 1);
+
 import { NextRouter, useRouter } from "next/router";
 import PleaseWaitModal from "../../components/PleaseWaitModal";
 import store from "store";
