@@ -32,6 +32,7 @@ import FinalPageEditor from "../../components/FinalPageEditor";
 import TestPreviewer from "../../components/TestPreviewer";
 import { parseTestTypeValueToLabel } from "../../components/TestCard";
 import { route } from "next/dist/next-server/server/router";
+import checkJWT from "../../components/jwtChecker";
 
 function create_test() {
   // useEffect(() => {
@@ -59,6 +60,9 @@ function create_test() {
   const [isTestFetching, setIsTestFetching] = useState<boolean>(false);
 
   useEffect(() => {
+    if (checkJWT() === false) {
+      router.replace(`${productionHost}/tms/auth`);
+    }
     console.log(isTestFetching, "isTestFetching");
     console.log(window.location.search);
     if (window.location.search !== "") {

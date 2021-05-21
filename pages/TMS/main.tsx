@@ -108,7 +108,6 @@ const main = () => {
     Axios.defaults.headers.common["Authorization"] =
       "Bearer " + store.get("jwt");
 
-    console.log(checkJWT());
     if (checkJWT() === false) {
       router.replace(`${productionHost}/tms/auth`);
     }
