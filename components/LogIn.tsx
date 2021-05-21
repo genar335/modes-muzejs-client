@@ -44,11 +44,10 @@ const LogIn = () => {
         {
           name: inputData.name as string,
           password: inputData.pass as string,
-        } /* ,
+        },
         {
           withCredentials: true,
-
-        } */
+        }
       );
 
       console.log(response.status);
