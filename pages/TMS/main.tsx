@@ -107,7 +107,11 @@ const main = () => {
   useEffect(() => {
     Axios.defaults.headers.common["Authorization"] =
       "Bearer " + store.get("jwt");
-    checkJWT() && router.replace(`${productionHost}/tms/auth`);
+
+    console.log(checkJWT());
+    if (checkJWT() === false) {
+      router.replace(`${productionHost}/tms/auth`);
+    }
     getAllTests();
   }, []);
 
