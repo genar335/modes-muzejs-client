@@ -26,7 +26,6 @@ const LogIn = () => {
 
   useEffect(() => {
     // //const jwt = document.cookie.slice(document.cookie.indexOf('=') + 1);
-    // Axios.defaults.headers.common["Authorization"] = "Bearer " + jwt;
     axios.defaults.headers.common["Authorization"] =
       "Bearer " + store.get("jwt");
   }, []);
@@ -61,6 +60,8 @@ const LogIn = () => {
       setIsLoading(false);
     } catch (error) {
       console.error(error);
+      alert("Incorrect username or password!");
+      setIsLoading(false);
     }
   };
 
