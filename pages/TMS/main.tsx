@@ -3,15 +3,24 @@ import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import { ITest } from "../../@types/test";
 import ActiveTests from "../../components/ActiveTests";
-import { APIURL, devURL, producionURL } from "../../components/constants";
+import {
+  APIURL,
+  devURL,
+  producionURL,
+  productionHost,
+} from "../../components/constants";
 import Gallery from "../../components/Gallery";
 import { motion } from "framer-motion";
 import styles from "../styles/main.module.scss";
 import { pageAppearance } from "./create_test";
 import PleaseWaitModal from "../../components/PleaseWaitModal";
 import FMLogo from "../../components/FMlogo";
+import checkJWT from "../../components/jwtChecker";
+import { NextRouter, Router, useRouter } from "next/router";
+import store from "store";
 
 const main = () => {
+  const router: NextRouter = useRouter();
   const getTestsByActive = async (isTestActive: boolean): Promise<any> => {
     try {
       const tests = await Axios.get(
@@ -98,6 +107,7 @@ const main = () => {
   useEffect(() => {
     Axios.defaults.headers.common["Authorization"] =
       "Bearer " + store.get("jwt");
+    checkJWT() && router.replace(`${productionHost}/tms/auth`);
     getAllTests();
   }, []);
 
