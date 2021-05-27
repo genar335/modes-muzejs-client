@@ -60,9 +60,9 @@ function create_test() {
   const [isTestFetching, setIsTestFetching] = useState<boolean>(false);
 
   useEffect(() => {
-    if (checkJWT() === false) {
-      router.replace(`${productionHost}/tms/auth`);
-    }
+    // if (checkJWT() === false) {
+    //   router.replace(`${productionHost}/tms/auth`);
+    // }
     console.log(isTestFetching, "isTestFetching");
     console.log(window.location.search);
     if (window.location.search !== "") {

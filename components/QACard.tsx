@@ -40,10 +40,10 @@ const QACard = (props: {
     langSetting?: "all" | TLangOption["value"]
   ) => void;
 }) => {
-  useEffect(() => {
-    Axios.defaults.headers.common["Authorization"] =
-      "Bearer " + store.get("jwt");
-  }, []);
+  // useEffect(() => {
+  //   // Axios.defaults.headers.common["Authorization"] =
+  //   //   "Bearer " + store.get("jwt");
+  // }, []);
   const charLimit = 90;
   const [isOpen, setIsOpen] = useState(false);
   // console.log(props.cardContents);
