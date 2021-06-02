@@ -371,6 +371,7 @@ function Test(props: {
   };
 
   const [clientEmail, setClientEmail] = useState("");
+  const emailRef = useRef("");
 
   function prepareLastPageJSX(
     body: string,
@@ -441,6 +442,8 @@ function Test(props: {
             // <form onSubmit={(e) => e.preventDefault()}>
             <input
               onChange={(e) => {
+                emailRef.current = e.target.value;
+                console.log(emailRef.current, "ref");
                 setClientEmail(e.target.value);
                 console.log(clientEmail, "state");
                 console.log(e.target.value);
