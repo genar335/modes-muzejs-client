@@ -21,8 +21,8 @@ const TestCard = (props: {
   fetchAllTests: () => Promise<void>;
 }) => {
   useEffect(() => {
-    Axios.defaults.headers.common["Authorization"] =
-      "Bearer " + store.get("jwt");
+    // Axios.defaults.headers.common["Authorization"] =
+    //   "Bearer " + store.get("jwt");
   }, []);
   const CardStyle: React.CSSProperties = {
     color: props.colour === "brown" ? "#FFFFFF" : "#2F4858",
