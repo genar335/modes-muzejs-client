@@ -520,14 +520,15 @@ function Test(props: {
       data: { email: "1231@gmail.com" },
     };
 
-    await Axios.request(options)
-      .then(function (response) {
-        console.log(response.data);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
+    // await Axios.request(options)
+    //   .then(function (response) {
+    //     console.log(response.data);
+    //   })
+    //   .catch(function (error) {
+    //     console.error(error);
+    //   });
     // console.log(response);
+    const response = await Axios.post(`${productionURL}tests/create`, test);
 
     router.push(
       `${productionHost}/client/languages?testid=${store.get("theTest").id}`
