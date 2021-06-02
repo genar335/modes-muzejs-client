@@ -15,7 +15,7 @@ import store from "store";
 import { IQnA, IQnAPairs, ITest, TLangOption } from "../../@types/test";
 import {
   devURL,
-  producionURL,
+  productionURL,
   productionHost,
   URLCheckForLocalHost,
 } from "../../components/constants";
@@ -24,6 +24,7 @@ import TestProgressBar from "../../components/TestProgressBar";
 import pointerEvents from "@interactjs/pointer-events/base";
 import { Arrow } from "../../components/PagesController";
 import { borderRadius } from "react-select/src/theme";
+import Axios from "axios";
 
 function Test(props: {
   test: ITest;
@@ -208,8 +209,8 @@ function Test(props: {
 
         console.log(refsToQuestions.current[id]);
 
-        const questionContainer: HTMLElement = refsToQuestions.current[id]
-          .parentElement!;
+        const questionContainer: HTMLElement =
+          refsToQuestions.current[id].parentElement!;
         // console.log(questionContainer, "123123");
 
         // console.log(refsToAnswersHandles.current[id]);
@@ -369,6 +370,8 @@ function Test(props: {
     };
   };
 
+  const [email, setEmail] = useState("");
+
   function prepareLastPageJSX(
     body: string,
     heading: string,
@@ -437,6 +440,7 @@ function Test(props: {
           {email && (
             // <form onSubmit={(e) => e.preventDefault()}>
             <input
+              onChange={(e) => setEmail(e.currentTarget.value)}
               autoComplete="off"
               style={{
                 // position: "absolute",
@@ -467,13 +471,17 @@ function Test(props: {
               // WebkitTextFillColor: "transparent",
               // WebkitBackgroundClip: "text",
             }}
-            onClick={() =>
+            onClick={async () => {
+              const response = await Axios.post(`${productionURL}/email`, {
+                email: email,
+              });
+              console.log(response);
               router.push(
                 `${productionHost}/client/languages?testid=${
                   store.get("theTest").id
                 }`
-              )
-            }
+              );
+            }}
           >
             <p
               style={{
@@ -976,7 +984,7 @@ function Test(props: {
       onClick={() =>
         !props.test &&
         router.push(
-          `${producionURL}client/languages?testid=${store.get("theTest").id}`
+          `${productionURL}client/languages?testid=${store.get("theTest").id}`
         )
       }
       width={size}

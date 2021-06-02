@@ -6,7 +6,7 @@ import ActiveTests from "../../components/ActiveTests";
 import {
   APIURL,
   devURL,
-  producionURL,
+  productionURL,
   productionHost,
 } from "../../components/constants";
 import Gallery from "../../components/Gallery";
@@ -47,7 +47,7 @@ const main = () => {
     setHasEverythingFetched(false);
 
     try {
-      const serverResponse = await Axios.get(`${producionURL}tests/allTests`);
+      const serverResponse = await Axios.get(`${productionURL}tests/allTests`);
       const data = serverResponse.data;
 
       setHasEverythingFetched(true);

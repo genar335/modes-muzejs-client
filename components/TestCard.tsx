@@ -3,7 +3,7 @@ import styles from "./styles/TestCard.module.scss";
 import Switch from "react-switch";
 import Axios, { AxiosError, AxiosResponse } from "axios";
 //const jwt = document.cookie.slice(document.cookie.indexOf('=') + 1);
-import { APIURL, devURL, producionURL } from "./constants";
+import { APIURL, devURL, productionURL } from "./constants";
 import { ITest, TTestTypes } from "../@types/test";
 import { NextRouter, useRouter } from "next/router";
 import { AnimatePresence, motion, useAnimation } from "framer-motion";
@@ -48,7 +48,7 @@ const TestCard = (props: {
     let changedTest: ITest;
     try {
       const responseFromServer = await Axios.post(
-        `${producionURL}tests/toggleTestActiveState`,
+        `${productionURL}tests/toggleTestActiveState`,
         {
           testID,
           isActive,
@@ -80,7 +80,7 @@ const TestCard = (props: {
   };
 
   const handleDeleteIconClick = async () => {
-    Axios.get(`${producionURL}tests/deleteTestByID?testToDelete=${props._id}`)
+    Axios.get(`${productionURL}tests/deleteTestByID?testToDelete=${props._id}`)
       .catch((error: AxiosError) => alert(error))
       .then((response) => {
         console.log(response);

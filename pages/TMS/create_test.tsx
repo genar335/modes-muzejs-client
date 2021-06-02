@@ -14,7 +14,7 @@ import TestNamer from "../../components/TestNamer";
 import TestPreview from "../../components/TestPreview";
 import styles from "../styles/create_test.module.scss";
 import {
-  producionURL,
+  productionURL,
   devURL,
   productionHost,
 } from "../../components/constants";
@@ -70,7 +70,7 @@ function create_test() {
       console.log(testID.substr(testID.indexOf("=") + 1));
       setIsTestFetching(true);
       Axios.get(
-        `${producionURL}tests/getTestByID?testToEdit=${testID.substr(
+        `${productionURL}tests/getTestByID?testToEdit=${testID.substr(
           testID.indexOf("=") + 1
         )}`
       ).then((response: AxiosResponse) => {
@@ -424,7 +424,7 @@ function create_test() {
 
     if (checkTheTest(test)) {
       try {
-        const response = await Axios.post(`${producionURL}tests/create`, test);
+        const response = await Axios.post(`${productionURL}tests/create`, test);
 
         router.replace(`${productionHost}/tms/main`);
       } catch (error) {
