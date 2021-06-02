@@ -13,7 +13,7 @@ import PagesController from "../../components/PagesController";
 import TestNamer from "../../components/TestNamer";
 import TestPreview from "../../components/TestPreview";
 import styles from "../styles/create_test.module.scss";
-import * as constants from "../../components/constants";
+import { productionURL } from "../../components/constants";
 import { AnimatePresence, motion } from "framer-motion";
 import Switch, { ReactSwitchProps } from "react-switch";
 import Axios, { AxiosResponse } from "axios";
@@ -66,7 +66,7 @@ function create_test() {
       console.log(testID.substr(testID.indexOf("=") + 1));
       setIsTestFetching(true);
       Axios.get(
-        `${constants.producionURL}tests/getTestByID?testToEdit=${testID.substr(
+        `${productionURL}tests/getTestByID?testToEdit=${testID.substr(
           testID.indexOf("=") + 1
         )}`
       ).then((response: AxiosResponse) => {
