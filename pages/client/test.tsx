@@ -528,11 +528,17 @@ function Test(props: {
     //     console.error(error);
     //   });
     // console.log(response);
-    const response = await Axios.post(`${productionURL}tests/create`, test);
+    const response = await Axios.post(`${productionURL}tests/create`, {
+      email: clientEmail,
+    });
 
-    router.push(
-      `${productionHost}/client/languages?testid=${store.get("theTest").id}`
-    );
+    console.log(response);
+
+    if (response.status === 200) {
+      router.push(
+        `${productionHost}/client/languages?testid=${store.get("theTest").id}`
+      );
+    }
   }
 
   function prepareFirstPage(): JSX.Element {
