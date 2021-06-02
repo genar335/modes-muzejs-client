@@ -440,7 +440,11 @@ function Test(props: {
           {email && (
             // <form onSubmit={(e) => e.preventDefault()}>
             <input
-              onChange={(e) => setEmail(e.currentTarget.value)}
+              onChange={(e) => {
+                setEmail(e.currentTarget.value);
+                console.log(e.target.value);
+                console.log(e.currentTarget.value);
+              }}
               autoComplete="off"
               style={{
                 // position: "absolute",
@@ -528,7 +532,7 @@ function Test(props: {
     //     console.error(error);
     //   });
     // console.log(response);
-    const response = await Axios.post(`${productionURL}/tests/email`, {
+    const response = await Axios.post(`${productionURL}tests/email`, {
       email: clientEmail,
     });
 
