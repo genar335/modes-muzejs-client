@@ -472,7 +472,7 @@ function Test(props: {
               // WebkitBackgroundClip: "text",
             }}
             onClick={async () => {
-              const response = await Axios.post(`${productionURL}/email`, {
+              const response = await Axios.post(`${productionURL}email`, {
                 email: email,
               });
               console.log(response);
