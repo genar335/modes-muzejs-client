@@ -442,7 +442,7 @@ function Test(props: {
             <input
               onChange={(e) => {
                 setClientEmail(e.currentTarget.value);
-                console.log(clientEmail);
+                console.log(clientEmail, "state");
                 console.log(e.target.value);
                 console.log(e.currentTarget.value);
               }}
@@ -533,7 +533,7 @@ function Test(props: {
     //     console.error(error);
     //   });
     // console.log(response);
-    console.log(clientEmail);
+    console.log(clientEmail, "state");
     console.log({
       email: clientEmail,
     });
