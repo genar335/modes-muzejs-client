@@ -508,10 +508,26 @@ function Test(props: {
 
   async function handleSendBtnClick(e) {
     console.log(e);
-    const response = await Axios.post(`${productionURL}email`, {
-      email: clientEmail,
-    });
-    console.log(response);
+    // const response = await Axios.post(`${productionURL}email`, {
+    //   email: clientEmail,
+    // });
+
+    const options = {
+      method: "POST",
+      url: "https://modesmuzejs.lv/api/quiz/email",
+      headers: { "Content-Type": "application/json" },
+      data: { email: "1231@gmail.com" },
+    };
+
+    Axios.request(options)
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+    // console.log(response);
+
     router.push(
       `${productionHost}/client/languages?testid=${store.get("theTest").id}`
     );
