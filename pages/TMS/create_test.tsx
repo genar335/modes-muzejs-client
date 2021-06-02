@@ -13,7 +13,7 @@ import PagesController from "../../components/PagesController";
 import TestNamer from "../../components/TestNamer";
 import TestPreview from "../../components/TestPreview";
 import styles from "../styles/create_test.module.scss";
-import { productionURL } from "../../components/constants";
+import { productionHost, productionURL } from "../../components/constants";
 import { AnimatePresence, motion } from "framer-motion";
 import Switch, { ReactSwitchProps } from "react-switch";
 import Axios, { AxiosResponse } from "axios";
@@ -420,12 +420,9 @@ function create_test() {
 
     if (checkTheTest(test)) {
       try {
-        const response = await Axios.post(
-          `${constants.productionURL}tests/create`,
-          test
-        );
+        const response = await Axios.post(`${productionURL}tests/create`, test);
 
-        router.replace(`${constants.productionHost}/tms/main`);
+        router.replace(`${productionHost}/tms/main`);
       } catch (error) {
         alert(error);
       }
@@ -498,7 +495,7 @@ function create_test() {
   const handleExitFromTheTest = () => {
     console.log("Hello there");
     store.remove("testInProgress");
-    router.replace(`${constants.productionHost}/tms/main`);
+    router.replace(`${productionHost}/tms/main`);
   };
 
   const PageCounter = (
