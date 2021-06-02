@@ -471,17 +471,7 @@ function Test(props: {
               // WebkitTextFillColor: "transparent",
               // WebkitBackgroundClip: "text",
             }}
-            onClick={async () => {
-              const response = await Axios.post(`${productionURL}email`, {
-                email: clientEmail,
-              });
-              console.log(response);
-              router.push(
-                `${productionHost}/client/languages?testid=${
-                  store.get("theTest").id
-                }`
-              );
-            }}
+            onClick={handleSendBtnClick()}
           >
             <p
               style={{
@@ -514,6 +504,17 @@ function Test(props: {
     function getLang() {
       return store.get("activeLang") as TLangOption["value"];
     }
+  }
+
+  async function handleSendBtnClick(e) {
+    console.log(e);
+    const response = await Axios.post(`${productionURL}email`, {
+      email: clientEmail,
+    });
+    console.log(response);
+    router.push(
+      `${productionHost}/client/languages?testid=${store.get("theTest").id}`
+    );
   }
 
   function prepareFirstPage(): JSX.Element {
