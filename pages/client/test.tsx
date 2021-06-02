@@ -370,7 +370,7 @@ function Test(props: {
     };
   };
 
-  const [email, setEmail] = useState("");
+  const [clientEmail, setEmail] = useState("");
 
   function prepareLastPageJSX(
     body: string,
@@ -473,7 +473,7 @@ function Test(props: {
             }}
             onClick={async () => {
               const response = await Axios.post(`${productionURL}email`, {
-                email: email,
+                email: clientEmail,
               });
               console.log(response);
               router.push(
