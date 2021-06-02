@@ -370,7 +370,7 @@ function Test(props: {
     };
   };
 
-  const [clientEmail, setEmail] = useState("");
+  const [clientEmail, setClientEmail] = useState("");
 
   function prepareLastPageJSX(
     body: string,
@@ -441,7 +441,8 @@ function Test(props: {
             // <form onSubmit={(e) => e.preventDefault()}>
             <input
               onChange={(e) => {
-                setEmail(e.currentTarget.value);
+                setClientEmail(e.currentTarget.value);
+                console.log(clientEmail);
                 console.log(e.target.value);
                 console.log(e.currentTarget.value);
               }}
