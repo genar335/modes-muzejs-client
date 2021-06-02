@@ -515,7 +515,8 @@ function Test(props: {
     const options = {
       method: "POST",
       url: "https://modesmuzejs.lv/api/quiz/email",
-      headers: { "Content-Type": "application/json" },
+      origin: productionHost,
+      // headers: { "Content-Type": "application/json" },
       data: { email: "1231@gmail.com" },
     };
 
