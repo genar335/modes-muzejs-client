@@ -471,7 +471,7 @@ function Test(props: {
               // WebkitTextFillColor: "transparent",
               // WebkitBackgroundClip: "text",
             }}
-            onClick={handleSendBtnClick()}
+            onClick={handleSendBtnClick}
           >
             <p
               style={{
