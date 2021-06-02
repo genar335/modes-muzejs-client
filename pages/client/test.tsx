@@ -444,7 +444,7 @@ function Test(props: {
               onChange={(e) => {
                 emailRef.current = e.target.value;
                 console.log(emailRef.current, "ref");
-                setClientEmail(e.target.value);
+                // setClientEmail(e.target.value);
                 console.log(clientEmail, "state");
                 console.log(e.target.value);
                 console.log(e.currentTarget.value);
@@ -541,7 +541,7 @@ function Test(props: {
       email: clientEmail,
     });
     const response = await Axios.post(`${productionURL}tests/email`, {
-      email: clientEmail,
+      email: emailRef.current,
     });
 
     console.log(response);
