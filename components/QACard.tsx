@@ -6,7 +6,7 @@ import { closeBtn, CreateLangSwitchers, SaveBtn } from "./TestNamer";
 import {
   APIURL,
   devURL,
-  producionURL,
+  productionURL,
   productionHost,
   URLCheck,
   URLCheckForLocalHost,
@@ -172,7 +172,7 @@ const QACard = (props: {
     let fd = new FormData();
     fd.append("image", file);
     console.log(fd.getAll("image"));
-    Axios.post(`${producionURL}tests/testimg`, fd, {
+    Axios.post(`${productionURL}tests/testimg`, fd, {
       // Axios.post(`http://localhost:4000/api/quiz/tests/testimg`, fd, {
       headers: {
         "content-type": "multipart/form-data",
