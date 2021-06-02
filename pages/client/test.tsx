@@ -520,7 +520,7 @@ function Test(props: {
       data: { email: "1231@gmail.com" },
     };
 
-    Axios.request(options)
+    await Axios.request(options)
       .then(function (response) {
         console.log(response.data);
       })
