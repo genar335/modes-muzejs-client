@@ -528,7 +528,7 @@ function Test(props: {
     //     console.error(error);
     //   });
     // console.log(response);
-    const response = await Axios.post(`${productionURL}email`, {
+    const response = await Axios.post(`${productionURL}/tests/email`, {
       email: clientEmail,
     });
 
