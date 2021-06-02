@@ -370,7 +370,7 @@ function Test(props: {
     };
   };
 
-  const [clientEmail, setClientEmail] = useState("");
+  const [clientEmail, setClientEmail] = useState();
 
   function prepareLastPageJSX(
     body: string,
