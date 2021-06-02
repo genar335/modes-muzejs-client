@@ -19,8 +19,8 @@ function test_selection(props: any) {
   };
 
   useEffect(() => {
-    Axios.defaults.headers.common["Authorization"] =
-      "Bearer " + store.get("jwt");
+    // "Bearer " + store.get("jwt");
+    // Axios.defaults.headers.common["Authorization"] =
     getActiveTests(url);
   }, []);
 
