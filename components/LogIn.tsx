@@ -6,8 +6,9 @@ import styles from "./styles/LogIn.module.scss";
 import loadingTriangle from "../GAssets/ball-triangle.svg";
 import Router from "next/router";
 import PleaseWaitModal from "./PleaseWaitModal";
-import { productionURL } from "./constants";
+import { productionHost, productionURL } from "./constants";
 import store from "store";
+import router from "next/router";
 // axios.defaults.withCredentials = true;
 
 interface IUserLoginInfo {
@@ -55,8 +56,8 @@ const LogIn = () => {
 
       setToken(response.data);
 
-      // await Router.push("/");
       setIsLoading(false);
+      router.replace(`${productionHost}/tms/main`);
     } catch (error) {
       console.error(error);
       alert("Incorrect username or password!");
