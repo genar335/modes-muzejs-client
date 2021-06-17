@@ -108,9 +108,9 @@ const main = () => {
     // Axios.defaults.headers.common["Authorization"] =
     //   "Bearer " + store.get("jwt");
 
-    // if (checkJWT() === false) {
-    //   router.replace(`${productionHost}/tms/auth`);
-    // }
+    if (checkJWT() === false) {
+      router.replace(`${productionHost}/tms/auth`);
+    }
     getAllTests();
   }, []);
 
