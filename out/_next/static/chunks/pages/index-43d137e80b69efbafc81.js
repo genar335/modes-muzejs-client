@@ -1,1 +1,0 @@
-_N_E=(window.webpackJsonp_N_E=window.webpackJsonp_N_E||[]).push([[20],{"/EDR":function(n,u,t){(window.__NEXT_P=window.__NEXT_P||[]).push(["/",function(){return t("23aj")}])},"23aj":function(n,u,t){"use strict";t.r(u);var _=t("nOHt");u.default=function(){return Object(_.useRouter)(),null}}},[["/EDR",0,2,1]]]);
