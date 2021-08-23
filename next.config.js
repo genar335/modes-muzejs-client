@@ -2,6 +2,6 @@
 // module.exports = withImages();
 module.exports = {
     basePath: '/apps/nextjs-cpanel',
-    // trailingSlash: true,
+    trailingSlash: true,
 //     withImage: withImages()
 }
