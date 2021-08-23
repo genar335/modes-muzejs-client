@@ -4,4 +4,5 @@ module.exports = {
     basePath: '/apps/nextjs-cpanel',
     trailingSlash: true,
 //     withImage: withImages()
+//hello
 }
