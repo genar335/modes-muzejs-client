@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { useRouter } from \"next/router\";\n\nfunction RedirectPage() {\n  var router = useRouter(); // Make sure we're in the browser\n  // if (typeof window !== \"undefined\") {\n  //   router.push(\"/tms/main\");\n  // }\n\n  return null;\n}\n\nexport default RedirectPage;","map":null,"metadata":{},"sourceType":"module"}
