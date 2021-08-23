@@ -1,1 +1,0 @@
-{"ast":null,"code":"import store from \"store\";\n\nvar checkJWT = function checkJWT() {\n  //   console.log(store.get(\"jwt\"));\n  //   alert(store.get(\"jwt\") == undefined);\n  return store.get(\"jwt\") == undefined || store.get(\"jwt\") == \"\" ? false : true;\n};\n\nexport default checkJWT;","map":null,"metadata":{},"sourceType":"module"}
