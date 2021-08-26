@@ -11,10 +11,10 @@ function App({ Component, pageProps, router }: AppProps) {
     <div>
       <Head>
         <title>FM API</title>
-        <meta
+        {/* <meta
           http-equiv="Content-Security-Policy"
           content="upgrade-insecure-requests"
-        />
+        /> */}
       </Head>
       <motion.div
         initial="pageInitial"
