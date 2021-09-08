@@ -4,7 +4,7 @@ function RedirectPage() {
   const router = useRouter();
   // Make sure we're in the browser
   // if (typeof window !== "undefined") {
-  //   router.push("/tms/main");
+  //   router.push("/TMS/main");
   // }
 
   return null;

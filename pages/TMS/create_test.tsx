@@ -57,7 +57,7 @@ function create_test() {
 
   useEffect(() => {
     if (checkJWT() === false) {
-      router.replace(`${productionHost}/tms/auth`);
+      router.replace(`${productionHost}/TMS/auth`);
     }
     console.log(isTestFetching, "isTestFetching");
     console.log(window.location.search);
@@ -422,7 +422,7 @@ function create_test() {
       try {
         const response = await Axios.post(`${productionURL}tests/create`, test);
 
-        router.replace(`${productionHost}/tms/main`);
+        router.replace(`${productionHost}/TMS/main`);
       } catch (error) {
         alert(error);
       }
@@ -495,7 +495,7 @@ function create_test() {
   const handleExitFromTheTest = () => {
     console.log("Hello there");
     store.remove("testInProgress");
-    router.replace(`${productionHost}/tms/main`);
+    router.replace(`${productionHost}/TMS/main`);
   };
 
   const PageCounter = (

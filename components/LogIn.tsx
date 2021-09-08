@@ -57,7 +57,7 @@ const LogIn = () => {
       setToken(response.data);
 
       setIsLoading(false);
-      router.replace(`${productionHost}/tms/main`);
+      router.replace(`${productionHost}/TMS/main`);
     } catch (error) {
       console.error(error);
       alert("Incorrect username or password!");

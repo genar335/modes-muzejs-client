@@ -109,7 +109,7 @@ const main = () => {
     //   "Bearer " + store.get("jwt");
 
     if (checkJWT() === false) {
-      router.replace(`${productionHost}/tms/auth`);
+      router.replace(`${productionHost}/TMS/auth`);
     }
     getAllTests();
   }, []);
