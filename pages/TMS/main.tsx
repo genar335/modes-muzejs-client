@@ -18,6 +18,7 @@ import FMLogo from "../../components/FMlogo";
 import checkJWT from "../../components/jwtChecker";
 import { NextRouter, Router, useRouter } from "next/router";
 import store from "store";
+import { EmailDownloadBtn } from "../../components/emailDownloadBtn";
 
 const main = () => {
   const router: NextRouter = useRouter();
@@ -109,7 +110,7 @@ const main = () => {
     //   "Bearer " + store.get("jwt");
 
     if (checkJWT() === false) {
-      router.replace(`${productionHost}/tms/auth`);
+      // router.replace(`${productionHost}/tms/auth`);
     }
     getAllTests();
   }, []);
@@ -138,6 +139,11 @@ const main = () => {
         updateTheTests={toggleTest}
         fetchAllTests={getAllTests}
       />
+      {
+        // TODO Create a component which gets all the emails and converts the recieved array into CSV which is then downloaded
+        // * https://stackoverflow.com/questions/14964035/how-to-export-javascript-array-info-to-csv-on-client-side
+      }
+      <EmailDownloadBtn />
     </motion.div>
   );
 };
