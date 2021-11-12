@@ -5,16 +5,34 @@ import { productionURL } from "./constants";
 
 import style from "./styles/EmailDownloadBtn.module.scss";
 
+type EmailObj = {
+  createdAt: string;
+  email: string;
+  updatedAt: string;
+  __v: number;
+  _id: string;
+};
+
 export const EmailDownloadBtn = () => {
   const handleClick = async () => {
     try {
-      const emails = await Axios.get(`${productionURL}tests/allEmails`);
-      console.log(emails);
-      const emailsArr = emails.data.map((emailObj: any) => emailObj.email);
-      let csvContent =
-        "data:text/csv;charset=utf-8," +
-        emailsArr.map((e: any) => e.join(",")).join("\n");
-      var encodedUri = encodeURI(csvContent);
+      const emails: EmailObj[] = await (
+        await Axios.get(`${productionURL}tests/allEmails`)
+      ).data;
+
+      const csvContent = "data:text/csv;charset=utf-8,";
+      const headers = "Email,Created at,Updated at\n";
+      const emailStr = emails
+        .map((email) =>
+          [
+            email.email,
+            new Date(email.createdAt).toLocaleDateString(),
+            new Date(email.updatedAt).toLocaleDateString(),
+          ].join(",")
+        )
+        .join(",\n\r");
+      console.log(emailStr);
+      const encodedUri = encodeURI(`${csvContent}${headers}${emailStr}`);
       window.open(encodedUri);
     } catch (error) {
       console.error(error);
