@@ -688,7 +688,7 @@ function Test(props: {
   /**
    * Wraps question and answer pairs into a div (containing 3 pairs in this case)
    */
-  function prepareJSXOfPages(refsToQuestions) {
+  function prepareJSXOfPages(refsToQuestions: any) {
     // console.log(pagesContent);
     let pagesPrep: JSX.Element[] = [];
     console.log(pagesPrep);
@@ -1021,7 +1021,12 @@ function Test(props: {
       onClick={() =>
         !props.test &&
         router.push(
-          `${productionURL}client/languages?testid=${store.get("theTest").id}`
+          `${productionHost}/client/languages?testid=${
+            store.get("theTest")._id
+          }`
+          // `${devURL}client/test?testid=${
+          //   store.get("theTest")._id
+          // }&lang=${store.get("activeLang")}`
         )
       }
       width={size}
