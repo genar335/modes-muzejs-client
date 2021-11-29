@@ -3,10 +3,17 @@
   bottom: 3rem;
   left: 3rem;
   width: 5rem;
+  height: 5rem;
   border-radius: 50%;
   border: none;
   color: greenyellow;
-  background: none;
+  background: white;
+  cursor: pointer;
+  padding: 0.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgb(0 0 0 / 30%) 0px 0 10px 2px;
 
   & > img {
     width: 100%;

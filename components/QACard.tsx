@@ -247,7 +247,9 @@ const QACard = (props: {
                                 onClick={(e) => fileInputRef!.current!.click()}
                             />) : (<>
                                 {/*<span><p>?</p></span>*/}
-                                <span><p data-tip data-for={"image-size-guidelines"}>?</p></span>
+                                <span
+                                    onClick={(e) => fileInputRef!.current!.click()}
+                                ><p data-tip data-for={"image-size-guidelines"}>?</p></span>
                                 <ReactTooltip id="image-size-guidelines" place="top" type="dark" effect="float">
                                     <p style={{
                                         fontSize: '1rem',
