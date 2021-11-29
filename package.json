@@ -36,6 +36,7 @@
     "react-slick": "^0.27.13",
     "react-switch": "^5.0.1",
     "react-toggle": "^4.1.1",
+    "react-tooltip": "^4.2.21",
     "sass": "^1.26.11",
     "store": "^2.0.12",
     "urql": "^1.10.1"
