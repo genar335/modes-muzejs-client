@@ -259,6 +259,10 @@ const QACard = (props: {
                                     <p style={{
                                         fontSize: '1rem',
                                         marginBottom: '0.5rem',
+                                    }}>Maximum image size: 50MB</p>
+                                    <p style={{
+                                        fontSize: '1rem',
+                                        marginBottom: '0.5rem',
                                     }}>Recommended width: 245px</p>
                                     <p style={{
                                         fontSize: '1rem',
