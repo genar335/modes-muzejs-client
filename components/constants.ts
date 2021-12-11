@@ -11,7 +11,7 @@ export const productionURL = "http://68.183.213.125/api/quiz/";
 // export const productionHost: string =
 //     "https://vigilant-torvalds-39724e.netlify.app";
 // export const devURL: string = "http://192.168.8.100:3000/";
-export const productionHost = 'http;//68.183.213.125';
+export const productionHost = 'http://68.183.213.125';
 export const devURL: string = "http://localhost:3000/";
 //* Carousel settings for responsivnes
 export const responsive = {
