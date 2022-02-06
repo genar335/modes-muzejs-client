@@ -22,6 +22,7 @@ import FinalPageEditor from "../../components/FinalPageEditor";
 import TestPreviewer from "../../components/TestPreviewer";
 import {parseTestTypeValueToLabel} from "../../components/TestCard";
 import checkJWT from "../../components/jwtChecker";
+import {ExitModal} from "../../components/ExitModal";
 
 function create_test() {
     // useEffect(() => {
@@ -486,10 +487,12 @@ function create_test() {
         }
     };
 
-    const handleExitFromTheTest = () => {
-        console.log("Hello there");
-        store.remove("testInProgress");
-        router.replace(`${productionHost}/tms/main`);
+    const [isExitModalOpen, setIsExitModalOpen] = useState(false)
+    const toggleExitModal = () => setIsExitModalOpen(!isExitModalOpen)
+    const handleExitFromTheTest = async () => {
+        toggleExitModal();
+        // store.remove("testInProgress");
+        // router.replace(`${productionHost}/tms/main`);
     };
 
     const PageCounter = (
@@ -552,6 +555,7 @@ function create_test() {
         );
     };
 
+    // @ts-ignore
     const testTypeSelectStyles: StylesConfig = {
         container: (provided: any, state: any) => ({
             ...provided,
@@ -615,6 +619,7 @@ function create_test() {
     const [isTestPreviewerOpen, setisTestPreviewerOpen] =
         useState<boolean>(false);
 
+    // @ts-ignore
     return (
         <AnimatePresence>
             {/* {isVisible && ( */}
@@ -755,6 +760,7 @@ function create_test() {
                 <button onClick={handleExitFromTheTest} className={styles.ExitBtn}>
                     {ExitSVGRU()}
                 </button>
+                <ExitModal isOpen={isExitModalOpen} setIsOpen={toggleExitModal}/>
             </motion.div>
             {/* )} */}
         </AnimatePresence>
