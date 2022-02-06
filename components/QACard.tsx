@@ -4,6 +4,9 @@ import compStyles from "./styles/TestPreview.module.scss";
 import addCompStyles from "./styles/TestNamer.module.scss";
 import {closeBtn, SaveBtn} from "./TestNamer";
 import {APIURL, productionURL, URLCheckForLocalHost,} from "./constants";
+import 'react-toastify/dist/ReactToastify.css';
+
+
 // import { sendTheDataToTheServer } from "./PhotoManager";
 //
 //  const jwt = document.cookie.slice(document.cookie.indexOf('=') + 1);
@@ -11,6 +14,7 @@ import {APIURL, productionURL, URLCheckForLocalHost,} from "./constants";
 //
 import Axios from "axios";
 import ReactTooltip from "react-tooltip";
+import {toast, ToastContainer} from "react-toastify";
 
 const QACard = (props: {
     cardType: "answer" | "question";
@@ -77,15 +81,22 @@ const QACard = (props: {
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const readAnImage = async (imageToBeRead: Blob) => {
+        console.log(imageToBeRead.size)
+
         const tmpFileReader: FileReader = new FileReader();
 
         return new Promise((resolve, reject) => {
+            console.log(imageToBeRead.size)
+            if (imageToBeRead.size > 50_000_000) {
+                reject(new DOMException('File size is bigger than 50MB'))
+            }
             tmpFileReader.onerror = () => {
                 tmpFileReader.abort();
-                reject(new DOMException("Problem occured when reading the file."));
+                reject(new DOMException("Problem occurred when reading the file."));
             };
 
             tmpFileReader.onload = () => {
+                if (tmpFileReader.result)
                 resolve(tmpFileReader.result);
             };
             tmpFileReader.readAsDataURL(imageToBeRead);
@@ -122,7 +133,10 @@ const QACard = (props: {
         const files = tmpCurrent.files;
         if (files !== null) {
             const chosenFile: File = files[0] as File;
-            console.log(chosenFile);
+            console.log(chosenFile, 'hello');
+            if(chosenFile.size > 50_000_000) {
+                throw new DOMException('File size is bigger than 50MB')
+            }
             if (fileInputRef.current) {
                 try {
                     const fileContents: string = (await readAnImage(
@@ -161,23 +175,49 @@ const QACard = (props: {
     const [imgLocation, setimgLocation] = useState("");
 
     function handleFileinputChange(event: React.ChangeEvent<HTMLInputElement>) {
+        toast.dismiss()
+        if (event!.target!.files![0].size > 50_000_000) {
+            toast.error('File size is more that 50MB', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            // throw new DOMException('File size is more that 50MB')
+            // alert('File size is more that 50MB')
+            // delete file;
+            fileInputRef.current!.form!.reset()
+            return;
+        }
         // console.log(event.target.files[0]);
         const file = event!.target!.files![0] || new File([], "err");
-        let fd = new FormData();
-        fd.append("image", file);
-        console.log(fd.getAll("image"));
-        Axios.post(`${productionURL}tests/testimg`, fd, {
-            // Axios.post(`http://localhost:4000/api/quiz/tests/testimg`, fd, {
-            headers: {
-                "content-type": "multipart/form-data",
-            },
-        })
-            .then((res) => {
-                console.log(res);
-                setimgLocation(res.data);
-                props.saveIMG(props.iterator, res.data, props.cardType, "all");
+        console.log(file.size)
+        // } else {
+            let fd = new FormData();
+            fd.append("image", file);
+            console.log(fd.getAll("image"));
+            console.log("heelooo")
+            Axios.post(`${productionURL}tests/testimg`, fd, {
+                // Axios.post(`http://localhost:4000/api/quiz/tests/testimg`, fd, {
+                headers: {
+                    "content-type": "multipart/form-data",
+                },
             })
-            .catch((err) => console.error(err));
+                .then((res) => {
+                    console.log(res);
+                    setimgLocation(res.data);
+                    props.saveIMG(props.iterator, res.data, props.cardType, "all");
+                    toast.success('Image has been successfully uploaded')
+                })
+                .catch((err) => {
+                    console.error(err)
+                    fileInputRef.current!.form!.reset()
+                    toast.error('Server has encountered an error')
+                });
+        // }
     }
 
     // useEffect(() => {
@@ -186,6 +226,27 @@ const QACard = (props: {
 
     return (
         <div className={`${compStyles[props.cardType]}`}>
+            {/*<div style={{*/}
+            {/*    position: 'absolute',*/}
+            {/*    width: '30vw',*/}
+            {/*    height: '30vh',*/}
+            {/*    top: 0,*/}
+            {/*    right: 0,*/}
+            {/*    pointerEvents: 'none'*/}
+            {/*}}>*/}
+
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
+            {/*</div>*/}
             <div
                 // ref={QACardRef}
                 id={`${props.cardType}_${props.iterator}`}

@@ -23,6 +23,7 @@ import TestPreviewer from "../../components/TestPreviewer";
 import {parseTestTypeValueToLabel} from "../../components/TestCard";
 import checkJWT from "../../components/jwtChecker";
 import {ExitModal} from "../../components/ExitModal";
+import {ToastContainer} from "react-toastify";
 
 function create_test() {
     // useEffect(() => {
@@ -630,6 +631,7 @@ function create_test() {
                 animate={{opacity: 1}}
                 exit={{opacity: 0}}
             >
+
                 <PleaseWaitModal isDisplayed={isTestFetching!}/>
                 <FMLogo/>
                 <TestNamer
