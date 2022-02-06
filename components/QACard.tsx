@@ -177,7 +177,7 @@ const QACard = (props: {
     function handleFileinputChange(event: React.ChangeEvent<HTMLInputElement>) {
         toast.dismiss()
         if (event!.target!.files![0].size > 50_000_000) {
-            toast.error('File size is more that 50MB', {
+            toast.error('File size is more than 50MB', {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
