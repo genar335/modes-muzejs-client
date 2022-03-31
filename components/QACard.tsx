@@ -111,8 +111,8 @@ const QACard = (props: {
         try {
             console.log("Sending", file);
             const locationOfTheFile = await Axios.post(
-                // `${producionURL}tests/imgSaving`,
-                `${APIURL}tests/imgSaving`,
+                `${productionURL}tests/imgSaving`,
+                // `${APIURL}tests/imgSaving`,
                 {
                     fileName,
                     fileContents: file,
