@@ -492,8 +492,8 @@ function create_test() {
     const toggleExitModal = () => setIsExitModalOpen(!isExitModalOpen)
     const handleExitFromTheTest = async () => {
         toggleExitModal();
-        // store.remove("testInProgress");
-        // router.replace(`${productionHost}/tms/main`);
+        store.remove("testInProgress");
+        router.replace(`${productionHost}/tms/main`);
     };
 
     const PageCounter = (
