@@ -24,10 +24,20 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
+    "/tms/auth": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/tms/auth.js"
+    ],
     "/tms/create_test": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/chunks/pages/tms/create_test.js"
+    ],
+    "/tms/main": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/tms/main.js"
     ]
   },
   "ampFirstPages": []

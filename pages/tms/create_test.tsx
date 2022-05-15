@@ -52,7 +52,7 @@ function create_test() {
 
     useEffect(() => {
         if (checkJWT() === false) {
-            router.replace(`${productionHost}/tms/auth`);
+            // router.replace(`${productionHost}/tms/auth`);
         }
         console.log(isTestFetching, "isTestFetching");
         console.log(window.location.search);
@@ -492,8 +492,8 @@ function create_test() {
     const toggleExitModal = () => setIsExitModalOpen(!isExitModalOpen)
     const handleExitFromTheTest = async () => {
         toggleExitModal();
-        store.remove("testInProgress");
-        router.replace(`${productionHost}/tms/main`);
+        // store.remove("testInProgress");
+        // router.replace(`${productionHost}/tms/main`);
     };
 
     const PageCounter = (
@@ -813,8 +813,8 @@ function create_test() {
                     <button onClick={handleExitFromTheTest} className={styles.ExitBtn}>
                         {ExitSVGRU()}
                     </button>
-                    <ExitModal isOpen={isExitModalOpen} setIsOpen={toggleExitModal}/>
                 </div>
+                    <ExitModal isOpen={isExitModalOpen} setIsOpen={toggleExitModal}/>
             </motion.div>
             {/* )} */}
         </AnimatePresence>
