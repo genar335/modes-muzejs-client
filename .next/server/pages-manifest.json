@@ -2,7 +2,6 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/tms/create_test": "pages/tms/create_test.js",
-  "/tms/auth": "pages/tms/auth.js",
-  "/tms/main": "pages/tms/main.js"
+  "/client/test": "pages/client/test.js",
+  "/client/test_selection": "pages/client/test_selection.js"
 }

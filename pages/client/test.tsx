@@ -30,8 +30,6 @@ function Test(props: {
     const initialPage = {count: 0};
 
     function reducer(page, action) {
-        console.log(pages?.length);
-        console.log(page.count, "counter");
         switch (action.type) {
             case "increment":
                 if (page.count + 1 !== pages?.length) {
@@ -58,8 +56,8 @@ function Test(props: {
             pagesContent.length !== 0
             // !props.test
         ) {
-            console.log(page.count);
-            console.log(pagesContent.length);
+            // console.log(page.count);
+            // console.log(pagesContent.length);
         }
     });
 
@@ -174,7 +172,7 @@ function Test(props: {
                 "test_TCard"
             )
         ) {
-            let tmp = event.target.parentElement.parentElement.id;
+            let tmp = event.target.parentElement.parentElement.id;``
             const id = tmp.slice(tmp.indexOf("_") + 1, tmp.lastIndexOf("_"));
             const {questionRect, answerRect} = getRectanglesFromEvent(event);
 
@@ -189,7 +187,6 @@ function Test(props: {
             console.log(intersections);
 
             if (CheckIfAnswerIntersectedTheQuestion(questionRect, answerRect)) {
-                // console.log(event.target.parentNode.parentNode);
                 // event.target.parentNode.parentNode.style.pointerEvents = "none";
                 applyCSSToMatchedCards(event, refsToQuestions.current[id]);
                 qnaOverlaps.current.counter += 1;
@@ -198,19 +195,20 @@ function Test(props: {
 
                 const questionContainer: HTMLElement =
                     refsToQuestions.current[id].parentElement!;
-                // console.log(questionContainer, "123123");
+
+                console.log(questionContainer, "123123");
 
                 // console.log(refsToAnswersHandles.current[id]);
 
-                refsToAnswersHandles.current[id].parentElement!.style.transform =
-                    "translate(0px, 0px)";
-                refsToAnswersHandles.current[id].parentElement!.style.marginTop =
-                    "-1rem";
-                questionContainer.appendChild(
-                    refsToAnswersHandles.current[id].parentElement!
-                );
+                // Sets the answer cards as the parent of a question container
+                // refsToAnswersHandles.current[id].parentElement!.style.transform =
+                //     "translate(0px, 0px)";
+                // refsToAnswersHandles.current[id].parentElement!.style.marginTop =
+                //     "-1rem";
+                // questionContainer.appendChild(
+                //     refsToAnswersHandles.current[id].parentElement!
+                // );
 
-                // event.target.style.pointerEvents.parentElement = "none";
 
                 if (qnaOverlaps.current.counter === 3) {
                     // alert(pagesContent.length);
@@ -220,12 +218,13 @@ function Test(props: {
                     // setTimeout(() => {
                     dispatch({type: "increment"});
                     // }, 1000);
-                    console.log(page.count, "pages", pagesContent.length, "pagesContent");
+                    // console.log(page.count, "pages", pagesContent.length, "pagesContent");
                     // }
                     qnaOverlaps.current.counter = 0;
                 }
-            } else {
-                intersections.includes(true) && flashScreen();
+            } else if (intersections.includes(true)){
+                console.log('In an if for flash')
+                flashScreen();
             }
             // refsToAnswersPositions.current[id] = {
             //   position: {
@@ -245,8 +244,8 @@ function Test(props: {
         const testBody: HTMLElement = document.getElementsByClassName(
             styles.pageContainer
         )[0] as HTMLElement;
-        testBody.style.boxShadow = "inset 0px 0px 30px 30px red";
-        setTimeout(() => (testBody.style.boxShadow = "none"), 500);
+        testBody.style.boxShadow = "inset 0px 0px 0px 20px red";
+        setTimeout(() => (testBody.style.boxShadow = "none"), 1000);
     }
 
     function applyCSSToMatchedCards(
@@ -256,10 +255,10 @@ function Test(props: {
         // // Sets the contasiner of cards to be unclickable/untouchable.
         // event.target.parentElement.parentElement.parentElement.parentElement.style.pointerEvents =
         //   "none";
-        console.log(answer.parentElement);
         answer.parentElement.style.pointerEvents = "none";
         // answer.style.width = "100rem";
-
+        console.log(event.target.parentElement.parentElement.parentElement, 'target parent element')
+        event.target.parentElement.parentElement.parentElement.style.pointerEvents = "none";
         //* Applies a greenish border around answer cards.
         console.log(event.target.tagName);
         if (event.target.tagName == "P") {
@@ -313,6 +312,7 @@ function Test(props: {
     function getRectanglesFromEvent(event: DraggableEventHandler) {
         setqaRectPositions({});
         const answerDragged: Element = event.target!.parentElement.parentElement;
+        console.log(answerDragged, 'answer')
         const answerDraggedID = answerDragged.id;
         // const relatedQuestion = document.getElementById(
         //   `Question_${answerDraggedID.slice(answerDraggedID.indexOf("_"))}`
@@ -327,9 +327,11 @@ function Test(props: {
         // console.log(relatedAnswerHandle, "handles");
         const relatedQuestionHandle =
             refsToQuestions.current[Number(answerDraggedIterator)];
-        // console.log(relatedQuestionHandle, "handles");
+        console.log(relatedQuestionHandle, "handles");
+
         const questionRect = relatedQuestionHandle.getBoundingClientRect();
-        const answerRect = relatedAnswerHandle.getBoundingClientRect();
+        const answerRect = answerDragged.getBoundingClientRect();
+        // const answerRect = relatedAnswerHandle.getBoundingClientRect();
         return {questionRect, answerRect};
     }
 
@@ -782,6 +784,7 @@ function Test(props: {
                 }}
             >
                 <div
+                    ref={(ele) => (refsToQuestions.current[iterator] = ele)}
                     className={styles.TCard}
                     id={`Question_${iterator}_p-${pageIterator}`}
                     key={`Question_${iterator}_p-${pageIterator}`}
@@ -796,17 +799,17 @@ function Test(props: {
                         {imgOrText(qnaPair.question)}
                     </div>
                 </div>
-                <div
-                    ref={(ele) => (refsToQuestions.current[iterator] = ele)}
-                    style={{
-                        marginTop: isImgOrText(qnaPair.question) ? "0.2rem" : "-0.1rem",
+                {/*<div*/}
+                {/*    // ref={(ele) => (refsToQuestions.current[iterator] = ele)}*/}
+                {/*    style={{*/}
+                {/*        marginTop: isImgOrText(qnaPair.question) ? "0.2rem" : "-0.1rem",*/}
 
-                        width: "min-content",
-                        zIndex: 100,
-                    }}
-                >
-                    {StickCircle()}
-                </div>
+                {/*        width: "min-content",*/}
+                {/*        zIndex: 100,*/}
+                {/*    }}*/}
+                {/*>*/}
+                {/*    {StickCircle()}*/}
+                {/*</div>*/}
             </div>
         ));
 
@@ -859,18 +862,18 @@ function Test(props: {
                             {imgOrText(qnaPair.answer)}
                         </div>
                     </div>
-                    <div
-                        ref={(ele) => (refsToAnswersHandles.current[iterator] = ele)}
-                        style={{
-                            zIndex: 100,
-                            marginBottom: isImgOrText(qnaPair.answer)
-                                ? "-0.35rem"
-                                : "-0.3rem",
-                            width: "min-content",
-                        }}
-                    >
-                        {StickSemiCircle()}
-                    </div>
+                    {/*<div*/}
+                    {/*    ref={(ele) => (refsToAnswersHandles.current[iterator] = ele)}*/}
+                    {/*    style={{*/}
+                    {/*        zIndex: 100,*/}
+                    {/*        marginBottom: isImgOrText(qnaPair.answer)*/}
+                    {/*            ? "-0.35rem"*/}
+                    {/*            : "-0.3rem",*/}
+                    {/*        width: "min-content",*/}
+                    {/*    }}*/}
+                    {/*>*/}
+                    {/*    {StickSemiCircle()}*/}
+                    {/*</div>*/}
                 </div>
             </Draggable>
         ));
@@ -1023,7 +1026,6 @@ function Test(props: {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
         >
-            {console.log(props.test, 'props check')}
             <g id="Group_28" data-name="Group 28" transform="translate(-1194 -73)">
                 <circle
                     id="Ellipse_8"
