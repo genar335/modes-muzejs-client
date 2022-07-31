@@ -6,8 +6,8 @@ export const APIURL: string = "http://localhost:4000/";
 // export const productionURL: string = 'https://modesmuzejs.lv/api/quiz/'
 // export const productionURL: string = "https://fashionmuseumriga.lv/api/quiz/";
 // export const productionURL = "http://167.99.250.21/api/quiz/";
-// export const productionURL = "http://68.183.213.125/api/quiz/";
-export const productionURL = "http://localhost:4000/api/quiz/";
+export const productionURL = "http://68.183.213.125/api/quiz/";
+// export const productionURL = "http://localhost:4000/api/quiz/";
 // export const productionHost: string =
 //     "https://vigilant-torvalds-39724e.netlify.app";
 // export const devURL: string = "http://192.168.8.100:3000/";
